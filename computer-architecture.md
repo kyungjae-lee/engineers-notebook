@@ -4,4 +4,5 @@
 
 
 
-1. <a href="./computer-architecture/input-output">[Computer Architecture] I/O</a>
+1. **<a href="./computer-architecture/input-output">I/O</a>**
+

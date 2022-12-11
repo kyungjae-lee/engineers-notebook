@@ -1,6 +1,6 @@
 <a href="../">Notebook</a> > <a href="../computer-architecture">Computer Architecture</a> > [Computer Architecture] I/O
 
-# [Computer Architecture] I/O
+# I/O
 
 
 
