@@ -1,7 +1,7 @@
 <a href="./">Engineer's Notebook</a> > Computer Architecture
 
-# Operating Systems
+# Computer Architecture
 
 
 
-1. <a href="./operating-systems/overview">[Computer Architecture] Overview</a>
+1. <a href="./computer-architecture/input-output">[Computer Architecture] I/O</a>
