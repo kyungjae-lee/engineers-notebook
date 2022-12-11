@@ -1,8 +1,6 @@
-<a href="../">Engineer's Notebook</a> > <a href="../computer-architecture">Computer Architecture</a> > [Computer Architecture] I/O
+<a href="../">Notebook</a> > <a href="../computer-architecture">Computer Architecture</a> > [Computer Architecture] I/O
 
 # [Computer Architecture] I/O
-
----
 
 
 
@@ -54,7 +52,7 @@
 ## Data Transfer
 
 * **Open-Loop**
-    
+  
     - Put the data on the bus then alert everyone that the data is there.
     
     - The CPU provides the data to the peripheral interface (PI).
@@ -98,7 +96,7 @@
 
 
 * **Data Buffering**
-    
+  
     - Data on the bus will only be on the bus during the duration of the clock cycle. Once it is over, the data is gone from the bus.
     
     - D Flip-flops can be used to capture the data and hold it until the peripheral has taken care of it.
