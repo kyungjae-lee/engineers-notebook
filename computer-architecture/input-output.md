@@ -30,7 +30,11 @@
 
 ## Fundamental Principles of I/O
 
-![io-system]({{site.baseurl}}/img/computer-arch-org/io-system.png){:.inline-img-w700}
+
+
+<img src="./img/io-system.png" alt="io-system" width="700">
+
+
 
 * Peripheral
     - External device connected to your computer system. 
@@ -50,57 +54,79 @@
 ## Data Transfer
 
 * **Open-Loop**
+    
     - Put the data on the bus then alert everyone that the data is there.
+    
     - The CPU provides the data to the peripheral interface (PI).
+    
     - The periferal interface then puts the data on the data bus.
+    
     - Asserts the $$\overline{\text{DAV}}$$ signal to alert the device there is data.
+    
     - The peripheral read the data then the PI resets $$\overline{\text{DAV}}$$ to let the
       peripheral know there is no new data.
         - $$\overline{\text{DAV}}$$ is active low.
         - When there's no new data, $$\overline{\text{DAV}}$$ will be set to $$1$$ (high).
         - When there's a new data available, $$\overline{\text{DAV}}$$ will be set to
           $$0$$ (low or ground).
+      
     - Open-Loop because there is no feedback that the data has actually be received.
+    
     - Cheap, slow, and CAN lose data
+    
+      
 
-![open-loop-data-transfer]({{site.baseurl}}/img/computer-arch-org/open-loop-data-transfer.png){:.inline-img-w600}
+<img src="./img/open-loop-data-transfer.png" alt="open-loop-data-transfer" width="550">
+
+
+
 * **Closed-Loop** (or Handshaking)
     - With a closed loop the I/O device reponses with a data acknolwedgement (ACK) when the data transfer has been completed. (Also referred to as a handshake.)
         - This $$\overline{\text{ACK}}$$ line is the only physical difference between the Open-Loop and Closed-Loop data transfer.
+      
     - Same type of signaling and data tranfer as in the Open-Loop data transfer but now there is a $$\overline{\text{ACK}}$$ from the perhipheral to let the PI know the data has been received and it is ready for more data.
+    
     - CANNOT lose data
+    
     - But, there can be timeout conditions when there are problems with the peripheral.
       The PI can then generate an interrupt so that someone or something can take care of the problem.
+      
+      
 
-![closed-loop-data-transfer]({{site.baseurl}}/img/computer-arch-org/closed-loop-data-transfer.png){:.inline-img-w600}
+<img src="./img/closed-loop-data-transfer.png" alt="closed-loop-data-transfer" width="550">
+
+
+
 * **Data Buffering**
+    
     - Data on the bus will only be on the bus during the duration of the clock cycle. Once it is over, the data is gone from the bus.
+    
     - D Flip-flops can be used to capture the data and hold it until the peripheral has taken care of it.
+    
     - As shown in (c) of the following figure, there can be multiple layers of latches.   
-      (One good example is the FIFO structure.)
-      ![buffering-data]({{site.baseurl}}/img/computer-arch-org/buffering-data.png){:.inline-img-w600}
-    
-    > **The FIFO**   
+      (One good example is the FIFO structure.) 
 
-    > The simplest FIFO structure is a register with an input port that receives the data
-    > and an output port. The data source provides the FIFO input and a strobe. Similarly,
-    > the reader provides a strobe when it wants data.
-    ![fifo]({{site.baseurl}}/img/computer-arch-org/fifo.png){:.inline-img-w600}
+      <img src="./img/buffering-data.png" alt="buffering-data" width="550">
+
+      > **The FIFO**
+      >
+      > The simplest FIFO structure is a register with an input port that receives the data and an output port. The data source provides the FIFO input and a strobe. Similarly, the reader provides a strobe when it wants data. 
+      >
+      > <img src="./img/fifo.png" alt="buffering-data" width="600">
+      >
+      > FULL $$-$$ No more data can be accepted.   
+      > EMPTY $$-$$ No more data can be read.
+      >
+      > When data arrives at the input terminals, it ripples down the shift register until it arrives at the next free location.
+      >
+      > 
+      >
+      > Here's another example that uses memory instead of a set of shift registers:
+      >
+      > <img src="./img/memory-based-fifo.png" alt="memory-based-fifo" width="600">
+      >
+      > This can be implemented with hardware and is not as complicated. Just need two pointers (stored in two registers); one for the write location and the other for the read location. There are some sync problems with this arrangment that will be discussed in the Operating Systems.
     
-    > FULL $$-$$ No more data can be accepted.   
-    > EMPTY $$-$$ No more data can be read.
-    
-    > When data arrives at the input terminals, it ripples down the shift register until
-    > it arrives at the next free location.
-    
-    > Here's another example that uses memory instead of a set of shift registers:
-    ![memory-based-fifo]({{site.baseurl}}/img/computer-arch-org/memory-based-fifo.png){:.inline-img-w550}
-    
-    > This can be implemented with hardware and is not as complicated. Just need two
-    > pointers (stored in two registers); one for the write location and the other for the
-    > read location.   
-    > There are some sync problems with this arrangment that will be discussed in the
-    > Operating Systems.
 
 
 
@@ -121,7 +147,6 @@
       Transfer data to/from peripheral
       ```
       This is called a **polling loop**.
-      ^
 * **Interrupt-Driven I/O**
     - Faster but more complex
     - Let the hardware do the work in waiting for a signal that may or may not even happen.
@@ -217,24 +242,24 @@
 
 
 
-
 ## The Bus
 
-![the-bus]({{site.baseurl}}/img/computer-arch-org/the-bus.png){:.inline-img-w700}
 
-  > Bus Master $$-$$ Can take control of the system bus (e.g, CPU)   
-  > Bus Slave $$-$$ Can only respond to a transaction initiated by a remote bus master
 
-  > Bus master can designate activities to the slaves and bus slaves can go off and handle
-  > those activities (I/O).   
-  > Bus master can also stop these slave devices from doing their jobs whenever it needs
-  > to take over control of the bus.
+<img src="./img/the-bus.png" alt="the-bus" width="700">
+
+
+
+​		Bus Master $$-$$ Can take control of the system bus (e.g, CPU)   
+​		Bus Slave $$-$$ Can only respond to a transaction initiated by a remote bus master
+
+​		Bus master can designate activities to the slaves and bus slaves can go off and handle those activities (I/O).   
+​		Bus master can also stop these slave devices from doing their jobs whenever it needs to take over control of the bus.
 
 * Types of Bus:
     1. Logical bus
     2. System bus
     3. Peripheral bus
-    ^
 * The system bus is made up of the address, data and control paths from the CPU.
   Memory and memory-mapped I/O devices are connected to this bus. Such a bus has to be able to operate at the speed of the fastest device connected to it.
 * The system bus demonstrates that a one size fits all approach does NOT apply to computer design because it would be hopelessly cost-ineffective to interface low-cost, low-speed peripherals connected to a high speed bus.
@@ -246,11 +271,17 @@
 
 * Simple example of a bus structure
 
-![general-purpose-bus]({{site.baseurl}}/img/computer-arch-org/general-purpose-bus.png){:.inline-img-w700}
+  
+
+<img src="./img/general-purpose-bus.png" alt="general-purpose-bus" width="700">
+
+
 
 * Can have two busses which can have different functionality, speed and protocols.
 
-![general-purpose-bus-2]({{site.baseurl}}/img/computer-arch-org/general-purpose-bus-2.png){:.inline-img-w700}
+  
+
+<img src="./img/general-purpose-bus-2.png" alt="general-purpose-bus-2" width="700">
 
 
 
@@ -266,26 +297,45 @@ provided)
 
 ### Bus Speed
 
-![transmission-timing]({{site.baseurl}}/img/computer-arch-org/transmission-timing.png){:.inline-img-w650}
+<img src="./img/transmission-timing.png" alt="transmission-timing" width="700">
+
+
 
 ### Address Bus
 
 * Some systems have an explicit address bus that operates in parallel with the data bus. When the processor writes data to memory, an address is transmitted to the memory system at the same time the data is transmitted.
+
 * Some systems combine address and dta buses together into a single *multiplexed* bus that carries both addresses and data (albeit alternately).
+
 * In some cases the address and/or data transactions may take twice on the bus to transmit all the address/data.
-  ![multiplexing-address-and-data]({{site.baseurl}}/img/computer-arch-org/multiplexing-address-and-data.png){:.inline-img-w650}
   
+  
+
+  <img src="./img/multiplexing-address-and-data.png" alt="multiplexing-address-and-data" width="700">
+  
+  
+
   The efficiency of both non-multiplexed and multiplexed address buses can be improved by operating in a burst mode in which a sequence of data elements is transmitted to consecutive memory addresses.
-  
+
   Burst-mode operation is used to support cache memory systems.
   
   Following figure illustrates the concept of burst mode addressing where an address is transmitted for location $$i$$ and data for location $$i$$, $$i+1$$, and $$i+3$$ are transmitted without a further address.
-  ![burst-mode-and-data]({{site.baseurl}}/img/computer-arch-org/burst-mode-and-data.png){:.inline-img-w600}
+  
+  
+  
+  <img src="./img/burst-mode-and-data.png" alt="burst-mode-and-data" width="650">
+  
+  
 
 ### The Control Bus
 
 * The control bus regulates the flow of information on the bus. Following figure describes a simple $$2-$$line synchronous control bus that uses a data-direction signal and a data validation signal. The data direction signal is $$\overline{\text{R/W}}$$ and is high to indicate a CPU read operation and low to indicate a write operation.
-  ![minimal-bus-control-signals]({{site.baseurl}}/img/computer-arch-org/minimal-bus-control-signals.png){:.inline-img-w700}
+  
+  
+  
+  <img src="./img/minimal-bus-control-signals.png" alt="minimal-bus-control-signals" width="650">
+
+  
   
   Some systems have separate read and write strobes rather than $$\overline{\text{R/W}}$$ signal. Individual $$\overline{\text{READ}}$$ and $$\overline{\text{WRITE}}$$ signals indicate three states: an active read state, an active write state, and a bus free state ($$\overline{\text{READ}}$$ and $$\overline{\text{WRITE}}$$ both negated). A $$\overline{\text{R/W}}$$ signal introduces ambiguity because when $$\overline{\text{R/W}}=0$$ the bus is always executing a write operation, whereas when $$\overline{\text{R/W}}=1$$ indicates a read operation or the bus is free.
   
