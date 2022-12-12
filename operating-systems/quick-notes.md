@@ -10,7 +10,7 @@ Following notes will be moved into appropriate sections later.
 
 The `fork()` system call is used to create a separate, duplicate process.
 
-When an `exec()` system call is invoked, the program specified in the parameter to `exec()` will replace the entire process - including all threads.
+When an `exec()` system call is invoked, the program specified in the parameter to `exec()` will replace the entire process (including all threads) retaining the process ID (PID).
 
 **fork() example:**
 
