@@ -14,7 +14,7 @@ This solution uses STL `unordered_map` container.
 
 *  $$T = O(n)$$, where $$n$$ is the number of elements in the given string `s` and `t`    
 
-* $$S = O(n)$$, since the map of size $$n$$ is used
+* $$S = O(n)$$, since the `unordered_map` of size $$n$$ is used
 
 **Solution:**
 
