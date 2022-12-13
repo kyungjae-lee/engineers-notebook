@@ -17,12 +17,9 @@ C++ allows the programmer to overload most operators to work with user-defined c
 * Allows user-defined types to behave and feel similar to built-in types
 * Can make code more readable and writable
 * Not done automatically (except for the assignment operator)
-    - They must be explicitly defined.
-* The only operator that the compiler provides a default implementation for is the
-  assignment operator (`=`).
-    - This is because the compiler must be able to assign one object to another.
-    - All the other operators that can be overloaded must be explicitly defined by the
-      programmer.
+    
+    They must be explicitly defined.
+* The only operator that the compiler provides a default implementation for is the assignment operator (`=`). This is because the compiler must be able to assign one object to another. All the other operators that can be overloaded must be explicitly defined by the programmer.
 * Suppose we have a `Number` class that models any number.
     
     **Using functions:**
@@ -929,3 +926,9 @@ std::istream& operator>>(std::istream &is, Mystring &obj)
     return is;
 }
 ```
+
+
+
+## Reference
+
+Udemy lecture "Beginning C++ Programming - From Beginner to Beyond" by Dr. Frank Mitropoulos
