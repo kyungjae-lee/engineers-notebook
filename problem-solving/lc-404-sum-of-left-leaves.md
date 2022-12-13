@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="../problem-solving">Problem Solving</a> > LC - 404. Sum of Left Leaves
+<a href="../">Notebook</a> > <a href="../problem-solving">Problem Solving</a> > LC - 404. Sum of Left Leaves (DFS)
 
-# LC - 404. Sum of Left Leaves
+# LC - 404. Sum of Left Leaves (DFS)
 
 
 
