@@ -17,11 +17,11 @@ C++ allows the programmer to overload most operators to work with user-defined c
 * Allows user-defined types to behave and feel similar to built-in types
 * Can make code more readable and writable
 * Not done automatically (except for the assignment operator)
-    
+  
     They must be explicitly defined.
 * The only operator that the compiler provides a default implementation for is the assignment operator (`=`). This is because the compiler must be able to assign one object to another. All the other operators that can be overloaded must be explicitly defined by the programmer.
 * Suppose we have a `Number` class that models any number.
-    
+  
     **Using functions:**
     
     ```plain
@@ -51,7 +51,7 @@ C++ allows the programmer to overload most operators to work with user-defined c
 
 * The majority of C++'s operators can be overloaded.
 * The following operators CANNOT be overloaded:
-    
+  
     `::` (scope resolution operator)
     
     `:?` (conditional operator)
@@ -62,10 +62,10 @@ C++ allows the programmer to overload most operators to work with user-defined c
     
     `sizeof`
 * Remember, just because an operator can be overloaded doesn't mean you should.
-    
+  
     Don't overload it unless it makes sense and makes your code more usable, more readable and more writable.
 * We can make the operator mean anything we want.
-    
+  
     We want to make sure that when we do overload operators it makes sense and the users of the class know about it.
 
 
@@ -643,7 +643,7 @@ C++ allows the programmer to overload most operators to work with user-defined c
 
 * This will alow us to insert/extract our `Mystring` objects to/from streams.
 * Doesn't make sense to implement as member functions.
-    
+  
     Overloading operators as member functions requires left operand to be a user-defined class but this is not the way insertion/extraction operators are normally used.
 * Makes more sense to overload these operators as global functions.
 * **Overloading stream insertion operator:**
@@ -929,6 +929,8 @@ std::istream& operator>>(std::istream &is, Mystring &obj)
 
 
 
-## Reference
 
-Udemy lecture "Beginning C++ Programming - From Beginner to Beyond" by Dr. Frank Mitropoulos
+
+## References
+
+Mitropoulos, F. (2022). *Beginning C++ Programming - From Beginner to Beyond* [Video file]. Retrieved from  https://www.udemy.com/course/beginning-c-plus-plus-programming/
