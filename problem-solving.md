@@ -14,6 +14,6 @@
 
 4. **<a href="./problem-solving/lc-242-valid-anagram">LC - 344. Reverse String</a>**
 
-5. **<a href="./problem-solving/lc-404-sum-of-leaves">LC - 404. Sum of Left Leaves (DFS)</a>**
+5. **<a href="./problem-solving/lc-404-sum-of-left-leaves">LC - 404. Sum of Left Leaves (DFS)</a>**
 
    
