@@ -35,13 +35,12 @@ class Solution {
 public:
     int sumOfLeftLeaves(TreeNode* root) {
         int sum = 0;
-        addLeftLeaves(root, sum, 0);
+        helper(root, sum, 0);
         return sum;
     }
 
 private:
-    // helper function
-    void addLeftLeaves(TreeNode *curr, int &sum, bool isLeft)
+    void helper(TreeNode *curr, int &sum, bool isLeft)
     {
         // terminating condition 1
         if (curr == nullptr)
@@ -55,8 +54,8 @@ private:
         }
         
         // recursive step
-        addLeftLeaves(curr->left, sum, 1);
-        addLeftLeaves(curr->right, sum, 0);
+        helper(curr->left, sum, 1);
+        helper(curr->right, sum, 0);
     }
 };
 ```
