@@ -94,6 +94,6 @@ The resulting graph will be incomplete, or incorrect. At this point, go through 
 
 
 
-## Reference
+## References
 
 Rheinfurth, K. (2022, November 8). Object-Oriented Design [Presentation]. University of Alabama in Huntsville, Huntsville, AL, United States.
