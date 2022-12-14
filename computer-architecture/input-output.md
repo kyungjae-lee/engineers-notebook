@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="../computer-architecture">Computer Architecture</a> > Input/Output
+<a href="../">Notebook</a> > <a href="../">Computer Architecture</a> > Input/Output
 
 # Input/Output
 
