@@ -16,4 +16,8 @@
 
 5. **<a href="./problem-solving/lc-404-sum-of-left-leaves">LC - 404. Sum of Left Leaves (DFS)</a>**
 
+6. **<a href="./problem-solving/lc-1047-remove-all-adjacent-duplicates-in-string-1">LC - 1047. Remove All Adjacent Duplicates In String 1 (stack)</a>**
+
+7. **<a href="./problem-solving/lc-1209-remove-all-adjacent-duplicates-in-string-2">LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)</a>**
+
    
