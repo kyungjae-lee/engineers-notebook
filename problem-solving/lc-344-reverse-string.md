@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="../problem-solving">Problem Solving</a> > LC - 344. Reverse String
+<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 344. Reverse String
 
 # LC - 344. Reverse String
 

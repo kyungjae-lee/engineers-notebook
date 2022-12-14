@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="../problem-solving">Problem Solving</a> > LC - 257. Binary Tree Paths (DFS)
+<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 257. Binary Tree Paths (DFS)
 
 # LC - 257. Binary Tree Paths (DFS)
 

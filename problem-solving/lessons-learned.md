@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="../problem-solving">Problem Solving</a> > Lessons Learned
+<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > Lessons Learned
 
 # Lessons Learned
 
