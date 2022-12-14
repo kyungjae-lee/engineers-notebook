@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="../problem-solving">Operating Systesms</a> > Quick Notes
+<a href="../">Notebook</a> > <a href="../operating-systems">Operating Systesms</a> > Quick Notes
 
 # Quick Notes
 
