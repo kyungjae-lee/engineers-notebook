@@ -4,5 +4,5 @@
 
 
 
-0. **<a href="./operating-systems/quick-notes">Quick Notes</a>**
+0. **<a href="./quick-notes">Quick Notes</a>**
 

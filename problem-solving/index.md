@@ -4,20 +4,20 @@
 
 
 
-0. **<a href="./problem-solving/lessons-learned">Lessons Learned</a>**
+0. **<a href="./lessons-learned">Lessons Learned</a>**
 
-1. **<a href="./problem-solving/lc-2-add-two-numbers">LC - 2. Add Two Numbers</a>**
+1. **<a href="./lc-2-add-two-numbers">LC - 2. Add Two Numbers</a>**
 
-2. **<a href="./problem-solving/lc-242-valid-anagram">LC - 242. Valid Anagram (unordered_map)</a>**
+2. **<a href="./lc-242-valid-anagram">LC - 242. Valid Anagram (unordered_map)</a>**
 
-3. **<a href="./problem-solving/lc-257-binary-tree-paths">LC - 257. Binary Tree Paths (DFS)</a>**
+3. **<a href="./lc-257-binary-tree-paths">LC - 257. Binary Tree Paths (DFS)</a>**
 
-4. **<a href="./problem-solving/lc-242-valid-anagram">LC - 344. Reverse String</a>**
+4. **<a href="./lc-242-valid-anagram">LC - 344. Reverse String</a>**
 
-5. **<a href="./problem-solving/lc-404-sum-of-left-leaves">LC - 404. Sum of Left Leaves (DFS)</a>**
+5. **<a href="./lc-404-sum-of-left-leaves">LC - 404. Sum of Left Leaves (DFS)</a>**
 
-6. **<a href="./problem-solving/lc-1047-remove-all-adjacent-duplicates-in-string-1">LC - 1047. Remove All Adjacent Duplicates In String 1 (stack)</a>**
+6. **<a href="./lc-1047-remove-all-adjacent-duplicates-in-string-1">LC - 1047. Remove All Adjacent Duplicates In String 1 (stack)</a>**
 
-7. **<a href="./problem-solving/lc-1209-remove-all-adjacent-duplicates-in-string-2">LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)</a>**
+7. **<a href="./lc-1209-remove-all-adjacent-duplicates-in-string-2">LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)</a>**
 
    
