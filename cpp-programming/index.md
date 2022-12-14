@@ -1,4 +1,4 @@
-<a href="./">Notebook</a> > C++ Programming
+<a href="../">Notebook</a> > C++ Programming
 
 # C++ Programming
 
