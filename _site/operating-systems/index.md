@@ -1,4 +1,4 @@
-<a href="./">Notebook</a> > Operating Systems
+<a href="../">Notebook</a> > Operating Systems
 
 # Operating Systems
 

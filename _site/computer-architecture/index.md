@@ -1,4 +1,4 @@
-<a href="./">Notebook</a> > Computer Architecture
+<a href="../">Notebook</a> > Computer Architecture
 
 # Computer Architecture
 
