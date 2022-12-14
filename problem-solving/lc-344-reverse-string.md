@@ -14,8 +14,8 @@ String class also provides the `size()` member function. (Maybe a good idea to u
 
 **Complexity Analysis:**
 
-* T = O(n)
-* S = O(1)
+* $$T = O(n)$$
+* $$S = O(1)$$
 
 **Solution:**
 
@@ -40,8 +40,8 @@ This solution uses `beg` and `end` index variables.
 
 **Complexity Analysis:**
 
-* T = O(n)
-* S = O(1)
+* $$T = O(n)$$
+* $$S = O(1)$$
 
 **Solution:**
 
@@ -64,8 +64,8 @@ This solution uses C++ STL `stack` container to reverse a string. Note that this
 
 **Complexity Analysis:**
 
-* T = O(n)
-* S = O(n)
+* $$T = O(n)$$
+* $$S = O(n)$$
 
 **Solution:**
 
@@ -98,8 +98,8 @@ This solution uses the C++ standard library function `reverse()` to reverse a st
 
 **Complexity Analysis:**
 
-* T = O(n)
-* S = O(1)
+* $$T = O(n)$$
+* $$S = O(1)$$
 
 **Solution:**
 
