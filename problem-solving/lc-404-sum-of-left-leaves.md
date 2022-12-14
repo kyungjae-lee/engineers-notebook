@@ -14,8 +14,8 @@ The strategy is to perform DFS and accumulate the values of the left leaves only
 
 **Complexity Analysis:**
 
-* $$T = O(n)$$ where $$n$$ is the number of nodes in the given binary tree
-* $$S = O(\log n)$$ where $$n$$ is the number of nodes in the given binary tree (Depth of recursion tree)
+* $T = O(n)$ where $n$ is the number of nodes in the given binary tree
+* $S = O(\log n)$ where $n$ is the number of nodes in the given binary tree (Depth of recursion tree)
 
 **Solution:**
 
@@ -68,8 +68,8 @@ This solution does not use helper function or additional variable.
 
 **Complexity Analysis:**
 
-* $$T = O(n)$$ where $$n$$ is the number of nodes in the given binary tree
-* $$S = O(\log n)$$ where $$n$$ is the number of nodes in the given binary tree (Depth of recursion tree)
+* $T = O(n)$ where $n$ is the number of nodes in the given binary tree
+* $S = O(\log n)$ where $n$ is the number of nodes in the given binary tree (Depth of recursion tree)
 
 **Solution:**
 

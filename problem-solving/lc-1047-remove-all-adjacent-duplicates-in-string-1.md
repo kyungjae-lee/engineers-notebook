@@ -14,8 +14,8 @@ The original string does not get modified.
 
 **Complexity Analysis:**
 
-* $$T = O(n)$$ where $$n$$ is the length of the string
-* $$S = O(n)$$
+* $T = O(n)$ where $n$ is the length of the string
+* $S = O(n)$
 
 **Solution:**
 
@@ -68,8 +68,8 @@ I had to spend quite some time debugging it.
 
 **Complexity Analysis:**
 
-* $$T = O(n)$$ where $$n$$ is the length of the string
-* $$S = O(n)$$
+* $T = O(n)$ where $n$ is the length of the string
+* $S = O(n)$
 
 **Solution:**
 
@@ -106,8 +106,8 @@ This solution solves the problem without using the STL `stack` container. Instea
 
 **Complexity Analysis:**
 
-* $$T = O(n)$$ where $$n$$ is the length of the string
-* $$S = O(n)$$
+* $T = O(n)$ where $n$ is the length of the string
+* $S = O(n)$
 
 **Solution:**
 

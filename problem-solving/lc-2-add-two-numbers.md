@@ -15,9 +15,9 @@ When adding two one-digit numbers:
 
 **Complexity Analysis:**
 
-* $$T=O(n)$$
+* $T=O(n)$ 
 
-* $$S=O(1)$$ where $$n$$ is the number of elements in the longer list of the two
+* $S=O(1)$ where $$n$$ is the number of elements in the longer list of the two
 
 **Solution:**
 
@@ -73,8 +73,8 @@ a dummy node as is described in the *Solution 1*.
 
 **Complexity Analysis:**
 
-* $$T=O(n)$$
-* $$S=O(1)$$ where $$n$$ is the number of elements in the longer list of the two
+* $T=O(n)$
+* $S=O(1)$ where $$n$$ is the number of elements in the longer list of the two
 
 **Solution:**
 
@@ -158,8 +158,8 @@ This solution uses recursion. One drawback of this solution is that if the size 
 
 **Complexity Analysis:**
 
-* $$T=O(n)$$
-* $$S=O(?)$$ where $$n$$ is the number of elements in the longer list of the two
+* $T=O(n)$
+* $S=O(?)$ where $$n$$ is the number of elements in the longer list of the two
 
 **Solution:**
 
