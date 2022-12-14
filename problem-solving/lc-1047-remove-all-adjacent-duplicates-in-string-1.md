@@ -104,9 +104,10 @@ public:
 
 This solution solves the problem without using the STL `stack` container. Instead, a string object is used to build up the string to return.
 
-* **Complexity Analysis:**
-  * $$T = O(n)$$ where $$n$$ is the length of the string
-  * $$S = O(n)$$
+**Complexity Analysis:**
+
+* $$T = O(n)$$ where $$n$$ is the length of the string
+* $$S = O(n)$$
 
 **Solution:**
 
