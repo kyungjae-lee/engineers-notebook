@@ -14,9 +14,8 @@ Be able to introduce and use new members to the Solution class (e.g., helper fun
 
 **Complexity Analysis:**
 
-*  $$T = O(n)$$, where $$n$$ is the number of nodes in the given binary tree    
-
-* $$S = O(\log n)$$, depth of the recursion tree
+*  $$T = O(n)$$ where $$n$$ is the number of nodes in the given binary tree    
+*  $$S = O(\log n)$$ where $$n$$ is the number of nodes in the given binary tree (Depth of recursion tree)
 
 **Solution:**
 

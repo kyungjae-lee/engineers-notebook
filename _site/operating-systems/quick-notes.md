@@ -85,3 +85,11 @@ PID of ex2.c = 17147
 `execv()` system call completely replaces the current process with the passed process (as an argument). Therefore ex1.c process is replaced by ex2.c process when `execv()` is invoked, and the rest of the ex1.c code will not have chance to get executed. 
 
 Also, note that the printed PIDs are the same. This is because `execv()` system call simply replaces the flow of the process but not creating another process.
+
+
+
+### Turnaround Time
+
+Turnaround time = Completion time - Arrival time
+
+Turnaround time = Waiting time + Burst time
