@@ -226,7 +226,7 @@ while (1)
 
 Little Endian system stores the least significant byte (LSB) to the lower memory address.
 
-Big Endian system stores the least significant byte (LSB) to the higher memory address.
+Big Endian system stores the most significant byte (MSB) to the lower memory address.
 
 
 
