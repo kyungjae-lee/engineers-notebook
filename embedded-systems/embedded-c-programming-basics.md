@@ -220,3 +220,18 @@ while (1)
     LED ^= 0x01;
 ```
 
+
+
+## Endianness
+
+Little Endian system stores the least significant byte (LSB) to the lower memory address.
+
+Big Endian system stores the least significant byte (LSB) to the higher memory address.
+
+
+
+
+
+## References
+
+Nayak, K. (2022). *Microcontroller Embedded C Programming: Absolute Beginners* [Video file]. Retrieved from  https://www.udemy.com/course/microcontroller-embedded-c-programming/
