@@ -12,8 +12,8 @@ This solution uses STL `stack` container.
 
 **Complexity Analysis:**
 
-* $$T = O(n)$$ where $$n$$ is the length of the string
-* $$S = O(n)$$ since this solution uses additional memory for stack
+* $T = O(n)$ where $n$ is the length of the string
+* $S = O(n)$ since this solution uses additional memory for stack
 
 **Solution:**
 
@@ -63,8 +63,8 @@ This solution uses recursion. (My first solution)
 
 **Complexity Analysis:**
 
-* $$T = O(n)$$ where $$n$$ is the length of the string
-* $$S = O(n)$$ where $$n$$ is the length of the string
+* $T = O(n)$ where $n$ is the length of the string
+* $S = O(n)$ where $n$ is the length of the string
 
 **Solution:**
 
