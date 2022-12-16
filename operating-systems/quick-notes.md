@@ -2,7 +2,7 @@
 
 # Quick Notes
 
-Following notes will be moved into appropriate sections later.
+Notes to be moved into the appropriate sections later.
 
 
 
