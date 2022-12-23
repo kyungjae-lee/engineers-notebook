@@ -37,7 +37,7 @@ typedef struct LStack_
     LStackElem *head;
 } LStack;
 
-/* public interface */
+/* public interface (ADT) */
 void init(LStack *lstack);
 void push(LStack *lstack, Data data);
 void pop(LStack *lstack);
