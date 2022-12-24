@@ -4,14 +4,14 @@
 
 
 
-## Stack - Using List
+## Stack (Using Singly-Linked List)
 
 ### Interface
 
 ```c
 /*
  *  File Name   : lstack.h
- *  Description : Interface for stack using list (in C)
+ *  Description : Interface for stack using singly-linked list (in C)
  *  Author      : Kyungjae Lee
  *  Date Created: 12/23/2022
  */
@@ -54,7 +54,7 @@ void clear(LStack *lstack);
 ```c
 /*
  *  File Name   : lstack.c
- *  Description : Implementation of stack using list (in C)
+ *  Description : Implementation of stack using singly-linked list list (in C)
  *  Author      : Kyungjae Lee
  *  Date Created: 12/23/2022
  */
@@ -75,17 +75,20 @@ void init(LStack *lstack)
 /* inserts an element into the stack */
 void push(LStack *lstack, Data data)
 {
+    /* create a new node to insert */
     LStackElem *new_elem;
 
-    /* report the user if memory allocation fails */
     if ((new_elem = (LStackElem*)malloc(sizeof(LStackElem))) == NULL)
     {
-        printf("Error: Cannot create a stack element.\n");
-        return;
+        /* no more elements can be created (memory allocation fail) */
+        printf("Error: Stack overflow.\n");
+        exit(1);
     }
 
-    /* insert the new element into the stack */
     new_elem->data = data;
+    new_elem->next = NULL;	/* optional */
+    
+    /* insert the new element into the stack */
     new_elem->next = lstack->head;
     lstack->head = new_elem;
 
@@ -98,11 +101,11 @@ void pop(LStack *lstack)
 {
     LStackElem *rem_elem;
 
-    /* do not allow pop operation on an empty stack */
     if (empty(lstack))
     {
-        printf("Error: Cannot do pop operation on an empty stack.\n");
-        return;
+        /* do not allow pop operation on an empty stack */
+        printf("Error: Stack underflow.\n");
+        exit(1);
     }
 
     /* remove the top element */
@@ -121,8 +124,8 @@ Data top(LStack *lstack)
     /* do not allow top operation on an empty stack */
     if (empty(lstack))
     {
-        printf("Error: Cannot do top operation on an empty stack.\n");
-        return 0;
+        printf("Error: Stack underflow.\n");
+        exit(1);
     }
 
     return lstack->head->data;
@@ -137,7 +140,7 @@ int size(LStack *lstack)
 /* returns whether the stack is empty (equivalent to size() == 0) */
 bool empty(LStack *lstack)
 {
-    return lstack->elem_count == 0;
+    return lstack->elem_count == 0;	/* lstack->head == NULL, size(lstack) == 0 */
 }
 
 /* clears the stack */
@@ -157,7 +160,7 @@ void clear(LStack *lstack)
 ```c
 /*
  *  File Name   : lstack_main.c
- *  Description : Test driver for the stack using list (in C)
+ *  Description : Test driver for the stack using singly-linked list (in C)
  *  Author      : Kyungjae Lee
  *  Date Created: 12/23/2022
  */
@@ -174,8 +177,8 @@ int main(int argc, char *argv[])
 
     printf("%d\n", size(&s));   // 0
     printf("%d\n", empty(&s));  // 1
-    top(&s);                    // error message
-    pop(&s);                    // error message
+    //top(&s);                    // Error: Stack underflow.
+    //pop(&s);                    // Error: Stack underflow.
 
     for (i = 0; i < 5; ++i)
         push(&s, i); 
@@ -200,9 +203,8 @@ int main(int argc, char *argv[])
 ```
 
 ```plain
+0
 1
-Error: Cannot do top operation on an empty stack.
-Error: Cannot do pop operation on an empty stack.
 5
 4
 2
