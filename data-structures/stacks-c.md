@@ -109,6 +109,7 @@ void pop(LStack *lstack)
     rem_elem = lstack->head;
     lstack->head = lstack->head->next;
     free(rem_elem);
+    rem_elem = NULL;
 
     /* update the element counter to account for the inserted element */
     lstack->elem_count--;
