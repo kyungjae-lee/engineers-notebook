@@ -143,10 +143,10 @@ bool empty(LStack *lstack)
     return lstack->elem_count == 0;	/* lstack->head == NULL, size(lstack) == 0 */
 }
 
-/* clears the stack */
+/* removes all elements from the stack */
 void clear(LStack *lstack)
 {
-    /* remove all the elements */
+    /* remove all elements */
     while (!empty(lstack))
         pop(lstack);
 
@@ -160,7 +160,7 @@ void clear(LStack *lstack)
 ```c
 /*
  *  File Name   : lstack_main.c
- *  Description : Test driver for the stack using singly-linked list (in C)
+ *  Description : Test driver for stack using singly-linked list (in C)
  *  Author      : Kyungjae Lee
  *  Date Created: 12/23/2022
  */
