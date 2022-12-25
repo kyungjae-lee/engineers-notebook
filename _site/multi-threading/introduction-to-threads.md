@@ -22,6 +22,42 @@
 
 
 
+## Argument Passing
+
+Make sure that you always pass the persistent memory as an argument to the thread (e.g., static variable or dynamically allocated variables on the heap). Do not pass the caller's local variables or stack memory whose lifetime is bound to the caller's lifetime because they will go away when the caller terminates. 
+
+
+
+## Race Condition on Thread Creation
+
+**Race condition** on thread creation refers to an indeterministic situation where which thread's instruction is going to be executed first immediately after the fork point.
+
+
+
+<img src="./img/race-condition-on-thread-creation.png" alt="race-condition-on-thread-creation" width="300">
+
+
+
+> 99.9% of the time time 'Instruction 1' will be executed first due to the scheduling overhead, but it is a good practice as a programmer not to assume which instruction is going to be executed first when writing a multi-threaded program.
+
+
+
+## Thread Termination
+
+Three ways in which threads can be terminated:
+
+* Return of the thread function
+* `pthread_exit(0);`
+* Thread cancellation (when a thread is canceled or killed by another thread)
+  * Any thread can cancel any other threads by sending the cancellation request
+  * One thread can cancel multiple threads by sending the cancellation request
+
+If main thread terminates its threads will be automatically terminated by default, but not vice-versa. To prevent this from happening, use `pthread_exit();` API in the main thread. This is mostly used in cases where the main thread is only required to spawn threads and leave the threads to do their job. 
+
+Termination of the spawned threads will not affect any other threads including the main thread.
+
+
+
 ## Example - Hello World
 
 Following program will create one thread, which is called the **main thread**, and that main thread will execute the function `main`.
@@ -50,16 +86,20 @@ Following program will create one thread, which is called the **main thread**, a
 #include <pthread.h>    /* POSIX threads */
 #include <unistd.h>     /* pause(), sleep() */
 
-/* A thread callback function must have the following prototype
- * void* (*thread_fn)(void *) */
+/* A thread callback function must have the following prototype:
+ * 		void* (*thread_fn)(void *)  	*/
 static void* thread_fn_callback(void *arg)
 {
     char *input = (char*)arg;
+    int a = 0;
     
-    while (1) 
+    while (a < 10) 
     {   
         printf("input string = %s\n", input);
         sleep(1);
+        if (a == 5)
+            pthread_exit(0);	/* one way of terminating the thread */
+        a++;
     }   
 
     return input;
@@ -97,15 +137,62 @@ void thread1_create()
 int main(int argc, char *argv[])
 {
     thread1_create();
-    printf("main function paused\n");
 
-    /* pause the main function, otherwise it will straight up terminate and all of its
-     * child threads will get terminated as well */
-    pause();
+    /* 'pthread_exit()' API is used to prevent the spawned threads from being terminated
+     * when the main thread terminates */
+    pthread_exit(0);
 
     return 0;
 }
 ```
+
+
+
+## Resource Sharing Among Threads
+
+
+
+<img src="./img/resource-sharing-among-threads.png" alt="resource-sharing-among-threads" width="400">
+
+
+
+Operating system allocates resources to threads - Memory, CPU, access to hardware, etc.
+
+All threads are siblings. There is no parent-child (having extra privileges) relationship between threads of the same process; no hierarchy. 
+
+Every thread has its own life-cycle (birth, life and death) independent from other threads in the system. (Exception: If main thread terminates its threads will be automatically terminated by default, but not vice-versa.)
+
+Multiple threads of the same process share the same **virtual address space** of that process except that they have their own **stack memory**. Resources (that does not use the stack memory) allocated by one thread is visible to the rest of the threads. (e.g., Heap memory, sockets, file descriptors, global variables, etc.)
+
+Stack memory is private to each thread.
+
+
+
+## Thread Stack Memory Management
+
+
+
+<img src="./img/thread-stack-memory-management.png" alt="thread-stack-memory-management" width="550">
+
+
+
+All spawned threads share the process' virtual memory space. (No separate virtual memory space for spawned threads.) But, each stack memory segment is private to the corresponding thread.
+
+
+
+## Thread Scheduling
+
+Kernel (OS) does not schedule processes, but it schedules threads. Thread is a schedulable entity, not a process. Thread, a basic unit of execution flow, is to be allocated (by the OS) to the CPU for execution. 
+
+However, this rule is violated in certain error conditions:
+
+* If a thread segmentation-faults, the entire process (including all threads spawned by the process) is terminated.
+* A signal is delivered (by the OS) to the process level, not to the thread level. 
+  * e.g., When the SIGSEGV signal is delivered to a process by the OS, the process is terminated with the segmentation-fault.
+
+The race condition on thread creation is due to the fact that which thread the kernel chooses to allocate CPU; the parent thread or the spawned child thread.
+
+Kernel schedules threads on multiple CPUs as per the scheduling policy (e.g., FCFS, SJF).
 
 
 
