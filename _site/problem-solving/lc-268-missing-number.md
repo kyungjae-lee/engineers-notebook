@@ -69,7 +69,7 @@ public:
 
 
 
-### Solution 2
+### Solution 3
 
 This solution uses the `std::sort` algorithm.
 
