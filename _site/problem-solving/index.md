@@ -12,13 +12,14 @@
 
 3. **<a href="./lc-257-binary-tree-paths">LC - 257. Binary Tree Paths (DFS)</a>**
 
-4. **<a href="./lc-344-reverse-string">LC - 344. Reverse String</a>**
+4. **<a href="./lc-268-missing-number">LC - 268. Missing Number (bit manipulation)</a>**
 
-5. **<a href="./lc-404-sum-of-left-leaves">LC - 404. Sum of Left Leaves (DFS)</a>**
+5. **<a href="./lc-344-reverse-string">LC - 344. Reverse String</a>**
 
-6. **<a href="./lc-1047-remove-all-adjacent-duplicates-in-string-1">LC - 1047. Remove All Adjacent Duplicates In String 1 (stack)</a>**
+6. **<a href="./lc-404-sum-of-left-leaves">LC - 404. Sum of Left Leaves (DFS)</a>**
 
-7. **<a href="./lc-1209-remove-all-adjacent-duplicates-in-string-2">LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)</a>**
+7. **<a href="./lc-1047-remove-all-adjacent-duplicates-in-string-1">LC - 1047. Remove All Adjacent Duplicates In String 1 (stack)</a>**
+
+8. **<a href="./lc-1209-remove-all-adjacent-duplicates-in-string-2">LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)</a>**
 
    
-
