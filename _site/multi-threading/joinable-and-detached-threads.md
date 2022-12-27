@@ -192,6 +192,27 @@ A detached thread does not return any result to its parent thread. It does its j
 
 
 
+## When to Create Joinable / Detached Threads?
+
+Create thread T as joinable when:
+
+* T is supposed to return some result to other threads
+  * e.g., Map reduce
+* Some other threads in the process are interested in being notified of T's termination
+
+Create thread T as detached when:
+
+* No return result from T is expected
+* Nobody bothers about its termination
+* T runs an infinite loop
+  * e.g., Waiting for user input
+  * e.g., Waiting for network packets
+  * e.g., TCP server's worker thread interacting with TCP clients. (Detached threads can be used in this case depending on what the application wants to achieve.)
+
+
+
+
+
 ## References
 
 Sagar, A. (2022). *Part A - Multithreading & Thread Synchronization - Pthreads* [Video file]. Retrieved from  https://www.udemy.com/course/multithreading_parta/
