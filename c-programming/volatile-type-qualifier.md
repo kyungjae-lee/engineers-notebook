@@ -4,7 +4,7 @@
 
 
 
-## What is `volatile` Type Qualifier?
+## `volatile` Type Qualifier
 
 `volatile` is a type qualifier in C used with variables to **instruct the compiler not to perform any optimization** on the variable operation.
 
@@ -58,7 +58,7 @@ Use `volatile` when your code is dealing with the following scenarios:
 
 
 
-## How to Use `volatile` Type Qualifier?
+## Usage of `volatile` Type Qualifier
 
 ### Case 1: `volatile` data
 
