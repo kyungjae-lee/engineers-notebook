@@ -12,36 +12,6 @@ It tells the compiler that the value of the variable may change at any time with
 
 `volatile` is very helpful in embedded systems code.
 
-### Optimization Levels
-
-* `-O0`
-
-  No optimization (default)
-
-  Generates unoptimized code but has the fastest compilation time. (Note that many other compilers do substantial optimization even if "no optimization" is specified. With gcc, it is very unusual to use `-O0` for production if execution time is of any concern, since `-O0` means (almost) no optimization. This difference between gcc and other compilers should be kept in mind when doing performance comparisons.)
-
-* `-O1`
-
-  Moderate optimization
-
-  Optimizes reasonably well but does not degrade compilation time significantly.
-
-* `-O2`
-
-  Full optimization
-
-  Generates highly optimized code and has the slowest compilation time.
-
-* `-O3`
-
-  Full optimization as in `-O2`
-
-  Also uses more aggressive automatic inlining of subprograms within a unit and attempts to vectorize loops.
-
-* `-Os`
-
-  Optimize space usage (code and data) of resulting program.
-
 
 
 ## When to Use `volatile` Type Qualifier?
@@ -65,30 +35,28 @@ Use `volatile` when your code is dealing with the following scenarios:
 **Syntax:**
 
 ```c
-uint8_t volatile my_data;	/* my_data is a volatile variable of type unsigned integer_8 */
-volatile uint8_t my_data;
+volatile uint8_t data;	/* data is a volatile uint_t type variable */
+uint8_t volatile data;
 ```
 
-### Case 2: non-`volatile` pointer to `volatile` data
+### Case 2: Non-`volatile` pointer to `volatile` data
 
 **Syntax:**
 
 ```c
-uint8_t volatile *pStatusReg;	/* pStatusReg is a non-volatile pointer pointing to a volatile
-								   data of the type unsigned integer_8 */
-								/* instructs the compiler not to do any optimization on data 
-								   read/write operations using pStatusReg */
+volatile uint8_t *pStatusReg;	/* pStatusReg is a (non-volatile) pointer to a volatile uint8_t type data */
+								/* instructs the compiler not to do any optimization on data read/write 
+								   operations using pStatusReg */
 ```
 
-This is a perfect case of accessing memory-mapped registers. Use this syntax generously whenever you are accessing memory-mapped registers in your microcontroller code.
+Widely used when accessing memory-mapped registers. Use this syntax generously whenever you are accessing memory-mapped registers in your microcontroller code.
 
 ### Case 3: `volatile` pointer to non-`volatile` data
 
 **Syntax:**
 
 ```c
-uint8_t *volatile pStatusReg;	/* pStatusReg is a volatile pointer pointing to a non-volatile
-								   data of type unsigned integer_8 */
+uint8_t *volatile pStatusReg;	/* pStatusReg is a volatile pointer to a (non-volatile) uint8_t type data */
 ```
 
 Rarely used.
@@ -98,8 +66,7 @@ Rarely used.
 **Syntax:**
 
 ```c
-uint8_t volatile *volatile pStatusReg;	/* pStatus Reg is a volatile pointer pointint to a volatile
-										   data of type unsigned integer_8 */
+volatile uint8_t *volatile pStatusReg;	/* pStatusReg is a volatile pointer to a volatile uint8_t type data */
 ```
 
 Rarely used.
