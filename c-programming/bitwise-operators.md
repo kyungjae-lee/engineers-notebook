@@ -1,12 +1,10 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > Embedded C Programming Basics
+<a href="../">Notebook</a> > <a href="./">C Programming</a> > Bitwise Operators
 
-# Embedded C Programming Basics
+# Bitwise Operators
 
 
 
-## Bitwise Operators
-
-### 6 commonly used bitwise operators in embedded C programming:
+## 6 commonly used bitwise operators in embedded C programming:
 
 * `&` (Bitwise AND)
 * `|` (Bitwise OR)
@@ -15,7 +13,9 @@
 * `>>` (Bitwise Right Shift)
 * `<<` (Bitwise Left Shift)
 
-### Logical operator vs. bitwise operator
+
+
+## Logical operator vs. bitwise operator
 
 * `&&` is a logical AND operator
 * `&` is a bitwise AND operator
@@ -55,7 +55,9 @@ C = A ^ B	// C contains '00110110(2)'
                 // C 00110110
 ```
 
-### Applicability of bitwise operations
+
+
+## Applicability of bitwise operations
 
 In an embedded C program, most of the time you will be doing:
 
@@ -219,14 +221,6 @@ Using bitwise XOR operator `^`, above code can be rewritten as:
 while (1)
     LED ^= 0x01;
 ```
-
-
-
-## Endianness
-
-Little Endian system stores the least significant byte (LSB) to the lower memory address.
-
-Big Endian system stores the most significant byte (MSB) to the lower memory address.
 
 
 

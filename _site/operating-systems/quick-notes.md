@@ -6,7 +6,7 @@ Notes to be moved into the appropriate sections later.
 
 
 
-### fork() and exec()
+## fork() and exec()
 
 The `fork()` system call is used to create a separate, duplicate process.
 
@@ -88,8 +88,17 @@ Also, note that the printed PIDs are the same. This is because `execv()` system 
 
 
 
-### Turnaround Time
+## Turnaround Time
 
 Turnaround time = Completion time - Arrival time
 
 Turnaround time = Waiting time + Burst time
+
+
+
+## Endianness
+
+Little Endian system stores the least significant byte (LSB) to the lower memory address.
+
+Big Endian system stores the most significant byte (MSB) to the lower memory address.
+
