@@ -202,6 +202,87 @@ mark .md-meta { color: rgb(0, 0, 0); }
 mjx-container { break-inside: avoid; }
 
 
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
 :root {
     --side-bar-bg-color: #fafafa;
     --control-text-color: #777;
@@ -591,10 +672,10 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 
-</style><title>index</title>
+</style><title>main-memory-introduction</title>
 </head>
 <body class='typora-export'><div class='typora-export-content'>
-<div id='write'  class=''><p><a href="../"><span>Notebook</span></a><span> &gt; Operating Systems</span></p><h1 id='operating-systems'><span>Operating Systems</span></h1><p>&nbsp;</p><ol start='0' ><li><strong><a href="./quick-notes"><span>Quick Notes</span></a></strong></li><li><strong><a href="./main-memory-introduction"><span>[Main Memory] Introduction</span></a></strong></li><li><strong><a href="./main-memory-main-memory"><span>[Main Memory] Main Memory</span></a></strong></li></ol><p>&nbsp;</p></div></div>
+<div id='write'  class=''><p><a href="../"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Operating Systesms</span></a><span> &gt; [Main Memory] Introduction</span></p><h1 id='main-memory-introduction'><span>[Main Memory] Introduction</span></h1><p>&nbsp;</p><h2 id='introduction-to-main-memory'><span>Introduction to Main Memory</span></h2><ul><li><span>The main purpose of a computer system is to execute programs.</span></li><li><span>During execution, these programs, together with the data they access, must be in </span><strong><span>main memory</span></strong><span> (at least partially).</span></li></ul><ul><li><p><span>CPU is shared by a set of processes with the help of CPU scheduling.</span></p></li><li><p><span>CPU scheduling improves:</span></p><ul><li><span>CPU utilization</span></li><li><span>Speed of the computer&#39;s response to its users</span></li></ul></li><li><p><span>To achieve this increase in CPU performance, however, several processes must be loaded on the main memory. That is, the processes must share the main memory. This is why effective </span><strong><span>memory management</span></strong><span> is called for.</span></p></li></ul><p>&nbsp;</p><h2 id='main-memory---basic-hardware'><span>Main Memory - Basic Hardware</span></h2><ul><li><p><span>Memory consists of </span><strong><span>a large array of words or bytes</span></strong><span>, each with its own address.</span></p></li><li><p><span>Typical instruction execution cycle:</span></p><ol><li><span>Instruction fetch (from main memory)</span></li><li><span>Decode</span></li><li><span>Operand fetch (from main memory)</span></li><li><span>Execute</span></li><li><span>Operand store (to main memory)</span></li></ol></li><li><p><span>The CPU can directly access only:</span></p><ul><li><span>Registers built into the processor</span></li><li><span>Main memory</span></li></ul><p><span>There are machine instructions that take memory addresses as arguments, but none that takes disk (secondary store) addresses. So, any instructions in execution, and any data being used by the instructions, must be in one of these direct-access storages.</span></p><p><span>If the data required for the execution are not in main memory, they must be loaded into main memory before the CPU can operate on them.</span></p></li></ul><p>&nbsp;</p><h2 id='cpu-cycle-time-for-memory-access'><span>CPU Cycle Time for Memory Access</span></h2><ul><li><p><strong><span>Registers (fast)</span></strong><span> - Accessible within one clock cycle</span></p><p><span>Most CPUs can decode instructions and perform simple operations on register contents at the rate of one or more operations per clock cycle.</span></p></li><li><p><strong><span>Main memory (slow)</span></strong><span> - Access may take many clock cycles</span></p><p><span>In this case, the processor normally need to stall since it does not have the data required to complete the instruction that is being executed. CPU performance degrades seriously when memory access happens frequently. To resolve this issue, a fast memory buffer called the </span><strong><span>cache</span></strong><span> is introduced between the CPU and main memory.</span></p></li></ul><p>&nbsp;</p><h2 id='protection-of-os-from-unauthorized-access'><span>Protection of OS from Unauthorized Access</span></h2><ul><li><p><span>The operating system has to be protected from access by the user processes. In addition, the user processes must be protected from one another. This protection must be provided by the hardware. But, how?</span></p></li><li><p><span>Ensure that each process has a separate memory space.</span></p><p><span>To do this, we need the ability to determine the range of legal addresses that the process may access and to ensure that the process can access only these legal addresses.</span></p><p><span>To define a logical address space for each process, the following two registers are used:</span></p><ul><li><strong><span>Base register</span></strong><span> - Holds the lowest legal physical memory address</span></li><li><strong><span>Limit register</span></strong><span> - Specifies the size of the range</span></li></ul></li></ul><ul><li><span>For example, in the following case, the Process 2 can legally access the addresses from 300040 to 420940 (inclusive) only.</span></li></ul><p>&nbsp;</p><p><img src="./img/base-and-limit-registers.png" alt="base-and-limit-registers" width="450"></p><p>&nbsp;</p><ul><li><p><span>Legal memory access determination logic:</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="c"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="c"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.52344px; left: 35px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>4</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27px; width: 27px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">if</span> (<span class="cm-variable">base</span> <span class="cm-operator">&lt;</span> <span class="cm-variable">address</span> <span class="cm-operator">&amp;&amp;</span> <span class="cm-variable">address</span> <span class="cm-operator">&lt;=</span> <span class="cm-variable">base</span> <span class="cm-operator">+</span> <span class="cm-variable">limit</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">legal</span> <span class="cm-variable">memory</span> <span class="cm-variable">access</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">else</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">illegal</span> <span class="cm-variable">memory</span> <span class="cm-variable">access</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 92px;"></div><div class="CodeMirror-gutters" style="height: 92px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre></li></ul><ul><li><p><span>The base and limit registers can be loaded only by the OS, which uses a special privileged instruction. Since the privileged instructions can be executed only in kernel mode, and since only the OS executes in kernel mode, only the OS can load the base and the limit registers. This scheme allows the OS to change the value of these registers, but prevents the user processes from changing them.</span></p></li><li><p><span>This is how the OS protects:</span></p><ul><li><span>Itself from the unauthorized accesses</span></li><li><span>User processes from other processes&#39; unauthorized accesses</span></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Joshy, J. (2018). </span><em><span>Operating System</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.nesoacademy.org/cs/03-operating-system' target='_blank' class='url'>https://www.nesoacademy.org/cs/03-operating-system</a></p></div></div>
 <center>
 <hr width="400px;">
 This website contains Kyungjae's original work.
