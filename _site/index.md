@@ -6,7 +6,7 @@ Notebook
 
 
 
-<img src="./wallpaper/wallpaper.png" alt="wallpaper" width="350">
+<img src="./img/wallpaper.png" alt="wallpaper" width="350">
 
 ### Contents: 
 
