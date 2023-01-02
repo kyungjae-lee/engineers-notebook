@@ -4,5 +4,6 @@
 
 
 
-1. **<a href="./secondary-storage">Secondary Storage</a>**
+1. **<a href="./microarchitecture">Microarchitecture</a>**
+1. **<a href="./secondary-storage">Secondary Storage</a>**
 

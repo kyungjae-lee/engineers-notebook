@@ -8,8 +8,6 @@
 
 
 
-
-
 <img src="./img/hardware-software-layers.png" alt="hardware-software-layers" width="900">
 
 
