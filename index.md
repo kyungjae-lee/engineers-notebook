@@ -15,7 +15,7 @@ Notebook
 * **<a href="./data-structures/">Data Structures</a>**
 * **<a href="./embedded-systems/">Embedded Systems</a>**
 * **<a href="./operating-systems/">Operating Systems</a>**
-* **<a href="./computer-architecture/">Computer Architecture</a>**
+* **<a href="./computer-architecture-organization/">Computer Architecture & Organization</a>**
 * **<a href="./multi-threading/">Multi-Threading (POSIX Threads)</a>**
 * **<a href="./unix-linux/">Unix/Linux</a>**
 * **<a href="./makefile-and-build-system/">Makefile & Build System</a>**
