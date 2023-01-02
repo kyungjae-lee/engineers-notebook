@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Makefile & Build System</a> > Write Your First Makefile
+<a href="../">Notebook</a> > <a href="./">Makefile & Build System</a> > Exercise 1
 
-# Write Your First Makefile
+# Exercise 1
 
 
 
