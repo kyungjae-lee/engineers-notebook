@@ -33,8 +33,6 @@ The same principles apply to CPUs as well (with some additional complexity). By 
 
 Pipelining came from RISC efforts but is now used by almost every modern processor; CISC adopted it. Yet another example of the blurring of the lines between RISC and CISC.
 
-
-
 ### Five-Stage Pipeline
 
 A simplified ARM11 pipeline, standard pipeline or what we as computer science students are expected to know if asked about a pipeline.
@@ -69,15 +67,13 @@ Not all instructions require all 5 stages. (e.g., a `CMP` does not have the OS s
 
 
 
-#### What is the effect on the hardware?    
+##### What is the effect on the hardware?    
 
 Redundant hardware will be necessary so it can be used by the different stages at  the same time. (e.g., The PC increment during the Instruction Fetch cannot use the ALU that is  used for the Execution stage. However it can be done by adding an **extra**  adder to the PC so it can increment itself without the help of ALU.)
 
-#### What is the effect on the software?    
+##### What is the effect on the software?    
 
 There are cases where an operand read can happen prior to or at the same time as the operand write. (Can get old data.) The assembler has to know about this and reorganize the code to make sure this does not happen.
-
-
 
 ### Variations of Pipeline
 
@@ -146,7 +142,7 @@ In theory, once the pipeline is full, a new operation is completed every clock c
 
 ## Pipeline Hazards
 
-A **pipeline hazard** occurs when the pipeline, or some portion of the pipeline, must stall because conditions do not permit continued execution. Such a pipeline stall is also referred to as **pipeline bubble**. 
+A **pipeline hazard** occurs when the pipeline, or some portion of the pipeline, must stall because conditions do not permit continued execution. Such a **pipeline stall** is also referred to as **pipeline bubble**. 
 
 Three types of hazards: 
 
@@ -156,15 +152,17 @@ Three types of hazards:
 
 ### Structural Hazard (a.k.a. Resource Hazard)
 
-A **structural hazard** occurs when two (or more) instructions that are already in the pipeline need the same resource. The result is that the instructions must be executed in serial rather than parallel for a portion of the pipeline.
+A structural hazard occurs when two (or more) instructions that are already in the pipeline need the same resource simultaneously. The result is that the instructions must be executed in serial rather than parallel for a portion of the pipeline.
 
-For example, when multiple instructions are ready to enter the execute instruction phase and there is a single ALU. One solution to such structural hazards is to increase available resources, such as having multiple ports into main memory and multiple ALU units.
+For example, memory can be a structural hazard if two instructions attempt to access it at the same time and it cannot grant simultaneous access.
+
+Another example is when multiple instructions are ready to enter the execute instruction phase and there is a single ALU. One solution to such structural hazards is to increase available resources, such as having multiple ports into main memory and multiple ALU units.
 
 Structural hazards have to be taken care of in the **design time**.
 
 ### Data Hazard (a.k.a. Pipeline Data Hazard)
 
-A **data hazard** occurs when the processing of one instruction depends on the data created by a previous instruction that is still in the pipeline. To maintain correct operation, the pipeline must stall for one or more clocks cycles which results in inefficient pipeline usage.
+A data hazard occurs when the processing of one instruction depends on the data created by a previous instruction that is still in the pipeline. To maintain correct operation, the pipeline must stall for one or more clocks cycles which results in inefficient pipeline usage.
 
 For example, in the following scenario, the `add` will not write/update `r0` until “stage 5” so the `sub` would have to stall at “stage 2” until “stage 5” is complete. 
 
@@ -191,9 +189,87 @@ Three types of data hazards:
 
 ### Control Hazard (a.k.a. Branch Hazard)
 
-A **control hazard** occurs when the pipeline makes the wrong decision on a branch prediction and therefore all the partially executed instructions in the pipeline have to be discarded (or **flushed**).
+A control hazard occurs when a branch is taken and all the partially executed instructions in the pipeline have to be thrown away (or **flushed**, **squashed**). This happens because when a branch instruction (to be taken) is fetched, its target address is not known until it is in the execute stage in the pipeline. During that time (i.e., IF ~ EX), the subsequent instructions are pushed into the pipeline only to be wasted.
 
-Unconditional branches are NOT problematic:
+
+
+## Mitigating Pipeline Hazards
+
+### Mitigating Data Hazards (Pipeline Data Hazard)
+
+### Mitigating Control Hazard (Branch Hazard)
+
+It is known that branches take up 5 ~ 30% of the instructions in any program. (e.g., Unconditional branches, conditional branches, indirect branches, procedure calls, procedure returns). So, it is very important that they are correct and efficient.
+
+ The following are some of the solutions that have been proposed for mitigating aspects of control hazards:
+
+* Pipeline stall
+* Delayed branch
+* Branch prediction
+
+#### Pipeline Stall
+
+Freeze the pipeline until the branch outcome and target are known, then proceed with fetch.  Thus, every branch instruction incurs a penalty equal to the number of stall cycles.  This solution is unsatisfactory if the instruction mix contains many branch instructions, and/or the pipeline is very deep.
+
+#### Delayed Branch
+
+Delayed branch is reordering of the instructions in such a way that the instruction immediately following a branch is always executed. This avoids stalling the pipeline while the branch condition is evaluated, thus keeping the pipeline full and minimizing the effect of conditional branches on processor performance.
+
+```assembly
+@ original code
+add r3, r2, r1
+add r5, r4, r6	@ not dependent on the following branch, will be executed 100% anyways
+b   N
+add r7, r8, r9
+```
+
+```assembly
+@ reordered code
+add r3, r2, r1
+b   N 
+add r5, r4, r6	@ gets executed in the "branch delay slot"
+add r7, r4, r6
+```
+
+Sections in the code to look for the instructions to fill the branch delay slot:
+
+* Before the branch instruction (Best choice, always improves performance)
+* Target address (Only meaningful when branch taken)
+* Fall through (Only meaningful when not taken)
+
+Unfortunately, it's not always possible to reorder the code in such a way that the instruction immediately following a branch is always executed. If the compiler fails to find such an instruction, it must introduce a **no operation** (`NOP`) instruction after the branch and accept the inevitability of a stall (or bubble). 
+
+```assembly
+add r3, r2, r1
+add r5, r4, r6
+b   N
+NOP       		@ no operation ("branch delay slot")
+add r7, r8, r9
+```
+
+This really slows down the pipeline. The more stages the pipeline has the more `NOP`s that have to be added and the bigger the the slow-down in the pipeline.
+
+#### Branch Prediction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## TBD
+
+Unconditional branches are NOT problematic because they are detected during the fetch and the correct instruction is fetched in the next cycle.
 
 ```assembly
   B Loop      @ unconditional branch; this is detected in the Fetch phase
@@ -201,10 +277,10 @@ Unconditional branches are NOT problematic:
 Loop:
 ```
 
-Conditional branches are problematic:
+Conditional branches are problematic since you do not know if it will be taken until deeper in the pipeline.
 
 ```assembly
-bne Loop      @ CCR flags setting affects the subsequent instructions 
+bne Loop      @ conditional granch; CCR flags setting affects the subsequent instructions 
 ...
 
 Loop:
@@ -226,15 +302,10 @@ Since the pipeline doesn't know what's going to happen, it can either:
 
      e.g., Execute `then` part rather than `else` part in `if then ... else` statement
 
-     This is said to be working aproximately 80% of the time. If the branch is not taken, whatever that’s stored in PC will end up being the next instruction to be executed, life is good.
+     This is said to be working approximately 80% of the time. If the branch is not taken, whatever that’s stored in PC will end up being the next instruction to be executed, life is good.
 
    * Branch prediction using hardware called the **Branch Prediction Table**
 
      Studies have shown that this works >90%  of the time.
 
 Either way there are some potential issues. It’s the designers’ choice!
-
-
-
-## Mitigating Pipeline Hazards
-
