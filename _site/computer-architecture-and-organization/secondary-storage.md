@@ -4,9 +4,9 @@
 
 
 
-## Disk Drive
+## 1. Disk Drive
 
-#### Disk Drive Format (Side View)
+### 1.1. Disk Drive Format (Side View)
 
 Read/Write Head is electro-magnetic. This is how the read/write head reads/writes from/to the platter.
 
@@ -14,20 +14,18 @@ Read/Write Head is electro-magnetic. This is how the read/write head reads/write
 
 <img src="./img/disk-drive-format-side-view.png" alt="disk-drive-format-side-view" width="630">
 
+### 1.2. Disk Drive Format (Diagonal View)
 
-
-#### Disk Drive Format (Diagonal View)
-
-* Sector
+* **Sector**
   * The smallest unit of data that can be read from or written to the (magnetic or optical) disk
-* Cluster
+* **Cluster**
   * A group of sectors within a disk and is the grouping by which disk files are organized
   * Most files fill many cluster of disk space
 
-* Track
+* **Track**
   * The path followed by the read/write head
   * Tracks are concentric circles
-* Cylinder
+* **Cylinder**
   * All tracks that are currently accessed
 
 

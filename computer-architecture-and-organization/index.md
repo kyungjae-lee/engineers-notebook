@@ -4,7 +4,9 @@
 
 
 
-1. **<a href="./microarchitecture">Microarchitecture</a>**
-1. **<a href="./pipelining">Pipelining</a>**
+1. **<a href="./processor-control-microarchitecture">Processor Control - Microarchitecture</a>**
+1. **<a href="./processor-control-introduction-to-pipelining">Processor Control - Introduction to Pipelining</a>**
+1. **<a href="./processor-control-pipeline-hazards">Processor Control - Pipeline Hazards</a>**
+1. **<a href="./processor-control-branches">Processor Control - Branches</a>**
 1. **<a href="./secondary-storage">Secondary Storage</a>**
 
