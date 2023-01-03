@@ -4,7 +4,7 @@
 
 
 
-## Hardware & Software Layers
+## 1. Hardware & Software Layers
 
 
 
@@ -38,11 +38,11 @@
 
 
 
-## The Microprogram
+## 2. The Microprogram
 
-### The Generic Digital Processor
+### 2.1. The Generic Digital Processor
 
-Not used any more, antequated but good to understand how control signals work.
+Not used anymore, antiquated but good to understand how control signals work.
 
 Generally, CPUs are made of registers, buses, ALUs and Control Units. (Technically speaking, a CPU could work without registers in it but then it will have to continuously access memory which will dramatically degrade its speed.)
 
@@ -131,7 +131,7 @@ Generally, CPUs are made of registers, buses, ALUs and Control Units. (Technical
 
   
 
-### A Two-Bus CPU Structure
+### 2.2. A Two-Bus CPU Structure
 
 
 
@@ -174,7 +174,7 @@ Generally, CPUs are made of registers, buses, ALUs and Control Units. (Technical
 
 
 
-### A Four-Bus CPU Structure
+### 2.3. A Four-Bus CPU Structure
 
 Overall, added more flexibility in how we transfer stuff.
 
@@ -204,9 +204,9 @@ Overall, added more flexibility in how we transfer stuff.
 
 
 
-## Generating the Microoperations
+## 3. Generating the Microoperations
 
-### Hardwired Control Unit
+### 3.1. Hardwired Control Unit
 
 The **Hardwired Control Unit** uses basic gates to activate the control signals for ALU and the registers to execute the instructions. Once burned onto the hardware, cannot be changed!
 
@@ -241,7 +241,7 @@ Has always been faster than *Microcode Control Unit* and therefore used in many 
 
 
 
-### Microcode Control Unit
+### 3.2. Microcode Control Unit
 
 For the **Microcode Control Unit** these gates have been replaced by:
 
@@ -249,7 +249,7 @@ For the **Microcode Control Unit** these gates have been replaced by:
 - μMemory −  A section in the CPU where the microinstructions are stored
 - μMAR / μIR − Current microinstruction that is being executed (both registers serve the same purpose)
 
-#### Horizontal Microcode
+#### 3.2.1. Horizontal Microcode
 
 - Each bit of the microcode controls (corresponds to) a specific control signal. (e.g., In the following figure, if R~a0~ bit is set, it means “Register r0 out to bus A”. 
 - The microinstruction has to be as long as the number of control signals. This makes for very long microinstruction and hence a large Microprogram ROM. Also, why would you need to be able to turn on multiple bits when more than two data loaded on one bus is not meaningful! (Plus, shorting multiple output buses is a BAD idea!)
@@ -260,7 +260,7 @@ For the **Microcode Control Unit** these gates have been replaced by:
 
 
 
-#### Vertical Microcode
+#### 3.2.2. Vertical Microcode
 
 - Instead of each bit controlling one signal a group of bits is used that then go into a decoder to turn on the right signal. This system prevents bad or unnecessary things (e.g., conflics) that were allowed  to happen in the *Horizontal Microcode* from happening.
 - Be careful with the groups because the decoder only has one signal active at a time.
