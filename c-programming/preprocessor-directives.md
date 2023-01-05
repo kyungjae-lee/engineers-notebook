@@ -20,7 +20,7 @@
   | Objective               | Usage                                              | Syntax                                                       |
   | ----------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
   | Macros                  | Used for textual replacement                       | `#define <identifier> <value>`                               |
-  | File inclusion          | Used for file inclusion                            | `#include <std lib file name>` <br>`#include "user defined file name"` |
+  | File inclusion          | Used for file inclusion                            | `#include <std_lib_filename>` <br>`#include "user_defined_filename"` |
   | Conditional compilation | Used to direct the compiler about code compilation | `#ifdef`, `#endif`, `#if`, `#else`, `#ifndef`, `#undef`      |
   | Others                  |                                                    | `#error`, `#pragma`                                          |
 
