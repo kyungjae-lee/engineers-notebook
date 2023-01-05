@@ -505,7 +505,7 @@ carWeight   = 1900.959961
       printf("shortAddr : %#x\n", packet.shortAddr);
       printf("addrMode  : %#x\n", packet.addrMode);
   
-      printf("Size of packet (struct) is %lu\n", sizeof(struct Packet)); /* %I64u */
+      printf("Size of packet (struct) is %lu\n", sizeof(packet)); /* %I64u */
   
       return 0;
   }
