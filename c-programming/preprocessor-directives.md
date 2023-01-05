@@ -35,7 +35,7 @@
 * Syntax:
 
   ```c
-  #define <identifier> <value>
+  #define <identifier> <value>	/* note that there is NO ';' at the end */
   ```
 
   Example:
