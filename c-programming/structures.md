@@ -209,9 +209,7 @@ carWeight   = 1900.959961
       data.data3 = 0x22;
       data.data4 = 0xABCD;
       
-      uint8_t *ptr;
-      
-      ptr = (uint8_t*)&data;
+      uint8_t *ptr = (uint8_t*)&data;
       
       uint32_t totalSize = sizeof(struct DataSet);
       
@@ -226,9 +224,9 @@ carWeight   = 1900.959961
       return 0;
   }
   ```
-
+  
   ```plain
-  0x7ffd2ecbcb6c 11	<- start of data1 (also base address of the structure variable data)
+0x7ffd2ecbcb6c 11	<- start of data1 (also the base address of the structure variable data)
   0x7ffd2ecbcb6d 0	(padding)
   0x7ffd2ecbcb6e 0	(padding)
   0x7ffd2ecbcb6f 0	(padding)
@@ -242,7 +240,7 @@ carWeight   = 1900.959961
   0x7ffd2ecbcb77 AB
   Total memory consumed by this struct variable = 12
   ```
-
+  
   Due to the aligned data storage, the size of a structure variable is generally bigger than the sum of the size of each member variable.
 
 * Why does the compiler do this?
@@ -361,6 +359,210 @@ carWeight   = 1900.959961
           float airPressure;
           int fuel;
       } carParameters;
+  }
+  ```
+  
+
+
+
+## Accessing Members of a Structure
+
+* Given the structure variable's **name**, use the `.`(**dot operator**) to access the member variables:
+
+  ```c
+  CarBMW.carPrice = 1000;
+  ```
+
+* Given the structure variable's **address** (or pointer), use the  `->`(**arrow operator**) to access the member variables:
+
+  ```c
+  CarModel *pCarBMW = &CarBMW;
+  pCarBMW->carPrice = 1000;	/* equivalent to *(address of the member 'carPrice') = 1000 */
+  ```
+
+  The `->` operator is also called as "structure pointer dereference operator", or "class member access operator", etc.
+
+
+
+## Exercise
+
+* Write a program to decode a given 32-bit packet information and print the values of different fields. Create a structure with member elements as packet fields as shown below:
+
+  
+
+  <img src="./img/structures-exercise.png" alt="structures-exercise" width="850">
+
+  **Solution:**
+
+  ```c
+  #include <stdio.h>
+  #include <stdint.h>
+  
+  struct Packet
+  {
+      uint8_t crc;
+      uint8_t status;
+      uint16_t payload;
+      uint8_t bat;
+      uint8_t sensor;
+      uint8_t longAddr;
+      uint8_t shortAddr;
+      uint8_t addrMode;
+  };
+  
+  int main(int argc, char *argv[])
+  {
+      struct Packet packet;
+      uint32_t packetInfo;
+  
+      printf("Enter 32-bit packet information (in hex): ");   /* 0xFFFFFFFF or FFFFFFFF */
+      scanf("%x", &packetInfo);
+  
+      packet.crc = (uint8_t)(packetInfo & 0x3);
+      packet.status = (uint8_t)((packetInfo >> 2) & 0x1);
+      packet.payload = (uint16_t)((packetInfo >> 3) & 0xFFF);
+      packet.bat = (uint8_t)((packetInfo >> 15) & 0x7);
+      packet.sensor = (uint8_t)((packetInfo >> 18) & 0x7);
+      packet.longAddr = (uint8_t)((packetInfo >> 21) & 0xFF);
+      packet.shortAddr = (uint8_t)((packetInfo >> 29) & 0x3);
+      packet.addrMode = (uint8_t)((packetInfo >> 31) & 0x1);
+  
+      printf("crc       : %#x\n", packet.crc);
+      printf("status    : %#x\n", packet.status);
+      printf("payload   : %#x\n", packet.payload);
+      printf("bat       : %#x\n", packet.bat);
+      printf("sensor    : %#x\n", packet.sensor);
+      printf("longAddr  : %#x\n", packet.longAddr);
+      printf("shortAddr : %#x\n", packet.shortAddr);
+      printf("addrMode  : %#x\n", packet.addrMode);
+  
+      printf("Size of packet (struct) is %lu bytes.\n", sizeof(struct Packet)); /* %I64u */
+  
+      return 0;
+  }
+  ```
+
+  ```plain
+  Enter 32-bit packet information (in hex): 0xFFFFFFFF
+  crc       : 0x3
+  status 	  : 0x1
+  payload	  : 0xfff
+  bat    	  : 0x7
+  sensor 	  : 0x7
+  longAddr  : 0xff
+  shortAddr : 0x3
+  addrMode  : 0x1
+  Size of packet (struct) is 10 bytes.
+  ```
+
+  Notice that, with this approach, 10 bytes have been consumed to store 4-byte packet information. Is there any way we can do this without wasting memory space? Yes, by using **bit fields**.
+
+
+
+## Structures and Bit Fields
+
+* Rewrite the previous exercise using structure bit fields.
+
+  ```c
+  #include <stdio.h>
+  #include <stdint.h>
+  
+  struct Packet
+  {
+      uint32_t crc        :2;
+      uint32_t status     :1; 
+      uint32_t payload    :12;
+      uint32_t bat        :3;
+      uint32_t sensor     :3; 
+      uint32_t longAddr   :8; 
+      uint32_t shortAddr  :2; 
+      uint32_t addrMode   :1; 
+  };
+  
+  int main(int argc, char *argv[])
+  {
+      struct Packet packet;
+      uint32_t packetInfo;
+  
+      printf("Enter 32-bit packet information (in hex): ");   /* 0xFFFFFFFF or FFFFFFFF */
+      scanf("%x", &packetInfo);
+  
+      packet.crc = (uint8_t)(packetInfo & 0x3);
+      packet.status = (uint8_t)((packetInfo >> 2) & 0x1);
+      packet.payload = (uint16_t)((packetInfo >> 3) & 0xFFF);
+      packet.bat = (uint8_t)((packetInfo >> 15) & 0x7);
+      packet.sensor = (uint8_t)((packetInfo >> 18) & 0x7);
+      packet.longAddr = (uint8_t)((packetInfo >> 21) & 0xFF);
+      packet.shortAddr = (uint8_t)((packetInfo >> 29) & 0x3);
+      packet.addrMode = (uint8_t)((packetInfo >> 31) & 0x1);
+  
+      printf("crc       : %#x\n", packet.crc);
+      printf("status    : %#x\n", packet.status);
+      printf("payload   : %#x\n", packet.payload);
+      printf("bat       : %#x\n", packet.bat);
+      printf("sensor    : %#x\n", packet.sensor);
+      printf("longAddr  : %#x\n", packet.longAddr);
+      printf("shortAddr : %#x\n", packet.shortAddr);
+      printf("addrMode  : %#x\n", packet.addrMode);
+  
+      printf("Size of packet (struct) is %lu\n", sizeof(struct Packet)); /* %I64u */
+  
+      return 0;
+  }
+  ```
+
+  ```plain
+  Enter 32-bit packet information (in hex): 0xFFFFFFFF
+  crc       : 0x3
+  status 	  : 0x1
+  payload	  : 0xfff
+  bat    	  : 0x7
+  sensor 	  : 0x7
+  longAddr  : 0xff
+  shortAddr : 0x3
+  addrMode  : 0x1
+  Size of packet (struct) is 4 bytes.
+  ```
+
+  Now the structure `packet` consumes only 4 bytes.
+
+  Bit fields are widely used in network applications where extracting fields out of a Protocol Data Unit (PDU) (e.g., IP packet) is important.
+
+
+
+## Exercise - Bit Fields
+
+* Create a structure named `CarDetails` which comprises below information:
+
+  1. Car max speed: Max 400km/h (7 bits)
+  2. Car weight in kg: Max 5000kg (13 bits) 
+  3. Car color: an ACII code of color (7 bits)
+  4. Car price in USD: Max 100,000,000 (28 bits)           
+
+  **Structure without bit fields:**
+
+  ```c
+  Struct CarDetails
+  {
+    	uint16_t speed;
+      uint16_t weight;
+      char colour;
+      uint32_t price;
+  }; /* 4 + 4 + 4 = 12 bytes */
+  ```
+
+  **Structure using bit fields:**
+
+  ```c
+  Struct CarDetails
+  {
+      /* 4 bytes */
+    	uint32_t speed	: 7;
+      uint32_t weight	: 13;
+      uint32_t colour	: 7;
+      /* another 4 bytes */
+      uint32_t price;
+  }; /* 4 + 4 = 8 bytes */
   ```
 
   
