@@ -20,13 +20,15 @@
   | Objective               | Usage                                              | Syntax                                                       |
   | ----------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
   | Macros                  | Used for textual replacement                       | `#define <identifier> <value>`                               |
-  | File inclusion          | Used for file inclusion                            | `#include <std lib file name>` <br> `#include "user defined file name"` |
+  | File inclusion          | Used for file inclusion                            | `#include <std lib file name>` <br>`#include "user defined file name"` |
   | Conditional compilation | Used to direct the compiler about code compilation | `#ifdef`, `#endif`, `#if`, `#else`, `#ifndef`, `#undef`      |
   | Others                  |                                                    | `#error`, `#pragma`                                          |
 
 
 
-## Macros in C (`#define`)
+## Preprocessor Directives in Detail
+
+### Macros in C (`#define`)
 
 * Macros are written in C using `#define` preprocessor directive.
 
