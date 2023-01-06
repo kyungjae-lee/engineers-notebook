@@ -187,7 +187,55 @@
   ...
   ```
 
-  
+
+
+
+## Problem with Asynchronous Cancellation
+
+* With the asynchronous cancellation, a thread can be canceled at any arbitrary point in its execution flow, and this can lead to the following problems:
+  * Resource leak
+  * Invariants
+  * Deadlocks
+
+### Resource Leak
+
+* Abrupt cancellation of a thread may lead to the problem of **resource leak**.
+
+  Examples:
+
+  * Terminating without closing the open file descriptor/sockets
+  * Terminating without freeing the allocated memory.
+
+  A thread must be given one last chance to clean up the resources before it is terminated. 
+
+* **Solution:**
+  * POSIX standards provide the concept of  **Thread Cleanup Handlers**. 
+
+### Invariants
+
+* Abrupt cancellation of a thread may lead to the problem of **invarnats** which may in turn lead to the data structure corruption, memory leak, wrong computation, etc. (Invariants means a data structure in inconsistent state.)
+
+  Examples:
+
+  * Canceling the thread while inserting/removing an element to/from a doubly-linked list.
+  * Canceling the thread while  inserting/removing a node to/from a balanced tree (e.g., red-black/AVL trees).
+  * Canceling the thread which is in the process of executing system calls (e.g., `malloc()`). Incomplete termination of a system cal may lead to the kernel corruption or variants in the kernel space.
+
+  A thread must not get canceled while it is updating the data structures or processing the system calls. In other words, a thread must cancel in a controlled manner at a certain point in its execution flow, where it safety is guaranteed. 
+
+* **Solution:**
+
+  This can be handled by the **cancellation points** (only in deferred cancellation).
+
+### Deadlocks
+
+* What would happen if a thread is forced to terminate when it has locked a mutex and never had a chance to release it? The mutex will be left in locked state forever by the no-longer existing thread and no other threads in the process will be able to obtain the permission to enter the critical section that has been permanently locked.
+
+  When a thread is canceled, it must not have any mutex held in the locked state.
+
+
+
+
 
 
 
