@@ -128,10 +128,8 @@
 
   ```c
   /*
-   * File Name    : master_slave1.c
-   * Description  : C program to demonstrate asynchronous cancellation with resource leak handling.
-   * 				  It creates 5 threads and all 5 threads write a string into the file 'hread_n.txt', 
-   *				  where `n` is the thread id.
+   * File Name    : asynchronous_cancellation.c
+   * Description  : C program to demonstrate asynchronous cancellation with resource leak handling
    * Author       : Modified by Kyungjae Lee 
    *               (Original: Abhishek Sagar - Juniper Networks)
    * Date Created : 01/05/2023
@@ -201,7 +199,7 @@
       
       int a = 0;
       
-      while(a < 10)
+      while(a < 20)
       {   
           len = sprintf(string_to_write, "%d : I am thread %d\n", count++, *thread_id);
           fwrite(string_to_write, sizeof(char), len, fptr);
@@ -256,7 +254,7 @@
       return 0;
   }
   ```
-
+  
   By running `tail -f thread_0.txt` in a separate window, you'll be able to see the thread 0 writing to `thread_0.txt` file every second in real-time.
 
   ```plain
