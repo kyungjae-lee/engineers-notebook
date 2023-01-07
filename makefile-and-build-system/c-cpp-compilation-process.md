@@ -26,8 +26,10 @@
 * **Shared Object/Library (.so)** 
 
   ```shell
-  g++ -shared sample.cpp -o libSample.so		// libSample.so
+  g++ -fPIC -shared sample.cpp -o libSample.so		// libSample.so
   ```
+
+  `-fPIC` flag is for "Position Independent Code". It is required for g++ or gcc compiler but not required for clang++ or clang compiler.
 
 * **Static Library (.a)**
 
