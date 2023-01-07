@@ -56,7 +56,7 @@ clean:
     rm $(TARGET) $(OBJ1)
 ```
 
-```shell
+```plain
 $ make	
 g++ -Wall -Werror -c mod1.cpp -o ../../obj/mod1.o
 g++ ../../obj/mod1.o -o ../../bin/mod1_bin -lm
