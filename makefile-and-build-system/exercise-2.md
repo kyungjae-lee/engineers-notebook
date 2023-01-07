@@ -9,7 +9,7 @@
 Write a makefile to produce `mod1.o` and `mod1_bin` in `project/obj/` and `project/bin/`, respectively. Include a clean feature to delete `mod1.o` and `mod1_bin`. Write comments in your makefile.
 
 ```cpp
-/* project/src/mod1/makefile */
+/* project/src/mod1/mod1.cpp */
 #include <cstdio>
 #include <cmath>
 
