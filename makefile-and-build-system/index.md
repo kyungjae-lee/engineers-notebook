@@ -10,3 +10,4 @@
 4. **<a href="./exercise-1">Exercise 1</a>**
 5. **<a href="./improve-makefile">Improve Makefile</a>**
 6. **<a href="./exercise-2">Exercise 2</a>**
+7. **<a href="./exercise-2">Exercise 3</a>**
