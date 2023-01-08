@@ -13,6 +13,7 @@
 1. **<a href="./thread-cancellation-asynchronous-cancellation">Thread Cancellation - Asynchronous Cancellation</a>**
 1. **<a href="./thread-cancellation-deferred-cancellation">Thread Cancellation - Deferred Cancellation</a>**
 1. **<a href="./listener-thread">Listener Thread</a>**
-1. **<a href="./thread-synchronization">Thread Synchronization</a>**
+1. **<a href="./thread-synchronization-introduction">Thread Synchronization - Introduction</a>**
+1. **<a href="./thread-synchronization-mutex">Thread Synchronization - Mutex</a>**
 1. **<a href="./interview-questions">Interview Questions</a>**
 

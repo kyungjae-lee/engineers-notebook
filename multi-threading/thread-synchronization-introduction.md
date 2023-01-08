@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization
+<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Introduction
 
-# Thread Synchronization
+# Thread Synchronization - Introduction
 
 
 
@@ -69,22 +69,6 @@
 * A critical section must be executed by the concurrent threads but **by one and only one thread at a time**. In other words, a critical section must be an **atomic operation**. 
 
   If the critical sections are allowed to be accessed by multiple threads without deploying appropriate thread synchronization techniques, the application will, sooner or later, fail. 
-
-
-
-## Mutex
-
-* Mutex is a thread synchronization construct/tool which provides **mutual exclusion** while a critical section is being access by multiple threads concurrently.
-
-* Analogy:
-
-  Mutex is like a key to a locker and whomever wants to access the locker needs to have the key. Whoever that does not have the key cannot access the locker and has to wait till it obtains the key. Whoever that is accessing the locker needs to handover the key when done accessing the locker.
-
-  Here,
-
-  * Locker = Critical section
-  * Whoever = Threads
-  * Key = Mutex
 
 
 
