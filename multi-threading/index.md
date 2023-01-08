@@ -15,5 +15,6 @@
 1. **<a href="./listener-thread">Listener Thread</a>**
 1. **<a href="./thread-synchronization-introduction">Thread Synchronization - Introduction</a>**
 1. **<a href="./thread-synchronization-mutex">Thread Synchronization - Mutex</a>**
+1. **<a href="./deadlock">Deadlock</a>**
 1. **<a href="./interview-questions">Interview Questions</a>**
 
