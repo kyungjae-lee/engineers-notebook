@@ -45,7 +45,7 @@
 
 
 
-<img src="./img/condition-variables.png" alt="condition-variables" width="470">
+<img src="./img/condition-variables-wait-and-signal.png" alt="condition-variables-wait-and-signal" width="500">
 
 
 
@@ -53,9 +53,9 @@
 
 ## Using Condition Variables - Wait & Signal
 
-### Wait (Block)
+### Wait
 
-* `pthread_cond_wait()` blocks the thread until the condition is signaled.
+* `pthread_cond_wait()` **blocks** the thread until the condition is signaled.
 
 * Blocking a thread using a condition variable involves the following 2 steps:
 
@@ -94,9 +94,9 @@
   >
   > 3. Only then, T1 transitions from **ready** state to **execute** state and resumes its execution.
 
-### Signal (Resume)
+### Signal
 
-* `pthread_cond_signal()` wakes up the thread that is blocked in `wait()`.
+* `pthread_cond_signal()` **wakes up** the thread that is blocked in `pthread_cond_wait()`.
 
 * Signaling a blocked thread using a condition variable involves the following 3 steps:
 
@@ -111,7 +111,7 @@
   pthread_mutex_unlock(&mutex);	/* step 3: unlock mutex */
   ```
 
-  > To be accurate, `pthread_cond_signal()` is signaling the condition variable, not the thread itself.
+  > To be more accurate, `pthread_cond_signal()` is signaling the **condition variable**, not the thread itself.
 
 
 
