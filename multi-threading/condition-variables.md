@@ -115,6 +115,180 @@
 
 
 
+## Producer & Consumer Problem
+
+* Problem statement:
+
+  There is a buffer of $n$ slots and each slot is capable of storing one unit of data.
+
+  There are two threads running, namely, **producer** and **consumer**, which are operating on the buffer.
+
+  **Producer:**
+
+  * Tries to insert data into an empty slot of the buffer
+  * Must NOT insert data when the buffer is full
+
+  **Consumer:**
+
+  * Tries to remove data from a filled slot in the buffer
+  * Must NOT remove data when the buffer is empty
+
+  The producer and consumer should not insert and remove data simultaneously.
+
+  
+
+<img src="./img/producer-and-consumer-problem.png" alt="producer-and-consumer-problem" width="730">
+
+
+
+* The *Producer & Consumer Problem* can be solved by applying **mutex** + **condition variables** + **predicate**. (Predicate is new here!)
+
+  The **mutex** allows the competing threads to have a mutual exclusive access to the shared resource (i.e., buffer).
+
+  The **condition variable** allows coordination between the threads competing for the resource.
+
+  The **predicate** is a condition used by the thread to check (or test) the status of the shared resource. It tells the thread whether it has to wait or not.
+
+  ```c
+  /* T1 (consumer thread) */
+  pthread_mutex_lock(b_mutex);
+  
+  if (b_empty(b))	/* predicate: checkes the status of the resource */
+  { 
+      pthread_cond_wait(&t_cv, &b_mutex); /* wait till the buffer becomes non-empty state */
+  }
+  remove_data(b);
+  
+  pthread_mutex_unlock(&b_mutex);
+  ```
+
+  > Critical section: line 4 ~ 8
+  >
+  > `L4`- While T1 is checking the status of the resource, no other threads should be allowed to change the status of the resource.
+
+  ```c
+  /* T2 (producer thread) */
+  pthread_mutex_lock(&b_mutex);
+  
+  if (!b_full(b))
+  {
+      insert_data(b); /* write operation on the buffer */
+      pthread_cond_signal(&t_cv);
+  }
+  
+  pthread_mutex_lock(&b_mutex);
+  ```
+
+  >  Critical section: line 4 ~ 8
+
+  Step-by-step explanation:
+
+  1. To exclusively perform `T1:L4` (predicate), `T1:L2` (mutex locking) is required.
+
+  2. If the condition for wait is true (`T1:L4`), thread blocks using condition variable (`T1:L6`) and the mutex is unlocked behind the scenes by the kernel.
+
+  3. T2 checks the resource state (`T2:L4`) exclusively (`T2:L2`), and produces an element and inserts it into the buffer.
+
+  4. T2 signals T1's condition variable (`T2:L7`), and unlocks the mutex (`T2:L10`). At this point, T1 slips into *ready* state and waits for the mutex to be unlocked.
+  5. `T1:L8` is the part of the critical section which T1 executes when it wakes up (*ready* $\to$ *execute* state) after obtaining the mutex with the help of the kernel.
+  6. T1 explicitly unlocks (`TL:L10`) the shared resource (i.e., buffer) when done.
+
+* However, this solution has one loop-hole that must be fixed! The **spurious wakeup** issue.
+
+
+
+## Spurious Wakeup
+
+* A spurious wakeup happens when a thread **wakes up** from waiting on a condition variable that's been signaled, **only to discover that the condition it was waiting for isn't satisfied**. It's called spurious because the thread has seemingly been awakened for no reason.
+
+* To demonstrate the *Spurious Wakeup* issue, let's introduce another consumer thread to our previous solution.
+
+  ```c
+  /* consumer thread; T1, T2 */
+  pthread_mutex_lock(&b_mutex);
+  
+  if (b_empty(b))	/* predicate: checkes the status of the resource */
+  { 
+      pthread_cond_wait(&t_cv, &b_mutex); /* wait till the buffer becomes non-empty state */
+  }
+  remove_data(b);
+  
+  pthread_mutex_unlock(&b_mutex);
+  ```
+
+  ```c
+  /* producer thread; T3 */
+  pthread_mutex_lock(&b_mutex);
+  
+  if (!b_full(b))
+  {
+      insert_data(b); /* write operation on the buffer */
+      pthread_cond_signal(&t_cv);
+  }
+  
+  pthread_mutex_lock(&b_mutex);
+  ```
+
+  T1 waits on an empty buffer $\to$ T3 signals the condition variable $\to$ CPU schedules another consumer thread T2 intead of T1 $\to$ T2 wakes up obtaining the mutex, consumes the data in the buffer and unlocks the mutex $\to$ T1 wakes up obtaining the mutex, attempts to consume data from an empty buffer (PROBLEM!)
+
+* **Solution:**
+
+  To solve this issue, only a minor change of the code is needed. That is, to change the `if` statement of the consumer to `while` loop.
+
+  ```c
+  /* consumer thread */
+  pthread_mutex_lock(&b_mutex);
+  
+  while (b_empty(b))	/* <--- if to while */
+  { 
+      pthread_cond_wait(&t_cv, &b_mutex); 
+  }
+  remove_data(b);
+  
+  pthread_mutex_unlock(&b_mutex);
+  ```
+
+
+
+## Generic Solution to the Producer & Consumer Problem
+
+* **Consumer** thread (Generic pseudocode to block on condition variable):
+
+  ```c
+  /* consumer thread */
+  pthread_mutex_lock(&mutex);
+  
+  while (predicate())	
+  { 
+      pthread_cond_wait(&cv, &mutex); 
+  }
+  execute_cs_on_wake_up(); /* application specific operations */
+  
+  pthread_mutex_unlock(&mutex);
+  ```
+
+* **Producer** thread (Generic pseudocode to signal condition variable):
+
+  ```c
+  /* producer thread */
+  pthread_mutex_lock(&mutex);
+  
+  if (!predicate())
+  {
+      pthread_cond_signal(&cv);
+  }
+  
+  pthread_mutex_lock(&mutex);
+  ```
+
+* The generic pseudocode follows the same pattern as the solutions to the thread synchronization problems.
+
+* This is the optimal thread synchronization between the *Producer* and *Consumer* threads, which is consistent and concrete.
+
+* Most of the thread synchronization problems can be decomposed into smaller **Producer & Consumer Problem**s.
+
+
+
 
 
 
