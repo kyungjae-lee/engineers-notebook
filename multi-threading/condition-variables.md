@@ -289,6 +289,120 @@
 
 
 
+## Thread Specific CV vs. Resource Specific CV
+
+* Condition variable is associated with a **mutex** and a **predicate**.
+
+  Mutex provides the mutual exclusion on the predicate check that is while a thread is checking the predicate no other threads in the process are allowed to change the end result of the predicate.
+
+  * Mutex is always a property of the resource 
+  * Condition variable can be a property of either resource or thread.
+
+* Many condition variables can be associated with one mutex at the same time. But, a condition variable CANNOT be associated with more than one mutex at the same time.
+
+### Thread Specific CV
+
+* Here, a condition variable is a property of a thread.
+
+* Using thread specific condition variables give a programmer more power or control to selectively block or resume the thread executions. For example, if the threads T1, T2, and T3 that want to access the resource R have their own condition variables CV1,  CV2, and CV3, they can selectively wait on the resource as follows:
+
+  ```c
+  pthread_cond_wait(&CV1, &R_mutex);	/* T1 */
+  pthread_cond_wait(&CV2, &R_mutex);	/* T2 */
+  pthread_cond_wait(&CV2, &R_mutex);	/* T3 */
+  ```
+
+  Also, the programmer can selectively signal the condition variable of choice:
+
+  ```c
+  pthread_cond_signal(&CV2); /* signalling thread wants T2 to wake up */
+  ```
+
+  Programmer has finer control over thread synchronization with thread specific condition variables.
+
+### Resource Specific CV
+
+* Here, a condition variable is a property of a resource.
+
+* Using a resource specific condition variable
+
+  Now, the condition variable is specific to the resource R the threads T1, T2 and T3 want to access.
+
+  ```c
+  pthread_cond_wait(&CV, &R_mutex);	/* T1 */
+  pthread_cond_wait(&CV, &R_mutex);	/* T2 */
+  pthread_cond_wait(&CV, &R_mutex);	/* T3 */
+  ```
+
+  In this case, after the following signaling statement, 
+
+  ```c
+  pthread_cond_signal(&CV); /* signalling thread */
+  ```
+
+  we do not know the order in which order T1, T2 and T3 are going to be executed. In other words, for example, a programmer cannot specifically choose T2 to unblock and resume its execution. It is now on the underlying operating systems hand!
+
+  Programmer has less control over thread synchronization with resource specific condition variables.
+
+
+
+## Signaling Multiple Condition Variables
+
+* `pthread_cond_broadcast()` API is used to signal all the multiple threads that are blocked on the same condition variable and unblock each of them **one-by-one**.
+
+* Let's say the threads T1, T2 and T3 are blocked on the same condition variable CV.
+
+  ```c
+  /* T1 */
+  pthread_mutex_lock(&mutex);
+  while (predicate())
+  {
+      pthread_cond_wait(&CV, &mutex);
+  }
+  Print "T1";
+  pthread_mutex_unlock(&mutex);
+  ```
+
+  ```c
+  /* T2 */
+  pthread_mutex_lock(&mutex);
+  while (predicate())
+  {
+      pthread_cond_wait(&CV, &mutex);
+  }
+  Print "T2";
+  pthread_mutex_unlock(&mutex);
+  ```
+
+  ```c
+  /* T3 */
+  pthread_mutex_lock(&mutex);
+  while (predicate())
+  {
+      pthread_cond_wait(&CV, &mutex);
+  }
+  Print "T3";
+  pthread_mutex_unlock(&mutex);
+  ```
+
+  In this case, if you wanted to unblock all three threads, you would have to invoke the `pthread_cond_signal()` API three times without knowing in which order T1, T2 and T3 are going to be unblocked. (It is on the underlying operating system's hand.)
+
+  ```c
+  pthread_cond_signal(&CV);
+  pthread_cond_signal(&CV);
+  pthread_cond_signal(&CV);
+  ```
+
+  This can be replaced by the single call of `pthread_cond_broadcast()` API.
+
+  ```c
+  pthread_cond_broadcast(&CV);
+  ```
+
+  When this API is called, all threads blocking on the same condition variable transition from **blocking** state to **ready** state waiting to be scheduled. The first thread scheduled will unlock the mutex, print its message, and unlock the mutex. The next thread will unlock the mutex, and so on. Again, the order in which T1, T2 and T3 are going to be unblocked is on the underlying operating system's hand.
+
+  
+
 
 
 
