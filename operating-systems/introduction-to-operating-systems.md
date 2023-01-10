@@ -4,7 +4,7 @@
 
 
 
-## Operating System
+## Introduction to Operating Systems
 
 
 
@@ -12,13 +12,11 @@
 
 
 
-* An **operating system (OS)** is a program that manages the computer hardware. It also provides a basis for application programs and acts as an intermediary between the computer user and the computer hardware.
+* An **operating system (OS)** is a program that manages the computer hardware. It also provides a basis for application programs and acts as an intermediary between the computer user and the computer hardware. (e.g., Windows, Unix, Linux, MacOs, etc.)
 
-  e.g., Windows, Unix, Linux, MacOs, etc.
+  The computer hardware refers to the resources like CPU, memory, I/O devices, etc.
 
-  **Computer hardware** - Resources like CPU, memory, I/O devices, etc.
-
-  **Application programs** - The programs or the software that are used to perform a specific task and that can be directly used by the users.
+  Application programs are programs or software that are used to perform a specific task and that can be directly used by the users.
 
 * **Types of OS:**
 
@@ -46,15 +44,11 @@
 
 ### Computer System Operation
 
-* Some basic knowledge of the structure of computer system is required to understand how operating systems work.
+Some basic knowledge of the structure of computer system is required to understand how operating systems work.
 
-  A modern general-purpose computer system consists of one or more CPUs and a number of device controllers (e.g., disk controller, USB controller, video adapter) connected through a common bus that provides access to shared memory.
+* A modern general-purpose computer system consists of one or more CPUs and a number of device controllers (e.g., disk controller, USB controller, video adapter) connected through a common bus that provides access to shared memory.
 
-  Each device controller is in charge of a specific type of device.
-
-  The CPU and the device controllers can execute concurrently, competing for memory access.
-
-  To ensure the orderly access to the shared memory, a memory controller whose functionality is to synchronize the accesses to the memory is provided.
+  Each device controller is in charge of a specific type of device. The CPU and the device controllers can execute concurrently, competing for memory access. To ensure the orderly access to the shared memory, a memory controller whose functionality is to synchronize the accesses to the memory is provided.
 
 * Some important terms:
 
@@ -91,7 +85,7 @@
 
 ### I/O Structure
 
-* Storage is only one of many types of I/O devices within a computer.
+* Storage is just one of many types of I/O devices within a computer.
 
 * A large portion of operating system code is dedicated to managing I/O, both because of its importance to the reliability and performance of a system and because of the varying nature of the devices.
 
@@ -114,7 +108,49 @@
 
 ### Computer System Architecture
 
+Types of computer systems **based on the number of general purpose processors**:
 
+* **Single Processor Systems**
+
+  Contains only one processor which is capable of executing a general purpose instruction set including instructions from the user processes. Other special purpose processors are also present which perform device specific tasks.
+
+* **Multiprocessor Systems (a.k.a. Parallel Systems or Tightly Coupled Systems)**
+
+  Contains multiple processors in close communication and synchronization, sharing the computer bus and sometimes the clock, memory, and peripheral devices. Those processors may be carrying out the same task together or the different tasks independently.
+
+  * Advantage
+
+    * Increased throughput (performance), 
+    * Economy of scale (since shared resources)
+    * Increased reliability (even if one fails others can keep the system running)
+
+  * Types of Multiprocessor Systems
+
+    * Symmetric multiprocessing (SMP)
+
+      All processors are **equal**. They can execute any type of processes as required.
+
+    * Asymmetric multiprocessing (AMP, ASMP)
+
+      The processors are inherently **unequal**. There may be a master slave  relationship where the master processor may assign processes to other  processors.
+
+* **Clustered Systems**
+
+  Like multiprocessor systesms, clustered systems gather together multiple CPUs to accomplish computation work. They are composed of two or more individual (complete) systems coupled together.
+
+  * Advantage
+
+    * High availability (even if one fails other can keep the system running)
+
+  * Types of Clustered Systems
+
+    * Symmetric
+
+      One machine is in the hot-standby mode while others are running applications. If one system fails, the one in the hot-standby mode will take its place.
+
+    * Asymmetric
+
+      Two or more hosts run applications and they monitor each other.
 
 
 
