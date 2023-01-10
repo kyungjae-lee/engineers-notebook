@@ -20,11 +20,11 @@
 
 * **Types of OS:**
 
-  * Batch Os
+  * Batch OS
   * Time sharing OS
   * Distributed OS
   * Network OS
-  * Real Time Os
+  * Real Time OS
   * Multi-programming/processing/tasking OS
 
 * **Goals of OS:**
