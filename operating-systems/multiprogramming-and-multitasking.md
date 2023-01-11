@@ -38,8 +38,6 @@ Operating systems vary greatly in their makeup internally. However, two common f
 
 
 
-
-
 ## References
 
 Joshy, J. (2021). *Operating System* [Video file]. Retrieved from https://www.nesoacademy.org/cs/03-operating-system

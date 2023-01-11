@@ -4,7 +4,7 @@
 
 
 
-## Introduction to Operating Systems
+## Purpose of an Operating System
 
 
 
@@ -12,151 +12,204 @@
 
 
 
-* An **operating system (OS)** is a program that manages the computer hardware. It also provides a basis for application programs and acts as an intermediary between the computer user and the computer hardware. (e.g., Windows, Unix, Linux, MacOs, etc.)
+The operating system controls the execution of application programs and acts as an interface between applications and the system hardware.
 
-  The computer hardware refers to the resources like CPU, memory, I/O devices, etc.
+1. An OS makes a computer system more **convenient** to use.
+2. An OS allows the computer's resources to be used **efficiently**.
+3. An OS should be constructed in order to permit the OS to **evolve** without interfering with current services.
 
-  Application programs are programs or software that are used to perform a specific task and that can be directly used by the users.
+### 1. Convenience
 
-* **Types of OS:**
+The OS typically provides services in the following areas:
 
-  * Batch OS
-  * Time sharing OS
-  * Distributed OS
-  * Network OS
-  * Real Time OS
-  * Multi-programming/processing/tasking OS
+* **Program development**
 
-* **Goals of OS:**
+  Provide utilities that program developers can use to access the hardware and other portions of the computer via the OS
 
-  * Convenience - An OS makes a computer more convenient to use.
-  * Efficiency - An OS allows the computer system resources to be used in an efficient manner.
-  * Ability to evolve - An OS should be constructed in such a way as to permit the effective development, testing, and introduction of new system functions with out interfering with service.
+* **Program execution**
 
-* **Functions of OS:**
+  Load instructions, manipulate data, prepare resources
 
-  * Interfacing between the user and the computer hardware
-  * Resource management (e.g., memory management, file system management, process management, etc.)
+* **Access to I/O devices**
 
+  Because devices are specialized and differ, the OS provides a uniform interface for applications to use
 
+* **Controlled Access to Files**
 
-## Basics of Operating Systems
+* **System access**
 
-### Computer System Operation
+  Similar to file access, the OS must control applications access to different parts of the system
 
-Some basic knowledge of the structure of computer system is required to understand how operating systems work.
+* **Error detection and response**
 
-* A modern general-purpose computer system consists of one or more CPUs and a number of device controllers (e.g., disk controller, USB controller, video adapter) connected through a common bus that provides access to shared memory.
+  Internal/external hardware errors, forbidden memory references, etc.
 
-  Each device controller is in charge of a specific type of device. The CPU and the device controllers can execute concurrently, competing for memory access. To ensure the orderly access to the shared memory, a memory controller whose functionality is to synchronize the accesses to the memory is provided.
+* **Accounting**
 
-* Some important terms:
+  Statistics gather that enables performance monitoring, usage information
 
-  * Bootstrap program
+* **Various APIs**
 
-    * The initial program that runs when a computer is powered up or rebooted.
-    * It is stored in the ROM.
-    * It must know how to load the OS and start executing that system.
-    * It must locate and load into memory the OS kernel.
+  API provides the standard binary system call interface, designed for portability of programs across machines using the same OS. Application programming interface is a high-level language standardization of the interfaces to OS facilities.
 
-  * Interrupt
+### 2. Resource Management / Efficiency
 
-    * The occurrence of an event is usually signaled by an interrupt from hardware or software.
+* The OS controls all of the system resources, including:
 
-    * Hardware may trigger an interrupt at any time by sending a **signal** to the CPU, usually through the system bus.
+  * I/O
 
-    * When the CPU is interrupted, it stops what it is doing and immediately jumps to a designated location. The designated location usually contains the starting address where the service routine (i.e., interrupt handler) of the interrupt is located.
+  * Main and secondary memory
 
-      The interrupt service routine is executed.
+  * Processor execution time (CPU scheduling)
 
-      Upon completion, the CPU resumes the interrupted computation.
+* The OS is itself software that needs to run on the CPU and use the same resources as the applications it manages.
 
-  * System call (monitor call)
+* The Os frequently relinquishes control and must depend on the processor to allow it to regain control.
 
-    * Software may trigger an interrupt by executing a special operation called the system call.
+* A portion of the Os resides in main memory (the **kernel**). The rest of the main memory is made available for applications to use.
 
-### Storage Structure
 
 
+## Computer System Structure
 
-<img src="./img/memory-hierarchy.png" alt="memory-hierarchy" width="900">
 
 
+## History of OS Design
 
-### I/O Structure
+How have operating systems evolved over the years?
 
-* Storage is just one of many types of I/O devices within a computer.
+### 1. Serial Processing
 
-* A large portion of operating system code is dedicated to managing I/O, both because of its importance to the reliability and performance of a system and because of the varying nature of the devices.
+* No operating system - Programmers interacted directly with the computer hardware.
+* Computers ran from a console with display lights, toggle switches, some form of input device, and a printer.
+* Users have access to the computer in "series".
+* Scheduling - Most installations used a hard copy sign-up sheet to reserve computer time.
+  * Time allocations could run short or long, resulting in wasted computer time.
+  * A considerable amount of time was spent just on setting up the program to run.
 
-* A general-purpose computer system consists of CPUs and multiple device controllers that are connected through a common bus. Each device controller is in charge of a specific type of device and maintains a **local buffer storage** and a set of **special purpose registers**.
+### 2. Simple Batch & Job Monitor
 
-  Typically, operating systems have a device driver for each device controller. This device driver understands the device controller and presents a uniform interface to the device to the rest of the operating system.
+* Early computers were very expensive.
+  * Important to maximize processor utilization
+* Monitor
+  * User no longer has direct access to processor
+  * Job is submitted to computer operator who batches them together and places them on an input device
+  * Program branches back to the monitor when finished
+* Job monitor software lead to the creation of memory protection, privileged instructions and interrupts which, in turn,  helped create improvements in utilization in the next type of OS.
+* Monitor controls the sequence of events
+* Resident Monitor is software always in memory
+* Monitor reads in job and gives control
+* Job returns control to monitor
+* Processor time alternates between execution of user programs and execution of the monitor
+* Sacrifices:
+  * Some main memory is now given over to the monitor
+  * Some processor time is consumed by the monitor
+* Despite overhead, the simple batch system improves utilization of the computer.
+* **Uniprogramming**
+  * I/O is slow compared to CPU-involved instructions (arithmetic)
+  * The processor spends a certain amount of time executing, until it reaches an I/O instruction; it must then wait until that I/O instruction concludes before proceeding.
 
-* I/O operation mechanism:
 
-  1. To start an I/O operation, the device driver loads the appropriate registers within the device controller.
 
-  2. The device controller, in turn, examines the contents of these registers to determine what action to take.
-  3. The controller starts the transfer of data from the device to its local buffer.
-  4. For every data transfer that is complete, the device controller informs the device driver through an interrupt (which involves the CPU) that it has finished its operation. The CPU is continuously interrupted by this operation.
-  5. Once all the data transfer has been completed, the device driver returns control to the operating system.
+<img src="./img/uniprogramming.png" alt="uniprogramming" width="750">
 
-  This form of interrupt-driven I/O is fine for moving small amounts of data but can produce high overhead when used for moving a bulk of data. To solve this problem, **Direct Memory Access (DMA)** is introduced.
 
-  After setting up buffers, pointers, and counters for the I/O device, the device controller **transfers an entire data block directly to/from its own buffer storage from/to memory, without continuously interrupting the CPU**. This way, only one interrupt is generated per block, to tell the device driver that the operation has completed. While the device controller is performing these operations, the CPU is available for accomplishing other work.
 
-### Computer System Architecture
+### 3. Multiprogramming
 
-Types of computer systems **based on the number of general purpose processors**:
+* The development of multiprogramming in batch systems GREATLY increased resource utilization.
+* Multiprogramming allows another program to execute while the first is waiting for an I/O other device request to complete.
+* When the I/O task is complete, an interrupt is sent to the CPU. The monitor can then interpret the interrupt and return the first program to execution status.
+* Original multiprogramming systems required all of the executing programs to reside in memory. Small memory limited the number of running programs.
 
-* **Single Processor Systems**
 
-  Contains only one processor which is capable of executing a general purpose instruction set including instructions from the user processes. Other special purpose processors are also present which perform device specific tasks.
 
-* **Multiprocessor Systems (a.k.a. Parallel Systems or Tightly Coupled Systems)**
+<img src="./img/multiprogramming-with-three-programs.png" alt="multiprogramming-with-three-programs" width="750">
 
-  Contains multiple processors in close communication and synchronization, sharing the computer bus and sometimes the clock, memory, and peripheral devices. Those processors may be carrying out the same task together or the different tasks independently.
 
-  * Advantage
 
-    * Increased throughput (performance), 
-    * Economy of scale (since shared resources)
-    * Increased reliability (even if one fails others can keep the system running)
+### 4. Time Sharing Systems
 
-  * Types of Multiprocessor Systems
+Because batch systems were designed to handle the execution of mainly non-interactive systems, they are not suitable for user-oriented systems.
 
-    * Symmetric multiprocessing (SMP)
+* Time-sharing systems were developed to enable quick user response time at the sacrifice of compute time.
+* This enables many people to share the system and perceive it as dedicated to themselves. It required the ability to load more applications into memory at the same time.
+* Academic institutions used these systems to provide programming courses. Students used terminals to interact with the operating systems and write and test programs (BASIC).
 
-      All processors are **equal**. They can execute any type of processes as required.
 
-    * Asymmetric multiprocessing (AMP, ASMP)
 
-      The processors are inherently **unequal**. There may be a master slave  relationship where the master processor may assign processes to other  processors.
+## Modern OS Features
 
-* **Clustered Systems**
+Critical areas of development that support modern operating systems.
 
-  Like multiprocessor systesms, clustered systems gather together multiple CPUs to accomplish computation work. They are composed of two or more individual (complete) systems coupled together.
+1. Process
 
-  * Advantage
+2. Memory management
 
-    * High availability (even if one fails other can keep the system running)
+3. Information protection & security
 
-  * Types of Clustered Systems
+4. Scheduling and resource management
+5. Fault tolerance
 
-    * Symmetric
+### 1. Process
 
-      One machine is in the hot-standby mode while others are running applications. If one system fails, the one in the hot-standby mode will take its place.
+* The concept of a process is central to the design of operating systems.
+* A process contains three components:
+  * An executable program
+  * The associated data needed by the program (variables, work space, buffers, etc.)
+  * The execution context (or "process state") of the program - this is essential
+    * It is the internal data by which the OS is able to supervise and control the process.
+    * Includes the contents of the various process registers
+    * Includes information such as the priority of the process and whether the process is waiting for the completion of a particular I/O event.
 
-    * Asymmetric
+### 2. Memory Management
 
-      Two or more hosts run applications and they monitor each other.
+* The OS has 5 principal storage management responsibilities:
+  * Process isolation
+  * Automatic allocation and management
+  * Support of modular programming
+  * Protection and access control
+  * Long-term storage
 
+### 3. Information Protection & Security
 
+* The nature of the thread that concerns an organization will vary greatly depending on the circumstances.
+* The problem involves controlling access to computer systems and the information stored in them.
+
+### 4. Scheduling and Resource Management
+
+* The KEY responsibility of an OS is managing resources.
+* Resource allocation policies must consider:
+  * Efficiency
+  * Fairness
+  * Responsiveness
+
+### 5. Fault Tolerance
+
+* Another feature of modern systems
+
+* Fault tolerance can be supplied both by:
+
+  * Hardware (e.g., redundant disk arrays)
+  * Software (e.g., verification, sanity checks)
+
+* The more reliable a system is, the more costly.
+
+* The extent to which adoption of fault tolerant measures is determined by how critical the system or resource is.
+
+  | Class               | Availability | Annual Downtime |
+  | ------------------- | ------------ | --------------- |
+  | Continuous          | 1.0          | 0               |
+  | Fault Tolerant      | 0.99999      | 5 mins          |
+  | Fault Resilient     | 0.9999       | 53 mins         |
+  | High Availability   | 0.999        | 8.3 hrs         |
+  | Normal Availability | 0.99 - 0.995 | 44 - 87 hrs     |
+
+  
 
 
 
 
 ## References
 
-Joshy, J. (2021). *Operating System* [Video file]. Retrieved from https://www.nesoacademy.org/cs/03-operating-system
+Allen, B. (2023, January 10). Introduction to Operating Systems [Lecture]. University of Alabama in Huntsville, Huntsville, AL, United States.
