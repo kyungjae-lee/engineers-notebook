@@ -10,7 +10,7 @@
 
 2. **<a href="./osi-reference-model">OSI Reference Model</a>**
 
-3. **<a href="./tcpip-model">TCPIP Model</a>**
+3. **<a href="./network-performance">Network Performance</a>**
 
    
 
