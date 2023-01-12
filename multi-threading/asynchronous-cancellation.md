@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Cancellation - Asynchronous Cancellation
+<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Asynchronous Cancellation
 
-# Thread Cancellation - Asynchronous Cancellation
+# Asynchronous Cancellation
 
 
 

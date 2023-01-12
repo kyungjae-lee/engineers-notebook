@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Mutex
+<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Mutex
 
-# Thread Synchronization - Mutex
+# Mutex
 
 
 
