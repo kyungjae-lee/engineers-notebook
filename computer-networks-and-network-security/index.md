@@ -12,6 +12,8 @@
 
 3. **<a href="./network-performance">Network Performance</a>**
 
+4. **<a href="./network-devices">Network Devices</a>**
+
    
 
 ### Network Security
