@@ -11,18 +11,15 @@ Network performance is measured in following fundamental ways:
 * Bandwidth
 * Throughput
 * Latency
+* Jitter
 
 
 
 ## Bandwidth (Capability)
 
-- Informal definition:
+* Maximum amount of data that can be transmitted per second (capability)
 
-  Maximum amount of data that can be transmitted per second
-
-- Formal definition:
-
-  The bandwidth of a network is given by the number of bits that can be transmitted over the network in a certain period of time.
+* The bandwidth of a network is given by the number of bits that can be transmitted over the network in a certain period of time.
 
 - Bandwidth for wired network (in **bps**)    
 
@@ -36,19 +33,13 @@ Network performance is measured in following fundamental ways:
 
 ## Throughput (Reality)
 
-- Informal definition:
+- Actual amount of data that passes through the medium (reality)
 
-  Actual amount of data that passes through the medium
-
-- Formal definition:
-
-  The throughput is a measure of how fast we can actually send data through a network.
+- The throughput is a measure of how fast we can actually send data through a network.
 
 - Throughput vs. Bandwidth
 
-  Although bandwidth in **bits per second** and throughput seem the same, they are different.    
-
-  - e.g., A link may have a bandwidth of B bps, but we can only send T bps through this link. (Always T < B)
+  A link may have a bandwidth of B bps, but we can only send T bps through this link. (Always T < B)
 
 * We may have a link with a bandwidth of 1 Mbps, but the devices connected to the end of the link may handle only 200 Kbps. This means that we cannot send more than 200 Kbps through this link.
 
