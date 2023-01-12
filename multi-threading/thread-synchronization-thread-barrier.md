@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Barrier
+<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Thread Barrier
 
-# Thread Barrier
+# Thread Synchronization - Thread Barrier
 
 
 

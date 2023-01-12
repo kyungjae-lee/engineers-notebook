@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Condition Variables
+<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Condition Variables
 
-# Condition Variables
+# Thread Synchronization - Condition Variables
 
 
 

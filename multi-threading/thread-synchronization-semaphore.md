@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Semaphore
+<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Semaphore
 
-# Semaphore
+# Thread Synchronization - Semaphore
 
 
 

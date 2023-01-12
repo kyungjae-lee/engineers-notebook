@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Spinlock
+<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Spinlock
 
-# Spinlock
+# Thread Synchronization - Spinlock
 
 
 
