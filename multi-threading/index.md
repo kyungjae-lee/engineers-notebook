@@ -17,5 +17,6 @@
 1. **<a href="./thread-synchronization-mutex">Thread Synchronization - Mutex</a>**
 1. **<a href="./deadlock">Deadlock</a>**
 1. **<a href="./condition-variables">Condition Variables</a>**
+1. **<a href="./thread-barrier">Thread Barrier</a>**
 1. **<a href="./interview-questions">Interview Questions</a>**
 
