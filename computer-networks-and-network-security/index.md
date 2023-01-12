@@ -6,10 +6,13 @@
 
 ### Computer Networks
 
-1. **<a href="./osi-reference-model">OSI Reference Model</a>**
+1. **<a href="./introduction-to-computer-networks">Introduction to Computer Networks</a>**
+
+2. **<a href="./osi-reference-model">OSI Reference Model</a>**
+
+3. **<a href="./tcpip-model">TCPIP Model</a>**
 
    
 
-
-
 ### Network Security
+
