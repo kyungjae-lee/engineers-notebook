@@ -12,6 +12,7 @@
 4. **<a href="./network-devices">Network Devices</a>**
 5. **<a href="./network-layer-ipv4-address">Network Layer - IPv4 Address</a>**
 6. **<a href="./network-layer-ipv4-address-public-vs-private-ip-addresses">Network Layer - IPv4 Address - Public vs. Private IP Addresses</a>**
+7. **<a href="./network-layer-ipv4-address-subnetting">Network Layer - IPv4 Address - Subnetting</a>**
 
 
 
