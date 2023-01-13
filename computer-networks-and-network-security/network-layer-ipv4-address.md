@@ -8,7 +8,7 @@
 
 - An IP Address is a logical address used in order to uniquely identify a device on an IP network. Manually or dynamically (DHCP) assigned by us so that they operate on the Network Layer.
 - Network Layer Address
-- Two versions of IP address:    
+- Two versions of IP address:
   - IP version 4 (IPv4)
   - IP version 6 (IPv6)
 
