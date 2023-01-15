@@ -397,10 +397,31 @@
 
 
 
+## Strong & Weak Semaphores
+
+* **Weak Semaphore**
+
+  Whenever theoretically you can show in your solution that some thread blocked on a mutex or semaphore may never get a chance to resume its execution (**Starvation**), then we say that solution is lacking the property of **Bounded Waiting** and such a semaphore is called Weak Semaphore. 
+
+  The root cause-of the weak semaphore is the randomness of scheduling which thread to allow to enter the critical section next.
+
+* **Strong Semaphore**
+
+  We can deploy a way such that blocked threads are unblocked in a **FIFO** way per signal (or in any other way that can prevent the starvation), then such a semaphore is called the Strong Semaphore. **Bounded Waiting** is guaranteed in strong semaphores. 
+
+* Weak/strong is the topic discussed in the realm of theory because in reality, it is very rare for a starvation of threads to occur.
+
+* Bounded waiting means that any particular thread blocked on a semaphore would have a finite amount of waiting time. It is guaranteed that at some point in time, a particular thread blocked on a semaphore will be scheduled and enter the critical section. It is a desirable property that any synchronization solution must have.
+
+* Weak semaphores can be converted into strong semaphores by changing the policy of blocked thread selection from random to FIFO (sequel course).
+
+* The semaphores we have dealt with so far (i.e.,  custom semaphore, built-in semaphore) are all "weak semaphores". Even the mutexes are "weak" in this sense since the blocked threads are randomly selected by the operating system.
+
+
+
 
 
 
 ## References
 
 Sagar, A. (2022). *Part A - Multithreading & Thread Synchronization - Pthreads* [Video file]. Retrieved from  https://www.udemy.com/course/multithreading_parta/
-
