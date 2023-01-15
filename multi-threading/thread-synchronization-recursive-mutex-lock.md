@@ -97,7 +97,7 @@
       pthread_cond_t cv;			/* a CV to make threads block */
       pthread_mutex_t state_mutex;/* a Mutex to manupulate the state of this structure 
       							   in a mutually exclusive way */
-      uint16_t n_waited;	 		/* number of threads waiting for the grant of this mutex lock */
+      uint16_t n_waiting;	 		/* number of threads waiting for the grant of this mutex lock */
   } rec_mutex_t;
   
   void rec_mutex_init(rec_mutex_t *rec_mutex) ;
@@ -128,7 +128,7 @@
       rec_mutex->locking_thread = 0;
       pthread_cond_init(&rec_mutex->cv, NULL);
       pthread_mutex_init(&rec_mutex->state_mutex, NULL);
-      rec_mutex->n_waited = 0;
+      rec_mutex->n_waiting = 0;
   }
   
   void rec_mutex_lock(rec_mutex_t *rec_mutex)
@@ -159,10 +159,10 @@
       while (rec_mutex->locking_thread && rec_mutex->locking_thread != pthread_self())
       {
           /* simply make the current thread block on this rec_mutex */
-          rec_mutex->n_waited++;
+          rec_mutex->n_waiting++;
           pthread_cond_wait(&rec_mutex->cv, &rec_mutex->state_mutex); /* this thread will 
           	wakeup once its condition variable receives the signal */
-          rec_mutex->n_waited--;
+          rec_mutex->n_waiting--;
       }
   
       /* case 3 cont'd - now locking rec_mutex is available for the current thread */
@@ -199,7 +199,7 @@
           }
   
          	/* is there any blocked threads waiting to obtain rec_mutex? */
-          if (rec_mutex->n_waited)
+          if (rec_mutex->n_waiting)
           {
               /* if so, send a signal for one among those blocked (waiting) threads */
           	pthread_cond_signal(&rec_mutex->cv);
@@ -226,7 +226,7 @@
          exist) */
       assert(!rec_mutex->n); /* there must be no threads still holding rec_mutex */
       assert(!rec_mutex->locking_thread); /* there must be no threads still holding rec_mutex */
-      assert(!rec_mutex->n_waited); /* there must be no threads waiting to obtain rec_mutex */
+      assert(!rec_mutex->n_waiting); /* there must be no threads waiting to obtain rec_mutex */
       
       /* only if above conditions have successfully been met, destory rec_mutex */ 
       pthread_mutex_destroy(&rec_mutex->state_mutex);
