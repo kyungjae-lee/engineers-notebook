@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C Programming</a> > Bitwise Operators
+<a href="../">Notebook</a> > <a href="./">C Programming (Embedded)</a> > Bitwise Operators
 
 # Bitwise Operators
 

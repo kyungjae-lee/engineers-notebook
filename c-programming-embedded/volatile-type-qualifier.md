@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C Programming</a> > `volatile` Type Qualifier
+<a href="../">Notebook</a> > <a href="./">C Programming (Embedded)</a> > `volatile` Type Qualifier
 
 # `volatile` Type Qualifier
 

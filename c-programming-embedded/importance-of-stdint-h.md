@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C Programming</a> > Importance of `<stdint.h>`
+<a href="../">Notebook</a> > <a href="./">C Programming (Embedded)</a> > Importance of `<stdint.h>`
 
 # Importance of `<stdint.h>`
 

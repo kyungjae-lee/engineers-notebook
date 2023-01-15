@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C Programming</a> > Structures
+<a href="../">Notebook</a> > <a href="./">C Programming (Embedded)</a> > Structures
 
 # Structures
 

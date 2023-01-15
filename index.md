@@ -10,7 +10,7 @@ Notebook
 
 ### Contents: 
 
-* **<a href="./c-programming/">C Programming</a>**
+* **<a href="./c-programming-embedded/">C Programming (Embedded)</a>**
 * **<a href="./cpp-programming/">C++ Programming</a>**
 * **<a href="./data-structures/">Data Structures</a>**
 * **<a href="./embedded-systems/">Embedded Systems</a>**

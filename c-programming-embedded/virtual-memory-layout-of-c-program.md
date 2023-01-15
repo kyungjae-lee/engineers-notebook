@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C Programming</a> > Virtual Memory Layout of C Program
+<a href="../">Notebook</a> > <a href="./">C Programming (Embedded)</a> > Virtual Memory Layout of C Program
 
 # Virtual Memory Layout of C Program
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C Programming</a> > Optimization
+<a href="../">Notebook</a> > <a href="./">C Programming (Embedded)</a> > Optimization
 
 # Optimization
 

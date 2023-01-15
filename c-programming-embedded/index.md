@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > C Programming
+<a href="../">Notebook</a> > C Programming (Embedded)
 
-# C Programming
+# C Programming (Embedded)
 
 
 
