@@ -55,13 +55,57 @@
 
 
 
+* Range of `float`
+
+  Storage size: 4 bytes
+
+  Precision: Up to 6 decimal places
+
+  Value range: 1.2 x 10^-38^ to 3.4 x 10^38^
+
+* Range of `double`
+
+  Storage size: 8 bytes
+
+  Precision: Up to 15 decimal places
+
+  Value range: 2.3 x 10^-308^ to 1.7 x 10^308^
+
 
 
 ## Format Specifiers for `float` and `double` Data Types
 
 * Use `%lf` format specifier to read or write `double` type variable.
+
+  ```c
+  double number = 12.123456789;
+  printf("number = %0.14lf\n", number);	/* 12.12345678900000 */
+  ```
+
+  > Why is plain `%lf` format specifier for printing `double` not working in the CubeIDE? 
+
 * Use `%f` format specifier to read or write `float` type variable.
+
+  ```c
+  float number = 12.123456789;
+  printf("number = %f\n", number);	/* 12.123457 (up to 6 decimal places) */
+  printf("number = %0.9f\n", number);	/* 12.123456955 (loosing precision after 6 decimal places) */
+  ```
+
 * Use `%e`, `%le` format specifier to read or write real numbers in scientific notation.
+
+  ```c
+  float number = 12.123456789;
+  printf("number = %0.2f\n", number);	/* 12.12 */
+  printf("number = %0.2e\n", number);	/* 1.21e+01 */
+  
+  float chargeE = -1.60217662e-19;	/* storing a decimal number in scientific notation */
+  printf("number = %f\n", number);	/* -0.000000 (approximation of very small number) */
+  printf("number = %e\n", number);	/* -1.602177e-19 (precise up to 6 decimal places) */
+  ```
+
+  > Note that you cannot use `float` for storing very small (or very large) numbers due to the precision loss. Use `double` instead.
+
 * All constants with a decimal point are considered as `double` by default.
 
 
