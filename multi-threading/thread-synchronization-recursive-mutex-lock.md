@@ -25,6 +25,8 @@
 
 
 
+## Use Case of Recursive Mutex
+
 * Recursive mutexes simply things in the scenario where there is a possibility that a function could be invoked from another function which locks the mutex that will be locked again by the invoked function.
 
   For example, let's say a developer wrote the following function:
