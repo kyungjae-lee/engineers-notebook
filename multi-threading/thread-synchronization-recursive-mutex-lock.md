@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Recursive Mutexes/Locks
+<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Recursive Mutex/Lock
 
-# Thread Synchronization - Recursive Mutexes/Locks
+# Thread Synchronization - Recursive Mutex/Lock
 
 
 

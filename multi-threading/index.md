@@ -20,5 +20,5 @@
 1. **<a href="./thread-synchronization-thread-barrier">Thread Synchronization - Thread Barrier</a>**
 1. **<a href="./thread-synchronization-spinlock">Thread Synchronization - Spinlock</a>**
 1. **<a href="./thread-synchronization-semaphore">Thread Synchronization - Semaphore</a>**
-1. **<a href="./thread-synchronization-recursive-mutexes-locks">Thread Synchronization - Recursive Mutexes/Locks</a>**
+1. **<a href="./thread-synchronization-recursive-mutex-lock">Thread Synchronization - Recursive Mutexe/Lock</a>**
 1. **<a href="./interview-questions">Interview Questions</a>**
