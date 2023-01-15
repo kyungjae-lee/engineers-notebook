@@ -22,4 +22,5 @@
 1. **<a href="./thread-synchronization-semaphore">Thread Synchronization - Semaphore</a>**
 1. **<a href="./thread-synchronization-recursive-mutex-lock">Thread Synchronization - Recursive Mutexe/Lock</a>**
 1. **<a href="./thread-synchronization-read-write-lock">Thread Synchronization - Read/Write Lock</a>**
+1. **<a href="./thread-synchronization-thread-safe-highly-concurrent-crud-operations">Thread Synchronization - Thread-Safe Highly Concurrent CRUD Operations</a>**
 1. **<a href="./interview-questions">Interview Questions</a>**
