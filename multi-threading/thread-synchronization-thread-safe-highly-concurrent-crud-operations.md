@@ -186,7 +186,7 @@ We are still using the student & student list example! See how **thread-safe** a
 * **Read Algorithm**
 
   ```c
-  /* T1: reader thread (simply reads the data of a container element) */
+  /* reader thread (simply reads the data of a container element) */
   read_lock(lst); /* acquire container level read lock */
   stud = student_lst_lookup(lst, 2); /* find the element whose roll number is 2 */
   if (!stud) /* if such element does not exist */
@@ -233,7 +233,7 @@ We are still using the student & student list example! See how **thread-safe** a
   Basically the same as the Read Algorithm except for one line (L14: `read_lock()` -> `write_lock()`):
 
   ```c
-  /* T2: writer thread (updates the data of a container element) */
+  /* writer thread (updates the data of a container element) */
   read_lock(lst); /* acquire container level read lock */
   stud = student_lst_lookup(lst, 2); /* find the element whose roll number is 2 */
   if (!stud) /* if such element does not exist */
@@ -266,6 +266,60 @@ We are still using the student & student list example! See how **thread-safe** a
       /* above condition is true when the decremented ref_count equals to 0 */ 
       student_destroy(stud);
       return; /* implies that the current thread will not access stud from this point on */
+  }
+  ```
+
+
+
+
+## CRUD: Algorithms for Create & Delete Operations
+
+* **Create Algorithm**
+
+  ```c
+  write_lock(lst); /* need the write_lock since the container structure will be changed */
+  
+  stud = student_lst_lookup(lst, 2); 
+  if (stud)
+  {
+      /* if already present, don't need to create */
+      unlock(lst);
+      return;
+  }
+  
+  student_lst_insert_new(lst, new_stud); 	/* create an insert a new student */
+  ref_count_inc(new_stud->ref_count);		/* update ref_count accordingly */
+  
+  unlock(lst); /* unlock the container level write_lock */
+  ```
+
+  > Notice that the create algorithm does not require acquiring the container element level lock.
+
+* **Delete Algorithm**
+
+  ```c
+  write_lock(lst); /* need the write_lock since the container structure will be changed */
+  
+  stud = student_lst_lookup(lst, 2);
+  if (!stud)
+  {
+      unlock(lst);
+      return;
+  }
+  
+  thread_using_object(stud); /* since the thread is accessing the element */
+  
+  detach_list(lst_node(stud)); /* simply detaches the element to delete from the list */
+  
+  assert(!ref_count_dec(stud)); /* since the element has been detached from the container */
+  	/* it is guaranteed that ref_count of stud will never be 0
+  	   (if it could possibly be 0, then the if statement guideline should've been followed) */
+  
+  unlock(lst); /* since the operation that changes the container structure is done */
+  
+  if (thread_using_object_done(&stud->ref_count))
+  {
+      student_destroy(stud);
   }
   ```
 

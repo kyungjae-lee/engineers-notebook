@@ -59,37 +59,37 @@
       {
           loop_count[READER_TH]++;
   
-          roll_no = rand() % MAX_ROLL_NO;
+          roll_no = rand() % MAX_ROLL_NO; /* now, reader thread knows which student it needs
+          								   to perform a read operation on */
+          pthread_rwlock_rdlock(&stud_lst.rw_lock);
   
-          pthread_rwlock_rdlock (&stud_lst.rw_lock);
-  
-          stud = student_lst_lookup (&stud_lst, roll_no);
+          stud = student_lst_lookup(&stud_lst, roll_no);
   
           if (!stud)
           {
               printf("READ TH  ::  Roll No %u Do not Exist\n", roll_no);
-              pthread_rwlock_unlock (&stud_lst.rw_lock);
+              pthread_rwlock_unlock(&stud_lst.rw_lock);
               continue;
           }
   
-          /* Current thread got an access to object */
+          /* current thread got an access to object */
           thread_using_object(&stud->ref_count);
   
-          /* prepare to perform Read Operation on student object */
+          /* prepare to perform READ operation on student object */
           pthread_rwlock_rdlock(&stud->rw_lock);
   
-          /* Current thread has done all pre-requisites to perform read
-          opn on student object, unlock the container */
+          /* current thread has done all pre-requisites to perform read operation on 
+             the student object, unlock the container level lock */
           pthread_rwlock_unlock(&stud_lst.rw_lock);
   
-          /* Now perform Read operation */
+          /* now perform the READ operation */
           printf("READ TH  ::  Roll No %u is READ, total marks = %u\n", 
                   roll_no, stud->total_marks);
   
-          /* Unlock the Student Object */
+          /* unlock the Student object */
           pthread_rwlock_unlock(&stud->rw_lock);
   
-          /* Done using the object */
+          /* done using the object */
           if (thread_using_object_done (&stud->ref_count))
           {
               printf("READ TH  ::  Roll No %u READ Done\n",  roll_no);
@@ -116,8 +116,8 @@
       {
           loop_count[UPDATE_TH]++;
           
-          roll_no = rand() % MAX_ROLL_NO;
-  
+          roll_no = rand() % MAX_ROLL_NO; /* now, writer thread knows which student it needs
+          								   to perform a read operation on */
           pthread_rwlock_rdlock (&stud_lst.rw_lock);
   
           stud = student_lst_lookup (&stud_lst, roll_no);
@@ -129,17 +129,17 @@
               continue;
           }
   
-          /* Current thread got an access to object */
+          /* current thread got an access to object */
           thread_using_object(&stud->ref_count);
   
           /* prepare to perform WRITE Operation on student object */
           pthread_rwlock_wrlock(&stud->rw_lock);
   
-          /* Current thread has done all pre-requisites to perform read
-          opn on student object, unlock the container */
+          /* current thread has done all pre-requisites to perform write operation on 
+             the student object, unlock the container level lock */
           pthread_rwlock_unlock(&stud_lst.rw_lock);
   
-          /* Now perform UPDATE operation */
+          /* now perform UPDATE operation */
           uint32_t old_marks = stud->total_marks;
           stud->total_marks = stud->total_marks + INCR;
           stud->total_marks = stud->total_marks % 100;
@@ -147,10 +147,10 @@
           printf ("UPDATE TH  ::  Roll No %u , Increment %d, Marks Update %u --> %u\n",
               stud->roll_no, INCR, old_marks, stud->total_marks);
   
-          /* Unlock the Student Object */
+          /* unlock the Student Object */
           pthread_rwlock_unlock(&stud->rw_lock);
   
-          /* Done using the object */
+          /* done using the object */
           if (thread_using_object_done (&stud->ref_count))
           {
               printf ("UPDATE TH  ::  Roll No %u UPDATE Done\n",  roll_no);
@@ -160,7 +160,7 @@
           }
           else
           {
-              /* Never attempt to access stud object here or after this line in program*/
+              /* never attempt to access stud object here or after this line in program*/
               printf ("UPDATE TH  ::  Roll No %u UPDATE Done\n",  roll_no);
           }
       }
@@ -223,15 +223,15 @@
              	continue;
          	}
   
+          /* switching the order of the following two statements will results in crash */
           thread_using_object(&stud->ref_count);
-  
           assert(!ref_count_dec(&stud->ref_count));
   
           pthread_rwlock_unlock(&stud_lst.rw_lock);
   
           printf("DELETE TH :: Roll No %u Removal Success\n", roll_no);
   
-          /* Done using the object */
+          /* done using the object */
           if (thread_using_object_done (&stud->ref_count))
           {
               student_destroy (stud);
@@ -239,6 +239,7 @@
           }
           else
           {
+              /* stud will be deleted by other thread that will be using stud */
               printf ("DELETE TH :: Roll No %u deletion deferred\n", roll_no);
           }
   
