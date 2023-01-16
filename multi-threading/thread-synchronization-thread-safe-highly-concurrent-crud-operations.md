@@ -179,7 +179,7 @@ typedef struct stud_
 
 
 
-## CRUD: Algorithms for Read & Update/Write Operations
+## CRUD Algorithms
 
 We are still using the student & student list example! See how **thread-safe** and **high-concurrency** are achieved!
 
@@ -220,6 +220,7 @@ We are still using the student & student list example! See how **thread-safe** a
       student_destroy(stud);
       return; /* implies that the current thread will not access stud from this point on */
   }
+  ... /* code irrelevant to stud, if any */
   ```
 
   > In fact, any thread (irrespective of whether that thread is a delete thread or not) in the system who has witnessed the return value of `thread_using_object_done()` is 0 must destroy the corresponding element. Why? Coming soon!
@@ -267,12 +268,8 @@ We are still using the student & student list example! See how **thread-safe** a
       student_destroy(stud);
       return; /* implies that the current thread will not access stud from this point on */
   }
+  ... /* code irrelevant to stud, if any */
   ```
-
-
-
-
-## CRUD: Algorithms for Create & Delete Operations
 
 * **Create Algorithm**
 
@@ -288,7 +285,7 @@ We are still using the student & student list example! See how **thread-safe** a
   }
   
   student_lst_insert_new(lst, new_stud); 	/* create an insert a new student */
-  ref_count_inc(new_stud->ref_count);		/* update ref_count accordingly */
+  ref_count_inc(&new_stud->ref_count);		/* update ref_count accordingly */
   
   unlock(lst); /* unlock the container level write_lock */
   ```
@@ -311,7 +308,7 @@ We are still using the student & student list example! See how **thread-safe** a
   
   detach_list(lst_node(stud)); /* simply detaches the element to delete from the list */
   
-  assert(!ref_count_dec(stud)); /* since the element has been detached from the container */
+  assert(!ref_count_dec(&stud->ref_count)); /* element has been detached from the container */
   	/* it is guaranteed that ref_count of stud will never be 0
   	   (if it could possibly be 0, then the if statement guideline should've been followed) */
   
@@ -323,7 +320,30 @@ We are still using the student & student list example! See how **thread-safe** a
   }
   ```
 
-  
+
+
+
+## Checking Robustness of Our CRUD Algorithm
+
+* If in the program, you could find any sequence of instructions that will lead to an inconsistent state (e.g., update thread still accessing the element which has already been destroyed by delete thread) of the system,  then your CRUD algorithm is INACCURATE! By coming up with different possible scenarios (sequence of execution) and keeping track of the **reference count**, you will be able to identify possible inconsistencies. 
+
+  Sequence diagrams help analyzing the flow of the threads. Check out the following three scenarios from which no inconsistencies can be found. (100% thread-safe)
+
+  See [Thread Synchronization - Thread-Safe Highly Concurrent CRUD Operations - Demonstration](./thread-synchronization-thread-safe-highly-concurrent-crud-operations-demonstration) for the whole source code and demonstration.
+
+
+
+<img src="./img/update-delete-threads-sequence-diagram-case-1.png" alt="update-delete-threads-sequence-diagram-case-1" width="850">
+
+
+
+<img src="./img/update-delete-threads-sequence-diagram-case-2.png" alt="update-delete-threads-sequence-diagram-case-2" width="850">
+
+
+
+<img src="./img/update-delete-threads-sequence-diagram-case-3.png" alt="update-delete-threads-sequence-diagram-case-3" width="850">
+
+
 
 
 

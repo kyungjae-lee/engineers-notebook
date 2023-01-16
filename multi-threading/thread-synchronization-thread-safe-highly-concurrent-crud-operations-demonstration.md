@@ -4,7 +4,66 @@
 
 
 
-## Thread-Safe Highly Concurrent CRUD Operations Demonstration
+This section demonstrates a 100% thread-safe, accurate, highly-concurrent, and deadlock free application whose state is guaranteed to be consistent at any given point in time.
+
+
+
+## Demo Project Setup
+
+* Create a folder containing the following header & source files:
+
+  * `crud_algorithm.c` - CRUD algorithm (main)
+  * `linked_list.h`, `linked_list.c` - Linked list data structure
+  * `ref_count.h`, `ref_count.c` - Reference count data structure
+  * `student_list.h`, `student_list.c` - Student list data structure
+
+* Build using:
+
+  ```plain
+  gcc *.c -lpthread
+  ```
+
+* Run using:
+
+  ```plain
+  ./a.out
+  ```
+
+* To analyze the outputs using the log file:
+
+  ```plain
+  ./a.out > log
+  ```
+
+  > Open `log`.
+  >
+  > Find deferred deletion (`/deferred`) - Let's say we found `DELETE TH :: Roll No 9 deletion deferred`.
+  >
+  > Extract info we are interested in (`grep "Roll No 9" log > rollno9.txt`)
+  >
+  > 
+  >
+  > How to check if the program is deadlock free? $\to$ Inspect the change in `loop_count` variable.
+  >
+  > 1. Run the program in GDB for a couple of seconds using `gdb a.out` $\to$ `run` .
+  >
+  > 2. `Ctrl+c` to stop the program.
+  >
+  > 3. Print the loop count using `print loop_count` or `p loop_count` and save it.
+  >
+  > 4. Continue running the program by using `continue` or `c`.
+  >
+  > 5. `Ctrl+c` to stop the program again.
+  >
+  > 6. Check the value of `loop_count` and compare it with the previously saved value.
+  >
+  >    If each element of `loop_count` has increased, then we can conclude that there's no deadlock.
+  >
+  > 7. Repeat 4~6 and monitor if there's any element that has not changed at all. If there an element that's not changing forever, we can conclude that the corresponding thread is situated in a deadlock.
+
+
+
+## Demo Source Code
 
 * **Implementation of CRUD Algorithm**
 
@@ -239,7 +298,9 @@
           }
           else
           {
-              /* stud will be deleted by other thread that will be using stud */
+              /* delete thread cannot delete the object since it is currently being used by 
+                 another thread (in this case, the thread currently using the object will
+                 delete it when done with the currently on-going operation) */
               printf ("DELETE TH :: Roll No %u deletion deferred\n", roll_no);
           }
   
@@ -272,6 +333,12 @@
       return 0;
   }
   ```
+
+  If in the program, you could find any sequence of instructions that will lead to an inconsistent state (e.g., update thread still accessing the element which has already been destroyed by delete thread) of the system,  then your CRUD algorithm is INACCURATE! By coming up with different possible scenarios (sequence of execution) and keeping track of the **reference count**, you will be able to identify possible inconsistencies. 
+
+  Sequence diagrams help analyzing the flow of the threads. 
+
+  See [Thread Synchronization - Thread-Safe Highly Concurrent CRUD Operations](./thread-synchronization-thread-safe-highly-concurrent-crud-operations) for the sequence diagrams.
 
 * **Interface for Reference Count Data Structure**
 
