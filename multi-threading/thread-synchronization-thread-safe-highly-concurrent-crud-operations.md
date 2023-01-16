@@ -56,33 +56,63 @@ Consider this section as one of the most important section in the **thread synch
 
 ## Tools Necessary for Thread-Safe Highly Concurrent CRUD Operations
 
-1. Read/write locks (not regular mutexes)
-2. Reference count object
+In order to implement thread-safe highly concurrent CRUD operations on a data structure, we need to have:
 
-* In order to implement thread-safe highly concurrent CRUD operations on a data structure, we need to have:
+1. **Read/write locks** (not regular mutexes) 
+   - An RW lock at the container level 
+   - An RW lock at the container element level
+2. A **reference count object** per container (prevent premature deletion of an object)
 
-  1. An **RW lock** at the container level 
-  2. An **RW lock** at the container element level
-  3. A **reference count object** per container (prevent premature deletion of an object)
+```c
+/* student list */
+typedef struct stud_lst
+{
+    list_head *head;
+    pthread_rwlock_t lst_lock;	/* RW lock at the conatainer level */
+} stud_lst_t;
 
-  ```c
-  /* student list */
-  typedef struct stud_lst
-  {
-      list_head *head;
-      pthread_rwlock_t lst_lock;	/* RW lock at the conatainer level */
-  } stud_lst_t;
-  
-  /* student */
-  typedef struct stud_
-  {
-      ...
-      pthread_rwlock_t stud_lock; /* RW lock at the container element level */
-      ref_count_t ref_count;		/* referece count object (data structure) */
-  } stud_t;
-  ```
+/* student */
+typedef struct stud_
+{
+    ...
+    pthread_rwlock_t stud_lock; /* RW lock at the container element level */
+    ref_count_t ref_count;		/* referece count object (data structure) */
+} stud_t;
+```
 
-### Reference Counter Object
+### 1. Read/Write Locks
+
+#### Locking Rules
+
+* **Container (Data Structure) Level Lock** (e.g., `lst_lock`)
+
+  Protects change in the physical structure of the data structure in multi-threaded environment against thread-unsafe operations.
+
+  - Must be locked in **write** mode when node addition(**C**reation)/**D**eletion is being done by a thread (because physical change in the structure of the list is involved; from the list's perspective, it is a form of write). 
+
+    e.g., Inserting/deleting a student object into/from the list
+
+  - Must be locked in **read** mode when a thread is only interested in performing **R**ead/write(**U**pdate) operation on a particular node of a linked list (no change in the list structure; from the list's perspective, it is still a read operation).
+
+    e.g., Updating data of a student object in the list
+
+* **Container (Data Structure) Element Level Lock** (e.g., `stud_lock`)
+
+  Protects change in elements in multi-threaded environment against thread-unsafe operations.
+
+  - Must be locked in **write** mode when a thread attempts to **U**pdate an element.
+  - Must be locked in **read** mode when a thread is only interested in performing **R**ead operation on an element.
+
+* Locking Rules Summary
+
+  |      | Container Level Lock | Container Element Level Lock |
+  | ---- | -------------------- | ---------------------------- |
+  | C    | Write                | No                           |
+  | R    | Read                 | Read                         |
+  | U    | Read                 | Write                        |
+  | D    | Write                | No                           |
+
+### 2. Reference Count Object
 
 * The purpose of the `ref_count_t` data structure is to keep track of the number of entities (i.e., threads or data structures) in the program that are referencing (or using) the object which is being reference-counted. It is nothing but an integer variable on which you can perform only two types of operations; increment and decrement.
 
@@ -97,6 +127,8 @@ Consider this section as one of the most important section in the **thread synch
   ```
 
   > Spinlock has been used instead of mutex since the critical section (simply in/decrementing `ref_count`) is very small. (Saves context-switching overhead)
+
+#### Reference Counting Rules
 
 * **Initialization**
 
@@ -145,192 +177,95 @@ Consider this section as one of the most important section in the **thread synch
      free(object); /* here 'object' is the pointer to the reference count object */
      ```
 
-### Implementation of Reference Count Data Structure
 
-* **Interface for Reference Count Data Structure**
+
+## CRUD: Algorithms for Read & Update/Write Operations
+
+We are still using the student & student list example! See how **thread-safe** and **high-concurrency** are achieved!
+
+* **Read Algorithm**
 
   ```c
-  /*
-   * File Name    : ref_count.h
-   * Description  : Interface for reference count data structure
-   * Author       : Modified by by Kyungjae Lee (Original: Abhishek Sagar)
-   * Date Created : 01/15/2023
+  /* T1: reader thread (simply reads the data of a container element) */
+  read_lock(lst); /* acquire container level read lock */
+  stud = student_lst_lookup(lst, 2); /* find the element whose roll number is 2 */
+  if (!stud) /* if such element does not exist */
+  {
+      /* always release all locks when returning from a function */
+      unlock(lst);
+      return;
+  }
+  thread_using_object(&stud->ref_count); /* current thread starts using the found element 
+  	(this API simply increments the ref_count) */
+  
+  /* now, since the algorithm needs to perform a read operation on the element */
+  read_lock(stud); /* obtain the element-level read_lock */
+  
+  /* now, no reason to keep the entire container (container-level read_lock) locked
+     since the thread has already finished accessing the container to look up an element
+     and has already acquired an element it wants */
+  unlock(lst); /* this is to achieve high concurrency (now, the container is available for
+  	other threads trying to do other operations) */
+  
+  /* 
+   * perform the read operation on the element 
    */
   
-  #ifndef REF_COUNT_H
-  #define REF_COUNT_H
+  unlock(stud);	/* when done reading, unlock the element-level read_lock */
   
-  #include <pthread.h>
-  #include <stdint.h>
-  #include <stdbool.h>
-  
-  typedef struct ref_count_
+  /* now, the current thread is completely done using the element (stud) */
+  if (thread_using_object_done(&stud->ref_count))
   {
-      uint32_t ref_count;				/* can't go negative */
-      pthread_spinlock_t spinlock;	/* to support provide mutual exclusion */
-  } ref_count_t;
-  
-  void ref_count_init (ref_count_t *ref_count);
-  void ref_count_inc (ref_count_t *ref_count);
-  bool ref_count_dec (ref_count_t *ref_count); /* returns true if ref_count after dec is zero*/
-  void ref_count_destroy (ref_count_t *ref_count);
-  void thread_using_object (ref_count_t *ref_count);
-  bool thread_using_object_done (ref_count_t *ref_count);
-  
-  #endif /* REF_COUNT_H */
+      /* above condition is true when the decremented ref_count equals to 0 */ 
+      student_destroy(stud);
+      return; /* implies that the current thread will not access stud from this point on */
+  }
   ```
 
-* **Implementation of Reference Count Data Structure**
+  > In fact, any thread (irrespective of whether that thread is a delete thread or not) in the system who has witnessed the return value of `thread_using_object_done()` is 0 must destroy the corresponding element. Why? Coming soon!
+  >
+  > Whenever you use `thread_using_object_done()` it is recommended that you test the return value in an `if` statement.
+  >
+  > Whenever you invoke `thread_using_object()` API, make sure that you also invoke `thread_using_object_done()` as well at some point to keep the balance. Otherwise, management of reference count will be screwed up.
+
+* **Update/Write Algorithm**
+
+  Basically the same as the Read Algorithm except for one line (L14: `read_lock()` -> `write_lock()`):
 
   ```c
-  /*
-   * File Name    : ref_count.c
-   * Description  : Implementation of reference count data structure
-   * Author       : Modified by by Kyungjae Lee (Original: Abhishek Sagar)
-   * Date Created : 01/15/2023
+  /* T2: writer thread (updates the data of a container element) */
+  read_lock(lst); /* acquire container level read lock */
+  stud = student_lst_lookup(lst, 2); /* find the element whose roll number is 2 */
+  if (!stud) /* if such element does not exist */
+  {
+      /* always release all locks when returning from a function */
+      unlock(lst);
+      return;
+  }
+  thread_using_object(&stud->ref_count); /* current thread starts using the found element 
+  	(this API simply increments the ref_count) */
+  
+  /* now, since the algorithm needs to perform a write operation on the element */
+  write_lock(stud); /* obtain the element-level write_lock */
+  
+  /* now, no reason to keep the entire container (container-level write_lock) locked
+     since the thread has already finished accessing the container to look up an element
+     and has already acquired an element it wants */
+  unlock(lst); /* this is to achieve high concurrency (now, the container is available for
+  	other threads trying to do other operations) */
+  
+  /* 
+   * perform the write operation on the element 
    */
   
-  #include <assert.h>
-  #include "ref_count.h"
+  unlock(stud);	/* when done writing, unlock the element-level write_lock */
   
-  void ref_count_init(ref_count_t *ref_count)
+  /* now, the current thread is completely done using the element (stud) */
+  if (thread_using_object_done(&stud->ref_count))
   {
-      /* initialize members */
-      ref_count->ref_count = 0;
-      pthread_spin_init(&ref_count->spinlock, PTHREAD_PROCESS_PRIVATE);
-  }
-  
-  void ref_count_inc(ref_count_t *ref_count)
-  {
-      pthread_spin_lock(&ref_count->spinlock);
-      ref_count->ref_count++;
-      pthread_spin_unlock(&ref_count->spinlock);
-  }
-  
-  /* returns true if ref_count after decrement is zero*/
-  bool ref_count_dec(ref_count_t *ref_count)
-  {
-      bool rc;
-      pthread_spin_lock(&ref_count->spinlock);
-      assert(ref_count->ref_count); /* ensure that ref_count never goes below zero */
-      ref_count->ref_count--;
-      rc = (ref_count->ref_count == 0) ? true : false; 
-      pthread_spin_unlock(&ref_count->spinlock);
-      return rc;
-  }
-  
-  void ref_count_destroy(ref_count_t *ref_count)
-  {
-      assert(ref_count->ref_count == 0);
-      pthread_spin_destroy(&ref_count->spinlock);
-  }
-  
-  void thread_using_object(ref_count_t *ref_count)
-  {
-      ref_count_inc(ref_count);
-  }
-  
-  bool thread_using_object_done(ref_count_t *ref_count)
-  {
-      return ref_count_dec(ref_count);
-  }
-  ```
-  
-  > Basically, the value of `ref_count` refers to the number of entities in the system that are referencing (or using) that reference count object.
-
-### Usage of Reference Count Data Structure
-
-* Problem statement:
-
-  Copy the student object whose `roll_no` is 2 from the list 1 to list 2.
-
-* **Interface for Student List**
-
-  ```c
-  /*
-   * File Name    : student_list.c
-   * Description  : Interface for student list
-   * Author       : Modified by by Kyungjae Lee (Original: Abhishek Sagar)
-   * Date Created : 01/15/2023
-   */
-  
-  #include <stdint.h>
-  #include <pthread.h>
-  #include "ref_count.h"
-  #include "LinkedList/LinkedListApi.h"
-  
-  typedef struct student_ 
-  {
-      uint32_t roll_no;
-      uint32_t total_marks;
-      ref_count_t ref_count;
-      pthread_rwlock_t rw_lock;
-  } student_t;
-  
-  typedef struct stud_lst_
-  {
-      ll_t *lst;
-      pthread_rwlock_t rw_lock;
-  } stud_lst_t;
-  
-  student_t* student_malloc(uint32_t roll_no);
-  void student_destroy(student_t *stud);
-  student_t* student_lst_lookup(stud_lst_t *stud_lst, uint32_t roll_no);
-  bool student_lst_insert(stud_lst_t *stud_lst, student_t *stud);
-  student_t* student_lst_remove(stud_lst_t *stud_lst, uint32_t roll_no);
-  ```
-
-* **Implementation of Student List**
-
-  ```c
-  /*
-   * File Name    : student_list.c
-   * Description  : Implementation of student list
-   * Author       : Modified by by Kyungjae Lee (Original: Abhishek Sagar)
-   * Date Created : 01/15/2023
-   */
-  
-  #include <assert.h>
-  #include "re_fcount.h"
-  
-  void ref_count_init (ref_count_t *ref_count)
-  {
-      ref_count->ref_count = 0;
-      pthread_spin_init(&ref_count->spinlock, PTHREAD_PROCESS_PRIVATE);
-  }
-  
-  void ref_count_inc (ref_count_t *ref_count)
-  {
-      pthread_spin_lock(&ref_count->spinlock);
-      ref_count->ref_count++;
-      pthread_spin_unlock(&ref_count->spinlock);
-  }
-  
-  bool ref_count_dec (ref_count_t *ref_count)
-  {
-      bool rc; 
-      pthread_spin_lock(&ref_count->spinlock);
-      assert(ref_count->ref_count);
-      ref_count->ref_count--;
-      rc = (ref_count->ref_count == 0) ? true : false; 
-      pthread_spin_unlock(&ref_count->spinlock);
-      return rc; 
-  }
-  
-  void ref_count_destroy (ref_count_t *ref_count)
-  {
-      assert(ref_count->ref_count == 0); 
-      pthread_spin_destroy(&ref_count->spinlock);
-  }
-  
-  void thread_using_object (ref_count_t *ref_count)
-  {
-      ref_count_inc(ref_count);
-  }
-  
-  bool thread_using_object_done (ref_count_t *ref_count)
-  {
-      return ref_count_dec(ref_count);
+      /* above condition is true when the decremented ref_count equals to 0 */ 
+      student_destroy(stud);
+      return; /* implies that the current thread will not access stud from this point on */
   }
   ```
 
