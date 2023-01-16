@@ -63,6 +63,24 @@ This section demonstrates a 100% thread-safe, accurate, highly-concurrent, and d
 
 
 
+## Demo Project and Deadlocks
+
+* Is our demo project deadlock-free?
+
+  * **Yes**, provided that a thread holds lock on only one student object at any given point in time.
+
+  * **No**, deadlock may occur if a thread works with 2 or more student objects at any given point in time.
+
+    In this case, **Deadlock Detection Algorithms** must be deployed as a part of your project to guarantee deadlock-free execution.
+
+  Since we have designed the program in such a way that no thread holds 2 or more student objects at the same time, deadlock will NOT occur. 
+
+* CRUD operations usually involve a thread performing operations only on 1 object at a time. If a thread need to update more than 1 objects, it should update them one by one. (Do not hold write lock on more than 1 object at a time.)
+
+* These CRUD algorithms are being used in industry gracefully without assistance of any **Deadlock Detection Algorithms**.
+
+
+
 ## Demo Source Code
 
 * **Implementation of CRUD Algorithm**
