@@ -140,7 +140,7 @@ How have operating systems evolved over the years?
   * Computer sat idle when it didn't have to.
 * Long story short, very very inefficient!
 
-### 2. Simple Batch & Job Monitor (1960s)
+### 2. Simple Batch & Job Monitor
 
 * Early computers were very expensive.
   * Important to maximize processor utilization
@@ -188,9 +188,11 @@ How have operating systems evolved over the years?
 * Multiprogramming is discussed in the single-processor system. (Multiprocessing  $\to$ Multi-processor system)
 * Multiprogramming is the method of allowing more than one program to be interleaving their execution.
 * The development of multiprogramming in batch systems GREATLY increased resource utilization.
-* Multiprogramming allows another program to execute while the first is waiting for an I/O other device request to complete.
+* Multiprogramming allows another program to execute while the first is waiting for an I/O other device request to complete. This improved the throughput of the system.
 * When the I/O task is complete, an interrupt is sent to the CPU. The monitor can then interpret the interrupt and return the first program to execution status.
 * Original multiprogramming systems required all of the executing programs to reside in memory. Small memory limited the number of running programs.
+* Multiprogramming is a common feature of modern operating systems.
+* Also called as concurrency. (Multiple threads taking turns to execute on a CPU.)
 
 
 
@@ -224,10 +226,12 @@ Critical areas of development that support modern operating systems.
 ### 1. Process
 
 * The concept of a process is central to the design of operating systems.
+* A process is a **program in execution**.
 * A process contains three components:
   * An executable program
-  * The associated data needed by the program (variables, work space, buffers, etc.)
+  * The associated data needed by the program (variables, work space (e.g., stack), buffers, etc.)
   * The execution context (or "process state") of the program - this is essential
+    * Part of a data structure that operating system keeps about every process
     * It is the internal data by which the OS is able to supervise and control the process.
     * Includes the contents of the various process registers
     * Includes information such as the priority of the process and whether the process is waiting for the completion of a particular I/O event.
@@ -251,7 +255,7 @@ Critical areas of development that support modern operating systems.
 * The KEY responsibility of an OS is managing resources.
 * Resource allocation policies must consider:
   * Efficiency
-  * Fairness
+  * Fairness - No starvation!
   * Responsiveness
 
 ### 5. Fault Tolerance
@@ -275,7 +279,13 @@ Critical areas of development that support modern operating systems.
   | High Availability   | 0.999        | 8.3 hrs         |
   | Normal Availability | 0.99 - 0.995 | 44 - 87 hrs     |
 
+  Continuous system - Very expensive. If one component fails, another in the system must be able to take over its place in such a way that the system goes on as if nothing has every happened.
   
+  Fault resilient system - e.g., Weapon monitoring system, etc.
+  
+  High availability system - e.g., Time sheet program, airline reservation system, etc. It can be down for a short period of time  here and there for system updates, issue resolution, etc.
+
+
 
 
 
