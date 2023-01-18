@@ -33,7 +33,7 @@ The OS typically provides services in the following areas:
 
 * **Program execution**
 
-  Load instructions, manipulate data, prepare resources
+  Load instructions, manipulate data, prepare resources, and run the program
 
   e.g., We just run the program and all the work necessary to run a program such as loading, memory translation will be done by the OS.
 
@@ -53,19 +53,33 @@ The OS typically provides services in the following areas:
 
 * **Error detection and response**
 
-  Internal/external hardware errors, forbidden memory references, etc.
+  Errors can always occur in the course of computing, and an operating system must be constantly aware of the possible errors. (e.g., Errors occur in the CPU, memory, I/O devices, network, etc.)
+
+  An operating system must also be able to manage those errors so that your computing is consistent and it is still carried on even if some error are encountered.
 
 * **Accounting**
 
-  Not necessarily limited to *finance*
-
-  Statistics gather that enables performance monitoring, usage information to be used to improve the system (OS has some data structures to keep this pieces of information in.)
+  An operating system keeps track of the statistics such as which user use how much and what kind of computer resources. This information is for accounting or accumulating usage statistics which can help researchers that wish to reconfigure the system or to improve the computing services.
 
 * **Various APIs**
 
   API provides the standard binary system call interface, designed for portability of programs across machines using the same OS. Application programming interface is a high-level language standardization of the interfaces to OS facilities.
   
   e.g., I don't need to program directly using the Instruction Set Architecture. OS will translate my program written in a high-level language into the instructions that are supported by the hardware.
+  
+* **Protection & Security**
+
+  Our data should be secure and everything we do on a computer system must be protected.
+
+  In terms or processes, the protection means that access to the system resources must be controlled. It should not be possible for one process to interfere with the others or with the operating system when several different processes are executing simultaneously.
+
+  In terms of outside access, the protection means the system is not accessible to outsiders who are not allowed to access the system.
+
+* **User Interface**
+
+  Almost all operating systems support user interface and the user interface allows a user to interact with an operating system or a computer itself. (e.g., Command Line Interface (CLI), Graphical User Interface (GUI))
+
+  
 
 ### 2. Resource Management / Efficiency
 
@@ -120,6 +134,8 @@ The OS typically provides services in the following areas:
 * Depending on the computer system structure there may or may not be other software layers other than OS that directly interact with the hardware.
 
 * Main memory and external devices are connected via bus.
+
+* Memory translation layer includes Translation Look-aside Buffer (TLB), Page Tables, etc.
 
 * Execution hardware includes ALU, Control Unit, etc.
 
@@ -185,14 +201,21 @@ How have operating systems evolved over the years?
 
 ### 3. Multiprogramming
 
-* Multiprogramming is discussed in the single-processor system. (Multiprocessing  $\to$ Multi-processor system)
+* Multiprogramming refers to the management of multiple processes within a uniprocessor system. Also called as concurrency; multiple threads taking turns to execute on a CPU. (Multiprocessing  $\to$ Multi-processor system)
+
 * Multiprogramming is the method of allowing more than one program to be interleaving their execution.
-* The development of multiprogramming in batch systems GREATLY increased resource utilization.
-* Multiprogramming allows another program to execute while the first is waiting for an I/O other device request to complete. This improved the throughput of the system.
+
+* Multiprogramming increases CPU utilization by organization jobs (code and data) so that the CPU always has one to execute. Programs to be run are loaded onto the main memory in the form of processes and they are assigned CPU taking turns as necessary.
+
+  Without multiprogramming, a single user cannot, in general, keep either the CPU or the I/O devices busy at all times. For example, even when a process occupying the CPU carries out an I/O operation, the CPU is held by that process in idle state. All other processes waiting to be executed cannot utilize the CPU until the process completes its job and releases the CPU.
+
 * When the I/O task is complete, an interrupt is sent to the CPU. The monitor can then interpret the interrupt and return the first program to execution status.
+
 * Original multiprogramming systems required all of the executing programs to reside in memory. Small memory limited the number of running programs.
+
 * Multiprogramming is a common feature of modern operating systems.
-* Also called as concurrency. (Multiple threads taking turns to execute on a CPU.)
+
+* Multiprogrammed systems provide an environment in which the various system resources (e.g., CPU, memory, peripheral devices) are utilized effectively, but they **do not provide for user interaction with the computer system**.
 
 
 
@@ -200,12 +223,18 @@ How have operating systems evolved over the years?
 
 
 
-### 4. Time Sharing Systems
+### 4. Time Sharing Systems (Multitasking Systems)
 
 Because batch systems were designed to handle the execution of mainly non-interactive systems, they are not suitable for user-oriented systems.
 
 * Time-sharing systems were developed to enable quick user response time at the sacrifice of compute time.
+
+  CPU executes multiple processes by switching among them. Switches between multiple processes occur so fast and frequently that the **users can interact with each program** while it is running. (This wasn't possible in the multiprogramming systems.)
+
 * This enables many people to share the system and perceive it as dedicated to themselves. It required the ability to load more applications into memory at the same time.
+
+* A time-shared operating system uses CPU scheduling and multiprogramming to provide each user with a small portion of a time-shared computer. (Each user has at least one separate process in main memory.)
+
 * Academic institutions used these systems to provide programming courses. Students used terminals to interact with the operating systems and write and test programs (BASIC).
 
 
@@ -306,15 +335,103 @@ Architectural developments leading to modern operating systems:
 ### Microkernel Architectures
 
 * Older operating systems required the entire operating system code (or most of it) to be resident in memory (a.k.a. **monolithic kernel**).
+
 * As OS responsibilities grew, so did the size of the OS.
+
 * Today, OS are designed in a more object-oriented or distributed fashion.
-* A **microkernel** design only keeps a few essential functions resident in memory (the kernel). It pulls in other functionality as needed.
+
+* A **microkernel** design only keeps a few essential functions (or modules) resident in memory (the kernel). It pulls in other functionality as needed.
+
+  Microkernel enables programs to be updated without having to shut down and reboot the whole system.
+
 * Example:
 
 
 
 <img src="./img/general-unix-architecture.png" alt="general-unix-architecture" width="550">
 
+
+
+
+
+## Types of Computer Systems
+
+Types of computer systems **based on the number of general purpose processors**:
+
+* **Single Processor Systems**
+
+  Contains only one processor which is capable of executing a general purpose instruction set including instructions from the user processes. Other special purpose processors are also present which perform device specific tasks.
+
+* **Multiprocessor Systems (a.k.a. Parallel Systems or Tightly Coupled Systems)**
+
+  Contains multiple processors in close communication and synchronization, sharing the computer bus and sometimes the clock, memory, and peripheral devices. Those processors may be carrying out the same task together or the different tasks independently.
+
+  * Advantage
+
+    * Increased throughput (performance), 
+    * Economy of scale (since shared resources)
+    * Increased reliability (even if one fails others can keep the system running)
+
+  * Types of Multiprocessor Systems
+
+    * Symmetric multiprocessing (SMP)
+
+      All processors are **equal**. They can execute any type of processes as required.
+
+    * Asymmetric multiprocessing (AMP, ASMP)
+
+      The processors are inherently **unequal**. There may be a master slave  relationship where the master processor may assign processes to other  processors.
+
+* **Clustered Systems**
+
+  Like multiprocessor systesms, clustered systems gather together multiple CPUs to accomplish computation work. They are composed of two or more individual (complete) systems coupled together.
+
+  * Advantage
+
+    * High availability (even if one fails other can keep the system running)
+
+  * Types of Clustered Systems
+
+    * Symmetric
+
+      One machine is in the hot-standby mode while others are running applications. If one system fails, the one in the hot-standby mode will take its place.
+
+    * Asymmetric
+
+      Two or more hosts run applications and they monitor each other.
+
+
+
+## Some Important Terms
+
+* **Bootstrap program**
+
+  * The initial program that runs when a computer is powered up or rebooted.
+  * It is stored in the ROM.
+  * It must know how to load the OS and start executing that system.
+  * It must locate and load into memory the OS kernel.
+
+* **Interrupt**
+
+  * The occurrence of an event is usually signaled by an interrupt from hardware or software.
+
+  * Hardware may trigger an interrupt at any time by sending a **signal** to the CPU, usually through the system bus.
+
+  * When the CPU is interrupted, it stops what it is doing and immediately jumps to a designated location. The designated location usually contains the starting address where the service routine (i.e., interrupt handler) of the interrupt is located.
+
+    The interrupt service routine is executed.
+
+    Upon completion, the CPU resumes the interrupted computation.
+
+* **System call (monitor call)**
+
+  * Software may trigger an interrupt by executing a special operation called the system call.
+  * A programming running in user mode may need an access to some of the resources managed by the kernel. In such cases, the user mode program **signals (makes a system call to)** the operating system, (context) switch to kernel mode temporarily so that it can use the resources and (context) switch back to user mode when done.
+  * System calls provide an interface to the services made available by an operating system. System call is the programmatic way in which a computer program requests a service from the kernel of the operating system.
+  
+  * System calls are generally available as routines written in C and C++.
+  
+  * Even a simple task may involve a lot of system calls. There are thousands of system calls that are executed per second during the execution of certain program in your system.
 
 
 

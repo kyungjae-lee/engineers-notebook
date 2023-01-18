@@ -21,10 +21,18 @@
 
 * Process supports some goals especially in the area of utilization, fairness, and throughput.
 
-  1. Operating system must interleave execution of multiple processes.
-  2. Operating system must allocate resources to processes in a way that is fair and avoids deadloccks.
-  3. Operating system must support user creation of processes.
-  4. Operating system must support inter-process communication.
+  1. Operating system must **interleave execution** of multiple processes.
+  
+  2. Operating system must **allocate resources** to processes in a way that is **fair** and **avoids deadloccks**.
+  
+     - Consumable resource
+     - Reusable resource
+  
+  3. Operating system must **support user creation & start of processes**.
+  
+  4. Operating system must **support inter-process communication (IPC)**.
+  
+     e.g., Sockets, pipes, message passing, etc.
 
 
 
@@ -34,24 +42,28 @@
 
 * A process is comprised of:
 
-  - A program in execution (the program's code)
-  - Associated data in memory
-  - The process control block (PCB)
+  - A program in execution (i.e., the program's **code**)
+  - Associated **data** in memory
+  - The process control block (**PCB**) - Uniform-sized data structure that contains the state of process
 
-  **Process image** -  The collection of program instructions, data, stack, and attributes required to store the state of a process.
+  **Process image** - Code + Data (The collection of program instructions, data, stack, and attributes required to store the state of a process.)
 
 
 
 ## Process Control Block (PCB)
 
-* The PCB is a data structure created by an managed by the operating system software.
+* The PCB is a data structure (that contains the state of process) created by an managed by the operating system software.
 
 * Contains sufficient information about a process so it is possible to interrupt a running process and resume its execution as if the interruption did not happen.
 
 * This supports multi-programming:
 
   - When a process is interrupted, current values related to the process' current status are saved (context)
+
+    Context data - State of the hardware the must be saved/restored when a process exits/enters the CPU.
+
   - The process is moved to a non-running state
+
   - The OS is free to choose another PCB to load and resume the execution of a different process
 
 * Typical Contents of a PCB
@@ -59,10 +71,11 @@
   | Contents        | Description                                                  |
   | --------------- | ------------------------------------------------------------ |
   | Identifier      | Unique ID to distinguish from other processes                |
+  | Ownership       |                                                              |
   | State           | The current state (e.g., ready, running, blocked, new, exit) |
   | Priority        | Level of priority with respect to other processes            |
   | Program Counter | Address of next instruction to load and execute in the program code |
-  | Memory Pointers | Pointers to code, data and share data                        |
+  | Memory Pointers | Pointers to code, data and shared data                       |
   | Context Data    | Current values of system registers and other hardware flags  |
   | I/O Status      | Pending I/O requests, devices dedicated to process, list of files in use |
   | Accounting Data | Processor time used, time limits, user info, etc.            |
@@ -111,11 +124,13 @@
 
   * **User Mode**
 
-    A process is executing normally.
+    A process is executing normally. A program running in user mode does not have the direct access to the memory, hardware, and such other resources. Therefore, even if a program running in user mode crashes, the entire system does not crash. It is a safe mode, and most of the programs execute in user mode.
 
-  * **Kernel Mode**
+  * **Kernel Mode (Privileged Mode)**
 
-    A process is executing some instructions via the OS that are privileged. Often, when a process calls an OS utility, it enters kernel mode to execute the instructions, and returns to user mode when the operation exists.
+    A process is executing some instructions via the OS that are privileged. Often, when a process calls an OS utility, it enters kernel mode to execute the instructions, and returns to user mode when the operation exists. 
+    
+    A program running in kernel mode has the direct access to the memory, hardware, and such other resources. Therefore, if a program running in kernel mode crashes, it is likely that the entire system will crash and come to a halt. (Big problem!)
 
 * The current mode is stored in the PDB.
 
