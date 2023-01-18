@@ -437,6 +437,11 @@ Types of computer systems **based on the number of general purpose processors**:
   * System calls are generally available as routines written in C and C++.
   
   * Even a simple task may involve a lot of system calls. There are thousands of system calls that are executed per second during the execution of certain program in your system.
+  
+* **I/O bound process vs. CPU bound process**
+
+  - **I/O bound** refers to a condition in which the time it takes to complete a computation is determined principally by the period spent waiting for input/output operations to be completed. This is the opposite of a task being CPU bound. 
+  - **CPU-bound** (or **compute-bound**) refers to when the time for a computer to complete a task is determined principally by the speed of the central processor.
 
 
 
