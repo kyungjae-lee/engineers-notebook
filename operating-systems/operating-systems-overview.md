@@ -329,8 +329,15 @@ Architectural developments leading to modern operating systems:
 
 ### Architectural Design
 
-* Hardware architectures require different forms of support
-* Parallel (SMP, vector machines), distributed (mesh, butterfly), cloud
+* Hardware advances impact operating systems. The more hardware support you have for some features the less work the OS has to do.
+
+  e.g., Translation Look-aside Buffer (TLB), Page Table $\to$ Hardware constructs that help memory translation to be performed at the hardware level very fast
+
+* Specialized operating systems for specialized architectures 
+
+  - Parallel computing - SMP, vector machines
+  - Distributed computing - Mesh, butterfly
+  - Cloud computing
 
 ### Microkernel Architectures
 
@@ -341,8 +348,6 @@ Architectural developments leading to modern operating systems:
 * Today, OS are designed in a more object-oriented or distributed fashion.
 
 * A **microkernel** design only keeps a few essential functions (or modules) resident in memory (the kernel). It pulls in other functionality as needed.
-
-  Microkernel enables programs to be updated without having to shut down and reboot the whole system.
 
 * Example:
 

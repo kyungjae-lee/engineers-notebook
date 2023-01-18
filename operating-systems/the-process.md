@@ -132,7 +132,7 @@
     
     A program running in kernel mode has the direct access to the memory, hardware, and such other resources. Therefore, if a program running in kernel mode crashes, it is likely that the entire system will crash and come to a halt. (Big problem!)
 
-* The current mode is stored in the PDB.
+* The current mode is stored in the PCB.
 
 
 
