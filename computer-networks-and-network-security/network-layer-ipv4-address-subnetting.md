@@ -137,34 +137,56 @@ To create a subnet, you need to answer the following questions first:
 
 * **Problem 2**
 
-  Given `10.10.0.1/26`, what is the network, broadcast, how many hosts in each subnet?
+  Given `10.10.0.1/26`, what is the network, broadcast addresses and how may hosts in each subnet?
 
   **Solution**
 
   ```plain
-  subneet mask : 255.255.255.192
-  network      : 10.10.0.0
-  broadcast    : 10.10.0.63 (last octet: 00111111)
-  #hosts       : 2^6 - 2 = 62
-  #subnet      : 2^(26 - 24) = 4
+  subnet mask	: 255.255.255.192 (11111111.11111111.11111111.11000000)
+  network     : 10.10.0.0
+  broadcast   : 10.10.0.63 (last octet: 00111111)
+  # of hosts  : 2^6 - 2 = 62
+  # of subnet : 2^(26 - 24) = 4
   ```
 
 * **Problem 3**
 
-  Given `192.168.0.25/20`, what is the network, broadcast, how many hosts in each subnet?
+  Given `192.168.0.25/20`, what is the network, broadcast addresses and how may hosts in each subnet?
 
   **Solution**
 
   ```plain
-  subneet mask : 11111111.11111111.11110000.00000000
-                 255.255.240.0
-  network      : 192.168.0.0
-  broadcast    : 11111111.11111111.00001111.11111111 
-               : 192.168.15.255 
-  #hosts       : 2^12 - 2 = 4094
-  #subnet      : 2^(20 - 16) = 16
+  subnet mask	: 255.255.240.0 (11111111.11111111.11110000.00000000) 
+  network     : 192.168.0.0
+  broadcast   : 192.168.15.255 (last two octets: 00001111.11111111)
+  # of hosts  : 2^12 - 2 = 4094
+  # of subnet : 2^(20 - 16) = 16
                          --
-                         original network subnet (clasful)
+                         original network subnet (classful)
   ```
 
+* **Problem 4**
+
+  Given `146.229.232.100/20`, what is the network, broadcast addresses and how may hosts in each subnet?
+
+  ```plain
+  given IP	: 146.229.(11101000).100
+  subnet mask	: 255.255.240.0 (11111111.11111111.11110000.00000000)
+  network     : 146.229.224.0
+  broadcast   : 146.229.239.255 (last two octets: 11101111.11111111)
+  # of hosts  : 2^12 - 2 = 4094
+  # of subnet : 2^(20 - 16) = 16
+  ```
+
+* **Problem 5**
+
+  Give the subnet mask in both dotted decimal notation and CIDR notation for a network that can support 8192 hosts.
+
+  ```plain
+  8192 = 2^13 (hosts) -> 19 network bits, 13 host bits
   
+  subnet mask	: 11111111.11111111.11100000.00000000
+  			  255.255.224.0 (dotted notation)
+  			  /19			(CIDR notation)
+  ```
+

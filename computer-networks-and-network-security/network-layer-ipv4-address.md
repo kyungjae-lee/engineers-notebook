@@ -140,6 +140,15 @@
 
 * You can’t tell the class of the IP address just by looking at the IP address itself because subnetted address are non-classifiable. Always check the subnet mask along with the IP address!
 
+* Network address = IP address & Subnet mask
+
+  ```plain
+  	IP address	: 10.168.1.6/17 
+    & Subnet mask	: 255.255.128.0 (11111111.11111111.10000000.00000000)
+    ------------------------------
+    	Network addr: 10.168.0.0
+  ```
+
 
 
 ## Loopback Address
