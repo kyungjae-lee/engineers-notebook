@@ -164,7 +164,7 @@ To create a subnet, you need to answer the following questions first:
   #hosts       : 2^12 - 2 = 4094
   #subnet      : 2^(20 - 16) = 16
                          --
-                         original network subnet (clasful)xxxxxxxxxx5 1subneet mask : 255.255.255.1922network      : 10.10.0.03broadcast    : 10.10.0.63 (last octet: 00111111)4#hosts       : 2^6 - 2 = 625#subnet      : 2^(26 - 24) = 4
+                         original network subnet (clasful)
   ```
 
   
