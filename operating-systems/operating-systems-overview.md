@@ -287,6 +287,36 @@ Critical areas of development that support modern operating systems.
 
 
 
+## OS Advancements
+
+Architectural developments leading to modern operating systems:
+
+### Operating System Software Design
+
+* Microkernel design (allows for flexible enhancements to OS without impacting the core)
+* Multithreading
+* Distributed design
+* Object Oriented design
+
+### Architectural Design
+
+* Hardware architectures require different forms of support
+* Parallel (SMP, vector machines), distributed (mesh, butterfly), cloud
+
+### Microkernel Architectures
+
+* Older operating systems required the entire operating system code (or most of it) to be resident in memory (a.k.a. **monolithic kernel**).
+* As OS responsibilities grew, so did the size of the OS.
+* Today, OS are designed in a more object-oriented or distributed fashion.
+* A **microkernel** design only keeps a few essential functions resident in memory (the kernel). It pulls in other functionality as needed.
+* Example:
+
+
+
+<img src="./img/general-unix-architecture.png" alt="general-unix-architecture" width="550">
+
+
+
 
 
 
