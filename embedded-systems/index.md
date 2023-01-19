@@ -8,6 +8,7 @@
 
 1. **<a href="./embedded-systems-basics">Embedded Systems Basics</a>**
 1. **<a href="./cross-compilation">Cross Compilation</a>**
+1. **<a href="./cubeide-tips">CubeIDE Tips</a>**
 1. **<a href="./memory-map">Memory Map</a>**
 1. **<a href="./gpio-control-leds">GPIO Control - LEDs</a>**
 
