@@ -4,18 +4,23 @@
 
 
 
-## 6 commonly used bitwise operators in embedded C programming:
+## 6 Commonly Used Bitwise Operators in Embedded C Programming
+
+### Bitwise Logic Operators
 
 * `&` (Bitwise AND)
 * `|` (Bitwise OR)
 * `~` (Bitwise NOT - Negation) Unary
 * `^` (Bitwise XOR) - Bitwise addition without carry
+
+### Bitwise Shift Operators
+
 * `>>` (Bitwise Right Shift)
 * `<<` (Bitwise Left Shift)
 
 
 
-## Logical operator vs. bitwise operator
+## Logical Operator vs. Bitwise Operator
 
 * `&&` is a logical AND operator
 * `&` is a bitwise AND operator
@@ -57,9 +62,9 @@ C = A ^ B	// C contains '00110110(2)'
 
 
 
-## Applicability of bitwise operations
+## Bitwise Logic Operators
 
-In an embedded C program, most of the time you will be doing:
+In embedded C programs, most of the time you will be doing:
 
 * Testing of bits (`&`)
   * Testing bits to analyze the status register of a peripheral
@@ -100,7 +105,7 @@ Enter two integers: 1 2
 ~1 = -2, ~2 = -3
 ```
 
-### Exercise: Testing of bits
+### Use Case: Testing of Bits
 
 Write a program to find out whether a use entered integer is even or odd. Print an appropriate message on the console. Use testing of bits logic.
 
@@ -134,7 +139,7 @@ Bit masking is a technique in programming used to test or modify the states of t
 
 * Test: Check whether the required bit position of a data is 0 or 1.
 
-### Exercise: Setting of bits
+### Use Case: Setting of Bits
 
 Write a program to set(make bit state to 1) 4th and 7th bit position of a given number and print the result.
 
@@ -159,7 +164,7 @@ int main(int argc, char *argv[])
 
 Could've done `n |= 0x90;` instead.
 
-### Exercise: Clearing of bits
+### Use Case: Clearing of Bits
 
 Write a program to clear(make bit state to 0) 4th, 5th, 6th bit positions of a given number and print the result.
 
@@ -201,7 +206,7 @@ Alternative 2 ways:
 >
 > This method could be a shortcut since it it easier to identify the bit pattern to clear and shift it to the proper position. In this case, 111(2) is 7 and we just need to shift 7 to the right 4 places.
 
-### Exercise: Toggling of bits
+### Use Case: Toggling of Bits
 
 Rewrite the following code snippet using toggling of bits.
 
@@ -221,6 +226,36 @@ Using bitwise XOR operator `^`, above code can be rewritten as:
 while (1)
     LED ^= 0x01;
 ```
+
+
+
+## Bitwise Shift Operators
+
+* Bits of the 1^st^ operand will be right (`>>`) or left (`<<`) shifted by the amount decided by the 2^nd^ operand.
+
+  ```c
+  /* syntax */
+  operand1 >> operand2 	/* right shift */
+  operand1 << operand2 	/* left shift */
+  ```
+
+  > A value will be **multiplied** by 2 for each **left shift**.
+  >
+  > A value will be **divided** by 2 for each **right shift**.
+
+* In an embedded C programs, bitwise shift operators are frequently used to bit-mask data along with other bitwise logic operators. Predominantly used while **setting** or **clearing** bits. (See *Use Case: Setting of Bits*, and *Use Case: Clearing of Bits* section above)
+
+### Use Case: Bit Extraction 
+
+* Extract bit positions from 9^th^ to 14^th^ [14:9] in a given data and save it in to another variable:
+
+  1. Shift the identified portion to right hand side until it touches the least significant bit (0th bit).
+  2. Mask the value to extract only 6 bits [5:0] and then save it in to another variable.
+
+  ```c
+  uint16_t data = 0xB410;	/* given data */
+  uint8_t output = (uint8_t)((data >> 9) & 0x003F);
+  ```
 
 
 
