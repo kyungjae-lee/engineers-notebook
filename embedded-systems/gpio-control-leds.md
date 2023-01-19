@@ -25,6 +25,9 @@ Let's say we want to you want to control the LED4. Your goal is to control the I
 
 1. **Identify the GPIO port (a peripheral) used to connect the LED**
    - e.g., GPIOD (to turn on LED4 - PD12; Port D Pin 12)
+   - GIPO peripheral has a set of registers which are used to control pin's mode, state and other functionalities. You can access the registers of this peripheral using memory addresses. Each register has its own address (peripheral registers are "memory-mapped").
+   
+     Peripherals (e.g., GPIOA, I2C, Timers, ADC, etc.) are controlled by their own set of registers, and a register is addressed by its unique address (i.e., processor addressable address).
    - Consult the schematic of the board
    
 2. **Identify the GPIO pin where the LED is connected**
@@ -33,11 +36,11 @@ Let's say we want to you want to control the LED4. Your goal is to control the I
    
 3. **Activate the GPIO peripheral (i.e., enable the clock)**
    
-   - GIPO peripheral has a set of registers which are used to control pin's mode, state and other functionalities. You can access the registers of this peripheral using memory addresses. Each register has its own address (peripheral registers are "memory-mapped").
-   
-     Peripherals (e.g., GPIOA, I2C, Timers, ADC, etc.) are controlled by their own set of registers, and a register is addressed by its unique address (i.e., processor addressable address).
-   
    - Until you enable the clock for a peripheral, the peripheral is dead and it neither functions nor takes any configuration values set by you.
+   
+     A peripheral clock can be enabled through the appropriate **Reset Clock Control (RCC)** registers which control the internal clocks to each peripheral on MCU.
+   
+     e.g., RCC AHB1 peripheral clock register (RCC_AHB1ENR) - This register controls clocks of all the peripherals connected to AHB1 bus.
    
    - Once you activate the clock for a peripheral, the peripheral is ready to take your configuration and control-related commands or arguments (configuration values).
    
@@ -47,10 +50,12 @@ Let's say we want to you want to control the LED4. Your goal is to control the I
    
 4. **Configure the GPIO pin mode as output**
    - Since you are driving an LED (to ON/OFF), the operation mode of the GPIO pin has to be configured as output.
+   - e.g., GPIO port mode register (GPIOx_MODER) (x = A..I/J/K) - 2 bits assigned for each pin to provide 4 modes
    
 5. **Write to the GPIO pin**
    - 1 (HIGH) to make the GPIO pin state HIGH (3.3V)
    - 0 (LOW) to make the GPIO pin state LOW (0V)
+   - e.g., GPIO port output data register (GPIOx_ODR) (x = A..I/J/K) - Controls the output data for each pin of the port
 
 
 
@@ -75,7 +80,7 @@ Let's say we want to you want to control the LED4. Your goal is to control the I
   9. GPIOD alternate function low resgister
   10. GPIOD alternate function high resgister
 
-  The reference manual defines these in more generic terms, e.g., "GPIO registers" instead of "GPIO**D** registers", "GPIO port mode register (GPIOx_MODER) (x = A.I/J/K)" instead of "GPIO**D** port mode register".
+  The reference manual defines these in more generic terms, e.g., "GPIO registers" instead of "GPIO**D** registers", "GPIO port mode register (GPIOx_MODER) (x = A..I/J/K)" instead of "GPIO**D** port mode register".
 
 
 
