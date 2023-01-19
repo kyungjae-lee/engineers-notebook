@@ -4,9 +4,24 @@
 
 
 
+## GPIO
+
+* Stands for **General Purpose Input/Output**
+* In STM32Fx based MCUs, each port has 16 pins where you can connect external peripherals (LED, display, button, bluetooth transceiver, external memory (e.g., EEPROM), joy stick, keypad, etc.)
+
+
+
+<img src="./img/gpio-ports.png" alt="gpio-ports" width="700">
+
+
+
+
+
 ## Procedure to Turn On an LED
 
-Over the course of turning on an LED, you will need to consult the **schematic**, **user manual (UMx)**, **reference manual (RMx)** of the board, be able to read the memory map, register layouts, do the address calculation, and directly access the registers to set/unset the bits within them.
+In the process of turning on an LED, you will need to consult the **schematic**, **user manual (UMx)**, **reference manual (RMx)** of the board, be able to read the memory map, register layouts, do the address calculation, and directly access the registers to set/unset the bits within them.
+
+Let's say we want to you want to control the LED4. Your goal is to control the I/O pin PD12's state either HIGH or LOW through software to make LED turn ON or OFF. (PD12 refers to 12^th^ pin of the GPIO PORT D peripheral.)
 
 1. **Identify the GPIO port (a peripheral) used to connect the LED**
    - e.g., GPIOD (to turn on LED4 - PD12; Port D Pin 12)
