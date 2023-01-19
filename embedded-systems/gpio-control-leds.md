@@ -26,18 +26,62 @@ Let's say we want to you want to control the LED4. Your goal is to control the I
 1. **Identify the GPIO port (a peripheral) used to connect the LED**
    - e.g., GPIOD (to turn on LED4 - PD12; Port D Pin 12)
    - Consult the schematic of the board
+   
 2. **Identify the GPIO pin where the LED is connected**
    - e.g., 12
    - Consult the schematic of the board
+   
 3. **Activate the GPIO peripheral (i.e., enable the clock)**
+   
+   - GIPO peripheral has a set of registers which are used to control pin's mode, state and other functionalities. You can access the registers of this peripheral using memory addresses. Each register has its own address (peripheral registers are "memory-mapped").
+   
+     Peripherals (e.g., GPIOA, I2C, Timers, ADC, etc.) are controlled by their own set of registers, and a register is addressed by its unique address (i.e., processor addressable address).
+   
    - Until you enable the clock for a peripheral, the peripheral is dead and it neither functions nor takes any configuration values set by you.
+   
    - Once you activate the clock for a peripheral, the peripheral is ready to take your configuration and control-related commands or arguments (configuration values).
+   
    - For some microcontrollers the peripheral may be ON by default, and you need not do any activation. (You should consult the data sheet or reference manual for the device.)
+   
+   - Consult the memory map in the MCU reference manual
+   
 4. **Configure the GPIO pin mode as output**
    - Since you are driving an LED (to ON/OFF), the operation mode of the GPIO pin has to be configured as output.
+   
 5. **Write to the GPIO pin**
    - 1 (HIGH) to make the GPIO pin state HIGH (3.3V)
    - 0 (LOW) to make the GPIO pin state LOW (0V)
+
+
+
+## Peripheral Registers
+
+* All peripheral registers in STM32 microcontroller are of 32-bit wide.
+
+* Different peripherals have different number of peripheral registers. 
+
+  You should never make an assumption about the address of the peripheral registers. Always consult the dvice reference manual.
+
+* Example: GPIOD (Peripheral) Registers:
+
+  1. GPIOD port mode resgister
+  2. GPIOD port output type register
+  3. GPIOD port output speed register
+  4. GPIOD port pull-up/pull-down register
+  5. GPIOD port input data resgister
+  6. GPIOD port output data resgister
+  7. GPIOD port bit set/reset resgister
+  8. GPIOD port configuration lock resgister
+  9. GPIOD alternate function low resgister
+  10. GPIOD alternate function high resgister
+
+  The reference manual defines these in more generic terms, e.g., "GPIO registers" instead of "GPIO**D** registers", "GPIO port mode register (GPIOx_MODER) (x = A.I/J/K)" instead of "GPIO**D** port mode register".
+
+
+
+<img src="./img/gpio-peripheral-and-its-registers.png" alt="gpio-peripheral-and-its-registers" width="600">
+
+
 
 
 
