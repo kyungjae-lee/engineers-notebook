@@ -14,7 +14,28 @@
 
 
 
-## What is Microcontroller?
+## Processor (CPU) vs. Core
+
+* Processor (CPU) = Core + Processor specific peripherals
+  - **Core**
+    - Basic computational engine of the processor
+    - Consists of ALU where data computation takes place and result will be generated
+    - Consists of Address Generation Unit (ADU)
+    - Consists of hardware multiplication and division engine
+    - Has the logic to decode and execute an instruction
+    - Has multiple registers to store and manipulate data
+    - Has pipeline engine to boost the instruction execution
+    - A processor may contain multiple cores depending on the design
+  - **Processor specific peripherals** (e.g., NVIC, FPB, MPU, DWT, etc.)
+    - Types of peripherals may vary depending on the design
+
+
+
+<img src="./img/arm-cortex-m4-block-diagram.png" alt="arm-cortex-m4-block-diagram" width="600">
+
+
+
+## Microcontroller
 
 * Microcontroller (MCU, $\micro$C) is a small computer system on a single chip. Its resources and capabilities such as memory, speed, external interfaces are very limited compared to those of a desktop computer because MCUs are targetted for embedded systems.
 * A typical microcontroller includes on a single chip:
@@ -28,6 +49,13 @@
   * Clock
   * Bus interfaces
   * etc.
+* In the case of STM32F40xxx microcontroller, the ARM Cortex-M4 processor acts as the **master**. It communicates with various **slaves** (i.e., peripherals) via bus interfaces.
+
+
+
+<img src="./img/STM32F40xxx-block-diagram.png" alt="STM32F40xxx-block-diagram" width="800">
+
+
 
 
 

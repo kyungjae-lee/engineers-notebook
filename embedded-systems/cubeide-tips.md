@@ -6,7 +6,7 @@
 
 ## Initial Setup
 
-* To resolve FPU warning:
+* To resolve FPU warning ("FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."):
 
   Project $\to$ Properties $\to$ C/C++ Build $\to$ Settings $\to$ MCU Settings $\to$ Tool Settings
 
