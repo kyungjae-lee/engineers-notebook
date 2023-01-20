@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > GPIO Control - LEDs
+<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > General Purpose Input/Output (GPIO)
 
-# GPIO Control - LEDs
+# General Purpose Input/Output (GPIO)
 
 
 
@@ -12,6 +12,45 @@
 
 
 <img src="./img/gpio-ports.png" alt="gpio-ports" width="700">
+
+
+
+* Before choosing a pin (e.g., PA0) to use for your own purpose, consult the board user manual and make sure that it is available on your board. (Is it free? or used for some other functionality of the board circuit.)
+
+
+
+<img src="./img/stm32-pin-description-versus-board-functions.png" alt="stm32-pin-description-versus-board-functions" width="750">
+
+
+
+
+
+## GPIO Peripheral Registers
+
+* All peripheral registers in STM32 microcontroller are of 32-bit wide.
+
+* Different peripherals have different number of peripheral registers. 
+
+  You should never make an assumption about the address of the peripheral registers. Always consult the dvice reference manual.
+
+* Example: GPIOD (Peripheral) Registers:
+
+  1. GPIOD port mode resgister
+  2. GPIOD port output type register
+  3. GPIOD port output speed register
+  4. GPIOD port pull-up/pull-down register
+  5. GPIOD port input data resgister
+  6. GPIOD port output data resgister
+  7. GPIOD port bit set/reset resgister
+  8. GPIOD port configuration lock resgister
+  9. GPIOD alternate function low resgister
+  10. GPIOD alternate function high resgister
+
+  The reference manual defines these in more generic terms, e.g., "GPIO registers" instead of "GPIO**D** registers", "GPIO port mode register (GPIOx_MODER) (x = A..I/J/K)" instead of "GPIO**D** port mode register".
+
+
+
+<img src="./img/gpio-peripheral-and-its-registers.png" alt="gpio-peripheral-and-its-registers" width="600">
 
 
 
@@ -56,37 +95,6 @@ Let's say we want to you want to control the LED4. Your goal is to control the I
    - 1 (HIGH) to make the GPIO pin state HIGH (3.3V)
    - 0 (LOW) to make the GPIO pin state LOW (0V)
    - e.g., GPIO port output data register (GPIOx_ODR) (x = A..I/J/K) - Controls the output data for each pin of the port
-
-
-
-## Peripheral Registers
-
-* All peripheral registers in STM32 microcontroller are of 32-bit wide.
-
-* Different peripherals have different number of peripheral registers. 
-
-  You should never make an assumption about the address of the peripheral registers. Always consult the dvice reference manual.
-
-* Example: GPIOD (Peripheral) Registers:
-
-  1. GPIOD port mode resgister
-  2. GPIOD port output type register
-  3. GPIOD port output speed register
-  4. GPIOD port pull-up/pull-down register
-  5. GPIOD port input data resgister
-  6. GPIOD port output data resgister
-  7. GPIOD port bit set/reset resgister
-  8. GPIOD port configuration lock resgister
-  9. GPIOD alternate function low resgister
-  10. GPIOD alternate function high resgister
-
-  The reference manual defines these in more generic terms, e.g., "GPIO registers" instead of "GPIO**D** registers", "GPIO port mode register (GPIOx_MODER) (x = A..I/J/K)" instead of "GPIO**D** port mode register".
-
-
-
-<img src="./img/gpio-peripheral-and-its-registers.png" alt="gpio-peripheral-and-its-registers" width="600">
-
-
 
 
 

@@ -10,5 +10,5 @@
 1. **<a href="./cross-compilation">Cross Compilation</a>**
 1. **<a href="./cubeide-tips">CubeIDE Tips</a>**
 1. **<a href="./memory-map">Memory Map</a>**
-1. **<a href="./gpio-control-leds">GPIO Control - LEDs</a>**
+1. **<a href="./general-purpose-input-output">General Purpose Input/Output (GPIO)</a>**
 
