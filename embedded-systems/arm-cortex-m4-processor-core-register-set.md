@@ -1,12 +1,12 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > ARM Cortex M4 Processor Core Register Set
+<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > ARM Cortex M4 - Processor Core Register Set
 
-# ARM Cortex M4 Processor Core Register Set
+# ARM Cortex M4 - Processor Core Register Set
 
 
 
-## ARM Cortex M4 Processor Core Register Set
+## Processor Core Register Set
 
-* The processor has 32 registers that includes 13 general-purpose registers and several special-purpose registers.
+The processor has 32 registers that includes 13 general-purpose registers and several special-purpose registers.
 
 
 
@@ -14,110 +14,78 @@
 
 
 
-* The processor has the following 32-bit registers:
 
-  * **13 general-purpose registers, R0 - R12**
 
-    The general-purpose registers R0-R12 have no special architecturally-defined uses. They can be used for data operations.
+* **13 general-purpose registers, R0 - R12**
 
-    * Low registers
+  The general-purpose registers R0-R12 have no special architecturally-defined uses. They can be used for data operations.
 
-      Registers R0-R7 are accessible by all instructions that specify a general-purpose register.
+  * **Low registers**
 
-    * High registers
+    Registers R0-R7 are accessible by all instructions that specify a general-purpose register.
 
-      Registers R8-R12 are accessible by all 32-bit instructions that specify a general-purpose register.
+  * **High registers**
 
-      Registers R8-R12 are not accessible by most 16-bit instructions.
+    Registers R8-R12 are accessible by all 32-bit instructions that specify a general-purpose register.
 
-  * **Stack Pointer (SP), R13**
+    Registers R8-R12 are not accessible by most 16-bit instructions.
 
-    In Thread mode, bit[1] of the CONTROL register indicates the stack pointer to use:
+* **Stack Pointer (SP), R13**
 
-    - 0 = Main Stack Pointer (MSP) - This is the reset value.
+  In Thread mode, bit[1] of the CONTROL register indicates the stack pointer to use:
 
-    - 1 = Process Stack Pointer (PSP)
+  - 0 = Main Stack Pointer (MSP) - This is the reset value.
 
-    On reset, the processor loads the MSP with the value from address 0x00000000.
+  - 1 = Process Stack Pointer (PSP)
 
-    Handler mode always uses SP_main, but you can configure Thread mode to use either SP_main
-    or SP_process.
+  On reset, the processor loads the MSP with the value from address 0x00000000.
 
-  * **Link Register (LR), R14**
+  Handler mode always uses SP_main, but you can configure Thread mode to use either SP_main
+  or SP_process.
 
-    It stores the return information for subroutines, function calls, and exceptions. At all other times, you can treat R14 as a general-purpose register. On reset, the processor sets the LR value to 0xFFFFFFFF.
+* **Link Register (LR), R14**
 
-    When `bl` (branch and link) instruction is used, the LR gets updated to the current PC so that it knowns where to return. (`bx lr` at the end of the subroutine to return to the caller)
+  It stores the return information for subroutines, function calls, and exceptions. At all other times, you can treat R14 as a general-purpose register. On reset, the processor sets the LR value to 0xFFFFFFFF.
 
-  * **Program Counter (PC), R15**
+  When `bl` (branch and link) instruction is used, the LR gets updated to the current PC so that it knowns where to return. (`bx lr` at the end of the subroutine to return to the caller)
 
-    It contains the current program address (i.e., the address of the next instruction to be executed). On reset, the processor loads the PC with the value of the reset vector, which is at address 0x00000004. Bit[0] of the value is loaded into the EPSR T-bit at reset and must be 1. (Has to do with the "Tumb mode".)
+* **Program Counter (PC), R15**
 
-    Bit [0] of PC is always 0, so instructions are always aligned to word or halfword boundaries.
+  It contains the current program address (i.e., the address of the next instruction to be executed). On reset, the processor loads the PC with the value of the reset vector, which is at address 0x00000004. Bit[0] of the value is loaded into the EPSR T-bit at reset and must be 1. (Has to do with the "Tumb mode".)
 
-  * **Special-purpose Program Status Registers, (xPSR)**
+  Bit [0] of PC is always 0, so instructions are always aligned to word or halfword boundaries.
 
-    It holds the state of the program that is currently running.
+* **Special-purpose Program Status Registers, (xPSR)**
 
-    The Program Status Register (PSR) combines:
+  It holds the state of the program that is currently running.
 
-    - Application Program Status Register (APSR)
+  The Program Status Register (PSR) combines:
 
-      Contains the current state of the condition flags from previous instruction executions
+  - **Application Program Status Register (APSR)**
 
-    - Interrupt Program Status Register (IPSR)
+    Contains the current state of the condition flags from previous instruction executions
 
-      Contains the exception type number of the current Interrupt Service Routine (ISR)
+  - **Interrupt Program Status Register (IPSR)**
 
-    - Execution Program Status Register (EPSR)
+    Contains the exception type number of the current Interrupt Service Routine (ISR)
 
-      If 'T' bit of the EPSR is set(1), processor thinks that the next instruction to be executed is from Thumb ISA.
+  - **Execution Program Status Register (EPSR)**
 
-      If 'T' bit of the EPSR is reset(0), processor thinks that the next instruction which is about to execute is from ARM ISA.
+    If 'T' bit of the EPSR is set(1), processor thinks that the next instruction to be executed is from Thumb ISA.
 
-      Since ARM Cortex Mx processors only support Thumb Mode, the 'T' bit must always be maintained set(1). Execution of an instruction when 'T' bit is reset(0) will result in processor fault.
+    If 'T' bit of the EPSR is reset(0), processor thinks that the next instruction which is about to execute is from ARM ISA.
 
-    These registers are mutually exclusive bitfields in the 32-bit PRS. The bit assignments are:
+    Since ARM Cortex Mx processors only support Thumb Mode, the 'T' bit must always be maintained set(1). Execution of an instruction when 'T' bit is reset(0) will result in processor fault.
 
-  
-
-  <img src="./img/the-program-status-register.png" alt="the-program-status-register" width="650">
-
-  
-
-  See the *Arm®v7-M Architecture Reference Manual* for more information.
+  These registers are mutually exclusive bit-fields in the 32-bit PRS. The bit assignments are:
 
 
 
-## Memory Mapped Registers vs. Non-Memory Mapped Registers
-
-* **Non-Memory Mapped Registers**
-  * The registers do not have unique address to access them. Hence they are not part of the processor memory map. They are internal to the processor core.
-  * You cannot access these registers in a C program using address dereferencing.
-  * To access these registers, you have to use assembly instructions such as `mov`, `ldr`, etc.
-  * Registers belong to ARM Cortex M4 core register set are non-memory mapped registers.
+<img src="./img/the-program-status-register.png" alt="the-program-status-register" width="650">
 
 
 
-<img src="./img/arm-cortex-m4-core-register-set.png" alt="arm-cortex-m4-core-register-set" width="450">
-
-
-
-* **Memory Mapped Registers**
-
-  * Every register has its address in the processor memory map. These registers are part of the processor memory map.
-
-  * You can access these registers in a C program using address dereferencing.
-
-  * Two groups of memory mapped registers:
-
-    - Registers of the processor specific peripherals (e.g., NVIC, MPU, SCB, DEBUG, etc.)
-
-    - Registers of the microcontroller specific peripherals (e.g., RTC, I2C, TIMER, CAN, USB etc.)
-
-      Vendor specific registers
-
-  * These are processor specific registers which are implemented by the processor design.
+See the *Arm®v7-M Architecture Reference Manual* for more information.
 
 
 
