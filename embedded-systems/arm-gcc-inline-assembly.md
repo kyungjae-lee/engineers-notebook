@@ -60,6 +60,8 @@
 
 ## Format of GCC-Specific Inline Assembly Statement
 
+### Format
+
 
 
 <img src="./img/format-of-gcc-specific-inline-assembly-statement.png" alt="format-of-gcc-specific-inline-assembly-statement" width="900">
@@ -86,9 +88,19 @@
   "<constraint string>" (<C expression>) 
   ```
 
-  > constraint string = constraint modifier + constraint character
-  >
-  > (constraint character controls whether a register should be used or whether an immediate value should be used with the instruction)
+  Constraint string = Constraint modifier + Constraint character
+
+  - "Constraint character" 
+
+    Controls whether a register should be used or whether an immediate value should be used with the instruction
+
+  - "Constraint modifier":
+
+    - `=` - Write-only operand, usually used for all output operands
+    - `+` - Read-write operand, must be listed as an output operand
+    - `&` - A register that should be used for output only
+
+### Examples
 
 * Example 1: Move the content of C variable `val` to ARM register `r0`. (Data copy)
 
@@ -100,7 +112,7 @@
   __asm volatile("mov r0, %0": : "r"(val));
   ```
 
-  > code
+  > Code
   >
   > - Operand indexing using % sign followed by a digit
   >
@@ -110,13 +122,15 @@
   >
   >   The compiler will replace `%0` by the first operand that appears in the following output/input operand list. In this case the first operand will be `val`.
   >
-  > input operand list
+  > Input operand list
   >
   > - constraint string: `"r"` 
   >
   >   Here, `r` is the constraint character which tells the compiler that a register operand is allowed provided that it is in a general register. See [Simple Constraints](https://devdocs.io/gcc~10/simple-constraints).
   >
   > - C expression: `val` (C variable)
+  >
+  > - Input operands are always read-only.
 
 * Example 2: Move the content of CONTROL register to C variable `control_reg`. (Reading the contents of a special purpose register)
 
@@ -129,22 +143,55 @@
   // destination	: A C variable 'control_reg' (OUTPUT operand)
   
   uint23_t control_reg;
-  __asm volatile("mrs %0, CONTROL":"=r"(control_reg)::);
+  __asm volatile("mrs %0, CONTROL": "=r"(control_reg)::);
   ```
 
-  > `mrs` - Move from special register to (general purpose) register
+  > Code
   >
-  > `msr` - Move from (general purpose) register to special register
+  > - `mrs` - Move from special register to (general purpose) register
+  > - `msr` - Move from (general purpose) register to special register
   >
-  > 
-  >
-  > output operand list
+  > Output operand list
   >
   > - constraint string: `"=r"` 
   >
   >   Here, `r` is the constraint character which tells the compiler that a register operand is allowed provided that it is in a general register. See [Simple Constraints](https://devdocs.io/gcc~10/simple-constraints).
   >
   > - C expression: `val` (C variable)
+
+* Example 3: Copy the content of C variable `var1` to `var1`
+
+  ```c
+  // instruction	: mov
+  // source		: A C variable 'var1' (INTPUT operand)
+  // destination	: A C variable 'var2' (OUTPUT operand)
+  
+  int var1 = 10, var2;
+  __asm("mov %0, %1": "=r"(var2): "r"(var1));	
+  ```
+
+  > Code
+  >
+  > - `volatile` keyword can be omitted if not necessary
+  >
+  > Output operand list
+  >
+  > - Destination has to be the output operand `var2` (write-only)
+  > - `%0` refers to `"=r"(var2)`
+  >
+  > Input operand list
+  >
+  > - Source has to be the input operand `var1` (read-only)
+  > - `%1` refers to `"r"(var1)`
+
+* Example 4: Copy the contents of a pointer into another variable
+
+  ```c
+  int p1, *p2;
+  
+  p2 = (int *)0x20000008;
+  __asm volatile("ldr %0, [%1]": "=r"(p1): "r"(p2)); 	// p1 = *p2;
+  ```
 
 
 
