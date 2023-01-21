@@ -16,4 +16,5 @@
 1. **<a href="./arm-cortex-m4-processor-core-register-set">ARM Cortex M4 - Processor Core Register Set</a>**
 1. **<a href="./arm-cortex-m4-memory-mapped-vs-non-memory-mapped-registers">ARM Cortex M4 - Memory Mapped vs Non-Memory Mapped Registers</a>**
 1. **<a href="./arm-gcc-inline-assembly">ARM GCC Inline Assembly</a>**
+1. **<a href="./arm-cortex-m4-reset-sequence">ARM Cortex M4 - Reset Sequence</a>**
 
