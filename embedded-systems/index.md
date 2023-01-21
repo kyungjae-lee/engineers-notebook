@@ -13,4 +13,5 @@
 1. **<a href="./memory-map">Memory Map</a>**
 1. **<a href="./general-purpose-input-output">General Purpose Input/Output (GPIO)</a>**
 1. **<a href="./access-level-and-operation-modes-of-the-processor">Access Level & Operation Modes of the Processor</a>**
+1. **<a href="./arm-cortex-mx-processor-core-registers">ARM Cortex M4 Processor Core Register Set</a>**
 
