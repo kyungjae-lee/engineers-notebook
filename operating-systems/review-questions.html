@@ -203,6 +203,87 @@ mark .md-meta { color: rgb(0, 0, 0); }
 mjx-container { break-inside: avoid; }
 
 
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
 :root {
     --side-bar-bg-color: #fafafa;
     --control-text-color: #777;
@@ -595,7 +676,18 @@ header, .context-menu, .megamenu-content, footer{
 </style>
 </head>
 <body class='typora-export'><div class='typora-export-content'>
-<div id='write'  class=''><p><a href="../"><span>Notebook</span></a><span> &gt; Operating Systems</span></p><h1 id='operating-systems'><span>Operating Systems</span></h1><p>&nbsp;</p><ol start='' ><li><strong><a href="./operating-systems-overview"><span>Operating Systems Overview</span></a></strong></li><li><strong><a href="./the-process"><span>The Process</span></a></strong></li><li><strong><a href="./review-questions"><span>Review Questions</span></a></strong></li></ol><p>&nbsp;</p></div></div>
+<div id='write'  class=''><p><a href="../"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Operating Systems</span></a><span> &gt; Review Questions</span></p><h1 id='review-questions'><span>Review Questions</span></h1><p>&nbsp;</p><h2 id='computer-system-overview'><span>Computer System Overview</span></h2><ul><li><p><strong><span>What is an interrupt? How do operating systems detect them?</span></strong></p><p><span>An interrupt is a mechanism by which other modules (I/O, memory) may interrupt the normal sequencing of the processor. The process checks for an interrupt flag at the end of each fetch-execute cycle to determine if something needs to be dealt with.</span></p></li><li><p><strong><span>What are the benefits of organizing memory in a hierarchy?</span></strong></p><p><span>Cache memory is a memory that is smaller and faster than main memory and that is interposed between the processor and main memory. The cache acts as a buffer for recently used memory locations. There can be multiple caches, the faster and closer to the CPU the more costly it is. Having a hierarchy of memory allows the hardware to assist in speeding up memory accesses without the CPU having to intervene as much, as well as spread out the cost.</span></p></li><li><p><strong><span>What is the difference between a multiprocessor and a multicore system?</span></strong></p><p><span>A multicore computer is a special case of a multiprocessor, in which all of the processors are on a single chip.</span></p></li><li><p><strong><span>What does it mean to say that a process/program is I/O bound?</span></strong></p><p><span>The process spends a much greater fraction of its time waiting for I/O instead of computing instructions on the CPU/ALU.</span></p></li><li><p><strong><span>What does it mean to say that a process/program is CPU bound?</span></strong></p><p><span>The process spends a much greater fraction of its time computing instructions than waiting for I/O.</span></p></li><li><p><strong><span>Consider the following code segment, and give one example of spatial locality in the code:</span></strong></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="c"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="c"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.52344px; left: 35px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>3</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27px; width: 27px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">for</span> (<span class="cm-variable">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">i</span> <span class="cm-operator">&lt;</span> <span class="cm-number">20</span>; <span class="cm-variable">i</span><span class="cm-operator">++</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-keyword">for</span> (<span class="cm-variable">j</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">j</span> <span class="cm-operator">&lt;</span> <span class="cm-number">10</span>; <span class="cm-variable">j</span><span class="cm-operator">++</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">arr</span>[<span class="cm-variable">i</span>] <span class="cm-operator">=</span> <span class="cm-variable">arr</span>[<span class="cm-variable">i</span>] <span class="cm-operator">*</span> <span class="cm-variable">j</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 69px;"></div><div class="CodeMirror-gutters" style="height: 69px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p><span>Spatial locality refers to the tendency of execution to involve a number of memory locations that are clustered. In the above code, while looping the outerloop, the accesses to elements in array </span><code>arr</code><span> are physically close to each other in memory. This is a characteristic of contiguously stored data structures such as arrays.</span></p></li></ul><p>&nbsp;</p><h2 id='operating-system-overview'><span>Operating System Overview</span></h2><ul><li><p><strong><span>What is multiprogramming?</span></strong></p><p><span>Multiprogramming is the method of allowing more than one program to be interleaving their execution on a single processor.</span></p></li><li><p><strong><span>What is multiprocessing?</span></strong></p><p><span>Multiprocessing is the method of allowing the physical computation of processes in parallel, on different processors or computing hardware.</span></p></li></ul><ul><li><p><strong><span>Explain the difference between a monolithic kernel and a microkernel design.</span></strong></p><p><span>The kernel is a portion of the operating system that includes the most heavily used portions of software. Generally, the kernel is maintained permanently in main memory.</span></p><p><span>Microkernel implements the most important core features in the memory resident portion of the operating system whereas Monolithic kernels include all possible OS features in the core. Microkernels use memory more efficiently by allowing some operating system features to be managed as if they were normal processes and can be swapped in/out of memory. This makes it easier to change/add-to/update an operating system.</span></p></li></ul><p>&nbsp;</p><h2 id='the-process'><span>The Process</span></h2><ul><li><p><strong><span>What does it mean to preempt a process?</span></strong></p><p><span>Answer</span></p></li><li><p><strong><span>What is swapping and what is its purpose?</span></strong></p><p><span>Answer</span></p></li><li><p><strong><span>What is the difference between a mode switch and a process switch?</span></strong></p><p><span>Answer</span></p></li><li><p><strong><span>Assume that at time 5, no system resources are being used except for the processor and memory. Now consider the following events:</span></strong></p><p><span>At time 5: P1 executes a command to read from disk unit 3</span>
+<span>At time 15: P5’s time slice expires</span>
+<span>At time 18: P7 executes a command to write to disk unit 3</span>
+<span>At time 20: P3 executes a command to read from disk unit 2</span>
+<span>At time 24: P5 executes a command to write to disk unit 3</span>
+<span>At time 28: P5 is swapped out</span>
+<span>At time 33: An interrupt occurs from disk unit 2; P3’s read is complete</span>
+<span>At time 36: An interrupt occurs from disk unit 3; P1’s read is complete</span>
+<span>At time 38: P8 terminates</span>
+<span>At time 40: An interrupt occurs from disk unit 3; P5’s write is complete</span>
+<span>At time 44: P5 is swapped back in</span>
+<span>At time 48: An interrupt occurs from disk unit 3; P7’s write is complete</span></p><p><strong><span>For each time 22, 37 and 47, identify which state each process is in. If a process is blocked, indicate why it is blocked.</span></strong></p><p><span>Answer</span></p></li><li><p><strong><span>Consider the 7-state transition diagram. Suppose it is time for the OS to dispatch a process and there are processes in both the Ready State and the Ready/Suspend state. At least one process in the Ready/Suspend state has higher priority than any of the Ready processes. Two extreme policies are as follows:</span></strong></p><p><strong><span>a. always dispatch from a process in the Ready State to minimize swapping</span></strong></p><p><strong><span>b. always give prefrence to the highest priority process even though that may mean swapping</span></strong></p><p><strong><span>Suggest an intermediate policy that tries to balance the concerns of priority and performance.</span></strong></p><p><span>Answer</span></p></li><li><p><strong><span>Consider the 7-state transition diagram. It is the theoretically possible to have a transition between any two states. For example, the transition from READY to RUNNING is the dispatch action. What are the impossible transitions between states, and explain each.</span></strong></p><p><span>Answer</span></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Allen, B. (2023, January 10). Introduction to Operating Systems [Lecture]. University of Alabama in Huntsville, Huntsville, AL, United States.</span></p></div></div>
 <center>
 <hr width="400px;">
 This website contains Kyungjae's original work.
