@@ -1,12 +1,14 @@
-<a href="../">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Data Link Layer - ARP
+<a href="../">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Data Link Layer - Address Resolution Protocol (ARP)
 
-# Data Link Layer - ARP
+# Data Link Layer - Address Resolution Protocol (ARP)
 
 
 
-## ARP (Address Resolution Protocol)
+## Introduction to ARP
 
 * ARP is used for finding the MAC address that corresponds to an IP address. (ARP is located between the *Internet Layer* and the *Network Access  Layer* in the TCP/IP model.)
+
+  ARP allows devices to communicate with each other on a local area network by mapping IP address of a device to it's MAC address.
 
 * Why is ARP necessary?
 
