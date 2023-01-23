@@ -592,10 +592,158 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+							stroke-width: 0;
+						}
 </style>
 </head>
 <body class='typora-export'><div class='typora-export-content'>
-<div id='write'  class=''><p><a href="../"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Operating Systems</span></a><span> &gt; Introduction to Operating Systems</span></p><h1 id='introduction-to-operating-systems-1'><span>Introduction to Operating Systems</span></h1><p>&nbsp;</p><h2 id='introduction-to-operating-systems-2'><span>Introduction to Operating Systems</span></h2><p>&nbsp;</p><p><img src="./img/operating-system-in-a-computer-system.png" alt="operating-system-in-a-computer-system" width="600"></p><p>&nbsp;</p><ul><li><p><span>An </span><strong><span>operating system (OS)</span></strong><span> is a program that manages the computer hardware. It also provides a basis for application programs and acts as an intermediary between the computer user and the computer hardware. (e.g., Windows, Unix, Linux, MacOs, etc.)</span></p><p><span>The computer hardware refers to the resources like CPU, memory, I/O devices, etc.</span></p><p><span>Application programs are programs or software that are used to perform a specific task and that can be directly used by the users.</span></p></li><li><p><strong><span>Types of OS:</span></strong></p><ul><li><span>Batch Os</span></li><li><span>Time sharing OS</span></li><li><span>Distributed OS</span></li><li><span>Network OS</span></li><li><span>Real Time Os</span></li><li><span>Multi-programming/processing/tasking OS</span></li></ul></li><li><p><strong><span>Goals of OS:</span></strong></p><ul><li><span>Convenience - An OS makes a computer more convenient to use.</span></li><li><span>Efficiency - An OS allows the computer system resources to be used in an efficient manner.</span></li><li><span>Ability to evolve - An OS should be constructed in such a way as to permit the effective development, testing, and introduction of new system functions with out interfering with service.</span></li></ul></li><li><p><strong><span>Functions of OS:</span></strong></p><ul><li><span>Interfacing between the user and the computer hardware</span></li><li><span>Resource management (e.g., memory management, file system management, process management, etc.)</span></li></ul></li></ul><p>&nbsp;</p><h2 id='basics-of-operating-systems'><span>Basics of Operating Systems</span></h2><h3 id='computer-system-operation'><span>Computer System Operation</span></h3><p><span>Some basic knowledge of the structure of computer system is required to understand how operating systems work.</span></p><ul><li><p><span>A modern general-purpose computer system consists of one or more CPUs and a number of device controllers (e.g., disk controller, USB controller, video adapter) connected through a common bus that provides access to shared memory.</span></p><p><span>Each device controller is in charge of a specific type of device. The CPU and the device controllers can execute concurrently, competing for memory access. To ensure the orderly access to the shared memory, a memory controller whose functionality is to synchronize the accesses to the memory is provided.</span></p></li></ul><ul><li><p><span>Some important terms:</span></p><ul><li><p><span>Bootstrap program</span></p><ul><li><span>The initial program that runs when a computer is powered up or rebooted.</span></li><li><span>It is stored in the ROM.</span></li><li><span>It must know how to load the OS and start executing that system.</span></li><li><span>It must locate and load into memory the OS kernel.</span></li></ul></li><li><p><span>Interrupt</span></p><ul><li><p><span>The occurrence of an event is usually signaled by an interrupt from hardware or software.</span></p></li><li><p><span>Hardware may trigger an interrupt at any time by sending a </span><strong><span>signal</span></strong><span> to the CPU, usually through the system bus.</span></p></li><li><p><span>When the CPU is interrupted, it stops what it is doing and immediately jumps to a designated location. The designated location usually contains the starting address where the service routine (i.e., interrupt handler) of the interrupt is located.</span></p><p><span>The interrupt service routine is executed.</span></p><p><span>Upon completion, the CPU resumes the interrupted computation.</span></p></li></ul></li><li><p><span>System call (monitor call)</span></p><ul><li><span>Software may trigger an interrupt by executing a special operation called the system call.</span></li></ul></li></ul></li></ul><h3 id='storage-structure'><span>Storage Structure</span></h3><p>&nbsp;</p><p><img src="./img/memory-hierarchy.png" alt="memory-hierarchy" width="900"></p><p>&nbsp;</p><h3 id='io-structure'><span>I/O Structure</span></h3><ul><li><p><span>Storage is just one of many types of I/O devices within a computer.</span></p></li><li><p><span>A large portion of operating system code is dedicated to managing I/O, both because of its importance to the reliability and performance of a system and because of the varying nature of the devices.</span></p></li><li><p><span>A general-purpose computer system consists of CPUs and multiple device controllers that are connected through a common bus. Each device controller is in charge of a specific type of device and maintains a </span><strong><span>local buffer storage</span></strong><span> and a set of </span><strong><span>special purpose registers</span></strong><span>.</span></p><p><span>Typically, operating systems have a device driver for each device controller. This device driver understands the device controller and presents a uniform interface to the device to the rest of the operating system.</span></p></li><li><p><span>I/O operation mechanism:</span></p><ol start='' ><li><span>To start an I/O operation, the device driver loads the appropriate registers within the device controller.</span></li><li><span>The device controller, in turn, examines the contents of these registers to determine what action to take.</span></li><li><span>The controller starts the transfer of data from the device to its local buffer.</span></li><li><span>For every data transfer that is complete, the device controller informs the device driver through an interrupt (which involves the CPU) that it has finished its operation. The CPU is continuously interrupted by this operation.</span></li><li><span>Once all the data transfer has been completed, the device driver returns control to the operating system.</span></li></ol><p><span>This form of interrupt-driven I/O is fine for moving small amounts of data but can produce high overhead when used for moving a bulk of data. To solve this problem, </span><strong><span>Direct Memory Access (DMA)</span></strong><span> is introduced.</span></p><p><span>After setting up buffers, pointers, and counters for the I/O device, the device controller </span><strong><span>transfers an entire data block directly to/from its own buffer storage from/to memory, without continuously interrupting the CPU</span></strong><span>. This way, only one interrupt is generated per block, to tell the device driver that the operation has completed. While the device controller is performing these operations, the CPU is available for accomplishing other work.</span></p></li></ul><h3 id='computer-system-architecture'><span>Computer System Architecture</span></h3><p><span>Types of computer systems </span><strong><span>based on the number of general purpose processors</span></strong><span>:</span></p><ul><li><p><strong><span>Single Processor Systems</span></strong></p><p><span>Contains only one processor which is capable of executing a general purpose instruction set including instructions from the user processes. Other special purpose processors are also present which perform device specific tasks.</span></p></li><li><p><strong><span>Multiprocessor Systems (a.k.a. Parallel Systems or Tightly Coupled Systems)</span></strong></p><p><span>Contains multiple processors in close communication and synchronization, sharing the computer bus and sometimes the clock, memory, and peripheral devices. Those processors may be carrying out the same task together or the different tasks independently.</span></p><ul><li><p><span>Advantage</span></p><ul><li><span>Increased throughput (performance), </span></li><li><span>Economy of scale (since shared resources)</span></li><li><span>Increased reliability (even if one fails others can keep the system running)</span></li></ul></li><li><p><span>Types of Multiprocessor Systems</span></p><ul><li><p><span>Symmetric multiprocessing (SMP)</span></p><p><span>All processors are </span><strong><span>equal</span></strong><span>. They can execute any type of processes as required.</span></p></li><li><p><span>Asymmetric multiprocessing (AMP, ASMP)</span></p><p><span>The processors are inherently </span><strong><span>unequal</span></strong><span>. There may be a master slave  relationship where the master processor may assign processes to other  processors.</span></p></li></ul></li></ul></li></ul><ul><li><p><strong><span>Clustered Systems</span></strong></p><p><span>Like multiprocessor systesms, clustered systems gather together multiple CPUs to accomplish computation work. They are composed of two or more individual (complete) systems coupled together.</span></p><ul><li><p><span>Advantage</span></p><ul><li><span>High availability (even if one fails other can keep the system running)</span></li></ul></li><li><p><span>Types of Clustered Systems</span></p><ul><li><p><span>Symmetric</span></p><p><span>One machine is in the hot-standby mode while others are running applications. If one system fails, the one in the hot-standby mode will take its place.</span></p></li><li><p><span>Asymmetric</span></p><p><span>Two or more hosts run applications and they monitor each other.</span></p></li></ul></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Joshy, J. (2021). </span><em><span>Operating System</span></em><span> [Video file]. Retrieved from </span><a href='https://www.nesoacademy.org/cs/03-operating-system' target='_blank' class='url'>https://www.nesoacademy.org/cs/03-operating-system</a></p></div></div>
+<div id='write'  class=''><p><a href="../"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Operating Systems</span></a><span> &gt; Interrupt vs. Trap</span></p><h1 id='interrupt-vs-trap-in-os'><span>Interrupt vs. Trap in OS</span></h1><p>&nbsp;</p><h2 id='interrupt'><span>Interrupt</span></h2><ul><li><strong><span>An interrupt is a hardware or software signal that demands instant attention by an OS.</span></strong><span> It notifies the processor that a critical process needs urgent  execution. In such a case, the present working process is interrupted.</span></li></ul><p>&nbsp;</p><p><img src="./img/interrupt.png" alt="interrupt" width="700"></p><p>&nbsp;</p><p>&nbsp;</p><h2 id='trap'><span>Trap</span></h2><ul><li><strong><span>A trap is a synchronous interrupt triggered by an exception in a user process to execute functionality.</span></strong><span> Exception conditions like invalid memory access, division by zero, or a breakpoint can trigger a trap in an OS.</span></li></ul><p>&nbsp;</p><p><img src="./img/trap.png" alt="trap" width="700"></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Allen, B. (2023, January 10). Introduction to Operating Systems [Lecture]. University of Alabama in Huntsville, Huntsville, AL, United States.</span></p><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">
 This website contains Kyungjae's original work.
