@@ -15,8 +15,8 @@
 7. **<a href="./network-layer-ipv4-address-public-vs-private-ip-addresses">Network Layer - IPv4 Address - Public vs. Private IP Addresses</a>**
 8. **<a href="./network-layer-ipv4-address-subnetting">Network Layer - IPv4 Address - Subnetting</a>**
 9. **<a href="./network-layer-dynamic-host-configuration-protocol">Network Layer - Dynamic Host Configuration Protocol (DHCP)</a>**
+10. **<a href="./application-layer-domain-name-system">Application Layer - Domain Name System (DNS)</a>**
 
 
 
 ### Network Security
-
