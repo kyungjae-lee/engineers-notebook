@@ -6,13 +6,7 @@
 
 ## Introduction to ARP
 
-* ARP is used for finding the MAC address that corresponds to an IP address. (ARP is located between the *Internet Layer* and the *Network Access  Layer* in the TCP/IP model.)
-
-  ARP allows devices to communicate with each other on a local area network by mapping IP address of a device to it's MAC address.
-
-* Why is ARP necessary?
-
-  For any communication to happen, we need **port number**, **IP address**, and **MAC address**. If a computer is contacted with an IP address, it has to put the  corresponding MAC address in the frame. How does the source computer know the destination computer’s MAC address? There is no way a user can provide the MAC address of the destination computer. All user can provide is the IP address or the name of the destination computer. So, the user expects the source computer (or system) to map the IP address to the destination MAC address.
+* ARP is a protocol used to find out the hardware (MAC) address of a  device from an IP address. It is used when a device wants to communicate with some other device on a local network (for example on an Ethernet  network that requires physical addresses to be known before sending  packets). 
 
   
 
@@ -24,11 +18,7 @@
 
 2. **Maintaining a table of mappings**        
 
-   Every device can be assigned an IP address and also has its own MAC addresss, so mapping can be made.
-
-   Every device in the local area network is going to maintain the ARP cache.
-
-   In the ARP cache of the local host, IP address to MAC address mappings are available.
+   All operating systems maintain ARP caches that are checked before  sending an ARP request message. Each time a host needs to send a packet  to another host on the LAN, it first checks its ARP cache for the  correct IP address and matching MAC address. The addresses will stay in  the cache for a couple of minutes. You can display ARP entries in  Windows by using the `arp -a` command:
 
 
 
@@ -40,15 +30,15 @@
 
 ## Address Resolution Process    
 
-1. Upon receiving the IP address, the source machine **broadcasts** the request using the broadcast MAC address (FF:FF:FF:FF:FF:FF) if the IP address is NOT found in its ARP cache table.        
+Let's say Host A wants to communicate with Host B.
 
-   Notice that the broadcast address used here is  the **MAC Address** not the IP Address because ARP is the Data Link Layer (Layer 2) protocol.
+1. Host A looks up its ARP table to find the MAC address of Host B.
+2. If not found, Host A broadcasts an **ARP Request** with the destination IP address set to Host B's IP, and the destination MAC address set to FF:FF:FF:FF:FF:FF (Ethernet **broadcast**).
+3. Switch will forward the frame out to all interfaces except the incoming interface. (Flooding)
+4. All hosts on the LAN will receive the broadcast but, only Host B will **ARP Reply** with its MAC address (Ethernet **unicast**).
+5. Host A will store the Host B's IP-MAC address pair in its ARP table and communication will take place.
 
-2. Target machine responds (**unicast**) with its physical (MAC) address.        
-
-   Other hosts in the network will first accept the request because it is a broadcasted message, then check the network layer header only to find that the destination IP address does not match their own. As a result, they discard the message.
-
-* When a device in a LAN boots up the first ARP it sends out will be to obtain the MAC address of the default gateway. This is because most of the cases the device will try to send out or receive things to or from the Internet.
+When a device in a LAN boots up the first ARP it sends out will most likely to be to obtain the MAC address of the default gateway. This is because most of the cases the device will try to send out or receive things to or from the Internet.
 
 
 
