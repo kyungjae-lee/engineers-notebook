@@ -138,6 +138,18 @@
 * UNIX/Linus is a **light-weight process oriented operating system**. (Everything you want to do should be on a light-weight process!)
 * UNIX/Linux specific process state model
 
+  * **User running** - executing in user mode.
+  * **Kernel running** - executing in kernel mode.
+  * **Ready to run, in memory** - ready to run as soon as the kernel schedules it.
+  * **Asleep in memory** - unable to execute until an event occurs; process is in main memory (a blocked state)
+  * **Ready to run, swapped** - process is ready to run, but the swapper must swap the process into main memory before the knernel can schedule it to execute
+  * **Asleep, swapped** - the process is awaiting an event and has been swapped to secondary storage (a blocked state)
+  * **Preempted** - process is returning from kernel to user mode, but the kernel preempts it and does a process switch to schedule another process
+  * **Created** - process is newly created and not yet ready to run
+  * **Zombie** - process no longer exists, but it leaves a record for its parent process to collect
+
+  
+
 <img src="./img/unix-nine-state-model.png" alt="unix-nine-state-model" width="850">
 
 
