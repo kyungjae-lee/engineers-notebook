@@ -12,13 +12,13 @@
 
 ## Two Basic Functions of ARP
 
-1. **Mapping IPv4 addresses to MAC addresses**        
+* **Mapping IPv4 addresses to MAC addresses**
 
-   Note that this is NOT a logical conversion! There is no logical relationship between an IP address and a MAC address. IP address is something that is manually given by the network administrator or dynamically assigned by the DHCP server whereas the MAC address is given by the Network Interface Card manufacturer at its birth.
+  Note that this is NOT a logical conversion! There is no logical relationship between an IP address and a MAC address. IP address is something that is manually given by the network administrator or dynamically assigned by the DHCP server whereas the MAC address is given by the Network Interface Card manufacturer at its birth.
 
-2. **Maintaining a table of mappings**        
+* **Maintaining a table of mappings**
 
-   All operating systems maintain ARP caches that are checked before  sending an ARP request message. Each time a host needs to send a packet  to another host on the LAN, it first checks its ARP cache for the  correct IP address and matching MAC address. The addresses will stay in  the cache for a couple of minutes. You can display ARP entries in  Windows by using the `arp -a` command:
+  All operating systems maintain ARP caches that are checked before  sending an ARP request message. Each time a host needs to send a packet  to another host on the LAN, it first checks its ARP cache for the  correct IP address and matching MAC address. The addresses will stay in  the cache for a couple of minutes. You can display ARP entries in  Windows by using the `arp -a` command:
 
 
 
