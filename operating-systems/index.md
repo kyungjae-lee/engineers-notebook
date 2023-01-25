@@ -9,4 +9,6 @@
 1. **<a href="./the-process-introduction">The Process - Introduction</a>**
 1. **<a href="./the-process-process-state-models-and-control">The Process - Process State Model & Control</a>**
 1. **<a href="./the-process-execution-of-the-os">The Process - Execution of the OS</a>**
+1. **<a href="./concurrency-and-mutual-exclusion-principles-of-concurrency">Concurrency & Mutual Exclusion - Principles of Concurrency</a>**
 1. **<a href="./review-questions">Review Questions</a>**
+
