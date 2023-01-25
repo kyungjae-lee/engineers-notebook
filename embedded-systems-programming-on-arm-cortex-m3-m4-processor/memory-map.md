@@ -30,7 +30,7 @@
 
 
 
-<img src="./img/memory-map-of-arm-cortex-mx-processor.png" alt="memory-map-of-arm-cortex-mx-processor" width="430">
+<img src="./img/memory-map-of-arm-cortex-mx-processor.png" alt="memory-map-of-arm-cortex-mx-processor" width="750">
 
 
 
