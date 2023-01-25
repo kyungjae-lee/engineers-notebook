@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > ARM Cortex M4 - Reset Sequence
+<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming on ARM Cortex-M3/M4 Processor</a> > Reset Sequence
 
-# ARM Cortex M4 - Reset Sequence
+# Reset Sequence
 
 
 
@@ -100,3 +100,5 @@ This is how the control reaches your program's `main()` function after reset.
 ## References
 
 Nayak, K. (2022). *Microcontroller Embedded C Programming: Absolute Beginners* [Video file]. Retrieved from  https://www.udemy.com/course/microcontroller-embedded-c-programming/
+
+Nayak, K. (2022). *Embedded Systems Programming on ARM Cortex-M3/M4 Processor* [Video file]. Retrieved from  https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/

@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > ARM Cortex M4 - Memory Mapped vs Non-Memory Mapped Registers
+<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming on ARM Cortex-M3/M4 Processor</a> > Memory Mapped vs Non-Memory Mapped Registers
 
-# ARM Cortex M4 - Memory Mapped vs Non-Memory Mapped Registers
+# Memory Mapped vs Non-Memory Mapped Registers
 
 
 
@@ -42,3 +42,5 @@
 ## References
 
 Nayak, K. (2022). *Microcontroller Embedded C Programming: Absolute Beginners* [Video file]. Retrieved from  https://www.udemy.com/course/microcontroller-embedded-c-programming/
+
+Nayak, K. (2022). *Embedded Systems Programming on ARM Cortex-M3/M4 Processor* [Video file]. Retrieved from  https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/

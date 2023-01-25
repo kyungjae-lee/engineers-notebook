@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > ARM Cortex M4 - Access Level & Operation Modes of the Processor
+<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming on ARM Cortex-M3/M4 Processor</a> > Access Level & Operation Modes of the Processor
 
-# ARM Cortex M4 - Access Level & Operation Modes of the Processor
+# Access Level & Operation Modes of the Processor
 
 This section applies to **ARM Cortex M0/M3/M4 Processors**. If you are using any other processors, please consult the corresponding document.
 
@@ -57,3 +57,5 @@ This section applies to **ARM Cortex M0/M3/M4 Processors**. If you are using any
 ## References
 
 Nayak, K. (2022). *Microcontroller Embedded C Programming: Absolute Beginners* [Video file]. Retrieved from  https://www.udemy.com/course/microcontroller-embedded-c-programming/
+
+Nayak, K. (2022). *Embedded Systems Programming on ARM Cortex-M3/M4 Processor* [Video file]. Retrieved from  https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/

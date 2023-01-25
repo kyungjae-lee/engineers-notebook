@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > ARM Cortex M4 - Processor Core Register Set
+<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming on ARM Cortex-M3/M4 Processor</a> > Processor Core Register Set
 
-# ARM Cortex M4 - Processor Core Register Set
+# Processor Core Register Set
 
 
 
@@ -94,3 +94,5 @@ See the *Arm®v7-M Architecture Reference Manual* for more information.
 ## References
 
 Nayak, K. (2022). *Microcontroller Embedded C Programming: Absolute Beginners* [Video file]. Retrieved from  https://www.udemy.com/course/microcontroller-embedded-c-programming/
+
+Nayak, K. (2022). *Embedded Systems Programming on ARM Cortex-M3/M4 Processor* [Video file]. Retrieved from  https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/

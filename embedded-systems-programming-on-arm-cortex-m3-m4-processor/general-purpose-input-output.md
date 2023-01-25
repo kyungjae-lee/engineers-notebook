@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems</a> > General Purpose Input/Output (GPIO)
+<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming on ARM Cortex-M3/M4 Processor</a> > General Purpose Input/Output (GPIO)
 
 # General Purpose Input/Output (GPIO)
 
@@ -103,3 +103,5 @@ Let's say we want to you want to control the LED4. Your goal is to control the I
 ## References
 
 Nayak, K. (2022). *Microcontroller Embedded C Programming: Absolute Beginners* [Video file]. Retrieved from  https://www.udemy.com/course/microcontroller-embedded-c-programming/
+
+Nayak, K. (2022). *Embedded Systems Programming on ARM Cortex-M3/M4 Processor* [Video file]. Retrieved from  https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/
