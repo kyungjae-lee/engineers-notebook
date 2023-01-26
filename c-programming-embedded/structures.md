@@ -609,7 +609,7 @@ carWeight   = 1900.959961
   ```c
   /* main.c */
   
-  GPIOx_MODER_t *pGpioDMode;
+  GPIOx_MODER_t volatile *const pGpioDMode;
   pGpioDMode = (GPIOx_MODE_t *)0x40020C00;
   
   pGpioDMode->pin_15 = 3; // set MODER15 to 11(2)
@@ -618,6 +618,8 @@ carWeight   = 1900.959961
   > The compiler will generate the instructions to program the appropriate bit positions in the peripheral register address. 
   >
   > Encountering L6, the compiler will internally perform `*(0x40020C00) |= (3 << 30);`.
+  >
+  > L3 - Use `const` for safety. Also, use `volatile` keyword when the memory access is expected. Why? 
 
 * Note that at the end of the day, the compiler will interpret the abstracted code and perform bitwise manipulations internally.
 

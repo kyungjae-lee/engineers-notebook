@@ -98,7 +98,99 @@
   * Macro names are NOT variables. They are labels or identifiers, and they don't occupy any code space or RAM space during the compile-time or run-time of the program.
   * Make sure to put parentheses around each and every operand, plus the whole expression.
 
+### Usage of Macros in an Embedded Program
 
+* Toggling LED program can be abstracted one step further by applying macros.
+
+  Before (without macros):
+
+  ```c
+  // toggle_led.c
+  
+  int main(void)
+  {
+  	RCC_AHB1ENR_t volatile *const pClkCtrlReg = (RCC_AHB1ENR_t *)0x40023830;
+  	GPIOx_MODER_t volatile *const pPortDModeReg = (GPIOx_MODER_t *)0x40020C00;
+  	GPIOx_ODR_t volatile *const pPortDOutReg = (GPIOx_ODR_t *)0x40020C14;
+  
+  	// 1. enable the clock for GPOID peripheral in the AHB1ENR (SET the 3rd bit position)
+  	pClkCtrlReg->gpiod_en = 1;
+  
+  	// 2. configure the mode of the IO pin as output
+  	//    make 24th bit position as 1 (SET)
+  	pPortDModeReg->pin_12 = 1;
+  
+  	while(1)
+  	{
+  		// 3.SET 12th bit of the output data register to make I/O pin-12 as HIGH
+  		pPortDOutReg->pin_12 = 1;
+  
+  		// introduce small human observable delay
+  		// This loop executes for 10K times
+  		for(uint32_t i=0 ; i < 300000 ; i++ );
+  
+  		// Tun OFF the LED
+  		pPortDOutReg->pin_12 = 0;
+  
+  		for(uint32_t i=0 ; i < 300000 ; i++ );
+  	}
+  }
+  ```
+
+  After (with macros):
+
+  ```c
+  // toggle_led.h
+  
+  // macros
+  #define ADDR_REG_AHB1ENR ((RCC_AHB1ENR_t *)0x40023830)
+  #define ADDR_REG_GPIOD_MODE ((GPIOx_MODER_t *)0x40020C00)
+  #define ADDR_REG_GPIOD_OD ((GPIOx_ODR_t *)0x40020C14)
+  
+  #define CLOCK_ENABLE (1)
+  #define MODE_CONF_OUTPUT (1)
+  #define PIN_STATE_HIGH (1)
+  #define PIN_STATE_LOW (0)
+  
+  #define DELAY_COUNT 300000UL	// unsigned long 32-bit value
+  ```
+
+  ```c
+  // toggle_led.c
+  
+  int main(void)
+  {
+  	RCC_AHB1ENR_t volatile *const pClkCtrlReg = ADDR_REG_AHB1ENR;
+  	GPIOx_MODER_t volatile *const pPortDModeReg = ADDR_REG_GPIOD_MODE;
+  	GPIOx_ODR_t volatile *const pPortDOutReg = ADDR_REG_GPIOD_OD;
+  
+  	// 1. enable the clock for GPOID peripheral in the AHB1ENR (SET the 3rd bit position)
+  	pClkCtrlReg->gpiod_en = CLOCK_ENABLE;
+  
+  	// 2. configure the mode of the IO pin as output
+  	//	  make 24th bit position as 1 (SET)
+  	pPortDModeReg->pin_12 = MODE_CONF_OUTPUT;
+  
+  	while(1)
+  	{
+  		// 3.SET 12th bit of the output data register to make I/O pin-12 as HIGH
+  		pPortDOutReg->pin_12 = PIN_STATE_HIGH;
+  
+  		// introduce small human observable delay
+  		// This loop executes for 10K times
+  		for(uint32_t i=0 ; i < DELAY_COUNT ; i++ );
+  
+  		// Tun OFF the LED
+  		pPortDOutReg->pin_12 = PIN_STATE_LOW;
+  
+  		for(uint32_t i=0 ; i < DELAY_COUNT ; i++ );
+  	}
+  }
+  ```
+
+  > Now, the program has become more intuitive to read!
+
+​	
 
 ## Conditional Compilation Using Preprocessor Directives
 
