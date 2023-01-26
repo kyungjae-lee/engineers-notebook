@@ -527,6 +527,8 @@ carWeight   = 1900.959961
   Now the structure `packet` consumes only 4 bytes.
 
   Bit fields are widely used in network applications where extracting fields out of a Protocol Data Unit (PDU) (e.g., IP packet) is important.
+  
+  Note that there can't be duplicate names for the bit fields of a structure.
 
 
 
@@ -565,7 +567,61 @@ carWeight   = 1900.959961
   }; /* 4 + 4 = 8 bytes */
   ```
 
+
+
+
+## Usage of Bit Fields in an Embedded Program
+
+* Using structures and bit fields, we can provide abstraction of the complicated code.
+
+* `typedef` a structure for the register we want to bit-manipulate:
+
   
+
+  <img src="./img/gpio-port-mode-register.png" alt="gpio-port-mode-register" width="800">
+
+  
+
+  ```c
+  /* main.h */
+  
+  typedef struct
+  {
+  	uint32_t pin_0		:2;
+  	uint32_t pin_1		:2;
+  	uint32_t pin_2		:2;
+  	uint32_t pin_3		:2;
+  	uint32_t pin_4		:2;
+  	uint32_t pin_5		:2;
+  	uint32_t pin_6		:2;
+  	uint32_t pin_7		:2;
+  	uint32_t pin_8		:2;
+  	uint32_t pin_9		:2;
+  	uint32_t pin_10		:2;
+  	uint32_t pin_11		:2;
+  	uint32_t pin_12		:2;
+  	uint32_t pin_13		:2;
+  	uint32_t pin_14		:2;
+  	uint32_t pin_15		:2;
+  } GPIOx_MODER_t;
+  ```
+
+  ```c
+  /* main.c */
+  
+  GPIOx_MODER_t *pGpioDMode;
+  pGpioDMode = (GPIOx_MODE_t *)0x40020C00;
+  
+  pGpioDMode->pin_15 = 3; // set MODER15 to 11(2)
+  ```
+
+  > The compiler will generate the instructions to program the appropriate bit positions in the peripheral register address. 
+  >
+  > Encountering L6, the compiler will internally perform `*(0x40020C00) |= (3 << 30);`.
+
+* Note that at the end of the day, the compiler will interpret the abstracted code and perform bitwise manipulations internally.
+
+
 
 
 
