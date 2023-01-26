@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Data Structures</a> > Stacks (C)
+<a href="../">Notebook</a> > <a href="./">Data Structures</a> > Stacks
 
-# Stacks (C)
+# Stacks
 
 
 

@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Data Structures</a> > Queues (C)
+<a href="../">Notebook</a> > <a href="./">Data Structures</a> > Queues
 
-# Queues (C)
+# Queues
 
 
 
