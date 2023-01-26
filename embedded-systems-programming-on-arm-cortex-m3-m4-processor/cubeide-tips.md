@@ -24,6 +24,24 @@
 
 
 
+## Optimization
+
+* To change the optimization level:
+
+  Project $\to$ Properties $\to$ C/C++ Build $\to$ Settings $\to$ MCU GCC Compiler $\to$ Optimization
+
+
+
+<img src="./img/optimization-level-setting.png" alt="optimization-level-setting" width="700">
+
+
+
+* Whenever you change the optimization level, do **clean** followed by **build**.
+* When you start optimizing your code, your code becomes more difficult to debug with disassembly since they do not exactly match 1-to-1 any more.
+* Also, to protect your code from failing by optimization, be sure to use `volatile` keyword for the variable whose value is expected to change over the course of execution. See [`volatile` Type Qualifier](../c-programming-embedded/volatile-type-qualifier).
+
+
+
 
 
 ## References

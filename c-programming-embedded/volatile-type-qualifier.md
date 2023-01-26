@@ -26,6 +26,45 @@ Use `volatile` when your code is dealing with the following scenarios:
 * Multiple tasks accessing global variables (read/write) in an RTOS multi-threaded application
 * When a global variable is used to share data between the main code and an ISR code
 
+### Usage of `volatile` in an Embedded Program
+
+* Following is the code snippet from the "Pin read" exercise.
+
+  ```c
+  ...
+  uint32_t *pPortAInReg = (uint32_t *)0x40020010;
+  ...
+  
+  while (1)
+  {
+      // 3. read PA0 input status
+      uint8_t pinStatus = (uint8_t)(*pPortAInReg & 0x1);
+  
+      if (pinStatus)
+          *pPortDOutReg |= (1 << 12);
+      else
+          *pPortDOutReg &= ~(1 << 12);
+  }
+  ```
+
+  This code works fine with no optimization, but when you do `-O2` optimization the code will not work as intended. This is because the compiler executes L4 only once and then ignores it afterwards. The compiler assumes that `*pPortAInReg` will never change.
+
+  Now, you have to tell the compiler that the data pointed to by this pointer `pPortAInReg` may change at any time, so not to do any optimization on "data read" and "data write" operations using this pointer. This can be done by using `volatile` keyword as follows:
+
+  ```c
+  uint32_t volatile *pPortAInReg = (uint32_t *)0x40020010;
+  ```
+
+  As a rule of thumb, whenever you are accessing memory mapped peripheral registers, use `volatile` generously. Use it for "data", not for the "pointer". For example:
+
+  ```c
+  uint32_t volatile *pClkCtrlReg = (uint32_t *)0x40023830;
+  uint32_t volatile *pPortAModeReg = (uint32_t *)0x40020000;
+  uint32_t volatile *pPortAInReg = (uint32_t *)0x40020010;
+  uint32_t volatile *pPortDModeReg = (uint32_t *)0x40020C00;
+  uint32_t volatile *pPortDOutReg = (uint32_t *)0x40020C14;
+  ```
+
 
 
 ## Usage of `volatile` Type Qualifier
@@ -70,3 +109,11 @@ volatile uint8_t *volatile pStatusReg;	/* pStatusReg is a volatile pointer to a 
 ```
 
 Rarely used.
+
+
+
+
+
+## References
+
+Nayak, K. (2022). *Microcontroller Embedded C Programming: Absolute Beginners* [Video file]. Retrieved from  https://www.udemy.com/course/microcontroller-embedded-c-programming/

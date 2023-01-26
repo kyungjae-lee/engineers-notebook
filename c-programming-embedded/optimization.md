@@ -54,3 +54,42 @@ You need to work with different optimization levels to find out what works best 
 ### `-Os`
 
 * Optimizes space usage (code and data) of resulting program.
+
+
+
+## Effect of Optimization
+
+* No optimization (`-O0`)
+
+  ```plain
+  arm-none-eabi-size   pin_read.elf 
+     text	   data	    bss	    dec	    hex	filename
+      820	      8	   1568	   2396	    95c	pin_read.elf
+  Finished building: default.size.stdout
+  ```
+
+  > text size = 820
+
+* `-01`
+
+  ```plain
+  arm-none-eabi-size   pin_read.elf 
+  arm-none-eabi-objdump -h -S  pin_read.elf  > "pin_read.list"
+     text	   data	    bss	    dec	    hex	filename
+      724	      8	   1568	   2300	    8fc	pin_read.elf
+  Finished building: default.size.stdout
+  ```
+
+  > text size = 724
+
+* `-03`
+
+  ```plain
+  arm-none-eabi-size   pin_read.elf 
+  arm-none-eabi-objdump -h -S  pin_read.elf  > "pin_read.list"
+     text	   data	    bss	    dec	    hex	filename
+      700	      8	   1568	   2276	    8e4	pin_read.elf
+  Finished building: default.size.stdout
+  ```
+
+  > text size = 700
