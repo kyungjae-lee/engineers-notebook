@@ -4,7 +4,7 @@
 
 
 
-## Queue (Using Singly-Linked List)
+## Queue Using Singly-Linked List (C)
 
 ### Interface
 

@@ -4,7 +4,7 @@
 
 
 
-## Stack (Using Singly-Linked List)
+## Stack Using Singly-Linked List (C)
 
 ### Interface
 
