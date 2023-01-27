@@ -8,9 +8,9 @@
 
 * ARM Cortex Mx Processors' bus interfaces are based on advanced microcontroller bus architecture (AMBA) specification.
 
-* AMBA is a specification designed by ARm which governs the standard for on-chip communication inside the system-on-chip (SoC).
+* AMBA is a specification designed by ARM which governs the standard for on-chip communication inside the system-on-chip (SoC).
 
-* AMBA specification supports several bus protocols.
+* AMBA specification supports several bus protocols:
 
   * **AHB Lite (AMBA High-performance Bus)**
 
@@ -25,8 +25,35 @@
     Low-speed communication compared to AHB. 
 
     Most of the peripherals which don't require high operation speed are connected to this bus.
+  
+* ARM Cortex Mx processor bus interface visualized
+
+  * Note that there are two separate buses for data and instruction. (Solves "Von Neumann Bottleneck")
 
 
+
+
+<img src="./img/arm-cortex-mx-processor-bus-interface.png" alt="arm-cortex-mx-processor-bus-interface" width="650">
+
+
+
+
+
+## Bus Interfaces of STM32F40xxx
+
+* Block diagram of STM32F40xxx (from datasheet)
+
+  
+
+<img src="./img/bus-interfaces-of-stm32f40xxx.png" alt="bus-interfaces-of-stm32f40xxx" width="800">
+
+
+
+* **Bus matrix** is given by the MCU vendor to synchronize multiple bus access from the different bus masters. Here, the Processor, Ethernet MAC, USB OTG HS, DMA1, DMA2, etc. are bus masters. The engine called **Arbiter**, which is a part of the AHB bus matrix, controls the bus access from these multiple bus masters.
+* Main bus is connected to the system bus of the processor via the AHB bus matrix.
+* All the GPIO ports are connected to the AHB1 main bus. (Meaning that the GPIO ports are communicating with the processor using the AHB1 bus).
+* Peripherals that do not require high-speed communication are connected to the APB bus.
+* The APB and AHB buses are connected via **AHB-APB bridge** (protocol conversion via the bridge).
 
 
 
