@@ -18,4 +18,4 @@
 1. **<a href="./memory-mapped-vs-non-memory-mapped-registers">Memory Mapped vs Non-Memory Mapped Registers</a>**
 1. **<a href="./arm-gcc-inline-assembly">ARM GCC Inline Assembly</a>**
 1. **<a href="./reset-sequence">Reset Sequence</a>**
-
+1. **<a href="./thumb-state-and-t-bit-of-epsr">Thumb State & T Bit of EPSR</a>**
