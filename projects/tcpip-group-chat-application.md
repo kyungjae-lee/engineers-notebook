@@ -25,11 +25,13 @@
 ## Development Environment
 
 * **Operating System**
-  - Ubuntu 22.04.1 LTS (Kernel version: 5.15.0-52-generic)
+  
+  Ubuntu 22.04.1 LTS (Kernel version: 5.15.0-52-generic)
 * **Compiler**
-  - GCC version 11.3.0 (Ubuntu 11.3.0-1ubuntu1~22.04)
+  
+  GCC version 11.3.0 (Ubuntu 11.3.0-1ubuntu1~22.04)
 * **Debugger**
-  - GDB version 12.0.90 (Ubuntu 12.0.90-0ubuntu1)
+  GDB version 12.0.90 (Ubuntu 12.0.90-0ubuntu1)
 
 
 
