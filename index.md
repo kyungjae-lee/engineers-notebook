@@ -8,7 +8,7 @@ Notebook
 
 <img src="./img/wallpaper.png" alt="wallpaper" width="350">
 
-### Contents: 
+### Contents
 
 * **<a href="./c-programming-embedded/">C Programming (Embedded)</a>**
 * **<a href="./cpp-programming/">C++ Programming</a>**
@@ -22,4 +22,5 @@ Notebook
 * **<a href="./unix-linux/">Unix/Linux</a>**
 * **<a href="./makefile-and-build-system/">Makefile & Build System</a>**
 * **<a href="./problem-solving/">Problem Solving</a>**
+* **<a href="./projects/">Projects</a>**
 
