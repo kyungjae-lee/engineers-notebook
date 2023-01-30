@@ -47,11 +47,11 @@
 
 * **Critical section**
 
-  A section of code in a process that requires access to shared resources and must not be executed when another process is in a corresponding section of code.
+  A section of code in a process that requires access to shared resources and must not be executed when another process is in a corresponding section of code. (In general, more than one process accessing the shared resource is considered as "**Perilous behavior**");
 
 * **Deadlock**
 
-  A situation in which two or more processes are unable to proceed because each is waiting for the other to finish.
+  A situation in which two or more processes are unable to proceed because each is waiting for the other to finish (i.e., circular wait).
 
 * **Livelock**
 
@@ -63,7 +63,7 @@
 
 * **Race condition**
 
-  A situation in which multiple threads or processes read and write a shared data item, and the final result depends on the relative timing of their execution. For example,
+  A situation in which multiple threads or processes read and write a shared data item, and the final result depends on the relative timing of their execution. Race condition is caused by the **non-determinism** (i.e., in a multi-threaded concurrent environment, the order in which each instruction will be interleaved is non-deterministic). For example,
 
   ```c
   int count = 10;	// shared variable
@@ -75,7 +75,7 @@
   
   // internal operation
   // 1. register1 = count (LOAD)
-  // 2. register1 = register1 + 1
+  // 2. register1 = register1 + 1	(Modify - ADD)
   // 3. count = register1 (STORE)
   ```
 
@@ -85,7 +85,7 @@
   
   // internal operation
   // 1. register2 = count (LOAD)
-  // 2. register2 = register2 - 1
+  // 2. register2 = register2 - 1 (Modify - SUB)
   // 3. count = register2 (STORE)
   ```
 
@@ -99,24 +99,56 @@
 
 ## Process Interaction
 
-* We can classify the way s in which processes interact on the basis of the degree to which they are aware of each other's existence.
+* We can classify the ways in which processes interact on the basis of the degree to which they are aware of each other's existence.
 
-  | Degree of Awareness                                          | Relationship                 | Influence that One Process Has on the Other                  | Potential Control Problems                                   |
-  | ------------------------------------------------------------ | ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-  | Processes unaware of each other                              | Competition                  | Results of one process independent of the action of others<br><br>Timing of process may be affected | Mutual exclusion<br><br>Deadlock (renewable resource)<br><br>Starvation |
-  | Processes indirectly aware of each other (e.g., shared object) | Cooperation by sharing       | Results of one process may depend on information obtained from others<br><br>Timing of process may be affected | Mutual exclusion<br/><br/>Deadlock (renewable resource)<br/><br/>Data coherence |
-  | Processes directly aware of each other (have communication primitives available to them) | Cooperation by communication | Results of one process may depend on information obtained from others<br/><br/>Timing of process may be affected | Deadlock (renewable resource)<br/><br/>Starvation            |
+  | Degree of Awareness                                          | Relationship                                                 | Influence that One Process Has on the Other                  | Potential Control Problems                                   |
+  | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+  | Processes unaware of each other (there may or may not be shared resources) | Competition for resources<br><br/>Since the processes are unaware of each other no SW measure will be applied to mitigate the competition | Results of one process independent of the action of others<br><br>Timing of process may be affected | Mutual exclusion<br><br>Deadlock (renewable resource)<br><br>Starvation (on OS's hand) |
+  | Processes indirectly aware of each other (e.g., shared object) | Cooperation by sharing                                       | Results of one process may depend on information obtained from others<br><br>Timing of process may be affected | Mutual exclusion<br/><br/>Deadlock (renewable resource)<br/><br/>Data coherence |
+  | Processes directly aware of each other (have communication primitives available to them) | Cooperation by communication                                 | Results of one process may depend on information obtained from others<br/><br/>Timing of process may be affected | Deadlock (renewable resource)<br/><br/>Starvation            |
+  
+  > Processes unaware or indirectly aware of each other $\to$ Relies much on what the OS can provide.
+  >
+  > Processes directly aware of each other $\to$ More on the programmer's hand to make the decisions. (It is the programmer's responsibility to manage and use locks in such a way that no potential control problems will occur.)
 
 
 
 ## Requirements for Mutual Exclusion
 
 1. Mutual exclusion must be enforced - only one process at a time is allowed into its critical section, among all processes that have critical sections for the same resource or shared object.
+
 2. A process that halts in its noncritical section must do so without interfering with other processes.
+
 3. It must not be possible for a process requiring access to a critical section to be delayed indefinitely - no deadlock or starvation.
+
 4. A process must not be denied or delayed access to a critical section when no other processes are using.
+
 5. No assumptions are made about relative process speeds or number of processors.
+
 6. A process remains inside its critical section for a finite amount of time only.
+
+   ```c
+   // example of a BAD programming practice
+   lock(m);
+   while (1) { ... }	// holding lock forever
+   unlock(m);
+   ```
+
+
+
+## How does the OS Enforce Mutual Exclusion?
+
+1. Disabling interrupts
+2. Atomic actions
+   - Test and set instruction
+   - Compare and swap instruction
+3. Semaphores
+   - Binary semaphores
+   - Counting semaphores
+4. Monitors
+5. Message passing
+
+See [Concurrency & Mutual Exclusion - Software Emulation of Mutual Exclusion](./concurrency-and-mutual-exclusion-software-emulation-of-mutual-exclusion) for software emulation of locks, which does not involve the OS.
 
 
 
