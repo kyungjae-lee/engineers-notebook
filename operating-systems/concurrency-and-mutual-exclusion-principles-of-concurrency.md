@@ -139,7 +139,7 @@
 ## How does the OS Enforce Mutual Exclusion?
 
 1. Disabling interrupts
-2. Atomic actions
+2. Atomic operations
    - Test and set instruction
    - Compare and swap instruction
 3. Semaphores
