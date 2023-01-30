@@ -14,7 +14,7 @@
   
   2. Operating system must **allocate resources** (consumable, reusable) to processes in a way that is **fair** and **avoids deadlocks**.
   
-     The term "fairness" could be interpreted differently depending what you want to achieve, but in general, in CPU scheduling, Round-Robin (every process gets a time-slice (or a time quantum) to execute on the CPU taking turns) algorithm is known to be a fair algorithm.
+     The term "fairness" could be interpreted differently depending what you want to achieve, but in general, in CPU scheduling, Round-Robin (every process gets a **time-slice** (or a **time quantum**) to execute on the CPU taking turns) algorithm is known to be a fair algorithm.
      
   3. Operating system must **support user creation & start of processes**.
   

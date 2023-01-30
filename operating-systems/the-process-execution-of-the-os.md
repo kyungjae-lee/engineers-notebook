@@ -55,25 +55,57 @@
 
 ### Non-process Kernel (Older OS Design)
 
+
+
+<img src="./img/non-process-kernel.png" alt="non-process-kernel" width="550">
+
+
+
 * The kernel is code that executes outside of the context of a process. It has its own
   * Reserved area of memory
   * System stack for function traces
 * When the currently running process is interrupted or issues a kernel call, that process' context is  saved.
 * Control is transferred to the appropriate instruction within the kernel memory space.
 * OS kernel executes desired functionality, then transfers control back to the process or switches in a new one.
+* No longer used in modern operating systems
 
 ### OS Executes within User Processes
 
-* An alternative design is to execute virtually all of the OS software within the context of a user process, and switch execution modes.
-* OS becomes a collection of routines that the user program calls.
+
+
+<img src="./img/os-within-user-processes.png" alt="non-process-kernel" width="550">
+
+
+
+* In this model, almost all portion of the OS software is executed within the context of a user process, and switch execution modes (e.g., user mode $\leftrightarrow$ kernel/privileged mode). Only the core functionalities (i.e., process switching functions) are always resident in memory.
+
+  This is the Linux's way of doing things. The OS creates a process that runs in user mode and it switches its mode to privileged mode by invoking system calls whenever necessary.
+
+* OS becomes a collection of routines (or functions) that the user program calls.
+
 * This requires an enhancement to the process image to provide extra storage for OS stack and sharable library code.
+
+* Some of the modern operating systems use this model.
 
 ### Process-Based OS
 
-* Rather than a monolithic kernel, the operating system executes as a collection of processes side-by-side with the user processes.
+
+
+<img src="./img/process-based-os.png" alt="process-based-os" width="550">
+
+
+
+* Rather than a monolithic kernel, the operating system executes as a collection of processes side-by-side with the user processes. Processes communicate with each other by using the defined methods (e.g., message passing).
+
 * Encourages modular design
-* Allows non-critical operations to run as lower priority processes
+
+* Allows non-critical operations to run as lower priority processes, and allows critical operations to run on dedicated processor(s)
+
+  Crucial part of the OS may run on a dedicated CPU and when it fails, it will move to another CPU so that the service does not stop. (Fault tolerance $\uparrow$)
+
 * Facilitates exploitation of multi-core or multi-processor systems because OS processes can use some of the other processors
+
+* Some of the modern operating systems use this model.
 
 
 
