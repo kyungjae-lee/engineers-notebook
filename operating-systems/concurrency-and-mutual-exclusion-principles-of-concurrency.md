@@ -138,15 +138,33 @@
 
 ## How does the OS Enforce Mutual Exclusion?
 
-1. Disabling interrupts
-2. Atomic operations
+1. **Disabling interrupts (hardware way)**
+
+   Lowest-level method of enforcing the mutual exclusion
+
+2. **Atomic operations (hardware primitive constructs)**
+
    - Test and set instruction
    - Compare and swap instruction
-3. Semaphores
+
+3. **Semaphores (objects provided by the OS for the programmers to use)**
+
+   Higher-level than the hardware atomic operations
+
    - Binary semaphores
    - Counting semaphores
-4. Monitors
-5. Message passing
+
+4. **Monitors**
+
+   Even higher-level object than the semaphores.
+
+   Programming languages build monitors using the semaphores and locks that operating systems provide. (c.f., All objects in Java are very primitive monitors)
+
+5. **Message passing**
+
+   Highest-level method of enforcing the mutual exclusion.
+
+   A process has to wait (in blocked state) until it receives the message, etc.
 
 See [Concurrency & Mutual Exclusion - Software Emulation of Mutual Exclusion](./concurrency-and-mutual-exclusion-software-emulation-of-mutual-exclusion) for software emulation of locks, which does not involve the OS.
 
