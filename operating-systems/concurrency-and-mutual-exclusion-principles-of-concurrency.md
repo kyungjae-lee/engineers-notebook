@@ -9,7 +9,17 @@
 * Operating systems are concerned with the management of processes and threads.
 
   * **Multiprogramming** - the management of multiple processes within a <u>uniprocessor</u> system
+
+    - **Logical concurrency** - the execution of several programs takes place in an interleaving fashion on a single processor
+
   * **Multiprocessing** - the management of multiple processes within a <u>multiprocessor</u> system
+
+    - **Physical concurrency** - several program units (or execution flows) from the same program literally execute simultaneously (or in parallel) on more than one processor 
+
+      Physical concurrency is related to **parallelism**.
+
+    - **Logical concurrency** still applies to the way each processor executes processes
+
   * **Distributed processing** - the management of multiple processes executing on multiple, distributed computer systems (e.g., clusters)
 
   Concurrency is fundamental to all of these types of computing.
@@ -18,7 +28,14 @@
   * **Multiple applications** - multiprogramming was invented to handle this, and allow processing time to be share among multiple active applications
   * **Structured applications** - modular design sometimes encompasses developing problem solutions built from multiple concurrent processes
   * **Operating system structure** - OS services can be developed as a set of concurrent processes as well
-* An integral requirement to programming with concurrency is the ability to enforce <u>mutual exclusion</u>.
+  
+* An integral requirement to programming with concurrency is the ability to enforce **mutual exclusion**.
+
+* When working with the language-level features of concurrency, check if they support physical concurrency or logical concurrency or both. For example:
+
+  In Java, JVM emulates only one processor. So, even if your Java program is deploying multiple threads, they will eventually run on uniprocessor (multiprogramming) environment. Thus, logical concurrency only!
+
+  In Rust, the threads are physically concurrent. So, if you have multiple processor, they can physically run on multiple processors at the same time.
 
 
 
