@@ -6,5 +6,6 @@
 
 ## Introduction
 
-* An ARM assembly program to simulate a soft drink vending machine on Raspberry-Pi, using buttons and LEDs
-* Currently on-going project
+An ARM assembly program to simulate a soft drink vending machine on Raspberry-Pi, using buttons and LEDs
+
+Currently on-going project

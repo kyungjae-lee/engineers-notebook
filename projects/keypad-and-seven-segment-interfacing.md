@@ -6,8 +6,9 @@
 
 ## Introduction
 
-* An embedded C program to display keypad input to seven-segment display on STM32 board
-* Currently on-going project
+An embedded C program to display keypad input to seven-segment display on STM32 board
+
+Currently on-going project
 
 
 

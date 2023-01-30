@@ -6,8 +6,9 @@
 
 ## Introduction
 
-* Online one-stop knowledge management system created from scratch using Jekyll, and GitHub Pages
-* See [https://kyungjae.dev](https://kyungjae.dev/)
+Online one-stop knowledge management system created from scratch using Jekyll, and GitHub Pages
+
+See [https://kyungjae.dev](https://kyungjae.dev/)
 
 
 

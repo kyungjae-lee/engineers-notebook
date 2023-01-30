@@ -6,7 +6,7 @@
 
 ## Introduction
 
-* A multi-threaded client/server socket application that runs on Unix/Linux environment implemented in C programming language
+A multi-threaded client/server socket application that runs on Unix/Linux environment implemented in C programming language
 
 
 
