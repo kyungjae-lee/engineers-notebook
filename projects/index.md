@@ -4,23 +4,23 @@
 
 
 
-1. **<a href="./keypad-and-seven-segment-interfacing">Keypad & Seven-Segment Interfacing (Embedded System)</a>**
+1. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
 
    *Jan. 2023 - Present*
 
-   An embedded C program to display keypad input to seven-segment display on STM32 board
+   Embedded C program to control 7-segment display with keypad and STM32 board
 
-2. **<a href="./button-led-soft-drink-vending-machine">Button-LED Soft Drink Vending Machine (Embedded System)</a>** 
+2. **<a href="./button-led-soft-drink-machine">Button-LED Soft Drink Machine</a>** 
 
    *Jan. 2023 - Present*
 
-   An ARM assembly program to simulate a soft drink vending machine on Raspberry-Pi, using buttons and LEDs
+   ARM assembly program to simulate a soft drink vending machine on Raspberry-Pi, using buttons and LEDs
 
 3. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
 
    *Aug. 2022 - Nov. 2022*
 
-   A multi-threaded client/server socket application using C targeted to run on Unix/Linux environment
+   Multi-threaded client/server socket applications using C and the POSIX thread libraries
 
 4. **<a href="./console-blackjack">Console Blackjack</a>**
 
