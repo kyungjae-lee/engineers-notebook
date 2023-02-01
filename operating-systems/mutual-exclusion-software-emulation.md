@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Concurrency & Mutual Exclusion - Software Emulation of Mutual Exclusion
+<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Mutual Exclusion - Software Emulation
 
-# Concurrency & Mutual Exclusion - Software Emulation of Mutual Exclusion
+# Mutual Exclusion - Software Emulation
 
 
 

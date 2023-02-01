@@ -4,14 +4,26 @@
 
 
 
+### Overview
+
 1. **<a href="./operating-systems-overview">Operating Systems Overview</a>**
 1. **<a href="./interrupt-vs-trap-in-os">Interrupt vs. Trap in OS</a>**
-1. **<a href="./the-process-introduction">The Process - Introduction</a>**
-1. **<a href="./the-process-process-state-models-and-control">The Process - Process State Model & Control</a>**
-1. **<a href="./the-process-execution-of-the-os">The Process - Execution of the OS</a>**
-1. **<a href="./concurrency-and-mutual-exclusion-principles-of-concurrency">Concurrency & Mutual Exclusion - Principles of Concurrency</a>**
-1. **<a href="./concurrency-and-mutual-exclusion-hardware-support-for-mutual-exclusion">Concurrency & Mutual Exclusion - Hardware Support for Mutual Exclusion</a>**
-1. **<a href="./concurrency-and-mutual-exclusion-software-emulation-of-mutual-exclusion">Concurrency & Mutual Exclusion - Software Emulation of Mutual Exclusion</a>**
-1. **<a href="./concurrency-and-mutual-exclusion-semaphores">Concurrency & Mutual Exclusion - Semaphores</a>**
+
+### The Process
+
+1. **<a href="./the-process">The Process</a>**
+1. **<a href="./process-state-models-and-control">Process State Model & Control</a>**
+1. **<a href="./execution-of-the-os">Execution of the OS</a>**
+
+### Concurrency: Mutual Exclusion & Synchronization
+
+1. **<a href="./principles-of-concurrency">Principles of Concurrency</a>**
+1. **<a href="./mutual-exclusion-software-emulation">Mutual Exclusion - Software Emulation</a>**
+1. **<a href="./mutual-exclusion-hardware-support">Mutual Exclusion - Hardware Support</a>**
+1. **<a href="./mutual-exclusion-semaphores-os-support">Mutual Exclusion - Semaphores (OS Support)</a>**
+1. **<a href="./mutual-exclusion-monitors-programming-language-support">Mutual Exclusion - Monitors (Programming Language Support)</a>**
+
+### Review
+
 1. **<a href="./review-questions">Review Questions</a>**
 

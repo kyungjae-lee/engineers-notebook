@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > The Process - Process State Models & Control
+<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Process State Models & Control
 
-# The Process - Process State Models & Control
+# Process State Models & Control
 
 
 

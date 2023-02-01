@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > The Process - Execution of the OS
+<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Execution of the OS
 
-# The Process - Execution of the OS
+# Execution of the OS
 
 
 

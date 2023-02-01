@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Concurrency & Mutual Exclusion - Hardware Support for Mutual Exclusion
+<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Mutual Exclusion - Hardware Support
 
-# Concurrency & Mutual Exclusion - Hardware Support for Mutual Exclusion
+# Mutual Exclusion - Hardware Support
 
 
 

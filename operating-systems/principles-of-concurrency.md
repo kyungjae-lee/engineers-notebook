@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Concurrency & Mutual Exclusion - Principles of Concurrency
+<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Principles of Concurrency
 
-# Concurrency & Mutual Exclusion - Principles of Concurrency
+# Principles of Concurrency
 
 
 
@@ -166,7 +166,7 @@
 
    A process has to wait (in blocked state) until it receives the message, etc.
 
-See [Concurrency & Mutual Exclusion - Software Emulation of Mutual Exclusion](./concurrency-and-mutual-exclusion-software-emulation-of-mutual-exclusion) for software emulation of locks, which does not involve the OS.
+See [Mutual Exclusion - Software Emulation](./mutual-exclusion-software-emulation) for software emulation of locks, which does not involve the OS.
 
 
 

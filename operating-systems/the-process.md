@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > The Process - Introduction
+<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > The Process
 
-# The Process - Introduction
+# The Process
 
 
 
