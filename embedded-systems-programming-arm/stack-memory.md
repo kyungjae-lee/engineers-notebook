@@ -64,7 +64,16 @@ Stack operation model is determined at the processor design time. This is not co
 
 ## Banked Stack Pointers
 
+* ARM Cortex Mx processors have 3 physical stack pointers:
+  * SP(R13) - Current stack pointer
+  * MSP - Main stack pointer
+  * PSP - Processor stack pointer
 
+* After processor reset, by default, MSP will be selected as current stack pointer. This means that the SP will copy the contents of MSP.
+* Thread mode can change the current stack pointer to PSP by configuring the CONTROL register's SPSEL bit.
+* Handler mode code execution will always use MSP as the current stack pointer. This also means that changing the value of SPSEL bit being in the handler mode doesn't make any sense. The write will be ignored.
+* MSP will be initialized automatically by the processor after reset by reading the content of the address 0x0000_0000
+* If you want to use the PSP then make sure that you initialize the PSP to valid stack address in your code.
 
 
 
