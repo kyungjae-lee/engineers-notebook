@@ -10,13 +10,13 @@
 2. **<a href="./cross-compilation">Cross Compilation</a>**
 3. **<a href="./cubeide-tips">CubeIDE Tips</a>**
 
-### Using STM32F407 Discovery Board
+### STM32F407 Discovery Board
 
 1. **<a href="./implementing-delay">Implementing `delay()`</a>**
 1. **<a href="./using-printf-on-arm-cortex-m3-m4-m7-based-mcus">Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs</a>**
 1. **<a href="./general-purpose-input-output">General Purpose Input/Output (GPIO)</a>**
 
-### Using ARM Cortex-M3/M4 Processor
+### ARM Cortex-M3/M4 Processor
 
 1. **<a href="./memory-map">Memory Map</a>**
 2. **<a href="./bus-interfaces">Bus Interfaces</a>**
