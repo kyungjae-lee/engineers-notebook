@@ -13,7 +13,7 @@ Notebook
 * **<a href="./c-programming-embedded/">C Programming (Embedded)</a>**
 * **<a href="./cpp-programming/">C++ Programming</a>**
 * **<a href="./data-structures/">Data Structures</a>**
-* **<a href="./embedded-systems-programming-on-arm-cortex-m3-m4-processor/">Embedded Systems Programming on ARM Cortex-M3/M4 Processor</a>**
+* **<a href="./embedded-systems-programming-arm/">Embedded Systems Programming (ARM)</a>**
 * **<a href="./operating-systems/">Operating Systems</a>**
 * **<a href="./computer-architecture-and-organization/">Computer Architecture & Organization</a>**
 * **<a href="./multi-threading/">Multi-Threading (POSIX Threads)</a>**
