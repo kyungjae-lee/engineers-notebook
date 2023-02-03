@@ -105,6 +105,30 @@ Stack operation model is determined at the processor design time. This is not co
 
 
 
+## Stack Initialization
+
+* **Before reaching `main()`**
+
+  Generally done by the processor reset sequence reading the first location of the vector table. It must be ensured that the first location of the vector table holds a valid value for the stack pointer. This is normally taken care of by the startup code.
+
+* **After reaching `main()`**
+
+  For example, you may want to shift the stack to some other memory location (e.g., SRAM3, or external RAM connected to the microcontroller) after reaching `main()`. This can't be done before reaching `main()`.
+
+### Stack Initialization Tips
+
+1. Evaluate your targeted application. Decide the amount of stack that would be needed for the worst-case scenario of your application run-time.
+2. Know your processor's stack consumption model (FD, FA, ED, EA)
+3. Decide stack placement in the RAM (middle, end, external memory). This can be adjusted using the linker script.
+4. In many applications, there may be second stage stack init. For example, if you want to allocate stack in an external SDRAM then 
+   - First, start with the the internal RAM. 
+   - Second, initialize (configure) the SDRAM in the main or startup code and then change the stack pointer to point to that SDRAM.
+5. If you are using the ARM cortex Mx processor, make sure that the first location of the vector table contains the initial stack address (MSP). The startup code of the project usually does this.
+6. You may also use the linker script to decide the stack, heap and other RAM area boundaries. Startup code usually fetches boundary information from linker scripts.
+7. In an RTOS scenario, the kernel code may use MSP to trace its own stack and configure PSP for user task's stack.
+
+
+
 ## Exercise 
 
 * To view where the stack pointer gets initialized, check the startup code and linker script of your project.

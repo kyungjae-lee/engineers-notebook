@@ -169,6 +169,24 @@
 
 
 
+## Interrupts/Exceptions and AAPCS
+
+* To allow a C function to be used as an exception/interrupt handler, the exception mechanism needs to save **r0-r3, r12, R14(LR), and XPSR** automatically at the entrance of exception and restore them at the termination of the exception under the control of the processor hardware. 
+
+  In this case, the processor will save the **caller-saved registers** (since there is no caller for an exception/interrupt handler) and restore them when the exception/interrupt handler returns.
+
+  Simply put, the hardware generates exceptions/interrupts, and the hardware needs to take care of it!
+
+* You, as a programmer, do not need to worry about AAPCS rules when writing exception/interrupt handlers as regular C functions. Even the compiler won't have to worry about it because the processor will take care of this situation.
+
+
+
+<img src="./img/stacking-unstacking-at-exception-interrupt.png" alt="stacking-unstacking-at-exception-interrupt" width="750">
+
+
+
+
+
 
 
 ## References
