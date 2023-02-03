@@ -592,10 +592,158 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+							stroke-width: 0;
+						}
 </style>
 </head>
 <body class='typora-export'><div class='typora-export-content'>
-<div id='write'  class=''><p><a href="../"><span>Notebook</span></a><span> &gt; Embedded Systems Programming (ARM)</span></p><h1 id='embedded-systems-programming-arm'><span>Embedded Systems Programming (ARM)</span></h1><p>&nbsp;</p><h3 id='common'><span>Common</span></h3><ol start='' ><li><strong><a href="./embedded-systems-basics"><span>Embedded Systems Basics</span></a></strong></li><li><strong><a href="./cross-compilation"><span>Cross Compilation</span></a></strong></li><li><strong><a href="./cubeide-tips"><span>CubeIDE Tips</span></a></strong></li></ol><h3 id='stm32f407-discovery-board'><span>STM32F407 Discovery Board</span></h3><ol start='' ><li><strong><a href="./implementing-delay"><span>Implementing </span><code>delay()</code></a></strong></li><li><strong><a href="./using-printf-on-arm-cortex-m3-m4-m7-based-mcus"><span>Using </span><code>printf()</code><span> on ARM Cortex M3/M4/M7 Based MCUs</span></a></strong></li><li><strong><a href="./general-purpose-input-output"><span>General Purpose Input/Output (GPIO)</span></a></strong></li></ol><h3 id='arm-cortex-m3m4-processor'><span>ARM Cortex-M3/M4 Processor</span></h3><ol start='' ><li><strong><a href="./memory-map"><span>Memory Map</span></a></strong></li><li><strong><a href="./bus-interfaces"><span>Bus Interfaces</span></a></strong></li><li><strong><a href="./access-levels-and-operation-modes-of-the-processor"><span>Access Levels &amp; Operation Modes</span></a></strong></li><li><strong><a href="./processor-core-register-set"><span>Processor Core Register Set</span></a></strong></li><li><strong><a href="./memory-mapped-vs-non-memory-mapped-registers"><span>Memory Mapped vs Non-Memory Mapped Registers</span></a></strong></li><li><strong><a href="./arm-gcc-inline-assembly"><span>ARM GCC Inline Assembly</span></a></strong></li><li><strong><a href="./reset-sequence"><span>Reset Sequence</span></a></strong></li><li><strong><a href="./thumb-state-and-t-bit-of-epsr"><span>Thumb State &amp; T Bit of EPSR</span></a></strong></li><li><strong><a href="./bit-banding"><span>Bit Banding</span></a></strong></li><li><strong><a href="./stack-memory"><span>Stack Memory</span></a></strong></li><li><strong><a href="./arm-architecture-procedure-call-standard"><span>ARM Architecture Procedure Call Standard (AAPCS)</span></a></strong></li><li><strong><a href="./exception-model"><span>Exception Model</span></a></strong></li></ol><p>&nbsp;</p></div></div>
+<div id='write'  class=''><p><a href="../"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Embedded Systems Programming (ARM)</span></a><span> &gt; Exception Model</span></p><h1 id='exception-model'><span>Exception Model</span></h1><p><span>This section applies to ARM Cortex M0/M1/M3/M4/M7 processors.</span></p><p>&nbsp;</p><h2 id='arm-cortex-mx-processor-exception-model'><span>ARM Cortex Mx Processor Exception Model</span></h2><ul><li><p><span>What is exception?</span></p><p><span>Anything that disturbs the normal operation of the program by changing the operation mode of the processor</span></p></li><li><p><span>Two major types of exception:</span></p><ol><li><strong><span>System exceptions</span></strong><span>  (Generated </span><strong><span>by the processor</span></strong><span>; total 15)</span></li><li><strong><span>Interrupts</span></strong><span>  (Generated from </span><strong><span>outside the processor</span></strong><span>; total 240)</span></li></ol><p><mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="1.509ex" height="1.251ex" role="img" focusable="false" viewBox="0 -471 667 553" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.186ex;"><defs><path id="MJX-23-TEX-N-2234" d="M273 411Q273 437 291 454T334 471Q358 471 375 454T393 411T376 368T333 351Q307 351 290 368T273 411ZM84 38Q110 38 126 21T143 -22Q143 -46 127 -64T83 -82Q57 -82 41 -65T24 -22Q24 4 41 21T84 38ZM524 -22Q524 4 541 21T584 38Q608 38 625 21T643 -22Q643 -45 627 -63T583 -82Q557 -82 541 -65T524 -22Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="2234" xlink:href="#MJX-23-TEX-N-2234"></use></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>∴</mo></math></mjx-assistive-mml></mjx-container><script type="math/tex">\therefore</script><span> ARM Cortex Mx processors support total 255 exceptions.</span></p></li><li><p><span>Whenever the processor core encounters an exception, it changes the operation mode to &quot;Handler mode&quot;.</span></p></li></ul><p>&nbsp;</p><h2 id='system-exceptions'><span>System Exceptions</span></h2><ul><li><span>There is a room for 15 system exceptions.</span></li><li><span>Exception no. 1 is the &quot;Reset exception (or system exception)&quot;.</span></li><li><span>Only 9 system exceptions are implemented. (6 are reserved for future implementation)</span></li><li><span>Exception no. 16 is &quot;Interrupt 1 (IRQ 1)&quot;</span></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Embedded Systems Programming on ARM Cortex-M3/M4 Processor</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/' target='_blank' class='url'>https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/</a></p><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">
 This website contains Kyungjae's original work.
