@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Exception Model
+<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Exception Model (System Exceptions, Interrupts)
 
-# Exception Model
+# Exception Model (System Exceptions, Interrupts)
 
 This section applies to ARM Cortex M0/M1/M3/M4/M7 processors.
 
