@@ -32,4 +32,5 @@
 12. **<a href="./exception-model">Exception Model (System Exceptions, Interrupts)</a>**
 13. **<a href="./interrupt-priority-and-priority-configuration">Interrupt Priority & Priority Configuration</a>**
 14. **<a href="./exception-entry-and-exit-sequence">Exception Entry/Exit Sequence</a>**
+15. **<a href="./fault-handling">Fault Handling</a>**
 
