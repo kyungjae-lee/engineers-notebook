@@ -31,4 +31,5 @@
 11. **<a href="./arm-architecture-procedure-call-standard">ARM Architecture Procedure Call Standard (AAPCS)</a>**
 12. **<a href="./exception-model">Exception Model (System Exceptions, Interrupts)</a>**
 13. **<a href="./interrupt-priority-and-priority-configuration">Interrupt Priority & Priority Configuration</a>**
+14. **<a href="./exception-entry-and-exit-sequence">Exception Entry/Exit Sequence</a>**
 
