@@ -25,7 +25,7 @@
 
   * **Weak semaphore** - Unspecified order (may suffer from starvation)
 
-  [!] Note: Semaphores each have a queue of waiting (blocked) processes
+  [!] Note: Semaphores each have a queue of waiting (blocked) processes.
 
 
 
@@ -143,7 +143,13 @@
   }
   ```
   
-  
+
+
+
+## Demonstration - Semaphores
+
+* Let's say a section of code (critical section) is protected by a semaphore of initial value 5. Then, first 5 processes (or threads) will each enter the critical section without any problem decrementing the semaphore value. From this point on, no new process is allowed to get in until and unless any one in the critical section comes out and signals. The 6^th^ process, upon arrival, will see that the semaphore value is 0, and realize the critical section is already full. Decrementing the semaphore value, the 6^th^ process will move to the BLOCKED queue of the semaphore to wait for any process to come out of the critical section. (Any processes that arrive after the 6^th^ process will do the same and place themselves in the BLOCKED queue.). When a process comes out of the critical section, it will signal (increment the semaphore value by 1), and a process waiting in the BLOCKED queue, if any, will be moved to the READY queue so when it is dispatched it can enter the critical section.
+* Don't be confused about the semaphore value. Even if the value is less than 0 at certain point in time, some processes may be leaving and some may be entering the critical section.
 
 
 
