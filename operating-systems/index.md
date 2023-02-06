@@ -18,6 +18,7 @@
 ### Threads
 
 1. **<a href="./processes-and-threads">Processes & Threads</a>**
+1. **<a href="./types-of-threads">Types of Threads</a>**
 
 ### Concurrency: Mutual Exclusion & Synchronization
 
