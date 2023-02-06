@@ -15,7 +15,7 @@
 
 * Depending on the maximum number of processes (or threads) allowed to enter the critical section:
 
-  * **Counting/general semaphore** -  >= 1
+  * **Counting/general semaphore** - >= 1
 
   * **Binary semaphore** - 1 (special case of counting/general semaphore)
 
