@@ -31,6 +31,10 @@
 1. **<a href="./synchronization-problem-producer-consumer-problem">Synchronization Problem - Producer/Consumer Problem</a>**
 1. **<a href="./synchronization-problem-readers-writers-problem">Synchronization Problem - Readers/Writers Problem</a>**
 
+### Concurrency: Deadlock and Starvation
+
+1. **<a href="./principles-of-deadlock">Principles of Deadlock</a>**
+
 ### Review
 
 1. **<a href="./review-questions">Review Questions</a>**
