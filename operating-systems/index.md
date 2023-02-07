@@ -34,6 +34,9 @@
 ### Concurrency: Deadlock and Starvation
 
 1. **<a href="./principles-of-deadlock">Principles of Deadlock</a>**
+2. **<a href="./deadlock-prevention">Deadlock Prevention</a>**
+3. **<a href="./deadlock-avoidance">Deadlock Avoidance</a>**
+4. **<a href="./deadlock-detection">Deadlock Detection</a>**
 
 ### Review
 
