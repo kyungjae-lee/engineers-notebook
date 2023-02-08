@@ -48,6 +48,13 @@ This project is to develop an embedded C program to control 7-segment display wi
 ## Source Code
 
 ```c
+//========================================================================================
+// Filename     : keypad_svnseg_interface.c
+// Description  : Embedded C program to control 7-segment display with keypad and STM32 board
+// Author       : Kyungjae Lee
+// History      : 02/07/2023 - Created file
+//========================================================================================
+
 // 7-Segment Interfacing: PE4-11
 //
 // 7-segment pins
