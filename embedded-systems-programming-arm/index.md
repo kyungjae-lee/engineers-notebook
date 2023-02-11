@@ -7,8 +7,9 @@
 ### Common
 
 1. **<a href="./embedded-systems-basics">Embedded Systems Basics</a>**
-2. **<a href="./cross-compilation">Cross Compilation</a>**
-3. **<a href="./cubeide-tips">CubeIDE Tips</a>**
+2. **<a href="./cross-compilation-and-toolchains">Cross Compilation & Tool Chains</a>**
+3. **<a href="./build-process-and-makefile">Build Process & Makefile</a>**
+4. **<a href="./cubeide-tips">CubeIDE Tips</a>**
 
 ### STM32F407 Discovery Board
 
@@ -36,4 +37,6 @@
 16. **<a href="./stack-frame-analysis-using-naked-function">Stack Fame Analysis Using `__attribute__((naked))` Function</a>**
 17. **<a href="./exceptions-for-system-level-services">Exceptions for System-Level Services</a>**
 18. **<a href="./implementing-a-scheduler">Implementing a Scheduler</a>**
+19. **<a href="./bare-metal-programming-overview">Bare-Metal Programming Overview</a>**
+20. **<a href="./analyzing-relocatable-object-files">Analyzing Relocatable Object Files (.o)</a>**
 
