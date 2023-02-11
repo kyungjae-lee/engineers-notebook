@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This project is to develop an embedded C program to control 7-segment display with keypad and STM32 board. 
+This project is to develop an embedded C program to control 7-segment display with keypad and STM32F microcontroller board. 
 
 
 

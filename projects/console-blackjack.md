@@ -6,7 +6,7 @@
 
 ## Introduction
 
-Interactive console Blackjack game implemented using objecct-oriented design (OOD) and programming (OOP) in C++
+An interactive console Blackjack game implemented using Objecct-Oriented Design (OOD) and programming (OOP) in C++
 
 
 

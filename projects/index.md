@@ -4,17 +4,17 @@
 
 
 
-1. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
+1. **<a href="./bare-metal-task-scheduler">Bare-Metal Task Scheduler</a>** 
 
-   *Jan. 2023 - Present*
+   *Feb. 2023 - Present*
 
-   Embedded C program to control 7-segment display with keypad and STM32 board
+   A task scheduler built from scratch on bare-metal STM32F microcontroller (ARM Cortex M4) board
 
-2. **<a href="./button-led-soft-drink-machine">Button-LED Soft Drink Machine</a>** 
+2. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
 
-   *Jan. 2023 - Present*
+   *Jan. 2023 - Jan. 2023*
 
-   ARM assembly program to simulate a soft drink vending machine on Raspberry-Pi, using buttons and LEDs
+   An embedded C program to control 7-segment display with keypad and STM32F microcontroller board
 
 3. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
 
@@ -26,7 +26,7 @@
 
    *Oct. 2022 - Nov. 2022*
 
-   Interactive console Blackjack game implemented using object-oriented design (OOD) and programming (OOP) in C++
+   An interactive console Blackjack game implemented using object-oriented design (OOD) and programming (OOP) in C++
 
 5. **<a href="./engineers-notebook">Engineer's Notebook</a>**
 
