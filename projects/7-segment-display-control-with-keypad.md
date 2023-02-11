@@ -12,7 +12,7 @@ This project is to develop an embedded C program to control 7-segment display wi
 
 ## Objective
 
-* To get familiar with controlling the General Purpose Input/Output (GPIO) of microcontroller (STM32x) by directly accessing and configuring the memory-mapped registers. (Without using Hardware Abstraction Layer (HAL) driver)
+* To get familiar with controlling the General Purpose Input/Output (GPIO) of microcontroller (STM32x) by directly accessing and configuring the memory-mapped registers. (Without using Hardware Abstraction Layer (HAL) library)
 * To understand how the 4x4 keypad and 7-segment display interfacing works.
 * To get familiar with referencing datasheets.
 
@@ -40,7 +40,7 @@ This project is to develop an embedded C program to control 7-segment display wi
 
 ### Software 
 
-* **Cross-Compiler Tool Chain** - STM32 CubeIDE Version 1.10.1 (GCC compiler)
+* **IDE** - STM32 CubeIDE Version 1.10.1 (GCC compiler)
 * **Host OS** - Ubuntu 22.04 LTS
 
 
