@@ -175,4 +175,4 @@ See [Mutual Exclusion - Software Emulation](./mutual-exclusion-software-emulatio
 
 ## References
 
-Allen, B. (2023, January 10). Introduction to Operating Systems [Lecture]. University of Alabama in Huntsville, Huntsville, AL, United States.
+Stallings, W. (2018). *Operating Systems: Internals and Design Principles* (9th ed.). Pearson Education, Inc.
