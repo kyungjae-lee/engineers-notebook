@@ -41,4 +41,5 @@
 20. **<a href="./analyzing-relocatable-object-files">Analyzing Relocatable Object Files (.o)</a>**
 21. **<a href="./different-sections-of-a-program">Different Sections of a Program</a>**
 22. **<a href="./startup-file">Startup File</a>**
+23. **<a href="./linker-script">Linker Script</a>**
 
