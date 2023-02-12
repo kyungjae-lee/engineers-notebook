@@ -39,4 +39,5 @@
 18. **<a href="./implementing-a-scheduler">Implementing a Scheduler</a>**
 19. **<a href="./bare-metal-programming-overview">Bare-Metal Programming Overview</a>**
 20. **<a href="./analyzing-relocatable-object-files">Analyzing Relocatable Object Files (.o)</a>**
+21. **<a href="./different-sections-of-a-program">Different Sections of a Program</a>**
 
