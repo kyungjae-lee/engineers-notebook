@@ -43,4 +43,5 @@
 22. **<a href="./startup-file">Startup File</a>**
 23. **<a href="./linker-script">Linker Script</a>**
 24. **<a href="./elf-file-analysis">ELF File Analysis</a>**
+25. **<a href="./open-on-chip-debugger">Open On-Chip Debugger (OpenOCD)</a>**
 
