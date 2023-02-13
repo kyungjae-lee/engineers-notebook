@@ -224,6 +224,38 @@ Before writing a linker script you must understand what the linker script comman
 
 
 
+* To view the list of symbols (or symbol table) of an object or ELF file:
+
+  ```plain
+  arm-none-eabi-nm <filename>.o
+  arm-none-eabi-nm <filename>.elf
+  ```
+
+  ```plain
+  20000058 B _ebss
+  20000004 D _edata
+  080004b6 T enable_processor_faults
+  08000768 T _etext
+  08000754 W ETH_IRQHandler
+  08000754 W ETH_WKUP_IRQHandler
+  ```
+
+  > Address of `_ebss` is 0x20000058. (0x20000058 is not the value stored in `_ebss`.)
+  >
+  > Therefore, to calculate the size of `.data` section, you need to do
+  >
+  > ```c
+  > uint32_t size = (uint32_t)&_edata - (uint32_t)&_sdata;	/* CORRECT */
+  > ```
+  >
+  > ```c
+  > uint32_t size = _edata - _sdata;	/* WRONG */
+  > /* This means that you want to access the value stored in the memory location associated with
+  >    the name '_edata' and '_sdata'. No, we want the address associated with the names */
+  > ```
+  >
+  > Nothing different than how a C variable name is associated with the memory location.
+
 
 
 ## LInking & Linker Flags
