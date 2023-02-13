@@ -134,6 +134,29 @@ Before writing a linker script you must understand what the linker script comman
 
 * **ALIGN**
 
+  * ALIGN command is used to force boundary alignment.
+
+  * Linker will introduce padding `*fill*` if alignment is ncessary at the beginning of each section, but will not care about the end of section. When you want to make sure that the section ending address is boundary-aligned for the section immediately following it, use ALIGN command.
+
+  * Example:
+
+    ```plain
+    SECTIONS 
+    { 
+        .text : 
+        {
+            *(.isr_vector) 
+            *(.text) 
+            *(.rodata)
+            . = ALIGN(4); /* assigning 4-byte word-aligned address to the location counter */
+            _etext = .; 
+        }> FLASH 
+     ...
+     }
+    ```
+
+    > ALIGN(4) forces 4-byte word boundary alignment.
+
 * **AT>**
 
 
