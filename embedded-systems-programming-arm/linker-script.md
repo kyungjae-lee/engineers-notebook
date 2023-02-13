@@ -12,6 +12,7 @@
 * Linker scripts are written using the GNU linker command language.
 * GNU linker script has the file extension of `.ld`
 * You must supply linker script at the linking phase to the linker using `-T` flag.
+* If the linker finds any necessary sections that are not defined in the linker script, it will simply include them in the final ELF file as is.
 
 
 
@@ -271,6 +272,75 @@ Before writing a linker script you must understand what the linker script comman
   > `-T` flag is followed by the linker script name
   >
   > `*.o` since we are linking all the object files
+
+
+
+## Example of a Linker Script
+
+* Linker script for "Task Scheduler" project:
+
+  ```plain
+  /* stm32_ls.ld */
+  
+  NTRY(Reset_Handler)
+  
+  MEMORY
+  {
+      FLASH(rx): ORIGIN =0x08000000, LENGTH =1024K /* a space is necessary before '=' */
+          /* since code memory contains information not writable by user program */
+      SRAM(rwx): ORIGIN =0x20000000, LENGTH =128K
+  
+      /* continue defining other memory regions here, if necessary */
+  }
+  
+  SECTIONS
+  {
+      .text :
+      {   
+          *(.isr_vector) /* put vector table at the beginning of code memory */
+          *(.text) /* merge .text sections from all(*) input files */
+          *(.text.*) /* merge if anything like '.text.<function_name>' gets generated */
+          *(.init) /* merge c standard library specific section into .text */
+          *(fini) /* merge c standard library specific section into .text */
+          *(.rodata)
+          *(.rodata.*)
+          . = ALIGN(4); /* assigning 4-byte word-aligned address to the location counter */
+          /*_etext = .;  // store the location counter value (end of text) to symbol  _etext */
+      }> FLASH /* for .text VMA = LMA */
+      /* linker generates absolute address for VMA, LMA */
+  
+      _la_data = LOADADDR(.data);
+  
+      .data :
+      {   
+          _sdata = .; /* location counter always tracks VMA, so here it contains SRAM */
+          *(.data)
+          *(.data.*)
+          . = ALIGN(4); /* force word-boundary alignment for the next section */
+          _edata = .; /* now location counter contains (SRAM + size of .data) */
+      }> SRAM AT> FLASH /* VMA = SRAM, LMA = FLASH */
+  
+      .bss :
+      {   
+          _sbss = .;
+          __bss_start__ = _sbss;
+          *(.bss)
+          *(.bss.*)
+          *(COMMON) /* While analyzing the map file you found some data you epxpected to
+                       be placed in the .bss section but somehow placed under a COMMON 
+                       section created by the linker. This is how you bring it into
+                       the the section you want it to be placed in. */
+          . = ALIGN(4); /* force word-boundary alignment for the next section */
+          _ebss = .;
+          __bss_end__ = _ebss;
+          . = ALIGN(4);
+          end = .;
+          __end__ = .;
+      }> SRAM /* .bss does not need LMA since it does not get loded onto FLASH */
+  }
+  ```
+
+  
 
 
 

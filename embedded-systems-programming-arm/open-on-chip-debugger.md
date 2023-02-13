@@ -210,6 +210,12 @@ Consult the *OpenOCD User's Guide* for more information (e.g., commands).
   (gdb) monitor bp
   ```
 
+* Shutdown OpenOCD (Disconnect from the debug adapter or from the target)
+
+  ```plain
+  shutdown
+  ```
+
   
 
 

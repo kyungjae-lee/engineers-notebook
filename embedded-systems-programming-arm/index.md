@@ -37,11 +37,15 @@
 16. **<a href="./stack-frame-analysis-using-naked-function">Stack Fame Analysis Using `__attribute__((naked))` Function</a>**
 17. **<a href="./exceptions-for-system-level-services">Exceptions for System-Level Services</a>**
 18. **<a href="./implementing-a-scheduler">Implementing a Scheduler</a>**
-19. **<a href="./bare-metal-programming-overview">Bare-Metal Programming Overview</a>**
-20. **<a href="./analyzing-relocatable-object-files">Analyzing Relocatable Object Files (.o)</a>**
-21. **<a href="./different-sections-of-a-program">Different Sections of a Program</a>**
-22. **<a href="./startup-file">Startup File</a>**
-23. **<a href="./linker-script">Linker Script</a>**
-24. **<a href="./elf-file-analysis">ELF File Analysis</a>**
-25. **<a href="./open-on-chip-debugger">Open On-Chip Debugger (OpenOCD)</a>**
+
+### Bare-Metal Programming
+
+1. **<a href="./bare-metal-programming-overview">Bare-Metal Programming Overview</a>**
+2. **<a href="./analyzing-relocatable-object-files">Analyzing Relocatable Object Files (.o)</a>**
+3. **<a href="./different-sections-of-a-program">Different Sections of a Program</a>**
+4. **<a href="./startup-file">Startup File</a>**
+5. **<a href="./linker-script">Linker Script</a>**
+6. **<a href="./elf-file-analysis">ELF File Analysis</a>**
+7. **<a href="./open-on-chip-debugger">Open On-Chip Debugger (OpenOCD)</a>**
+8. **<a href="./semihosting">Semihosting</a>**
 
