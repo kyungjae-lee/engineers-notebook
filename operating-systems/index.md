@@ -37,6 +37,7 @@
 2. **<a href="./deadlock-prevention">Deadlock Prevention</a>**
 3. **<a href="./deadlock-avoidance">Deadlock Avoidance</a>**
 4. **<a href="./deadlock-detection">Deadlock Detection</a>**
+5. **<a href="./integrated-deadlock-strategy">Integrated Deadlock Strategy</a>**
 
 ### Review
 
