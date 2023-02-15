@@ -46,21 +46,46 @@
     \end{pmatrix}
     $$
 
-  The following relationships hold:
+  Start off by making processes that are not part of a deadlocked set. Initially, all processes are unmarked. Then the following steps are performed:
 
-  1. $R_j = V_j + \sum_{i=1}^{n}A_{ij}$, for all $j$
+  1. Mark each process that has a row in the allocation matrix $A$ of all zeros. A process that has no allocated resources cannot participate in a deadlock.
+  2. Initialize a temporary vector $W$ to equal the availability vector $V$.
+  3. LOOP:
+     * Find an indes $i$ such that process $i$ is currently unmarked and the $i$th row of $Q$ is less than or equal to $W$. That is, $Q_{ik} \le W_k$, for $1 \le k \le m$. If no such row is found, terminate the algorithm.
+     * If such row is found, mark process $i$ and add the corresponding row of the allocation matrix to $W$. That is, set $W_k = W_k + A_{ik}$, for $1 \le k \le m$. Return to Step 3.
 
-     All resources are either available for allocated.
+  A deadlock exists if and only if there are unmarked processes at the end of the algorithm. The set of unmarked rows corresponds precisely to the set of deadlocked processes.
 
-  2. $C_{ij} \le R_j$, for all $i$, $j$
+* The strategy in this algorithm is to find a process whose resource requests can be satisfied with the available resources, then assume those resources are granted and the process runs to completion and releases all of its resources. The algorithm then looks for another process to satisfy.
+* This algorithm does not guarantee to prevent deadlock; that will depend on the order in which future requests are granted. All it does is determine if deadlock exists.
 
-     No process can claim more than the total amount of resources in the system.
 
-  3. $A_{ij} \le C_j$, for all $i$, $j$
 
-     No process is allocated more resources of any type than the process originally claimed to need.
+## Recovery Strategies
 
-  
+* Once deadlock has been detected, some strategy is needed for recovery. The following are possible approaches, listed in the order of increasing sophistications:
+
+  1. Abort all deadlocked processes. (One of the most common, solutions adopted in operating systems.)
+
+  2. Back up each deadlocked process to some previously defined checkpoint, and restart all processes.
+
+     This requires that rollback and restart mechanisms be built into the system. The risk in this approach is that the original deadlock may recur. However, the nondeterminacy of concurrent processing may ensure that this does not happen.
+
+  3. Successively abort deadlocked processes until deadlock no longer exist.
+
+     The order in which processes are selected for abortion should be on the basis of some criterion of minimum cost. After each abortion, the detection algorithm must be reinvoked to see whether deadlock still exists.
+
+  4. Successively preempt resources until deadlock no longer exists.
+
+     As in (3), a cost-based selection should be used, and re-invocation of the detection algorithm is required after each preemption. A process that has a resource preempted from it must be rolled back to a point prior to its acquisition of that resource.
+
+  For (3), and (4), the process selection criteria could be one of the following.
+
+  * least amount of processor time consumed so far
+  * least amount of output produced so far
+  * most estimated time remaining
+  * least total resources allocated so far
+  * lowest priority
 
 
 
