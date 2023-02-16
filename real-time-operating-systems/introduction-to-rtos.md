@@ -63,6 +63,35 @@
 
   e.g., VxWorks (Windriver), QNX (Blackberry), FreeRTOS, Integrity, etc.
 
+### Task Scheduling
+
+* **GPOS (Higher Throughput)**
+
+  * GPOS is programmed to handle scheduling in such a way that it manages to achieve high throughput.
+
+    Throughput - the total number of processes that complete their execution per unit time
+
+  * Sometimes execution of a high priority process will get delayed in order to serve 5 or 6 low priority tasks. High throughput is achieved by serving 5 low priority tasks than by serving a single high priority one. (If 5 or 6 low priority applications are waiting to run, then the GPOS may delay 1 or 2 high priority task in order to increase the throughput.)
+
+  * In GPOS, the scheduler typically uses a fairness policy to dispatch threads and processes onto the CPU. Such a policy enables the high overall throughput required by desktop and server applications, but offers no guarantees that high-priority, time critical threads or processes will execute in preference to lower-priority threads.
+
+* **RTOS (Higher Time-predictability)**
+
+  * In RTOS, thread execute in the order of their priority. If a high priority thread becomes ready to run, it will take over the CPU from any lower-priority thread that may be executing.
+
+  * Here a high-priority thread gets executed over the low priority ones. All "low priority thread execution" will get paused. A high-priority thread execution will get overridden only if a request comes from an even higher-priority threads.
+
+  * RTOS may yield less throughput than the GPOS because it always favors the high priority tasks, but that does not necessarily mean that it has poor throughput. A quality RTOS will still deliver a decent overall throughput but, can sacrifice throughput for being deterministic or to achieve time predictability.
+
+  * For an RTOS, achieving predictability or time deterministic nature is more important than achieving high throughput.
+
+### Latency
+
+* **GPOS ()**
+* **RTOS ()**
+
+
+
 
 
 
