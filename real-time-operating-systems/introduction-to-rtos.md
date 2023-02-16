@@ -53,6 +53,29 @@
 
 
 
+## RTOS and Multitasking
+
+* A **task** in a real-time system is a unit of individual functionality, that is, a piece of code which can be scheduled/dispatched on the CPU to execute.
+
+  e.g., Possible tasks in a temperature monitoring application can be:
+
+  - Sensor data gathering
+
+  - Updating display
+
+  - User input processing
+
+    ...
+
+* There are different ways to achieve multitasking.
+
+  * In a single-core system, multitasking can be achieved by using a **scheduler**. (Concurrency)
+  * In a multi-core system, multiple tasks can run on multiple cores simultaneously. (Parallelism)
+
+  In an embedded environment, single-core system widely used so task scheduling is very important. Effective and fast scheduling gives a user an illusion that multiple tasks are running simultaneously.
+
+
+
 
 
 ## References
