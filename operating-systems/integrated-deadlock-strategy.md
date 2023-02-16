@@ -4,6 +4,18 @@
 
 
 
+## Summary of 3 Deadlock Handling Strategies
+
+| Approach   | Characterized by                                             | Different schemes                                            | Advantages                                                   | Disadvantages                                                |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Prevention | $\cdot$ most conservative<br>$\cdot$ undercommits $R$s       | $\cdot$ requesting all $R$s at once                          | $\cdot$ works well for $Ps$ that perform a single burst of activity<br>$\cdot$ no preemption necessary | $\cdot$ inefficient<br>$\cdot$ delays process initiation<br>$\cdot$ future resource requirements must be known by processes |
+|            |                                                              | $\cdot$ preemption                                           | $\cdot$ works well with $R$s that are easy to save and restore state | $\cdot$ preempts more often than necessary (may lead to starvation) |
+|            |                                                              | $\cdot$ resource ordering                                    | $\cdot$ can be enforced at compile-time<br>$\cdot$ does not need a complex run-time computation since problem is solved in system design | $\cdot$ disallows different orders (need to request in certain order) |
+| Avoidance  | $\cdot$ less conservative than prevention, more conservative than detection (allows for higher resource utilization) | $\cdot$ Banker's algorithm (compute safe-state prior to completing a $R$ grant) | $\cdot$ no preemption necessary                              | $\cdot$ future $R$ requirements must be known by OS<br>$\cdot$ $P$s can be blocked for long periods (starvation) |
+| Detection  | $\cdot$ least conservative (always grant when available - allows for highest $R$ utilization) | $\cdot$ periodically compute (i.e., algorithm) for deadlock  | $\cdot$ never delays process initiation<br>$\cdot$ facilitates online handling | $\cdot$ inherent preemption losses                           |
+
+
+
 ## An Integrated Deadlock Strategy
 
 * There are strengths and weaknesses to all of the strategies for dealing with deadlock. Rather than attempting to design an OS facility that employs only one of these strategies, it might be more efficient to use different strategies in different situations.
