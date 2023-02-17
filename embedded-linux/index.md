@@ -4,6 +4,10 @@
 
 
 
-1. **<a href="./introduction">Introduction</a>**
+### Embedded Linux Using BeagleBoneBlack (BBB)
+
+1. **<a href="./prerequisites">Prerequisites</a>**
+
+1. **<a href="./beagleboneblack-initial-setup">BeagleBoneBlack(BBB) Initial Setup</a>**
 
    

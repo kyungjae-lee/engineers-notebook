@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > Introduction
+<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > Prerequisites
 
-# Introduction
+# Prerequisites
 
 
 
@@ -15,6 +15,17 @@
   11. Hardware Files $\to$ LATEST PRODUCTION FILES (C)
 
 * System Reference Manual - [https://docs.beagleboard.org/latest/boards/beaglebone/black/](https://docs.beagleboard.org/latest/boards/beaglebone/black/)
+
+* Notes
+
+  * BBB Rev C has off-chip (off-SoC) on-board eMMC storage of 4GB. (No NAND Flash)
+
+  * BBB Rev C is a Sinble-Board Computer (SBC)
+
+  * To share host PC's internet on the board over USB (Internet over USB) the board must first support Ethernet MAC and PHY along with USB? 
+
+    $\to$ False! Not required because, this functionality is implemented in software as a separate USB class.
+
 
 
 
@@ -71,11 +82,60 @@ Software used to monitor serial devices.
 
 ### Using Minicom
 
+* Connect USB to TTL serial converter cable to the host machine. To check connection,
+
+  ```plain
+  sudo dmesg
+  ```
+
+  ```plain
+  ...
+  [44893.552186] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+  [44893.552193] usb 1-1: Product: FT232R USB UART
+  [44893.552199] usb 1-1: Manufacturer: FTDI
+  [44893.552203] usb 1-1: SerialNumber: A571VB0V
+  [44893.556042] ftdi_sio 1-1:1.0: FTDI USB Serial Device converter detected
+  [44893.556137] usb 1-1: Detected FT232RL
+  [44893.557025] usb 1-1: FTDI USB Serial Device converter now attached to ttyUSB0
+  ```
+
+  > Connected cable's chipset - A571VB0V
+  >
+  > Connected to communication interface (port) - ttyUSB0
+
 * To run minicom
 
   ```plain
   sudo minicom -s
   ```
+
+* Go to `Serial port setup` to setup the configuration:
+
+  1. Serial Device - `dev/ttyUSB0`
+
+  2. Baudrate (Bps/Par/Bits) - `115200 8N1`
+
+  3. Hardware Flow Control - `No` 
+
+     BeagleBoneBlack does not use Hardware Flow Control such as CTS, RTS. As you can see in the schematics below, only `B_UART0_RX`, `B_UART0_TX` and `DGND` are used.
+
+     
+
+     <img src="./img/usb-to-serial-ttl-converter-pins.png" alt="usb-to-serial-ttl-converter-pins" width="400">
+
+     
+
+  4. Software Flow Control - `No`
+
+  [!] Note: Press the corresponding character to go to an entry, use the same character to toggle the field value. Press `Enter` to save and exit.
+
+* Hit `Save setup as dfl` so you set your current configuration default.
+
+* Exit!
+
+* Connect BBB to your PC via USB to TTL serial converter cable, and deliver power to the board.
+
+* See if you are getting debug messages on the screen.
 
 
 
