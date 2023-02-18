@@ -75,7 +75,7 @@
 
   A process in the Blocked state has been context switched and therefore does not consume CPU clock cycles.
 
-  There are data structures (e.g., blocked queue, event queue) associated with the Blocked state that helps the OS manage the processes in the Blocked state. If there are multiple events, multiple data structures can be introduced to manage the processes waiting on them.
+  There are data structures (e.g., blocked queue, event queue) associated with the Blocked state that help the OS manage the processes in the Blocked state. If there are multiple events, multiple data structures can be introduced to manage the processes waiting on them.
 
 * **Exit** - a process has completed and its PCB storage can be reclaimed (resources allocated for the process are now ready to be cleaned up)
 
@@ -118,12 +118,12 @@
 
 ## Seven State Model
 
-* Two new states - **Suspended** - are added to the Five State Model to overcome its limitations.
+* Two new states - **Suspend** - are added to the Five State Model to overcome its limitations.
 
-  Suspended means that a process is swapped out of main memory. It's data and status can be saved in secondary memory until it is swapped back in.
+  "Suspend" means that a process is swapped out of main memory. It's data and status can be saved in secondary memory until it is swapped back in.
 
-  - **Ready/Suspended** - process is ready but swapped out of memory
-  - **Blocked/Suspended** - the suspended process is waiting for an event
+  - **Ready/Suspend** - The process is in secondary memory (swapped out of main memory) but is available for execution as soon as it is loaded into main memory.
+  - **Blocked/Suspend** - The process is in secondary memory (swapped out of main memory) and awaiting an event.
 
 
 
@@ -165,7 +165,7 @@
   3. Move the PCB of this process to the appropriate queue.
   4. Select another process for execution.
   5. Update the PCB of the process selected.
-  6. Update memory management data structures
+  6. Update memory management data structures.
   7. Restore the context of the processor to that which existed at the time the selected process was last switched out.
 
   If the currently running process is to be moved to another state (READY, BLOCKED, etc.), then the OS must make substantial changes in its environment. In other words, context switching is an expensive (high overhead) process.
