@@ -13,7 +13,7 @@
 
 ## Creating FreeRTOS Project using CubeIDE
 
-* Create a project (e.g., `FreeRTOS_Project`) under `Workspace/` inside the root folder.
+* Create a project (e.g., `Project`) under `Workspace/` inside the root folder.
 * Create a project with the Targeted Project Type `STM32Cube`. Do not select `Empty` since we are not writing bare-metal program. We want to explore FreeRTOS upon working MCU. 
 * If the CubeIDE asks you if you wanted to initialize peripherals $\to$ No!
 
@@ -41,7 +41,7 @@
 
 * Project layout
 
-  * Application layer (`FreeRTOS_Project/Core/Src`)
+  * Application layer (`Project/Core/Src`)
 
   * CMSIS-RTOS API layer will not be used in our project.
   * FreeRTOS layer will be added.
@@ -53,25 +53,25 @@
 
 
 
-* Create `ThirdParty/` (`FreeRTOS_Project/ThirdParty`)
+* Create `ThirdParty/` (`Project/ThirdParty`)
 
-* Create `FreeRTOS/` (`FreeRTOS_Project/ThirdParty/FreeRTOS`)
+* Create `FreeRTOS/` (`Project/ThirdParty/FreeRTOS`)
 
   This folder will contain the compiler information we will be using (i.e., GCC), FreeRTOS kernel source (architecture independent + architecture dependent)
 
-* Copy `License/` from the downloaded kernel source folder into `FreeRTOS_Project/ThirdParty/FreeRTOS`.
+* Copy `License/` from the downloaded kernel source folder into `Project/ThirdParty/FreeRTOS`.
 
-* Copy the FreeRTOS kernel source into `FreeRTOS_Project/ThirdParty/FreeRTOS`. 
+* Copy the FreeRTOS kernel source into `Project/ThirdParty/FreeRTOS`. 
 
   `portable/` contains architecture-dependent part of the FreeRTOS kernel.
 
   Everything else is architecture-independent.
 
-* Go to `FreeRTOS_Project/ThirdParty/FreeRTOS/portable`, delete everything but `GCC/`, `MemMang/`, `readme.txt`.
+* Go to `Project/ThirdParty/FreeRTOS/portable`, delete everything but `GCC/`, `MemMang/`, `readme.txt`.
 
   Under `GCC/ARM_CM4F/` are two files `portmacro.h` and `port.c`. These are port codes or architecture-level codes that are necessary to run the FreeRTOS on a specific target hardware architecture.
 
-* Go to `FreeRTOS_Project/ThirdParty/FreeRTOS/portable/GCC`, delete all the that are not your hardware architecture. (In our case, leave `ARM_CM4F/` only! Trailing 'F' means "with FPU"). 
+* Go to `Project/ThirdParty/FreeRTOS/portable/GCC`, delete all the that are not your hardware architecture. (In our case, leave `ARM_CM4F/` only! Trailing 'F' means "with FPU"). 
 
   This is architecture-dependent part of the FreeRTOS kernel.
 
@@ -83,7 +83,7 @@
 
 
 
-* Do the followings going through the `FreeRTOS_Project/Core/Src` contents.
+* Do the followings going through the `Project/Core/Src` contents.
 
   * `main.c `- contains the application code
 
@@ -101,8 +101,8 @@
 
   Add to the "Include paths" the following two paths:
 
-  - `FreeRTOS_Project/ThirdParty/FreeRTOS/include/`
-  - `FreeRTOS_Project/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4H/` (Architecture specific header files)
+  - `Project/ThirdParty/FreeRTOS/include/`
+  - `Project/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4H/` (Architecture specific header files)
 
 
 
@@ -112,9 +112,9 @@
 
 * Create the `FreeRTOSConfig.h` file which contains the FreeRTOS kernel configuration information. This file is application-specific so does not come with the FreeRTOS kernel download. You need to create it and added it to the project on your own. (Reference: [https://freertos.org/a00110.html](https://freertos.org/a00110.html))
 
-  For the time being, we will import a configuration file from a demo proejct provided by the freertos.org for different microcontrollers. Search for your microcontroller (e.g., stm32f407) in `SoftwareToolchains/FreeRTOSv202012.00/FreeRTOS/Demo/` and copy the corresponding `FreeRTOSConfig.h` file into `FreeRTOS_Project/ThirdParty/FreeRTOS/`. The one provided for the same microcontroller (stm32f407 in our case) should work.
+  For the time being, we will import a configuration file from a demo proejct provided by the freertos.org for different microcontrollers. Search for your microcontroller (e.g., stm32f407) in `SoftwareToolchains/FreeRTOSv202012.00/FreeRTOS/Demo/` and copy the corresponding `FreeRTOSConfig.h` file into `Project/ThirdParty/FreeRTOS/`. The one provided for the same microcontroller (stm32f407 in our case) should work.
 
-  **Don't forget to add its path `FreeRTOS_Project/ThirdParty/FreeRTOS/` to the "Include paths"!**
+  **Don't forget to add its path `Project/ThirdParty/FreeRTOS/` to the "Include paths"!**
 
   `FreeRTOSConfig.h` example: It is basically a C header file (.h) with bunch of configurable definitions.
 
@@ -264,7 +264,7 @@
   >
   > `__CC_ARM` - ARM's native compiler
 
-* Next errors left were caused by redefinition of `SVC_Handler`, `PendSV_Handler`, `SysTick_Handler`. These are defined in both `FreeRTOS_Project/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/port.c` and `FreeRTOS_Project/Core/Src/stm32f4xx_it.c` (Actual `#define` for these handlers were found in `FreeRTOS_Project/ThirdParty/FreeRTOS/FreeRTOSConfig.h`).
+* Next errors left were caused by redefinition of `SVC_Handler`, `PendSV_Handler`, `SysTick_Handler`. These are defined in both `Project/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/port.c` and `Project/Core/Src/stm32f4xx_it.c` (Actual `#define` for these handlers were found in `Project/ThirdParty/FreeRTOS/FreeRTOSConfig.h`).
 
   Solution is to remove those definitions of redefined handlers from `stm32f4xx_it.c` because this file is what CubeIDE generated for us for our convenience and is not project specific. We need to use the handlers defined in `port.c`.
 
