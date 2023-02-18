@@ -182,7 +182,21 @@
   end P2
   ```
 
+  P1: `x = x - 1`; (x = 9)
+
+  P1:  `x = x + 1`; (x = 10)
+
+  P2: `x = x - 1`; (x = 9)
+
+  P1: `if (x != 10)` (x = 9)
+
+  P2: `x = x + 1` (x = 10)
+
+  P1: `print “x is %d”, x` (x = 10)
+
 * **Is busy waiting always less efficient (in terms of using processor time) than a blocking wait? Explain.**
+
+  On average, busy-waiting is more costly in terms of wasted CPU cycles. However, if the event condition is going to be satisfied within the next few machine cycles, it will be costly to incur the overhead of the OS dispatcher removing the process (for a block) and replacing it with another. The dispatcher is code executing in the OS and it uses up CPU cycles to do its tasks, too. 
 
 * **Lamport's Algorithm**
 
@@ -193,6 +207,9 @@
 
 
 * **Work the textbook problem 5.28 on page 260 (9th edition).**
+
+  The code for the one-writer many readers is fine if we assume that the readers always have priority. The problem is that the readers can starve the writer(s) since they may never all leave the critical region, i.e., there is always at least one reader in the critical section, hence the `wrt` semaphore may never be signaled to writers and the writer process does not get access to `wrt` semaphore to be able to write into the critical region.
+
 * **Work the textbook problem 5.19 on page 256 (9th edition).**
 
 
@@ -204,6 +221,18 @@
   
 
 <img src="./img/deadlock_intersection.png" alt="deadlock_intersection" width="350">
+
+​		
+
+​		Imagine where all cars move forward at the same time and 1 steps on a, 2-b, 3-c, 4-d:
+
+​		Mutual exclusion: Only one car can occupy a given quadrant of the intersection at a time.
+
+​		Hold and wait: No car backs up; each car in the intersection waits until the quadrant in front of it is available.
+
+​		No preemption: No car is allowed to force another car out of its way.
+
+​		Circular wait: 1 waits on $b$, 2 waits on $c$, 3 waits on $d$, and 4 waits on $a$ which is occupied by 1.
 
 
 
@@ -245,18 +274,48 @@
 ​		**a) Verify that the Available vector has been correctly calculated.**
 
 ​		**b) Calculate the Need matrix ($C-A$)**
+$$
+C-A =
+\begin{pmatrix}
+7 & 5 & 3 & 4 \\
+2 & 1 & 2 & 2 \\
+3 & 4 & 4 & 2 \\
+2 & 3 & 3 & 1 \\
+4 & 1 & 2 & 1 \\
+3 & 4 & 3 & 3 \\
+\end{pmatrix}
+$$
+
 
 ​		**c) Show that the current state is safe, that is, show a safe sequence of processes. In addition, to the sequence show how the Available (working vector) changes as each process terminates.**
 
+​		See if you can satisfy any process (based on Need matrix; $C-A$) with currently available resources. If you can find such process, zero out its row in both $C-A$ and $A$ and add the retrieved resources (previously allocated to that process) to the Available vector $V$. If you can find at least 1 sequence where there are enough resources for all processes to finish, one by one, this is a safe state. In this case it's safe!
+
 ​		**d) Given the request (3, 2, 3, 3) from Process P5. Should this request be granted? Why or why not?**
 
-
+​		No. It will result in an unsafe state. Suppose the request has been granted. Recalculate the Allocation matrix $A$, Need matrix $C-A$, and Available vector $V$ accordingly. Perform the tracking and you'll end up in an unsafe state.
 
 * **Problem 6.6 (9th edition)**
 
 
 
 <img src="./img/problem_6_6.png" alt="problem_6_6" width="800">
+
+
+
+​		**a)** P0 get(A), get (B) $\to$ P1 get(D), get(E) $\to$ P2 get(C), get(F). Now, as soon as P2 get(D) gets called, a circular wait is formed.
+
+​		
+
+​		<img src="./img/problem-6-6-diagram.png" alt="problem-6-6-diagram" width="700">
+
+​		**b)** If you impose a strict ordering by resource name, then that would prevent the circular deadlock. Reorder P1 to get B, get D, get E and then reorder P2 to get C, get D, get F.
+
+​		Above is the solution but I think it still does not prevent the deadlock. Draw in this order:
+
+​		P0 - get A, B $\to$ P1 - get B, D $\to$ P2 - get C, D $\to$ Now, as soon as P0 - get(C) is called a circular wait is formed.
+
+​		Check it again!	
 
 
 
@@ -281,8 +340,10 @@
   \end{pmatrix}
   $$
 
-  
+  3 units. 
 
+  First obtain Need matrix $C-A$. Then, do the tracking from the lowest number in the Need matrix. If failed, increase the units of resource by 1. Repeat the process.
+  
   
 
 
