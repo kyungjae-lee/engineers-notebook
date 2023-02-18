@@ -6,16 +6,11 @@
 
 ## Introduction
 
-* The OS functions in the same way as other software.
-* It is code executed by the CPU.
-* The OS relinquishes control and depends on the processor to restore control back to it.
+* The OS functions in the same way as ordinary computer software, in the sense that the OS is a set of programs executed by the processor (CPU).
 
+* The OS frequently relinquishes control and depends on the processor to restore control back to the OS.
 
-
-## How does the OS Regain Control of the CPU If Needed?
-
-* At the end of the fetch-execute cycle, the hardware checks for interrupts. At this point an interrupt handler can load the next instruction in the OS that needs to take over.
-* Because it happens at the end of every instruction, the OS won't get locked out forever.
+  How does the OS regain control of the CPU if needed? $\to$ At the end of the fetch-execute cycle, the hardware checks for interrupts. At this point an interrupt handler can load the next instruction in the OS that needs to take over. Because it happens at the end of every instruction, the OS won't get locked out forever.
 
 
 
@@ -41,16 +36,6 @@
 
 
 
-## Process Creation
-
-1. Assigns a unique process identifier to the new process
-2. Allocates space for the process
-3. Initializes the process control block (PCB)
-4. Sets the appropriate linkages
-5. Creates or expands other data structures
-
-
-
 ## OS Designs
 
 ### Non-process Kernel (Older OS Design)
@@ -61,13 +46,20 @@
 
 
 
-* The kernel is code that executes outside of the context of a process. It has its own
+* Traditional approach, common on many older operating systems. (No longer used in modern operating systems.)
+
+* In this model the concept of process is considered to apply only to user programs. The operating system code is executed as a separate entity that operates in privileged mode and has its own:
+
   * Reserved area of memory
-  * System stack for function traces
-* When the currently running process is interrupted or issues a kernel call, that process' context is  saved.
-* Control is transferred to the appropriate instruction within the kernel memory space.
-* OS kernel executes desired functionality, then transfers control back to the process or switches in a new one.
-* No longer used in modern operating systems
+  * System stack for controlling procedure calls and returns
+
+* When a currently running process is interrupted or issues a supervisor call, that process' context is saved.
+
+  $\to$ Control is transferred to the appropriate instruction within the kernel memory space.
+
+  $\to$ OS kernel executes desired functionality
+
+  $\to$ Then restores the context of the interrupted process which transfers control back to that process, or switches in a new one.
 
 ### OS Executes within User Processes
 
@@ -81,7 +73,7 @@
 
   This is the Linux's way of doing things. The OS creates a process that runs in user mode and it switches its mode to privileged mode by invoking system calls whenever necessary.
 
-* OS becomes a collection of routines (or functions) that the user program calls.
+* Here, OS is primarily a collection of routines (or functions) that the user program calls.
 
 * This requires an enhancement to the process image to provide extra storage for OS stack and sharable library code.
 
@@ -95,15 +87,15 @@
 
 
 
-* Rather than a monolithic kernel, the operating system executes as a collection of processes side-by-side with the user processes. Processes communicate with each other by using the defined methods (e.g., message passing).
+* Unlike the monolithic kernel, the operating system executes as a collection of system processes side-by-side with the user processes. Processes communicate with each other by using the defined methods (e.g., message passing).
 
-* Encourages modular design
+* Encourages the use of a modular OS with minimal, clean interfaces between the modules.
 
-* Allows non-critical operations to run as lower priority processes, and allows critical operations to run on dedicated processor(s)
+* As a process, an OS module that takes care of non-critical operations can be assigned an appropriate priority level so that it can be interleaved with other processes under dispatcher control.
 
-  Crucial part of the OS may run on a dedicated CPU and when it fails, it will move to another CPU so that the service does not stop. (Fault tolerance $\uparrow$)
+  Allows non-critical operations to run as lower priority processes, and allows critical operations to run on dedicated processor(s). Crucial part of the OS may run on a dedicated CPU and when it fails, it will move to another CPU so that the service does not stop. (Fault tolerance $\uparrow$)
 
-* Facilitates exploitation of multi-core or multi-processor systems because OS processes can use some of the other processors
+* Implementing the OS as a set of processes is useful in a multiprocessor or multicomputer environment, in which some of the operating system services can be shipped out to dedicated processors, improving performance.
 
 * Some of the modern operating systems use this model.
 

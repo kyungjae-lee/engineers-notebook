@@ -143,6 +143,16 @@
 
 
 
+## Process Creation
+
+1. Assigns a unique process identifier to the new process
+2. Allocates space for the process
+3. Initializes the process control block (PCB)
+4. Sets the appropriate linkages
+5. Creates or expands other data structures
+
+
+
 
 
 
