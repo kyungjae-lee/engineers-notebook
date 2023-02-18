@@ -158,6 +158,98 @@
 
 
 
+## Exercise
+
+* Task creation
+
+  ```c
+  /* main.c */
+  
+  ...
+  /* Private includes ----------------------------------------------------------*/
+  /* USER CODE BEGIN Includes */
+  #include "FreeRTOS.h"
+  #include "task.h"
+  /* USER CODE END Includes */
+  
+  ...
+      
+  /* Private function prototypes -----------------------------------------------*/
+  ...
+  /* USER CODE BEGIN PFP */
+  static void task1_handler(void *parameters);
+  static void task2_handler(void *parameters);
+  /* USER CODE END PFP */
+  
+  ...
+  
+  /**
+    * @brief  The application entry point.
+    * @retval int
+    */
+  int main(void)
+  {
+  	/* USER CODE BEGIN 1 */
+  	TaskHandle_t task1_handle;
+  	TaskHandle_t task2_handle;
+  
+  	BaseType_t status;	// stores return value of xTaskCreate()
+   	/* USER CODE END 1 */
+      
+      ...
+          
+  	/* USER CODE BEGIN 2 */
+  
+  	// create task 1
+  	status = xTaskCreate(task1_handler, "Task-1", 200, "Hello world from Task-1", 2, &task1_handle);
+  	configASSERT(status == pdPASS); // macro defined in 'FreeRTOSConfig.h'
+  
+  	// create task 1
+  	status = xTaskCreate(task2_handler, "Task-2", 200, "Hello world from Task-2", 2, &task2_handle);
+  	configASSERT(status == pdPASS); // macro defined in 'FreeRTOSConfig.h'
+  	
+      /* USER CODE END 2 */
+      
+  	...
+  } // end main
+  
+  ...
+      
+  /* USER CODE BEGIN 4 */
+  
+  static void task1_handler(void *parameters)
+  {
+  
+  }
+  
+  static void task2_handler(void *parameters)
+  {
+  
+  }
+  
+  /* USER CODE END 4 */
+  ```
+
+  > * `configASSERT(x)` is a macro defined in `FrreeRTOSConfig.h`:
+  >
+  >   ```c
+  >   #define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }	
+  >   ```
+  >
+  >   > It will trap the code when undesired flow is detected which is helpful for debugging.
+  >
+  > * `xTaskCreate()` is defined in `task.c` which manages task management of the real-time kernel.
+  >
+  >   It allocates space for the stack, allocates space for TCB, store the stack location in the TCB, and so on. If, during any of these processes, memory allocation fails (i.e., heap memory allocation failure), `xTaskCreate()` will return `errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY`.
+  >
+  >   If previous steps were successful, it then adds the its TCB to the Ready list (`prvAddNewTaskToReadyList( pxNewTCB )`). Ready list is a list maintained by the kernel along with Blocked list, Suspended list, etc. This function will lead you to `list.c` which is a source file manages lists of the kernel.
+  >
+  > * When writing code for task handlers, be aware that they each have limited stack space and declaring a large-sized local array may cause stack overflow. (`static` variables will not be stored in stack, but in RAM. $\to$ Is stack not part of RAM?)
+
+* If you have your tasks created (i.e., created tasks have been inserted into the Ready list of the kernel), now it's the time to invoke the scheduler, schedule and dispatch those tasks according to the defined scheduling policy.
+
+
+
 
 
 ## References

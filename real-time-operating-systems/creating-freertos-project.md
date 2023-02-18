@@ -320,6 +320,20 @@
 
 
 
+## Other Things to Note
+
+* When you update settings by using "Device Configuration Tool", CubeIDE will regenerate your code. So, it is important that you insert your code only within the section where it says:
+
+  ```c
+  /* USER CODE BEGIN XXX */
+  
+  /* USER CODE END XXX */
+  ```
+
+  Any code written outside these sections may get wiped out by the code generation engine of the IDE!
+
+
+
 
 
 ## References
