@@ -31,13 +31,13 @@
       while (true)
       {
           flag[0] = true;	// "I want to enter critical section (raise my hand)"
-          while (flag[1]) // "But, if P1 also wants to enter"
+          while (flag[1]) // "But, if P1 also raised its hand"
           {
-              if (turn == 1) // "And it is p1's turn to enter"
+              if (turn == 1) // "And if it is p1's turn to enter"
               {
-                  flag[0] = false; // "I'll put my hands down until my turn comes"
+                  flag[0] = false; // "I put my hands down so that P1 can enter"
               	while (turn == 1);	// do nothing
-              	flag[0] = true; // "When P1 is done and my turn comes, I'll raise my hand again"
+              	flag[0] = true; // "When P1 is done I raise my hand again"
               }
           }
           // critical section
@@ -79,6 +79,8 @@
       // when all of P1, P2, ... , Pn have terminated, resume the main program
   }
   ```
+  
+  > In this algorithm, a process can only enter the critical section when no other processes raised their hands. If there are multiple processes raising their hands, the process which is indicated by the `turn` variable gets the chance and everybody else drops their hands so that the process can enter the critical section. When the process comes out of the critical section, the `turn` variable is set to next value, and other processes that wanted to enter the critical section raise their hands again. And then this repeats.
 
 
 
