@@ -25,7 +25,7 @@
   Concurrency is fundamental to all of these types of computing.
 
 * Concurrency arises in different contexts:
-  * **Multiple applications** - multiprogramming was invented to handle this, and allow processing time to be share among multiple active applications
+  * **Multiple applications** - multiprogramming was invented to handle this, and allow processing time to be shared among multiple active applications
   * **Structured applications** - modular design sometimes encompasses developing problem solutions built from multiple concurrent processes
   * **Operating system structure** - OS services can be developed as a set of concurrent processes as well
   
@@ -43,7 +43,7 @@
 
 * **Atomic operation**
 
-  An action implemented as an uninterpretable instruction or function.
+  A function or action implemented as a sequence of one or more instructions that appears to be indivisible; that is, no other process can see an intermediate state or interrupt the operation. The sequence of instruction is guaranteed to execute as a group, or not execute at all, having no visible effect on system state. Atomicity guarantees isolation from concurrent processes.
 
 * **Critical section**
 
@@ -56,6 +56,12 @@
 * **Livelock**
 
   A situation in which two or more processes continuously change their states in response to the other process(es) without doing any useful work.
+
+  Livelock is like deadlock in the sense that two (or more) processes are blocking each other but with livelock, each process is actively trying to resolve the problem on its own (like reverting back and retry). A livelock happens when the combination of these processes efforts to resolve the problem make it impossible for them to ever terminate.
+
+  e.g., A husband and wife are trying to eat soup, but only have one spoon between them. Each spouse is too polite, and will pass the spoon if the other has not yet eaten.
+
+  e.g., Two people attempting to pass each other in a corridor: Person A moves to his left to let person B pass, while person B moves to his right to let person A pass. Seeing that they are still blocking each other, person A moves to his right, while person B moves to his left. They're still blocking each other.
 
 * **Mutual exclusion**
 
@@ -144,8 +150,8 @@
 
 2. **Atomic operations (hardware primitive constructs)**
 
-   - Test and set instruction
-   - Compare and swap instruction
+   - Test-and-set instruction
+   - Compare-and-swap instruction
 
 3. **Semaphores (objects provided by the OS for the programmers to use)**
 
