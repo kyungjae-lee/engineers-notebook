@@ -145,7 +145,9 @@
   }
   ```
 
-  
+  > Often called as "Humble algorithm" since a process always puts other first.
+
+
 
 
 
