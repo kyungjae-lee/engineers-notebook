@@ -11,4 +11,5 @@
 1. **<a href="./freertos-directory-structure">FreeRTOS Directory Structure</a>**
 1. **<a href="./creating-freertos-project">Creating FreeRTOS Project</a>**
 1. **<a href="./tasks">Tasks</a>**
+1. **<a href="./scheduling">Scheduling</a>**
 

@@ -201,11 +201,21 @@
   	/* USER CODE BEGIN 2 */
   
   	// create task 1
-  	status = xTaskCreate(task1_handler, "Task-1", 200, "Hello world from Task-1", 2, &task1_handle);
+  	status = xTaskCreate(task1_handler,
+                           "Task-1",
+                           200,
+                           "Hello world from Task-1",
+                           2,
+                           &task1_handle);
   	configASSERT(status == pdPASS); // macro defined in 'FreeRTOSConfig.h'
   
   	// create task 1
-  	status = xTaskCreate(task2_handler, "Task-2", 200, "Hello world from Task-2", 2, &task2_handle);
+  	status = xTaskCreate(task2_handler,
+                           "Task-2",
+                           200,
+                           "Hello world from Task-2",
+                           2,
+                           &task2_handle);
   	configASSERT(status == pdPASS); // macro defined in 'FreeRTOSConfig.h'
   	
       /* USER CODE END 2 */
@@ -247,6 +257,60 @@
   > * When writing code for task handlers, be aware that they each have limited stack space and declaring a large-sized local array may cause stack overflow. (`static` variables will not be stored in stack, but in RAM. $\to$ Is stack not part of RAM?)
 
 * If you have your tasks created (i.e., created tasks have been inserted into the Ready list of the kernel), now it's the time to invoke the scheduler, schedule and dispatch those tasks according to the defined scheduling policy.
+
+
+
+## FreeRTOS Task Creation Behind the Scenes
+
+* When `xTaskCreate()` is called to create a task following things happen behind the scenes:
+
+  1. Dynamic memory allocation for TCB
+  2. Dynamic memory allocation for the task's private stack (Since it is a dynamic allocation, this stack will be created in the heap space). This stack memory will be tracked using PSP register of the ARM Cortex-M processor.
+  3. `pxTopOfStack` of TCB is set to point to the stack created in (2).
+  4. TCB will be added to the Ready List.
+
+* Remember, things that are dynamically allocated using `malloc()` reside on heap section of RAM. If you need to take a look at or modify the heap size, check the following configuration in the `FreeRTOSConfig.h` file.
+
+  ```c
+  #define configTOTAL_HEAP_SIZE			( ( size_t ) ( 75 * 1024 ) )
+  ```
+
+
+
+## Review Questions
+
+* If you want to create a task with a stack of size 512 bytes, how many bytes of memory do you need to dynamically allocate for this task?
+
+  $\to$ 512 bytes + sizeof(TCB)
+
+* What is the first member element of the TCB Structure ?
+
+  $\to$ A pointer which holds the top of the task's stack
+
+* In FreeRTOS, a task can be created statically as well. If you create a task statically, both TCB and stack of the task will reside in the global (a.k.a. `.data` section) space of RAM, which is outside the stack and heap space.
+
+* Suppose there is a non zero initialized static variable is declared in  the task function, where exactly memory for that static variable is  allocated?
+
+  ```c
+  /* task function */
+  void task_function(void *p)
+  {
+  	static int i=10;
+  }
+  ```
+
+  $\to$ In the global section of RAM (a.k.a. `.data` section)
+
+* Suppose there is a non static local variable declared in the task  function, where exactly the memory for the non static variable is  allocated during the execution of task function?
+
+  ```c
+  void task_function(void *p)
+  {
+  	int i ; /* non static variable */
+  }
+  ```
+
+  $\to$ In the task's stack
 
 
 
