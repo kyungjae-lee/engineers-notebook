@@ -30,19 +30,19 @@
   {
       while (true)
       {
-          flag[0] = true;
-          while (flag[1])
+          flag[0] = true;	// "I want to enter critical section (raise my hand)"
+          while (flag[1]) // "But, if P1 also wants to enter"
           {
-              if (turn == 1)
+              if (turn == 1) // "And it is p1's turn to enter"
               {
-                  flag[0] = false;
+                  flag[0] = false; // "I'll put my hands down until my turn comes"
               	while (turn == 1);	// do nothing
-              	flag[0] = true;
+              	flag[0] = true; // "When P1 is done and my turn comes, I'll raise my hand again"
               }
           }
           // critical section
-          turn = 1;
-          flag[0] = false;
+          turn = 1; // "I'm done so give turn to P1"
+          flag[0] = false; // "I'm done so I put my hands down"
           // remainder
       }
   }
@@ -112,7 +112,7 @@
       {
           flag[0] = true;
           turn = 1;
-          while (flat[1] && turn == 1);	// do nothing
+          while (flag[1] && turn == 1);	// do nothing
           // critical section
           flag[0] = false;
           // remainder
@@ -125,7 +125,7 @@
       {
           flag[1] = true;
           turn = 0;
-          while (flat[0] && turn == 0);	// do nothing
+          while (flag[0] && turn == 0);	// do nothing
           // critical section
           flag[1] = false;
           // remainder
