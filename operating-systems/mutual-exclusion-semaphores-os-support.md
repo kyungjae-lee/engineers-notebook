@@ -44,7 +44,7 @@
 
   * **Signal**
     * Increments the semaphore value as an **atomic operations**
-    * If the value is still <= 0, then a blocked process that was waiting for the semaphore will be unblocked so it can proceed into the critical section that is under protection
+    * If the value is still <= 0, then a blocked process that was waiting for the semaphore will be unblocked (i.e., moved into the ready queue) so it can proceed into the critical section when it is dispatched.
 
   > A binary semaphore with value 1, means the resource is available
   >
@@ -75,7 +75,7 @@
   
   void sem_signal(semaphore s)
   {
-      s.count--;
+      s.count++;
       if (s.count <= 0)
       {
           // remove a blocked process from s.queue and place it on the ready queue
@@ -83,7 +83,7 @@
   }
   ```
 
-* **A Definition of Semaphore Primitives**
+* **A Definition of Binary Semaphore Primitives**
 
   ```c
   struct binary_semaphore
@@ -92,9 +92,9 @@
       queue_type queue;
   }
   
-  void bsem_wait(semaphore s)
+  void bsem_wait(binary_semaphore s)
   {
-      if (s.value == 0)
+      if (s.value == ONE)
           s.value = ZERO;
       else
       {
@@ -103,7 +103,7 @@
       }
   }
   
-  void bsem_signal(semaphore s)
+  void bsem_signal(binary_semaphore s)
   {
       if (s.queue is empty())
           s.value = ONE;
@@ -115,6 +115,8 @@
   ```
 
   > A binary semaphore just checks for 0 or 1 rather than incrementing and decrementing.
+  >
+  > Unlike a counting semaphore, a binary semaphore does not have way to tell how many processes are blocked on it. No matter how many blocked processes there are, the binary semaphore value will be kept as 0.
 
 * **Mutual Exclusion Using Semaphores**
 
@@ -148,7 +150,7 @@
 
 ## Demonstration - Semaphores
 
-* Let's say a section of code (critical section) is protected by a semaphore of initial value 5. Then, first 5 processes (or threads) will each enter the critical section without any problem decrementing the semaphore value. From this point on, no new process is allowed to get in until and unless any one in the critical section comes out and signals. The 6^th^ process, upon arrival, will see that the semaphore value is 0, and realize the critical section is already full. Decrementing the semaphore value, the 6^th^ process will move to the BLOCKED queue of the semaphore to wait for any process to come out of the critical section. (Any processes that arrive after the 6^th^ process will do the same and place themselves in the BLOCKED queue.). When a process comes out of the critical section, it will signal (increment the semaphore value by 1), and a process waiting in the BLOCKED queue, if any, will be moved to the READY queue so when it is dispatched it can enter the critical section.
+* Let's say a section of code (critical section) is protected by a semaphore of initial value 5. Then, first 5 processes (or threads) will each enter the critical section without any problem decrementing the semaphore value. From this point on, no new process is allowed to get in until and unless any process in the critical section comes out and signals. The 6^th^ process, upon arrival, will see that the semaphore value is 0, and realize the critical section is already full. Decrementing the semaphore value, the 6^th^ process will move to the BLOCKED queue of the semaphore to wait for any process to come out of the critical section. (Any processes that arrive after the 6^th^ process will do the same and place themselves in the BLOCKED queue.). When a process comes out of the critical section, it will signal (increment the semaphore value by 1), and a process waiting in the BLOCKED queue, if any, will be moved to the READY queue so when it is dispatched it can enter the critical section.
 * Don't be confused about the semaphore value. Even if the value is less than 0 at certain point in time, some processes may be leaving and some may be entering the critical section.
 
 
