@@ -23,15 +23,19 @@
 
 * Monitors use condition variables to manage synchronization.
 
-* Condition variables are internal to the monitor, and therefore, cannot be scattered elsewhere in the code.
+* Condition variables are internal to the monitor (i.e., accessible only within the monitor), and therefore, cannot be scattered elsewhere in the code.
+
+* Condition variables are a special data type in monitors, which are operated on by two functions:
 
   * `cwait(c)`
 
-    Suspend execution of the caller on condition `c`, the monitor is available for use by another process.
+    Suspend execution of the calling process on condition `c`. The monitor is now available for use by another process.
 
   * `csignal(c)`
 
-    Resume execution of some process blocked on condition `c`, if there are several, choose one. If there are none, do nothing.
+    Resume execution of some process blocked after a `cwait()` on the same condition. If there are several such processes, choose one of them; if there are none, do nothing.
+
+  [!] Note: Note that `wait()` and `signal()` for condition variables are different from those of Semaphores'. In POSIX Threads library they are `pthread_cond_wait()` and `pthread_cond_signal()`, respectively. See [Thread Synchronization - Condition Variables](../multi-threading/thread-synchronization-condition-variables).
 
 * Examples:
 
