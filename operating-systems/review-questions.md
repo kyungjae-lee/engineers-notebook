@@ -200,15 +200,25 @@
 
 * **Lamport's Algorithm**
 
+  
 
+  <img src="./img/lamports-algorithm.png" alt="lamports-algorithm" width="600">
 
-<img src="./img/lamports-algorithm.png" alt="lamports-algorithm" width="600">
+  
 
+  * a) When a process wishes to enter its critical section, it is assigned a ticket number. The ticket number assigned is calculated by adding one to the largest of the ticket numbers currently held by the processes waiting to enter their critical section and the process already in its critical section.
 
+    The process with the non-zero, smallest ticket number has the highest precedence for entering its critical section. In case more than one process receives the same ticket number, the process with the smallest number, the process with the smallest numerical name enters its critical section.
+
+    When a process exits its critical section, it resets its ticket number to zero.
+
+  * b) If each process is assigned a unique process number, then there is a unique, strict ordering of processes at all times. Therefore, deadlock cannot occur.
 
 * **Work the textbook problem 5.28 on page 260 (9th edition).**
 
   The code for the one-writer many readers is fine if we assume that the readers always have priority. The problem is that the readers can starve the writer(s) since they may never all leave the critical region, i.e., there is always at least one reader in the critical section, hence the `wrt` semaphore may never be signaled to writers and the writer process does not get access to `wrt` semaphore to be able to write into the critical region.
+
+  In summary, if there's no `wait()` operation on reader semaphore in the writer's code, it's favoring the reader. If there is a `wait()` operation on reader semaphore, then writer now has some way to signal their will to enter the critical section.
 
 * **Work the textbook problem 5.19 on page 256 (9th edition).**
 
@@ -219,22 +229,20 @@
 * **Show that the four conditions of deadlock apply to the figure below:**
 
   
-
-<img src="./img/deadlock_intersection.png" alt="deadlock_intersection" width="350">
-
-​		
-
-​		Imagine where all cars move forward at the same time and 1 steps on a, 2-b, 3-c, 4-d:
-
-​		Mutual exclusion: Only one car can occupy a given quadrant of the intersection at a time.
-
-​		Hold and wait: No car backs up; each car in the intersection waits until the quadrant in front of it is available.
-
-​		No preemption: No car is allowed to force another car out of its way.
-
-​		Circular wait: 1 waits on $b$, 2 waits on $c$, 3 waits on $d$, and 4 waits on $a$ which is occupied by 1.
-
-
+  
+  <img src="./img/deadlock_intersection.png" alt="deadlock_intersection" width="350">
+  
+  
+  
+  Imagine where all cars move forward at the same time and 1 steps on a, 2-b, 3-c, 4-d:
+  
+  * **Mutual exclusion**: Only one car can occupy a given quadrant of the intersection at a time. (No car can overlap to occupy the same quadrant of the intersection.)
+  
+  * **Hold and wait**: No car backs up; each car in the intersection waits until the quadrant in front of it is available.
+  
+  * **No preemption**: No car is allowed to force another car out of its way.
+  
+  * **Circular wait**: 1 waits on $b$, 2 waits on $c$, 3 waits on $d$, and 4 waits on $a$ which is occupied by 1.
 
 * **Given the following state for the Banker's Algorithm:**
 
@@ -272,6 +280,8 @@
     
 
 ​		**a) Verify that the Available vector has been correctly calculated.**
+
+​		Resource vector $R$ - Allocation vector $A'$ (Allocation matrix converted to a vector) = Available vector $V$  
 
 ​		**b) Calculate the Need matrix ($C-A$)**
 $$
