@@ -8,7 +8,7 @@
 
 * Design a system in such a way that the possibility of deadlock is excluded
 * Two main methods:
-  * **Indirect** - Prevent the concurrence of one of the three necessary conditions
+  * **Indirect** - Prevent the occurrence of one of the three necessary conditions
   * **Direct** - Prevent the occurrence of a circular wait
 
 
@@ -22,7 +22,7 @@
 
 ### Eliminate "Hold and Wait"
 
-* Can be prevented by requiring that a process request all of its required resources at one time and blocking the process until all requests can be granted simultaneously (i.e., Do not begin until and unless you are granted all the resources required to finish your job!)
+* Can be prevented by requiring that a process request all of its required resources at one time (i.e., upfront) and blocking the process until all requests can be granted simultaneously (i.e., Do not begin until and unless you are granted all the resources required to finish your job!)
 * This approach is inefficient in the following 4 ways:
   * A process may be held up for a long time waiting for all of its resource requests to be filled, when in fact it could have proceeded with only some of the resources.
   * Resources allocated to a process may remain unused for a considerable period, during which time they are denied to other processes.
