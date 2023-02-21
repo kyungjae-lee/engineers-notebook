@@ -70,7 +70,7 @@
 
 * A task cooperates with other tasks by explicitly giving up the processor (Processor yielding).
 * There is no "preemption" of tasks by the scheduler. That is, the running task will never be interrupted by the scheduler.
-* In this policy, RTOS tick interrupt is NOT used for invoking the scheduler but to keep track of the kernel's real-time tick value.
+* In this policy, RTOS tick interrupt is NOT used for invoking the scheduler but to keep track of the kernel's real-time tick value. (Don't be confused! SysTick timer still runs but is not used to invoke the scheduler every defined ms to preempt a task.)
 * Tasks give up the CPU when they are done or periodically or blocked, suspended waiting for a resource.
 
 
