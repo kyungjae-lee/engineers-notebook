@@ -277,6 +277,83 @@
 
 
 
+## Idle Task
+
+
+
+<img src="./img/idle-task.png" alt="idle-task" width="600">
+
+
+
+* The Idle task is created automatically when the RTOS scheduler is started to ensure there is <u>always at least one task that is able to run</u>. (Idle task is created by the kernel.)
+
+  It is the scheduler's first job to create an Idle task.
+
+* It is created at the lowest possible priority to ensure it does not use any CPU time if there are higher priority application tasks in the ready state.
+
+* Idle task is responsible for freeing the memory (e.g., TCB, stack) allocated by the RTOS to the tasks that have been completed or deleted.  Note that it is NOT the non-Idle task itself that cleans up the memory it was allocated.
+
+  You can also give an application a hook function (or callback function) in the Idle task to <u>send the CPU to low power mode</u> when there are no useful tasks are executing.
+
+  ```c
+  /* task.c */
+  ...
+  // Idle task
+  static portTASK_FUNCTION( prvIdleTask, pvParameters )
+  {
+      /* Stop warnings. */
+      ( void ) pvParameters;
+  
+      /** THIS IS THE RTOS IDLE TASK - WHICH IS CREATED AUTOMATICALLY WHEN THE
+       * SCHEDULER IS STARTED. **/
+  
+      /* In case a task that has a secure context deletes itself, in which case
+       * the idle task is responsible for deleting the task's secure context, if
+       * any. */
+      portALLOCATE_SECURE_CONTEXT( configMINIMAL_SECURE_STACK_SIZE );
+  
+      for( ; ; )
+      {
+          /* See if any tasks have deleted themselves - if so then the idle task
+           * is responsible for freeing the deleted task's TCB and stack. */
+          prvCheckTasksWaitingTermination();
+  
+  		...
+  
+          #if ( configUSE_IDLE_HOOK == 1 )
+              {
+                  extern void vApplicationIdleHook( void );
+  
+                  /* Call the user defined function from within the idle task.  This
+                   * allows the application designer to add background functionality
+                   * without the overhead of a separate task.
+                   * NOTE: vApplicationIdleHook() MUST NOT, UNDER ANY CIRCUMSTANCES,
+                   * CALL A FUNCTION THAT MIGHT BLOCK. */
+                  vApplicationIdleHook();
+              }
+          #endif /* configUSE_IDLE_HOOK */
+          ...
+      }
+      ...
+  }
+  ```
+
+  > L21: Memory cleanup
+  >
+  > L27: Application callback (e.g., Send the CPU to sleep, etc.)
+
+
+
+## Timer Services Task (`Timer_svc`)
+
+* Also called as "Timer Daemon Task" and it deals with **software timers**.
+* Timer Services task gets created by the scheduler if `configUSE_TIMERS = 1` in `FreeRTOSConfig.h`.
+* The RTOS uses this daemon just to manage FreeRTOS software timers and nothing else.
+* If you don't use software timers in your FreeRTOS application you don't need to use this Timer Services task. If this is the case, configure `configUSE_TIMERS = 0` in `FreeRTOSConfig.h`.
+* All software timer callback functions execute in the context of the Timer Services task.
+
+
+
 ## Review Questions
 
 * If you want to create a task with a stack of size 512 bytes, how many bytes of memory do you need to dynamically allocate for this task?
