@@ -38,6 +38,46 @@
 
 
 
+## BBB Boot Options
+
+* AM335x SoC can boot from the following boot sources:
+
+  * NAND Flash
+  * NOR Flash (eXecute In Place; XIP)
+  * USB
+  * SD card
+  * Ethernet
+  * UART
+  * SPI
+
+  This mean that you can keep the boot images in any of the above memories or peripherals and boot the SoC.
+
+* SYSBOOT Configuration (in TRM documentation)
+
+  Focus on **SYSBOOT[4:0]**. "SYSBOOT" is one of the registers of this SoC and its first 5 bits decide the boot order.
+
+  <img src="./img/sysboot-configuration.png" alt="sysboot-configuration" width="900">
+
+  * SYSBOOT [4:0] = 00000b (This is reserved, you cannot use this configuration)   
+  * SYSBOOT [4:0] = 00001b   
+    1. On reset, SoC will first try to boot from UART0.
+    2. If it fails, then it will try to boot from XIP(XIP stands  for eXutable In Place memory like NOR Flash). 
+    3. If it fails, then  it will try to boot from MMC0.
+    4. If fails, it will try to boot from SPI0. 
+    5. If it fails, then SoC outputs the error message and  stops. 
+
+### SoC Boot Order Decision
+
+
+
+<img src="./img/am335x-soc-boot-order.png" alt="am335x-soc-boot-order" width="700">
+
+
+
+* On reset, the code stored in ROM (i.e., ROM Boot Loader; RBL) of the SoC will run first!
+
+
+
 
 
 ## References
