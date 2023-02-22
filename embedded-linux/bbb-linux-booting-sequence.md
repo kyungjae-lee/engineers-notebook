@@ -74,21 +74,61 @@
 
 
 
-* On reset, the code stored in ROM (i.e., ROM Boot Loader; RBL) of the SoC will run first!
+* On reset, the code stored in ROM (i.e., ROM Boot Loader; RBL) of the SoC will run first! This code is programmed into ROM at production of SoC and cannot be modified.
+
+  RBL sets up the SoC clock, Watch Dog Timer, etc. and loads the second stage boot loader (i.e., MLO or SPL). When RBL loads the MLO/SPL, it reads the register SYSBOOT[15:0], and based on the value of SYSBOOT[4:0] it prepares the list of booting devices. In other words, the SYSBOOT pins configure the boot device order (set by SYSBOOT[4:0]).
+
+  The register SYSBOOT[15:0] value is decided by the voltage level on the SYSBOOT pins.
+
+  For example, if SYSBOOT[4:0] = 00011b, then the boot order will be:
+
+  UART0 $\to$ SPI0 $\to$ XIP $\to$ MMC0 (Double-check with the table above!)
+
+  Some board will provide the dip switches (shown below) through which SYSBOOT[15:0] value can be controlled and the boot order can be managed.
+
+  
+
+  <img src="./img/dip-switches.png" alt="dip-switches" width="500">
+
+  
+
+  BBB does not provide such dip switches, but it provides some other circuitry to decide the SYSBOOT pins voltage level instead.
+
+  BBB Boot order configuration circuit (This can be found in SRM, not in TRM)
+
+  
+
+  <img src="./img/processor-boot-configuration-design.png" alt="processor-boot-configuration-design" width="600">
+
+  
+
+  Note that SYS_BOOT2 is connected to the button S2 (i.e., boot button) of the BBB.
+
+  When you supply the power to the board, the voltage levels will be as follows:
+
+  SYS_BOOT0 = 0V
+
+  SYS_BOOT1 = 0V
+
+  SYS_BOOT2 = 1V
+
+  SYS_BOOT3 = 1V
+
+  SYS_BOOT4 = 1V
+
+  Use multimeter to confirm these voltage levels. (45, 44, 43, 41, 40 pins of the expansion header P8 of the board) You will find SYSBOOT[4:0] = 11100,
+
+  
+
+  <img src="./img/bbb-expansion-headers.png" alt="bbb-expansion-headers" width="600">
+
+  
+
+  and when you press the button S2, SYS_BOOT2 will be grounded; SYSBOOT[4:0] = 11000.
 
 
 
 
-
-<img src="./img/dip-switches.png" alt="dip-switches" width="500">
-
-
-
-<img src="./img/processor-boot-configuration-design.png" alt="processor-boot-configuration-design" width="600">
-
-
-
-<img src="./img/bbb-expansion-headers.png" alt="bbb-expansion-headers" width="600">
 
 
 
