@@ -80,6 +80,32 @@
 
 
 
+<img src="./img/dip-switches.png" alt="dip-switches" width="500">
+
+
+
+<img src="./img/processor-boot-configuration-design.png" alt="processor-boot-configuration-design" width="600">
+
+
+
+<img src="./img/bbb-expansion-headers.png" alt="bbb-expansion-headers" width="600">
+
+
+
+<img src="./img/rom-code-booting-procedure.png" alt="rom-code-booting-procedure" width="600">
+
+
+
+
+
+<img src="./img/rom-code-startup-sequence.png" alt="rom-code-startup-sequence" width="400">
+
+
+
+
+
+
+
 ## References
 
 Nayak, K. (2022). *Embedded Linux Step by Step Using Beaglebone Black* [Video file]. Retrieved from https://www.udemy.com/course/embedded-linux-step-by-step-using-beaglebone/
