@@ -126,19 +126,55 @@
 
   and when you press the button S2, SYS_BOOT2 will be grounded; SYSBOOT[4:0] = 11000.
 
+  Now, based on S2 (BBB boot button) we've got 2 boot configurations available:
 
+  1. When S2 is released (SYSBOOT[4:0] = 11100), the boot order will be
 
+     MMC1 (eMMC) $\to$ MMC0 (SD card) $\to$ UART0 $\to$ USB0
 
+  2. S2 pressed (SYSBOOT[4:0] = 11000), the boot order will be
 
+     SPI0 $\to$ MMC0 (SD card) $\to$ USB0 $\to$ UART0
 
+  To conclude, there are 5 boot sources supported for this board including SPI.
 
-<img src="./img/rom-code-booting-procedure.png" alt="rom-code-booting-procedure" width="600">
+  1. **eMMC Boot (MMC1)**
 
+     eMMC is connected over MMC1 interface and is the fastest boot mode possible. eMMC is on BBB board, so it is not necessary to purchase any external components or memory chip. This is the default boot mode. Upon reset, the board starts booting by loading the image stored in the eMMC.
 
+     If no proper boot image is found in the eMMC, then the processor will automatically try to boot from the next device on the list.
 
+  2. **SD Boot**
 
+     If the default boot mode (i.e., booting from eMMC) fails, then it will try to boot from the SD card you connected to the SD card connector at the MMC0 interface.
 
-<img src="./img/rom-code-startup-sequence.png" alt="rom-code-startup-sequence" width="400">
+     If you press S2 and supply the power, the board will try to boot from the SPI first. If nothing is connected to SPI, it will try to boot from the MMC0 where the SC card is connected.
+
+     Also, remember that SD card boot can be used to flash boot images on the eMMC. If you want to write a new image on eMMC you can boot through the SD card first and write the new image to eMMC. Upon reset, the board will boot using the new image stored in the eMMC.
+
+  3. **Serial Boot**
+
+     In this mode, the ROM code of the SoC will try to download the boot image from the serial port.
+
+  4. **USB Boot**
+
+     a.k.a. Boot through USB stick!
+
+     Upon reset, you can make your board to boot from the USB stick.
+
+* More details about ROM Code Booting procedure (Following diagram can be found in the TRM)
+
+  
+
+  <img src="./img/rom-code-booting-procedure.png" alt="rom-code-booting-procedure" width="600">
+
+  
+
+  The ROM code goes through its boot device list to load the second stage boot loader. It will prepare the list of boot devices based on the value of SYSBOOT pins.
+
+  
+
+  <img src="./img/rom-code-startup-sequence.png" alt="rom-code-startup-sequence" width="400">
 
 
 
