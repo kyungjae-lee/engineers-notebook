@@ -93,9 +93,11 @@
 
 ## Bloom Filters
 
-* A Bloom filter is a data structure designed to tell you, rapidly and memory-efficiently, whether an element is present in a set.
-* Typically used to add elements to a set and test if an element is in a set. A set value cannot be removed. Think why!
-* Bloom filters are useful in cases where:
+* **How does a Bloom filter work?**
+  * A password is hashed (may be multiple hashes) and the corresponding bits in the hash table
+    are set to 1. A password is "bad" if there is already a 1 in that location in the hash table.
+
+* A Bloom filter is a data structure designed to tell you, rapidly and memory-efficiently, whether an element is present in a set. Typically used to add elements to a set and test if an element is in a set. A set value cannot be removed. Think why! Bloom filters are useful in cases where:
   * the data to be searched is large
   * the memory available on the system is limited/low
 
@@ -103,6 +105,10 @@
 
 
 ## Passwords
+
+* **What is the primary purpose of a salt value?**
+  * A user's new password is combined with a salt value before hashing, this increases the
+    difficulty of offline dictionary attacks.
 
 * **How is a Salt value used in a UNIX password file, and what benefit does this provide?**
   * Password salting is a technique to protect passwords stored in databases by adding a string  of 32 or more characters and then hashing them. Salting <u>prevents hackers who breach an enterprise environment from reverse-engineering passwords and stealing them from the database</u>.
