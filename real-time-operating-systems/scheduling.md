@@ -185,6 +185,48 @@
 
 
 
+* Clock configuration related parts are:
+
+  ``` c
+  /* FreeRTOSConfig.h */
+  #define configCPU_CLOCK_HZ				( SystemCoreClock )
+  ```
+
+  ```c
+  /* system_stm32f4xx.c */
+  uint32_t SystemCoreClock = 16000000; // default value
+  ```
+
+  > But we've set our system clock rate to 25 MHz? $\to$ Don't worry, this value will be updated to the configured value automatically. Follow along!
+
+  ```c
+  /* main.c */
+  void SystemClock_Config(void)
+  {
+      ...
+      if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  	{
+      	Error_Handler();
+      }
+  }
+  ```
+
+  ```c
+  /* stm32f4xx_hal_rcc.c */
+  /* Update the SystemCoreClock global variable */
+  HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
+  {
+      ...
+  	SystemCoreClock = HAL_RCC_GetSysClockFreq() >> AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE)>> 
+                                                                   RCC_CFGR_HPRE_Pos];
+      ...
+  }
+  ```
+
+  > Here, the configured value 25 MHz will be updated!
+
+
+
 
 
 ## References

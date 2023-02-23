@@ -13,4 +13,5 @@
 1. **<a href="./tasks">Tasks</a>**
 1. **<a href="./scheduling">Scheduling</a>**
 1. **<a href="./segger-systemview-trace-tool-integration">SEGGER SystemView (Trace Tool) Integration</a>**
+1. **<a href="./freertos-scheduler-implementation">FreeRTOS Scheduler Implementation</a>**
 
