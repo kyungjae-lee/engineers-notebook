@@ -34,11 +34,15 @@
   [Extended Euclidean Algorithm Calculator](https://www.extendedeuclideanalgorithm.com/calculator.php)
 
 * **Given a=26, m=3, calculate the modular inverse.**
+
 * **Given a=23, m=18, calculate the modular inverse.**
+
 * **Given a=23, m=14, calculate the modular inverse.**
+
 * **Given a=27, m=5, calculate the modular inverse.**
+
 * **Given a=30, m=13, calculate the modular inverse.**
-* **Given a=30, m=13, calculate the modular inverse.**
+
 * **Given a=20, m=7, calculate the modular inverse.**
 
 
