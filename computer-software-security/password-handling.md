@@ -41,3 +41,15 @@
 * Join the ripper
   * Open-source password cracker first developed in 1996.
   * Uses a combination of brute-force and dictionary techniques.
+
+
+
+## Review Questions
+
+* How is a Salt value used in a UNIX password file, and what benefit does this provide?
+
+  Password salting is a technique to protect passwords stored in databases by adding a string  of 32 or more characters and then hashing them. Salting **prevents hackers who breach an enterprise environment from reverse-engineering passwords and stealing them from the database**.
+
+  Having a salt means that **the same password can encrypt in 4,096 different ways**. This makes it much harder for an attacker to build a reverse dictionary for translated encrypted passwords back into her unencrypted form: to  build a reverse dictionary of 100,000 words, an attacker would need to  have 409,600,000 entries.
+
+  

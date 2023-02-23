@@ -6,6 +6,24 @@
 
 ## General Terms
 
+* Confidentiality
+
+  * Keeping data and resources hidden
+
+  * Access control mechanisms support confidentiality. e.g., Cryptography.
+
+* Integrity
+
+  * Integrity refers to the trustworthiness of data or resources.
+
+  * Data integrity (integrity)
+
+  * Origin integrity (authentication)
+
+* Availability
+
+  * Allowing access to data and resources
+
 * **Phishing**
 
   The fraudulent practice of sending **emails or other messages** purporting to be from reputable companies in order to induce individuals to reveal personal information, such as passwords and credit card numbers.
