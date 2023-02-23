@@ -27,35 +27,40 @@
 
   **ax+by = gcd(a,b) = gcd(14,50)**
 
+  * x =  -7, y = 2
+
 * **Use the Extended Euclidean Algorithm to computer integers x and y such that:**
 
   **ax+by = gcd(a,b) = gcd(14,52)**
 
-  [Extended Euclidean Algorithm Calculator](https://www.extendedeuclideanalgorithm.com/calculator.php)
+  * x =  -11, y = 3
+  * [Extended Euclidean Algorithm Calculator](https://www.extendedeuclideanalgorithm.com/calculator.php)
 
 * **Given a=26, m=3, calculate the modular inverse.**
 
+  * 2
+  * [Modular Inverse Calculator)](https://planetcalc.com/3311/)
+
 * **Given a=23, m=18, calculate the modular inverse.**
+
+  * 11
 
 * **Given a=23, m=14, calculate the modular inverse.**
 
+  * 11
+
 * **Given a=27, m=5, calculate the modular inverse.**
+
+  * 3
 
 * **Given a=30, m=13, calculate the modular inverse.**
 
+  * 10
+
 * **Given a=20, m=7, calculate the modular inverse.**
 
+  * 6
 
-
-## Basic Cipher
-
-<img src="./img/vigenere-encryption.png" alt="vigenere-encryption" width="700">
-
-* **Given the above table, and a key “FAB”, encode the plaintext “WHY” using a Vigenere cipher.  **
-
-* **Given the above table, and a key “BED”, encode the plaintext “NOT” using a Vigenere cipher.  **
-
-* **Use the cipher key “HEY” and the plaintext “RUN”.**
 
 
 
@@ -159,6 +164,18 @@
       * Inner firewall disallows NFS packets crossing, too.
         * DMZ does not need access to this information (least privilege)
         * If inner firewall fails, outer one will stop leaks, and vice versa (separation of privilege)
+
+
+
+## Basic Cipher
+
+<img src="./img/vigenere-encryption.png" alt="vigenere-encryption" width="700">
+
+* **Given the above table, and a key “FAB”, encode the plaintext “WHY” using a Vigenere cipher.  **
+
+* **Given the above table, and a key “BED”, encode the plaintext “NOT” using a Vigenere cipher.  **
+
+* **Use the cipher key “HEY” and the plaintext “RUN”.**
 
 
 
