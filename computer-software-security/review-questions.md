@@ -47,32 +47,15 @@
 
 <img src="./img/vigenere-encryption.png" alt="vigenere-encryption" width="700">
 
-* **Given the above table, and a key “FAB”, encode the plaintext “WHY” using a Vigenere cipher.  Show your work !!!!!**
+* **Given the above table, and a key “FAB”, encode the plaintext “WHY” using a Vigenere cipher.  **
 
-* **Given the above table, and a key “BED”, encode the plaintext “NOT” using a Vigenere cipher.  Show your work !!!!!**
+* **Given the above table, and a key “BED”, encode the plaintext “NOT” using a Vigenere cipher.  **
 
 * **Use the cipher key “HEY” and the plaintext “RUN”.**
-
-  
 
 
 
 ## Hashing
-
-* **Contrast and compare SHA-1 and MD5.**
-
-  | No   | MD5                           | SHA1                                 |
-  | ---- | ----------------------------- | ------------------------------------ |
-  | 1    | MD5 stands for Message Digest | SHA stands for Secure Hash Algorithm |
-  | 2    | 128-bit long message digest   | 160-bit long message digest          |
-  | 3    | Faster speed                  | Slower speed                         |
-  | 4    | Simpler                       | More complex                         |
-
-* **What is a birthday attack on a Message Digest algorithm?**
-
-  * A method of cracking cryptographic algorithms through matches in hash functions. It is based on the birthday paradox, according to which the probability of two people sharing a birthday is far higher than it seems — for a  group of 23 people, for example, the probability is 50%.
-  * Goal of the attack is to find two different plaintexts that result in the same hash value. Because of the birthday paradox, this method can be rather efficient.
-  * If a function f(x) yields any of H different outputs with equal probability and H is sufficiently large, then we expect to obtain a pair of different arguments x1 and x2, with f(x1) = f(x2) after evaluating the function for about 1.25*sqrt(H) different arguments on average.
 
 * **What is the (primary) problem nowadays with the MD5 hash function?  WHY is this a problem?** 
 
@@ -83,7 +66,7 @@
   * SHA256 is better because MD5 is a broken algorithm. (Since 2004)
   * MD5 has collision issues; different plaintext can produce the same hash value. (MD5 is susceptible to collision attacks and so far no collisions have been found for SHA256)
   * Collision means that we could change information only in one of the messages and affect both of them.
-  
+
 * **What is a Collision in regard to a cryptographic hash function (I’m not talking about the hash data structure here, but the cryptographic hash)?  As part of your answer, list one hash function that has had a collision.**
 
   * Collision happens when two different plaintext results in the same hash value.
@@ -118,6 +101,25 @@
 
   * A mammoth table of hash values.
   * Can be countered by using a sufficiently large salt value and a sufficiently large hash length.
+
+
+
+## Basic Principles of Computer Security
+
+* **Principle of least privilege**
+  * A subject should be given only those privileges that it needs in order to complete its task.
+* **Principle of complete mediation**
+  * All accesses to objects be checked to ensure that they are allowed. (Everything should be looked at.)
+  * Inner firewall mediates every access to DMZ
+* **Principle of separation of privilege**
+  * A system should not grant permission based on a single condition. (More than one entity has to make the decision)
+  * Going to Internet must pass through inner, outer firewalls and DMZ servers.
+* **Principle of least common mechanism**
+  * Mechanisms used to access resources should not be shared.
+  * Inner, outer firewalls are distinct; DMZ servers separate from inner servers.
+  * DMZ DNS violates this principle
+    * If it fails, multiple systems affected
+    * Inner, outer firewall addresses fixed, so they do not depend on DMZ DNS
 
 
 
@@ -156,27 +158,21 @@
 
 
 
-## Basic Principles of Computer Security
-
-* **Principle of least privilege**
-  * A subject should be given only those privileges that it needs in order to complete its task.
-* **Principle of complete mediation**
-  * All accesses to objects be checked to ensure that they are allowed. (Everything should be looked at.)
-  * Inner firewall mediates every access to DMZ
-* **Principle of separation of privilege**
-  * A system should not grant permission based on a single condition. (More than one entity has to make the decision)
-  * Going to Internet must pass through inner, outer firewalls and DMZ servers.
-* **Principle of least common mechanism**
-  * Mechanisms used to access resources should not be shared.
-  * Inner, outer firewalls are distinct; DMZ servers separate from inner servers.
-  * DMZ DNS violates this principle
-    * If it fails, multiple systems affected
-    * Inner, outer firewall addresses fixed, so they do not depend on DMZ DNS
-
-
-
 
 ## Maybe?
 
 * Discuss input data checking, what are the best ways to do it, that is, where should you do it?
 * ***Briefly*** describe 5 different methods to help achieve Physical Security of a data center.
+* **Contrast and compare SHA-1 and MD5.**
+
+  | No   | MD5                           | SHA1                                 |
+  | ---- | ----------------------------- | ------------------------------------ |
+  | 1    | MD5 stands for Message Digest | SHA stands for Secure Hash Algorithm |
+  | 2    | 128-bit long message digest   | 160-bit long message digest          |
+  | 3    | Faster speed                  | Slower speed                         |
+  | 4    | Simpler                       | More complex                         |
+* **What is a birthday attack on a Message Digest algorithm?**
+
+  * A method of cracking cryptographic algorithms through matches in hash functions. It is based on the birthday paradox, according to which the probability of two people sharing a birthday is far higher than it seems — for a  group of 23 people, for example, the probability is 50%.
+  * Goal of the attack is to find two different plaintexts that result in the same hash value. Because of the birthday paradox, this method can be rather efficient.
+  * If a function f(x) yields any of H different outputs with equal probability and H is sufficiently large, then we expect to obtain a pair of different arguments x1 and x2, with f(x1) = f(x2) after evaluating the function for about 1.25*sqrt(H) different arguments on average.
