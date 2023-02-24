@@ -244,8 +244,6 @@ What "System Control Block (SCB) Registers" are to system exceptions, "NVIC Regi
 
 
 
-
-
 ## References
 
 Nayak, K. (2022). *Embedded Systems Programming on ARM Cortex-M3/M4 Processor* [Video file]. Retrieved from  https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/

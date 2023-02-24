@@ -36,7 +36,8 @@
 15. **<a href="./fault-handling">Fault Handling</a>**
 16. **<a href="./stack-frame-analysis-using-naked-function">Stack Fame Analysis Using `__attribute__((naked))` Function</a>**
 17. **<a href="./exceptions-for-system-level-services">Exceptions for System-Level Services</a>**
-18. **<a href="./implementing-a-scheduler">Implementing a Scheduler</a>**
+18. **<a href="./scheduling-and-context-switching">Scheduling & Context Switching</a>**
+19. **<a href="./implementing-a-scheduler">Implementing a Scheduler</a>**
 
 ### Bare-Metal Programming
 
