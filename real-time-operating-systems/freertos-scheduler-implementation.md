@@ -96,7 +96,14 @@
      >
      > L4: Enable SysTick. This is where the down-counting gets started.
 
-  
+
+
+
+<img src="./img/rtos-tick-isr.png" alt="rtos-tick-isr" width="800">
+
+
+
+
 
 ## The RTOS Tick Configuration
 
