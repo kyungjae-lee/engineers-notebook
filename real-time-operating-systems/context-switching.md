@@ -40,6 +40,46 @@
 
 
 
+## State of a Task
+
+See [Scheduling & Context Switching](https://kyungjae.dev/embedded-systems-programming-arm/scheduling-and-context-switching) for processor level details.
+
+* When a task executes on the processor it utilizes
+
+  * Processor core registers (among them PSP is for user tasks, MSP is for kernel)
+
+  * Task's own stack memory (if a task wants to do any push/pop operations during function call)
+
+  **State of a task** = [Processor core registers] + [Task's stack memory]
+
+
+
+<img src="./img/state-of-a-user-task.png" alt="state-of-a-user-task" width="700">
+
+
+
+
+
+## Stacks
+
+* Two categories of stack memory utilized during the run-time of a FreeRTOS based application:
+
+  * **Task's private stack (Process stack)** - Used when a task does push/pop
+
+    Push/pop to/from this stack space is tracked by the **PSP** register of the ARM Cortex-M processor.
+
+  * **Kernel stack (Main stack)** - Used when an ISR (e.g., SysTick handler, PendSV handler) does push/pop
+
+    Push/pop to/from this stack space is tracked by the **MSP** register of the ARM Cortex-M processor.
+
+
+
+<img src="./img/kernel-stack-vs-user-task-stack.png" alt="kernel-stack-vs-user-task-stack" width="650">
+
+
+
+
+
 
 
 ## References
