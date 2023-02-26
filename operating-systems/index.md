@@ -42,6 +42,7 @@
 ### Memory Management
 
 1. **<a href="./memory-management-requirements">Memory Management Requirements</a>**
+1. **<a href="./memory-partitioning">Memory Partitioning</a>**
 1. **<a href="./summary-of-memory-management-techniques">Summary of Memory Management Techniques</a>**
 
 ### Review
