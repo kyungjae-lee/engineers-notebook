@@ -39,6 +39,10 @@
 4. **<a href="./deadlock-detection">Deadlock Detection</a>**
 5. **<a href="./integrated-deadlock-strategy">Integrated Deadlock Strategy</a>**
 
+### Memory Management
+
+1. **<a href="./memory-management-requirements">Memory Management Requirements</a>**
+
 ### Review
 
 1. **<a href="./review-questions">Review Questions</a>**
