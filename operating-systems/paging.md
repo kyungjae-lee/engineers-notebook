@@ -34,13 +34,14 @@
 
 
 
-* Along with the page tables, the OS also maintains a single free-frame list of all the frames in main memory that are currently unoccupied and available for pages.
+* Along with the page tables, the OS also maintains a list of all the unoccupied frames in main memory that are available for pages.
+* Unlike segmentation, paging is **invisible** to the programmer.
 
-### Page Table
+### Address Translation & Page Tables
 
-* Maintained by the OS for each process.
+* Page tables are maintained by the OS for each process.
 
-* Contains the frame location for each page in the process. (Each entry: Page#-to-Frame# mapping)
+* A page table contains the frame location for each page in the process. (Each entry: Page#-to-Frame# mapping)
 
 * With paging, logical-to-physical address translation is still done by processor hardware. So, the processor must know how to access the page table of the current process.
 
@@ -55,6 +56,8 @@
 
 
 <img src="./img/examples-of-logical-to-physical-address-translation.png" alt="example-of-logical-to-physical-address-translation" width="600">
+
+
 
 
 
