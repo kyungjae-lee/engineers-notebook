@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > BBB Linux Booting Sequence
+<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > BBB Linux Boot Sequence - Introduction
 
-# BBB Linux Booting Sequence
+# BBB Linux Boot Sequence - Introduction
 
 
 
