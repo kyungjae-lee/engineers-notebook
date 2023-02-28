@@ -16,3 +16,5 @@
 
 1. **<a href="./bbb-linux-boot-sequence-step-2-mlo-spl">BBB Linux Boot Sequence - Step 2: MLO/SPL</a>**
 
+1. **<a href="./exercise-booting-rbl-and-mlo-on-bbb">Exercise - Booting RBL & MLO on BBB</a>**
+
