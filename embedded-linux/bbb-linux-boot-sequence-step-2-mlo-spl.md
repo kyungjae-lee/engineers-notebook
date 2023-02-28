@@ -16,37 +16,52 @@
 
 ## **Secondary Program Loader (SPL)** / **Memory LOader (MLO)**
 
-* The main responsibility of MLO/SPL is to initialize the SoC to a point where U-boot can be loaded into external RAM (DDR memory). 
+* MLO/SPL initializes the SoC to a point where U-boot can be loaded into the external RAM (i.e., DDR memory). 
 
-  * It does UART console initialization to print out the debug messages.
+  * It does the UART console initialization to print out the debug messages.
 
-  * Reconfigures the PLL to desired value.
+  * Reconfigures the PLL to desired value if necessary.
 
-  * Initializes the DDR registers to use the DDR memory.
+  * Initializes the DDR registers to use the DDR memory. (Important because one of the most important job of the MLO/SPL is to load the U-boot in the DDR memory)
 
-  * Does muxing configurations of boot peripherals pin, because its next job is to load the u-boot from the boot peripherals.
+  * Does muxing configurations of boot peripherals pin, because its next job is to load the U-boot from the boot peripherals. (Pin muxing is an important technique to keep the number of pins at minimum by making each pin usable for multiple functionalities.)
 
     e.g., If MLO is going to get the U-boot from the MMC0 or MMC1 interfaces, then it will do the mux configurations to bring out the MMC0 or MMC1 functionalities on the pins.
 
-* Q) Is there any way we can make RBL directly load the U-boot into internal SRAM without going through the second stage (SPL/MLO)?
+* When SLP/MLO loads U-boot into DDR, it refers to the load address contained in the U-boot image header.
+* U-boot is usually too big to fit in the internal SRAM. That's why MLO/SPL loads U-boot into the external RAM.
 
-  * In order to load and run U-boot from the internal SRAM, you have to squeeze U-boot image into a memory <128 KB of size which is not possible. This is the reason why wee use MLO/SPL.
 
-* Q) Is there any way we can use RBL to load U-boot directly into DDR memory of the board and skip using MLO/SPL?
 
-  * The reason why ROM boot loader of the AM335x SOC cannot load Uboot directly to DDD3 by skipping SPL is, ROM code won’t be having any idea about what kind of DDR RAM being used in the product to initialize it.
+<img src="./img/mlo-copies-uboot-into-ddr.png" alt="mlo-copies-uboot-into-ddr" width="800">
 
-    DDR RAM is purely product/ board specific.
+* U-boot image header contains:
+  * Load address
+  * Image size
 
-    Let’s say there are 3 board/product manufacturing companies X,Y,Z. X may design a product using AM335x SOC with DDR3. In which lets say DDR3 RAM is produced by microchip. Y may design its product using AM335x SOC with DDR2 produced by Transcend and Z may not use DDR memory at all for its product.
 
-    So, RBL has no idea in which product this chip will be used and what  kind of DDR will be used, and what are DDR tuning parameters like speed, bandwidth, clock augments, size, etc. Because to read ( or write) anything from/to DDR RAM , first, the  tuning parameters must be set properly and DDR registers must be  initialized properly.
 
-    Every different manufacture will have different parameters for their  RAM. So, that’s the reason RBL never care about initializing DDR  controller of the chip and DDR RAM which is connected to chip.
+<img src="./img/u-boot-image.png" alt="u-boot-image" width="350">
 
-    RBL just tries to fetch the SPL found in memory devices such as eMMC and SD card or peripherals like UART,EMAC,etc. And in the SPL/MLO, you should know, what kind of DDR is connected to your product and based on that you have to change the SPL code ,  rebuild it and generate the binary to use it as the second stage boot  loader.
 
-    For example the Beaglebone black uses DDR3 from Kingston and if your  product uses DDR3 from transcend, then if the turning parameters are  different then you have to change the DDR related header files and the  tuning parameter macros of the SPL , rebuild and generate the binary . 
+
+
+
+## FAQ about MLO/SPL
+
+* **Why can't RBL directly load the U-boot into internal SRAM without going through the second stage (SPL/MLO)?**
+
+  Actual free space in SRAM is less than 128 KB and it is too small for a U-boot image. This is why we first load relatively small MLO/SPL to the internal SRAM and make load U-boot image to the larger external RAM.
+
+* **Can we make the RBL load U-boot directly into DDR memory of the board without having to use MLO/SPL?**
+
+  No! Because the ROM code does not know what type of DDR RAM will be used in the product. DDR RAM is purely product/board-specific.
+
+  Every different manufacturer will have different parameters for their  RAM. So, that’s the reason why the RBL never cares about initializing DDR controller of the chip and DDR RAM which is connected to chip.
+
+  RBL just tries to fetch the SPL found in memory devices such as eMMC and SD card or peripherals like UART, EMAC, etc. It is in the SPL/MLO that you need to specify what kind of DDR is connected to your product and based. And therefore, SPL/MLO must be rebuilt to be used as the properly functioning second stage boot  loader.
+
+  For example, if the BBB's DDR3 from Kingston is replaced by the DDR3 from transcend, and if their turning parameters are different, then you have to modify the DDR related header files and the tuning parameter macros of the SPL, rebuild it and regenerate the binary. 
 
 
 
