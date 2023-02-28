@@ -41,7 +41,9 @@
 
 ### Address Translation & Page Tables
 
-* Page tables are maintained by the OS for each process.
+* When all of a process' pages are loaded into main memory, the **page table** for the process is created an loaded into main memory.
+
+* Page tables are maintained by the OS **for each process**.
 
 * A page table contains the frame location for each page in the process. (Each entry: Page#-to-Frame# mapping)
 
