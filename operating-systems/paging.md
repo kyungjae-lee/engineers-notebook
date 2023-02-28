@@ -18,9 +18,11 @@
 * In paging, 
 
   * Main memory is partitioned into equal fixed-size chunks (i.e., **frames**) that are relatively small.
-  * Process is also divided into small fixed-size chunks (i.e., **pages**) of the same size.
+  * Process is also divided into small fixed-size chunks (i.e., **pages**) of the <u>same size</u>.
 
   Simple paging is similar to fixed partitioning but is different in that its partitions are rather small (a program may occupy more than one partition) and these partitions need NOT be contiguous.
+
+  [!] Note: Frame size = Page size
 
 * Even if there are not sufficient unused contiguous frames to hold a process, a process can still be loaded as shown in the example below. The concept of logical address and the **page table** maintained by the OS together implement this feature.
 
@@ -30,7 +32,7 @@
 
 
 
-<img src="./img/data-structures-at-time-epoch-f.png" alt="data-structures-at-time-epoch-f" width="600">
+<img src="./img/data-structures-at-time-epoch-f.png" alt="data-structures-at-time-epoch-f" width="650">
 
 
 
@@ -49,13 +51,13 @@
 
   
 
-<img src="./img/logical-addresses.png" alt="logical-addresses" width="600">
+<img src="./img/logical-addresses.png" alt="logical-addresses" width="700">
 
 
 
 
 
-<img src="./img/examples-of-logical-to-physical-address-translation.png" alt="example-of-logical-to-physical-address-translation" width="600">
+<img src="./img/examples-of-logical-to-physical-address-translation.png" alt="example-of-logical-to-physical-address-translation" width="650">
 
 
 
