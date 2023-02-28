@@ -40,13 +40,13 @@
 
 
 
-<img src="./img/logical-addresses.png" alt="logical-addresses" width="600">
+<img src="./img/logical-addresses.png" alt="logical-addresses" width="700">
 
 
 
 
 
-<img src="./img/examples-of-logical-to-physical-address-translation.png" alt="example-of-logical-to-physical-address-translation" width="600">
+<img src="./img/examples-of-logical-to-physical-address-translation.png" alt="example-of-logical-to-physical-address-translation" width="650">
 
 
 
