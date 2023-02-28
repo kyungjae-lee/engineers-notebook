@@ -47,6 +47,10 @@
 1. **<a href="./segmentation">Segmentation</a>**
 1. **<a href="./summary-of-memory-management-techniques">Summary of Memory Management Techniques</a>**
 
+### Memory Management
+
+1. **<a href="./harddware-and-control-structures">Hardware & Control Structures</a>**
+
 ### Review
 
 1. **<a href="./review-questions">Review Questions</a>**
