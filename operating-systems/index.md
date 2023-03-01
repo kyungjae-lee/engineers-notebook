@@ -49,7 +49,7 @@
 
 ### Memory Management
 
-1. **<a href="./harddware-and-control-structures">Hardware & Control Structures</a>**
+1. **<a href="./hardware-and-control-structures">Hardware & Control Structures</a>**
 
 ### Review
 
