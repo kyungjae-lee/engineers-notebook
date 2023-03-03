@@ -18,3 +18,5 @@
 
 1. **<a href="./exercise-booting-rbl-and-mlo-on-bbb">Exercise - Booting RBL & MLO on BBB</a>**
 
+1. **<a href="./exercise-booting-u-boot-image-on-bbb">Exercise - Booting U-boot Image on BBB</a>**
+
