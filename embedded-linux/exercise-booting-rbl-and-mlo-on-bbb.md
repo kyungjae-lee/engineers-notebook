@@ -44,12 +44,14 @@
 
 
 
-* Copy MLO (`MLO-beablebone-2013.04`) into the boot partition just created. If drag-and-drop does not work for permission reason, run the following commands:
+* Copy MLO (`MLO-beablebone-2013.04`) into the boot partition just created. Change its name to `MLO`.
 
+  If drag-and-drop does not work for permission reason, run the following commands:
+  
   ```plain
   cp MLO-beablebone-2013.04 /media/klee/BOOT/MLO
   ```
-
+  
   > For the RBL to detect the file, name must be `MLO`.
 
 
