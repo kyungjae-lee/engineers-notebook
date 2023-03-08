@@ -16,19 +16,25 @@
 
    An embedded C program to control 7-segment display with keypad and STM32F microcontroller board
 
-3. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
+3. **<a href="./arm-assembly-vending-machine">ARM-Assembly Vending Machine</a>**
+
+   *Oct. 2022 - Nov. 2022*
+
+   Developed an ARM assembly program to simulate a vending machine using Raspberry Pi board, buttons and LEDs
+
+4. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
 
    *Aug. 2022 - Nov. 2022*
 
    Multi-threaded client/server socket applications using C and the POSIX thread libraries
 
-4. **<a href="./console-blackjack">Console Blackjack</a>**
+5. **<a href="./console-blackjack">Console Blackjack</a>**
 
    *Oct. 2022 - Nov. 2022*
 
    An interactive console Blackjack game implemented using object-oriented design (OOD) and programming (OOP) in C++
 
-5. **<a href="./engineers-notebook">Engineer's Notebook</a>**
+6. **<a href="./engineers-notebook">Engineer's Notebook</a>**
 
    *Jan. 2021 - Present (Lifelong Project)*
 
