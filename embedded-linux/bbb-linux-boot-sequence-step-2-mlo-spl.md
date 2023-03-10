@@ -41,7 +41,7 @@
 
 
 
-<img src="./img/u-boot-image.png" alt="u-boot-image" width="350">
+<img src="./img/u-boot-image.png" alt="u-boot-image" width="450">
 
 
 
