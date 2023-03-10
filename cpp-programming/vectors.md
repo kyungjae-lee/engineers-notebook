@@ -14,7 +14,7 @@
 
 ## Operations
 
-### Constructors & Destructors
+###### Constructors & Destructors
 
 | Operation             | Effect                                                       |
 | --------------------- | ------------------------------------------------------------ |
@@ -23,7 +23,7 @@
 | `vector<Elem> c = c2` | Copy constructor; creates a new vector as a copy of c2 (all elements are copied) |
 | `vector<Elem> c(n)`   | Creates a vector with n elements created by the default constructor |
 
-### Non-modifying Operations
+###### Non-modifying Operations
 
 | Operation        | Effect                                                       |
 | ---------------- | ------------------------------------------------------------ |
@@ -33,7 +33,7 @@
 | `c.capacity()`   | Returns the maximum possible number of elements without reallocation |
 | `c.reserve(num)` | Enlarges capacity, if not enough yet                         |
 
-### Assignments
+###### Assignments
 
 | Operation            | Effect                                                       |
 | -------------------- | ------------------------------------------------------------ |
@@ -45,7 +45,7 @@
 | `c1.swap(c2)`        | Swaps the data of c1 and c2                                  |
 | `swap(c1, c2)`       | Swaps the data of c1 and c2                                  |
 
-### Element Access
+###### Element Access
 
 | Operation   | Effect                                                       |
 | ----------- | ------------------------------------------------------------ |
@@ -54,7 +54,7 @@
 | `c.front()` | Returns the first element (no check whether a first element exists) |
 | `c.back()`  | Returns the last element (no check whether a last element exists) |
 
-### Iterator Operations
+###### Iterator Operations
 
 | Operation     | Effect                                                       |
 | ------------- | ------------------------------------------------------------ |
@@ -67,7 +67,7 @@
 | `c.crbegin()` | Returns a constant reverse iterator for the first element of a  reverse iteration (since C++11) |
 | `c.rend()`    | Returns a constant reverse iterator for the position after the last element of a reverse iteration (since C++11) |
 
-### Insert & Remove
+###### Insert & Remove
 
 | Operation                   | Effect                                                       |
 | --------------------------- | ------------------------------------------------------------ |
