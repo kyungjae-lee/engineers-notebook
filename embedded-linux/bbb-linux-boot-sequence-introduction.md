@@ -148,7 +148,7 @@
 
      If the default boot mode (i.e., booting from eMMC) fails, then it will try to boot from the SD card you connected to the SD card connector at the MMC0 interface.
 
-     If you press S2 and supply the power, the board will try to boot from the SPI first. If nothing is connected to SPI, it will try to boot from the MMC0 where the SC card is connected.
+     If you press S2 and supply the power, the board will try to boot from the SPI first. If nothing is connected to SPI, it will try to boot from the MMC0 where the SD card is connected.
 
      Also, remember that SD card boot can be used to flash boot images on the eMMC. If you want to write a new image on eMMC you can boot through the SD card first and write the new image to eMMC. Upon reset, the board will boot using the new image stored in the eMMC.
 
