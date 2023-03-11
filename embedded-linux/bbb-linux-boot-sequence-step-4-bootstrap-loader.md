@@ -23,6 +23,8 @@
 
 ## How does U-boot Hand Over Control to the Bootstrap Loader of the Linux Kernel?
 
+### Boot Loader Level
+
 * Time to explore the source file `bootm.c` of the U-boot source code.
 
 * Download U-boot srouce (`u-boot-2017.05-rc2.tar.bz2 `) from [https://ftp.denx.de/pub/u-boot/](https://ftp.denx.de/pub/u-boot/). 
@@ -88,21 +90,105 @@
   >
   > * L29: U-boot transfers the control to the Bootstrap Loader. The "entry point" (`images->ep`) address is dereferenced.
   >
-  >   
-  >
-  >   <img src="./img/kernel-entry.png" alt="kernel-entry" width="500">
-  >
-  >   
+  >     <img src="./img/kernel-entry.png" alt="kernel-entry" width="500">
   >
   >   First argument is ignored by the Linux, `machid` is U-boot saying "Hey, I've detected this machine!". `r2` stores the address of FDT.
+  >
 
-* The Boot Loader transfers the control to `head.S` (`Start:`) of the Linux's Bootstrap Loader.
+### Bootstrap Loader of Linux
+
+* The Boot Loader transfers the control to `head.S` (routine `Start:`) of the Linux's Bootstrap Loader.
 
 
 
 <img src="./img/control-flow-during-linux-boot-2.png" alt="control-flow-during-linux-boot-2" width="800">
 
 
+
+* Download Linux kernel source from [https://github.com/beagleboard/linux](https://github.com/beagleboard/linux).
+
+  Linux Bootstrap Loader is located in `arch/arm/boot/compressed/`. All Bootstrap related files are located in this directory.
+
+  ```c
+  /* bootm.c */
+  ...
+  	kernel_entry(0, machid, 2);	/* U-boot transfers control to the Bootstrap Loader of Linux */
+  ...
+  ```
+
+  ```assembly
+  /* head.S */
+  ...
+  start: @ control handed over from U-boot starts here! 
+          .type   start,#function
+  ...
+  ```
+
+  > `start` routine does some initial tedious setup which you do not necessarily need to dive deeper at this moment.
+
+* Decompression of the compressed kernel is taken care of by `misc.c`.
+
+  ```assembly
+  /* head.S */
+  ...
+          bl  decompress_kernel @ branch to decompress_kernel defined in 'misc.c'
+  ...
+  ```
+
+  ```c
+  /* misc.c */
+  ...
+  void
+  decompress_kernel(unsigned long output_start, unsigned long free_mem_ptr_p,
+          unsigned long free_mem_ptr_end_p,
+          int arch_id)
+  {
+      int ret;
+  
+      output_data     = (unsigned char *)output_start;
+      free_mem_ptr        = free_mem_ptr_p;
+      free_mem_end_ptr    = free_mem_ptr_end_p;
+      __machine_arch_type = arch_id;
+  
+      arch_decomp_setup();
+  
+      putstr("Uncompressing Linux...");
+      ret = do_decompress(input_data, input_data_end - input_data,
+                  output_data, error);
+      if (ret)
+          error("decompressor returned an error");
+      else
+          putstr(" done, booting the kernel.\n");
+  }
+  ...
+  ```
+
+  > L17: This message is what you saw on the screen during the booting process.
+
+### Linux Kernel
+
+* After kernel decompression is done, the control is transferred to another `head.S` file that is a part of the Linux kernel.
+
+
+
+<img src="./img/control-flow-during-linux-boot-3.png" alt="control-flow-during-linux-boot-3" width="800">
+
+
+
+* Go to `arch/arm/kernel/` where Linux kernel's architecture dependent files are located. This `head.S` is the generic startup code for ARM processor (not SoC vedor specific) that does the ARM specific initializations:
+
+  1. CPU specific initialization
+  2. Checks for valid processor architecture
+  3. Page table inits
+  4. Initialize and prepare MMU for the identified processor architecture
+  5. Enable MMU to support virtual memory
+  6. Calls `start_kernel` function of the `main.c` (Architecture dependent code)
+
+  This `head.S` executes lots of architecture specific initialization code implemented in different intermediate files.
+
+* It is the responsibility of the Bootstrap Loader (i.e., glued to the Linux kernel image) to decompress and relocate the Linux kernel image. (These are NOT the responsibilities of U-boot)
+
+* Again, don't be confused about those two `head.S` files. One belongs to the Bootstrap Loader, and the other belongs to the Linux kernel. And both are **architecture dependent**; in this case, ARM.
 
 
 
