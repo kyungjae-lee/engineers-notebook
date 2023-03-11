@@ -64,6 +64,8 @@
 
 * `sudo minicom`
 
+  * To exit from minicom : `Ctrl + A` $\to$ `x` $\to$ `Enter`
+
 * Boot from SD
 
   1. Put the board into power down mode by doing a long press on "Power button (S3)" (Press and hold until all LEDs turn off)
