@@ -20,6 +20,8 @@
 
 1. **<a href="./bbb-linux-boot-sequence-step-4-bootstrap-loader">BBB Linux Boot Sequence - Step 4: Bootstrap Loader</a>**
 
+1. **<a href="./bbb-linux-boot-sequence-step-4-linux-kernel">BBB Linux Boot Sequence - Step 4: Linux Kernel</a>**
+
 1. **<a href="./exercise-booting-rbl-and-mlo-on-bbb">Exercise - Booting RBL & MLO on BBB</a>**
 
 1. **<a href="./exercise-booting-u-boot-image-on-bbb">Exercise - Booting U-boot Image on BBB</a>**
