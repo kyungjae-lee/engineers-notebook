@@ -26,3 +26,5 @@
 
 1. **<a href="./exercise-booting-u-boot-image-on-bbb">Exercise - Booting U-boot Image on BBB</a>**
 
+1. **<a href="./bbb-emmc-flashing">BBB eMMC Flashing</a>**
+
