@@ -26,9 +26,13 @@
 
 1. **<a href="./exercise-booting-u-boot-image-on-bbb">Exercise - Booting U-boot Image on BBB</a>**
 
+1. **<a href="./bbb-emmc-flashing">BBB eMMC Flashing</a>**
+
 1. **<a href="./enabling-internet-on-bbb-ubuntu-host">Enabling Internet on BBB - Ubuntu Host</a>**
 
 1. **<a href="./linux-device-tree">Linux Device Tree (Flattened Device Tree)</a>**
 
 1. **<a href="./introduction-to-uenv-txt-file">Introduction to uEnv.txt File</a>**
+
+1. **<a href="./writing-uenv-txt-file-from-scratch">Writing uEnv.txt File from Scratch</a>**
 

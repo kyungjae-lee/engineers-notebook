@@ -64,10 +64,12 @@ Here, to sync with the lecture I used, `bone-debian-8.7-lxqt-4gb-armhf-2017-03-1
      ```plain
      cmdline=init=/opt/scripts/tools/eMMC/init-eMMC-flasher-v3.sh
      ```
+     
+     > This will automatically run the eMMC flasher during the boot process.
 
 4. Boot the board from SD card 
 
-5. eMMC flasher script located in the SD card as a part of the image we downloaded will flash all the contents of the SD card onto the eMMC memory automatically!
+5. eMMC flasher script located in the SD card as a part of the image we downloaded will flash all the contents of the SD card onto the eMMC memory automatically (because of the uncommented line of uEnv.txt file from the previous step!
 
    It partitions the eMMC memory and flashes all the required data (e.g., boot images, applications, root file system, etc.) onto the eMMC. Flashing usually takes 5 - 10 mins. **Wait until everything is done and the board powers off by itself!**
 
