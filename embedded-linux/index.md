@@ -28,3 +28,5 @@
 
 1. **<a href="./enabling-internet-on-bbb-ubuntu-host">Enabling Internet on BBB - Ubuntu Host</a>**
 
+1. **<a href="./linux-device-tree">Linux Device Tree (Flattened Device Tree)</a>**
+
