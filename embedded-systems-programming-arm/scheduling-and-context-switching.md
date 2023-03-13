@@ -24,7 +24,7 @@
 
 * Inside a processor is a **processor core** which contains ALU, Core registers (General purpose, special purpose, special registers, etc.), etc. 
 
-* When a task is running, there will be various resources associated with it that contains the information about the task. In general, the state of a process = General purpose registers + Some special purpose registers + Status register. These are what need to be stored and retrieved during the context switching.
+* When a task is running, there will be various resources associated with it that contains the information about the task. In general, the **state of a process = "General purpose registers "+ "Some special purpose registers" + "Status register"**. These are what need to be stored and retrieved during the context switching.
 
   * General purpose registers
 
