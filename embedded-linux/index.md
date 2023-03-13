@@ -36,3 +36,5 @@
 
 1. **<a href="./writing-uenv-txt-file-from-scratch">Writing uEnv.txt File from Scratch</a>**
 
+1. **<a href="./root-file-system-and-directory-structure">Root File System (RFS) & Directory Structure</a>**
+
