@@ -53,10 +53,16 @@
   So, our job in implementing scheduler is to make sure that the rest of the task state will get pushed onto stack as well.
 
   * R4 - R11 (we'll call it Stack Frame 2 or SF2)
+  
+  The following "Task Switching In/Out" diagram is taken from FreeRTOS notes.
 
 
 
-<img src="./img/stacking-unstacking-at-exception-interrupt.png" alt="stacking-unstacking-at-exception-interrupt" width="750">
+<img src="./img/task-switching-out.png" alt="task-switching-out" width="800">
+
+
+
+<img src="./img/task-switching-in.png" alt="task-switching-in" width="800">
 
 
 
