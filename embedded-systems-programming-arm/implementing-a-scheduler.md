@@ -156,7 +156,11 @@
 
     1 KH is the TICK_HZ (desired exception frequency)
 
-    $\therefore$ Reload value = 16000
+    $\therefore$ Reload value = 16000 (In fact, 15999 is the reload value. Keep reading!)
+    
+  * You'll need to use "SysTick Reload Value Register (`SYST_RVR`)" and `SYST_CVR`. The initial reload value stored in `SYST_RVR` gets copied into `SYST_CVR` and this is the count start value. When the down count of `SYST_RVR` reaches 0, the next count value is retrieved from `SYS_CVR` so this count start value must not be modified!
+  
+  * Also, since the exception gets triggered when the reload value is reset to the start value after reaching 0, you must use N-1 for the actual reload value where N is the number of clock cycle required for every exception. So, if we want the exception to occur every 16000 clock cycle, the reload value should be 15999. 
 
 
 * **Initialize scheduler stack pointer (MSP)**
