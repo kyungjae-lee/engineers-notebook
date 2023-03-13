@@ -12,6 +12,10 @@
 
 
 
+​	[!] Note: The compiler does not save `.i` and `.s` file by default. You can make the compiler save them by using the compiler flags
+
+
+
 * Note that you need to specify some target-specific information when cross-compiling. These include the processor name or processor architecture, Thumb/ARM state, etc. Otherwise, the assembler may not understand some architecture-specific inline assembly code. (Check the "Machine-Dependent Options" section in the online GCC documentation.)
 
   * `-c`: Compile or assemble the source files, but do not link
