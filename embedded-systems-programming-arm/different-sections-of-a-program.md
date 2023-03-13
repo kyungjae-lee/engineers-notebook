@@ -28,7 +28,7 @@
 
     Contains code (instructions)
 
-    When ELF file is loaded onto microcontroller, this section is placed in FLASH.
+    When ELF file is loaded onto microcontroller, this section is placed in ROM.
 
   * **.data**
 
@@ -46,13 +46,13 @@
 
     Contains read-only data
 
-    When ELF file is loaded onto microcontroller, this section is placed in FLASH.
+    When ELF file is loaded onto microcontroller, this section is placed in ROM.
 
   * **User-defined section**s
 
     Contains data/code which programmer demands to put in user-defined sections
 
-    When ELF file is loaded onto microcontroller, these sections are placed in FLASH or RAM depending on user-definition.
+    When ELF file is loaded onto microcontroller, these sections are placed in ROM or RAM depending on user-definition.
 
   * **Other special sections**
 
@@ -60,7 +60,7 @@
 
     When ELF file is loaded onto microcontroller, these sections are placed in FLASH.
 
-  [!] Note: STM32F407 board uses FLASH for read-only-memory.
+  [!] Note: STM32F407 board uses FLASH for ROM.
 
 * Relocation of each section will be based on the **linker script**.
 
