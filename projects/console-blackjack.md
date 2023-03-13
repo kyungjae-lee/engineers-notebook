@@ -10,6 +10,17 @@ An interactive console Blackjack game implemented using Objecct-Oriented Design 
 
 
 
+## Objective
+
+* To experience Object-Oriented Design process in a software development process.
+  * Generate $\to$ Relate $\to$ Eliminate $\to$ Iterate
+  * UML class diagram
+  * UML sequence diagram
+* To get familiar with Object-Oriented Programming concepts.
+  * 4 pillars of OOP - Encapsulation, Inheritance, Polymorphism, Abstraction
+
+
+
 ## Demonstration
 
 [!] Note: Demonstration video is to be uploaded.
