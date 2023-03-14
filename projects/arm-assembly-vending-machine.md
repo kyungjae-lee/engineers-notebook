@@ -35,6 +35,12 @@ An ARM assembly program to simulate a soft drink vending machine using Raspberry
 
 
 
+<img src="./img/arm-assembly-vending-machine.png" alt="arm-assembly-vending-machine" width="600">
+
+
+
+
+
 ## Specification
 
 ### Basic Functionality
