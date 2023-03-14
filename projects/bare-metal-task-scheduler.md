@@ -2,7 +2,7 @@
 
 # Bare-Metal Task Scheduler
 
-[!] Note: This project is on-going. Contents will be updated.
+[!] Note: This project is currently in progress. Contents will be updated.
 
 
 
@@ -20,14 +20,12 @@ This project is designed to be completed in the following 3 steps:
 
 ## Objective
 
-- Understand the build process and be able to use Make utility.
-- Be able to install and use GNU Arm Embedded Toolchain (Cross-compile toolchain).
+- Be able to set up incremental build system using Make utility.
+- Be able to choose, install and use appropriate Cross-Compiler Toolchain.
 - Be able to compile a C program for an embedded target without using an IDE.
 - Be able to write a microcontroller startup file for STM32F MCU.
-- Be able to write a C startup code which runs before the first call to the user application (i.e., `main()`).
 - Understand the different sections of the relocatable object file (i.e., `.o` files).
-- Be able to write linker script file from scratch and understand the section placements.
-- Be able to link multiple `.o` files using the linker script and generate application executable (`.elf`, `bin`, `hex`)
+- Be able to write a linker script file from scratch.
 - Be able to load the final executable on the target using OpenOCD and GDB client.
 
 
