@@ -2,7 +2,7 @@
 
 # Bare-Metal Task Scheduler
 
-[!] Note: This project is currently in progress. Contents will be updated.
+[!] Note: This project is currently IN PROGRESS. Contents will be updated!
 
 
 
@@ -20,6 +20,7 @@ This project is designed to be completed in the following 3 steps:
 
 ## Objective
 
+- Understand and be able to implement a scheduler, one of the core part of the OS,  from scratch.
 - Be able to set up incremental build system using Make utility.
 - Be able to choose, install and use appropriate Cross-Compiler Toolchain.
 - Be able to compile a C program for an embedded target without using an IDE.
@@ -27,6 +28,21 @@ This project is designed to be completed in the following 3 steps:
 - Understand the different sections of the relocatable object file (i.e., `.o` files).
 - Be able to write a linker script file from scratch.
 - Be able to load the final executable on the target using OpenOCD and GDB client.
+
+
+
+## Expected Outcome
+
+Following is the demonstration of a task scheduler program using LEDs on STM32F407 Discovery board. 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MYxrrz4UWkc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+- Scheduling Algorithm: Round-Robin 
+- 4 tasks blinking each LED at a defined frequency:
+  - Green: 1000 ms 
+  - Orange: 500 ms 
+  - Blue: 250 ms
+  - Red: 125 ms
 
 
 
