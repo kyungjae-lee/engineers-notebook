@@ -4,7 +4,7 @@
 
 ## Introduction
 
-A UNIX shell program which is capable of running built-in commands and external commands.
+A UNIX shell program which is capable of running both the built-in commands and the external commands.
 
 The shell is the primary means for user interaction with a Unix system. The shell is a program like any other program and has the capabilities built into the logic to implement the functionality users require.
 

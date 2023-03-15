@@ -38,7 +38,7 @@
 
    *Feb. 2022 - Mar. 2022*
 
-   A UNIX shell which is capable of running both built-in commands and external commands
+   A UNIX shell which is capable of running both the built-in commands and the external commands
 
 7. **<a href="./engineers-notebook">Engineer's Notebook</a>**
 
