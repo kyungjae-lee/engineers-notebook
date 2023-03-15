@@ -34,7 +34,13 @@
 
    An interactive console Blackjack game implemented using object-oriented design (OOD) and programming (OOP) in C++
 
-6. **<a href="./engineers-notebook">Engineer's Notebook</a>**
+6. **<a href="./my-unix-shell">My UNIX Shell</a>**
+
+   *Feb. 2022 - Mar. 2022*
+
+   A UNIX shell which is capable of running both built-in commands and external commands
+
+7. **<a href="./engineers-notebook">Engineer's Notebook</a>**
 
    *Jan. 2021 - Present (Lifelong Project)*
 
