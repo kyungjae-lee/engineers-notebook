@@ -25,4 +25,3 @@ Notebook
 * **<a href="./makefile-and-build-system/">Makefile & Build System</a>**
 * **<a href="./problem-solving/">Problem Solving</a>**
 * **<a href="./projects/">Projects</a>**
-
