@@ -6,15 +6,16 @@
 
 ## Introduction
 
-This project is to develop an embedded C program to control 7-segment display with keypad and STM32F microcontroller board. 
+An embedded C program to control 7-segment display with keypad and STM32F microcontroller board
 
 
 
 ## Objective
 
-* To get familiar with controlling the General Purpose Input/Output (GPIO) of microcontroller (STM32x) by directly accessing and configuring the memory-mapped registers. (Without using Hardware Abstraction Layer (HAL) library)
-* To understand how the 4x4 keypad and 7-segment display interfacing works.
-* To get familiar with referencing datasheets.
+* Be able to read schematics.
+* Get familiar with controlling the General Purpose Input/Output (GPIO) of microcontroller (STM32x) by directly accessing and configuring the memory-mapped registers. (Without using Hardware Abstraction Layer (HAL) library)
+* Understand how the 4x4 keypad and 7-segment display interfacing works.
+* Get familiar with referencing datasheets.
 
 
 
