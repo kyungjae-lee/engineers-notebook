@@ -33,7 +33,7 @@
       uint32_t		carPrice;
       uint16_t		carMaxSpeed;
       float			carWeight;
-  }
+  };
   ```
 
 ​		Defining a structure does not incur memory allocation. Its just a description or a record.
