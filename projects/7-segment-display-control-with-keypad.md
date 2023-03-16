@@ -116,14 +116,14 @@ void turn_on_svnseg(uint8_t hexval);
 void keypad_svnseg_interfacing();
 void delay(void);
 
-uint32_t *pRCC_AHB1ENR = (uint32_t *)ADDR_RCC_AHB1ENR;
-uint32_t *pPORTD_MODER = (uint32_t *)ADDR_PORTD_MODER;
-uint32_t *pPORTD_ODR = (uint32_t *)ADDR_PORTD_ODR;
-uint32_t *pPORTD_IDR = (uint32_t *)ADDR_PORTD_IDR;
-uint32_t *pPORTD_PUPDR = (uint32_t *)ADDR_PORTD_PUPDR;
-uint32_t *pPORTE_MODER = (uint32_t *)ADDR_PORTE_MODER;
-uint32_t *pPORTE_ODR = (uint32_t *)ADDR_PORTE_ODR;
-uint32_t *pPORTE_PUPDR = (uint32_t *)ADDR_PORTE_PUPDR;
+volatile uint32_t *const pRCC_AHB1ENR = (uint32_t *)ADDR_RCC_AHB1ENR;
+volatile uint32_t *const pPORTD_MODER = (uint32_t *)ADDR_PORTD_MODER;
+volatile uint32_t *const pPORTD_ODR = (uint32_t *)ADDR_PORTD_ODR;
+volatile uint32_t *const pPORTD_IDR = (uint32_t *)ADDR_PORTD_IDR;
+volatile uint32_t *const pPORTD_PUPDR = (uint32_t *)ADDR_PORTD_PUPDR;
+volatile uint32_t *const pPORTE_MODER = (uint32_t *)ADDR_PORTE_MODER;
+volatile uint32_t *const pPORTE_ODR = (uint32_t *)ADDR_PORTE_ODR;
+volatile uint32_t *const pPORTE_PUPDR = (uint32_t *)ADDR_PORTE_PUPDR;
 
 int main(void)
 {
