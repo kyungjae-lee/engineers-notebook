@@ -35,10 +35,12 @@
 
   7. Once the desired piece has been brought into main memory, an I/O interrupt is issued, giving control back to the OS, which places the affected process back into a Ready state.
 
-* Two implications of this new strategy that lead to improved system utilization:
+* Implications of this new strategy that lead to improved system utilization:
 
   * More processes may be maintained in main memory.
   * A process may be larger than all main memory.
+  * Time is saved because unused pages are not brought into memory.
+  * OS have a variety of paging policies to help make decisions on efficient paging/segmentation.
 
 * Because a process executes only in main memory, that memory is referred to as **real memory**. But a programmer or user perceives a potentially much larger memory (i.e., **virtual memory**) that is allocated on disk. 
 
@@ -180,6 +182,12 @@
 
   If the referenced word is only on secondary memory, the page containing the word must be loaded into main memory and its block loaded into the cache, the page table entry for that page must be updated, and finally the TLB must be updated accordingly.
 
+### Characteristics of Paging
+
+* Transparent to the programmer.
+* Eliminates external fragmentation and thus provides efficient use of main memory.
+* Because the pieces that are moved in and out of main memory are of fixed, equal size, it is possible to develop sophisticated memory management algorithms that exploit the behavior of programs.
+
 
 
 ## Segmentation
@@ -199,19 +207,64 @@
 
 
 
-<img src="./img/address-translation-in-a-segmentation-system.png" alt="translation-lookaside-buffer-and-cache-operation" width="700">
+<img src="./img/address-translation-in-a-segmentation-system.png" alt="address-translation-in-a-segmentation-system" width="700">
 
 
+
+### Characteristics of Segmentation
+
+* Visible to the programmer.
+* Strengths include the ability to handle growing data structures, modularity, and support for sharing and protection.
 
 
 
 ## Paging & Segmentation Combined
+
+* To combine the advantages of both the **paging** and the **segmentation**, some systems are equipped with processor hardware and OS software to provide both.
+
+* In this model, a user's address space is broken up into a number of segments, at the discretion of the programmer.
+
+* Each segment is, in turn, broken up into a number of fixed-size pages, which are equal in length to a main memory frame.
+
+* If a segment is shorter than a page, the segment occupies just one page.
+
+* From the programmer's point of view, a logical address still consists of a segment number and a segment offset.
+
+* From the system's point of view, the segment offset is viewed as a page number and page offset for a page within the specified segment.
+
+* Each process is associated with:
+
+  * A segment table
+  * A number of page tables
+
+  The processor uses the **segment number** portion of the virtual address to index into the process segment table to find the page table for that segment. Then, the **page number** portion of the virtual address is used to index the page table and look up the corresponding **frame number**. This is combined with the offset portion of the virtual address to produce the desired real address.
+
+
+
+<img src="./img/address-translation-in-a-segmentation-paging-system.png" alt="address-translation-in-a-segmentation-paging-system" width="700">
+
+
+
+* In this model, 
+  * Segment table entry:
+    * **Segment base** field of the segment table entry refers to a page table.
+    * **Present** and **modified** bits of the control bits are not needed because these matters are handled at the page level.
+  * Page table entry:
+    * The same as is used in a pure paging system.
+
+
+
+<img src="./img/typical-memory-management-formats-combined-segment-and-paging.png" alt="typical-memory-management-formats-combined-segment-and-paging" width="700">
+
+
 
 
 
 ## Protection & Sharing
 
 
+
+<img src="./img/protection-relationships-between-segments.png" alt="protection-relationships-between-segments" width="500">
 
 
 

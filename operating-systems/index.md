@@ -50,6 +50,7 @@
 ### Memory Management
 
 1. **<a href="./hardware-and-control-structures">Hardware & Control Structures</a>**
+1. **<a href="./operating-system-policies-for-virtual-memory">Operating System Policies for Virtual Memory</a>**
 
 ### Review
 
