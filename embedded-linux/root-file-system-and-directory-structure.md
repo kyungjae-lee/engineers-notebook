@@ -183,6 +183,52 @@
   * `swapon` - Enable paging and swapping (optional)
   * `swapoff` - Disable paging and swapping (optional)
   * `update` - Daemon to periodically flush file system buffers (optional)
+  
+* `home/`
+
+  This directory contains the **home** directory of each user.
+
+  Each use only has write access to their own home directory and must obtain elevated permissions (root privilege) to modify other files on the system.
+
+  This directory is used to store personal data of the user.
+
+  In a single user environment you may have directory like `/home/klee`. In a multiple user environment, `/home/klee`, `/home/hkim`, `/home/ylee`, etc.
+
+* `srv/`
+
+  "srv" stands for **service**. This directory contains **data for services provided by the system**.
+
+  If you are using Apache HTTP server to serve a website, you'd likely store your website's files in a directory inside the `srv/` directory.
+
+* `tmp/`
+
+  This directory contains the temporary files of the applications.
+
+* `usr/`
+
+  According to FHS, this directory is a **secondary hierarchy**. 
+
+  The `usr/` directory may contain the following sub-directories:
+
+  * `bin/` - Commands for the user programs
+
+    e.g., If you have installed firefox on your machine, it must be located under `/usr/bin` not under `/bin`, because it is a binary of a user-installed program. Similarly `zip` command will also be found under `/usr/bin`.
+
+  * `include/` - Header files included by C programs
+
+  * `lib` - Contains shared libraries, linker/loader files, which enable your `/usb/bin` and `usr/sbin` commands to execute.
+
+  * `local` - Local hierarchy (empty after main installation)
+
+  * `sbin` - Contains privileged commands which may be used by the system admins for the system administration purposes
+
+  * `share` - Architecture-independent data
+
+
+
+## See Also
+
+* For more information, see [http://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03.html](http://refspecs.linuxfoundation.org/FHS_3.0/fhs/ch03.html).
 
 
 
