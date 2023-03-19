@@ -47,10 +47,17 @@
 1. **<a href="./segmentation">Segmentation</a>**
 1. **<a href="./summary-of-memory-management-techniques">Summary of Memory Management Techniques</a>**
 
-### Memory Management
+### Virtual Memory
 
 1. **<a href="./hardware-and-control-structures">Hardware & Control Structures</a>**
 1. **<a href="./operating-system-policies-for-virtual-memory">Operating System Policies for Virtual Memory</a>**
+
+### Scheduling: Uniprocessor Scheduling
+
+1. **<a href="./tpes-of-processor-scheduling">Types of Processor Scheduling</a>**
+2. **<a href="./scheduling-algorithms">Scheduling Algorithm</a>**s
+
+
 
 ### Review
 
