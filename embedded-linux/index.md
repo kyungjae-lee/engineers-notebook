@@ -38,3 +38,5 @@
 
 1. **<a href="./root-file-system-and-directory-structure">Root File System (RFS) & Directory Structure</a>**
 
+1. **<a href="./generating-initramfs-using-rfs">Generating "initramfs" Using RFS</a>**
+
