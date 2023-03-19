@@ -32,21 +32,52 @@
 
 
 
+<img src="./img/levels-of-scheduling.png" alt="levels-of-scheduling" width="420">
+
+
+
+
+
+<img src="./img/queueing-diagram-for-scheduling.png" alt="queueing-diagram-for-scheduling" width="800">
+
+
+
+
+
 ## Long-Term Scheduling
 
-* Determines which programs are admitted to the system for processing.
+* Determines **when** and **which** programs are **admit**ted to the system for processing.
+  * When to create a new process is generally driven by the desired degree of multiprogramming.
+  * Which job to admit next can be on a simple FCFS basis, or it can be a tool to manage system performance.
+
 * Controls the degree of multiprogramming.
   * The more processes that are created, the smaller the percentage of time that each process can be executed.
-  * May limit to provide satisfactory service to the current set of processes.
-* Executes the least fre
+  * May limit the degree of multiprogramming to provide satisfactory service to the current set of processes.
+* Executes least frequently and makes the coarse-grained decision of whether or not to take on a new process.
 
 
 
 ## Medium-Term Scheduling
 
+* Part of the **swap**ping function. (Suspend / Activate)
+
+* Typically, the swapping-in decision is based on the need to manage the degree of multiprogramming.
+
+  On a system that does not use virtual memory, memory management is also an issue. Thus, the swapping-in decision will consider the memory requirements of the swapped-out processes.
+
+* Executes somewhat more frequently than the long-term scheduling to make a swapping decision.
+
 
 
 ## Short-Term Scheduling
+
+* Known as the **dispatcher**.
+* Invoked whenever an event occurs that may lead to the blocking of the current process, or that may provide an opportunity to preempt a currently running process in favor of another. Examples of such events include:
+  * Clock interrupts
+  * I/O interrupts
+  * Operating system calls
+  * Signals (e.g., semaphores)
+* Executes most frequently and makes the fine-grained decision of which process to execute next. (It chooses from the ready queue.)
 
 
 
