@@ -45,7 +45,7 @@
 
 * `bin/`
 
-  his directory contains **binaries** of Linux commands which are used by both the system admins and users.   
+  This directory contains **binaries** of Linux commands which are used by both the system admins and users.   
 
   You don’t need the root privilege from your system admin to execute these  commands. Remember that this folder will  not contain binaries for all the Linux commands. There is a restriction on what types of commands have to be placed in this directory, because  these binaries can be executed by the common user.   
 
@@ -94,6 +94,95 @@
   * `ps` - Utility to report process status   
 
   * `pwd` - Utility to print name of current working directory   
+  
+  [!] Note: You can see that commands related to "repairing", "recovering", "restoring", "network configuration", "modules install/remove" are NOT found in this directory.
+  
+* `boot/`
+
+  This directory contains the **boot related files**, which are required to boot the Linux. 
+
+  This directory may be read by the boot loader to read the boot images like Linux kernel image, dtb, vmLinux, initramfs, etc.
+
+  So, this directory may be accessed by the boot loader even before the kernel boots and mounts the file system.
+
+* `dev/`
+
+  This is the place where you can find the **device files**. 
+
+  In UNIX/Linux, everything is treated as a file. Networking devices, memory devices, serial devices, parallel devices, I/O devices such as keyboard, mouse and display, everything is treated as a file.
+
+  So, this directory has the file entry for every device. For example, 
+
+  * I2C devices - `/dev/i2c-0`, `/dev/i2c-1`
+  * RAM - `/dev/ram0` 
+  * 2 partitions of SD card - `/dev/mmcblk0p1`, `/dev/mmcblk0p2`
+  * Serial devices - `/dev/ttyS0`, `/dev/ttyO0`
+
+  The user space application can use these device files to access the corresponding devices.
+
+  It is the responsibility of the respective drivers to populate this directory with the device files.
+
+* `etc/`
+
+  This directory contains:
+
+  * Run level scripts, which will be used during the different run levels.
+  * Startup and shutdown scripts.
+  * Various scripts related to services like start/stop networking, start/stop NFS, etc.
+  * Various configuration files like passwd, hostinfo, etc.
+  * Various network configuration files
+
+* `lib/`
+
+  This directory contains:
+
+  * The dynamically loadable kernel modules. (Later, you'll see, when you compile the kernel modules and when we run `modules install` command, all the kernel modules will go and sit in this directory under the sub directory "modules".)
+  * Essential shared libraries (`*.so`) for dynamic linking. e.g., C standard library (`libc`), math library, python library, etc.
+
+* `media/`
+
+  This directory is the mount point for the removable media like USB flash drive, SD cards, camera, cell phone memory, etc. For example, when an SD card is connected to the PC, there will be 2 device files created for each partition; `/dev/sdb1` and `/dev/sdb2`. And, these 2 device files are automatically mounted under the `/media/` directory, and I can access these 2 partitions just like any other directories.
+
+  * CD-ROM - `/media/cdrom`
+  * USB - `/media/<your USB flash drive name>`
+
+* `mnt/`
+
+  This directory is where temporary file systems get mounted. 
+
+  The system admins can use Linux commands to temporarily mount and un-mount the file system, if they want to transfer any file.
+
+* `opt/`
+
+  "opt" stands for **optional**. This directory will be used when you install any software packages for your Linux distribution.
+
+  e.g., If `apt get install <package>` is run, then the package will be installed in this directory.
+
+* `sbin/`
+
+  This directory contains the commands which come in the category of system administration which are used by the system admins for the purpose of networking configurations, repairing, restoring and recovering.
+
+  Also contains some commands that require the root privilege to run.
+
+  Commands that are stored in `sbin/`:
+
+  * `fastboot` - Reboot the system without checking the disks (optional)
+  * `fasthalt` - Stop the system without checking the disks (optional)
+  * `fdisk` - Partition table manipulator (optional)
+  * `fsck` - File system check and repair utility (optional)
+  * `fsck.*` - File system check and repair utility for a specific file system (optional)
+  * `getty` - The getty program (optional)       
+  * `halt` - Command to stop the system (optional)       
+  * `ifconfig` - Configure a network interface (optional)       
+  * `init` - Initial process (optional)
+  * `mkfs` - Command to build a file system (optional)
+  * `mkfs.*` - Command to build a specific file system (optional)
+  * `mkswap` - Command to set up a swap area (optional)
+  * `reboot` - Command to reboot the system (optional)
+  * `route` - IP routing table utility (optional)
+  * `swapon` - Enable paging and swapping (optional)
+  * `swapoff` - Disable paging and swapping (optional)
+  * `update` - Daemon to periodically flush file system buffers (optional)
 
 
 
