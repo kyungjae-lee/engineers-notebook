@@ -40,3 +40,5 @@
 
 1. **<a href="./generating-initramfs-using-rfs">Generating "initramfs" Using RFS</a>**
 
+1. **<a href="./booting-bbb-over-serial-port">Booting BBB over Serial Port</a>**
+
