@@ -16,4 +16,5 @@
 1. **<a href="./freertos-scheduler-implementation">FreeRTOS Scheduler Implementation</a>**
 1. **<a href="./context-switching">Context Switching</a>**
 1. **<a href="./segger-systemview-uart-based-recording">SEGGER SystemView UART-Based Recording</a>**
+1. **<a href="./exercise-toggle-leds">Exercise: Toggle LEDs</a>**
 
