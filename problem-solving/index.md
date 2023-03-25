@@ -29,17 +29,19 @@
 11. **<a href="./lc-344-reverse-string">LC - 344. Reverse String</a>**
 12. **<a href="./lc-383-ransom-note">LC - 383. Ransom Note (map)</a>**
 
-13. **<a href="./lc-404-sum-of-left-leaves">LC - 404. Sum of Left Leaves (DFS)</a>**
+13. **<a href="./lc-796-rotate-string">LC - 796. Rotate String (sprintf, strstr)</a>**
 
-14. **<a href="./lc-1047-remove-all-adjacent-duplicates-in-string-1">LC - 1047. Remove All Adjacent Duplicates In String 1 (stack)</a>**
+14. **<a href="./lc-404-sum-of-left-leaves">LC - 404. Sum of Left Leaves (DFS)</a>**
 
-15. **<a href="./lc-1122-relative-sort-array">LC - 1122. Relative Sort Array (map, multiset)</a>**
+15. **<a href="./lc-1047-remove-all-adjacent-duplicates-in-string-1">LC - 1047. Remove All Adjacent Duplicates In String 1 (stack)</a>**
 
-16. **<a href="./lc-1209-remove-all-adjacent-duplicates-in-string-2">LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)</a>**
+16. **<a href="./lc-1122-relative-sort-array">LC - 1122. Relative Sort Array (map, multiset)</a>**
 
-17. **<a href="./lc-1356-sort-integers-by-the-number-of-1-bits">LC - 1356. Sort Integers by The Number of 1 Bits (struct, qsort, bubble sort)</a>**
+17. **<a href="./lc-1209-remove-all-adjacent-duplicates-in-string-2">LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)</a>**
 
-18. **<a href="./lc-2220-minimum-bit-flips-to-convert-number">LC - 2220. Minimum Bit Flips to Convert Number</a>**
+18. **<a href="./lc-1356-sort-integers-by-the-number-of-1-bits">LC - 1356. Sort Integers by The Number of 1 Bits (struct, qsort, bubble sort)</a>**
 
-19. **<a href="./lc-2595-number-of-even-and-odd-bits">LC - 2595. Number of Even and Odd Bits</a>**
+19. **<a href="./lc-2220-minimum-bit-flips-to-convert-number">LC - 2220. Minimum Bit Flips to Convert Number</a>**
+
+20. **<a href="./lc-2595-number-of-even-and-odd-bits">LC - 2595. Number of Even and Odd Bits</a>**
 
