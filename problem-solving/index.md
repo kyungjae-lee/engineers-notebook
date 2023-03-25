@@ -39,3 +39,5 @@
 
 17. **<a href="./lc-1356-sort-integers-by-the-number-of-1-bits">LC - 1356. Sort Integers by The Number of 1 Bits (struct, qsort, bubble sort)</a>**
 
+18. **<a href="./lc-2595-number-of-even-and-odd-bits">LC - 2595. Number of Even and Odd Bits</a>**
+
