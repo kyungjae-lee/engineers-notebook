@@ -47,7 +47,7 @@ This solution uses bitwise operations. (e.g., Bit masking)
 
 **Complexity Analysis:**
 
-* $T = O(\log n)$ where $n$ is the given integer value (On average much better performance with "Drop the lowest set bit" technique.)
+* $T = O(k)$ where $k$ is the number of bits set to 1 in the given integer `n` (On average more efficient than $O(n)$)
 * $S = O(1)$
 
 **Solution:**
