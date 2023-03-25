@@ -24,19 +24,19 @@ bool canConstruct(char * ransomNote, char * magazine){
     int map[MAX] = {0};
     int i, idx;
 
-    // Insert characters in 'magazine' into 'map'
+    // insert characters in 'magazine' into 'map'
     for (i = 0; i < strlen(magazine); i++)
     {
         idx = magazine[i] - 'a';
         map[idx]++;
     }
 
-    // Consume letters in 'ransomNote' from 'map'
+    // consume letters in 'ransomNote' from 'map'
     for (i = 0; i < strlen(ransomNote); i++)
     {
         idx = ransomNote[i] - 'a';
 
-        // If cannot consume, return false
+        // if cannot consume, return false
         if (map[idx]-- == 0)
             return false;
     }
