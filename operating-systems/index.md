@@ -57,6 +57,10 @@
 1. **<a href="./tpes-of-processor-scheduling">Types of Processor Scheduling</a>**
 2. **<a href="./scheduling-algorithms">Scheduling Algorithms</a>**
 
+### Scheduling: Multiprocessor, Multicore, and Real-Time Scheduling
+
+1. **<a href="./multi-processor-and-multicore-scheduling">Multiprocessor and Multicore Scheduling</a>**
+
 
 
 ### Review
