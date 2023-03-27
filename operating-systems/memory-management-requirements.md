@@ -22,6 +22,28 @@
 
 
 
+## Important Terms
+
+* **Frame**
+
+  A fixed-length block of main memory.
+
+  Fame size = Page size
+
+* **Page**
+
+  A fixed-length block of data that resides in secondary memory (i.e., disk). A page of data may temporarily be copied into a frame of main memory.
+
+  Page size = Frame size
+
+  c.f., A process image containing "Data" and "Code" ("PCB" is not part of the image) is composed of pages.
+
+* **Segment**
+
+  A variable-length block of data that resides in secondary memory. An entire segment may temporarily be copied into an available region of main memory (segmentation) or the segment may be divided into pages, which can be individually copied into main memory (combined segmentation and paging.)
+
+
+
 ## Memory Management Requirements
 
 * The requirements memory management is intended to satisfy.
@@ -30,6 +52,12 @@
   * Sharing
   * Logical organization
   * Physical organization
+
+
+
+<img src="./img/addressing-requirements-for-a-process.png" alt="addressing-requirements-for-a-process" width="550">
+
+
 
 ### Relocation
 
@@ -66,22 +94,6 @@
   * The programmer must engage in **overlaying**, which allows various modules to be assigned the same region of memory. But, it is very time consuming to program.
   * In a multiprogramming environment, the programmer does not know at the time of coding how much space will be available or where that space will be.
 * Task of moving information between the two levels of memory should be a system responsibility and it is the essence of memory management.
-
-
-
-## Important Terms
-
-* **Frame**
-
-  A fixed-length block of main memory.
-
-* **Page**
-
-  A fixed-length block of data that resides in secondary memory (i.e., disk). A page of data may temporarily be copied into a frame of main memory.
-
-* **Segment**
-
-  A variable-length block of data that resides in secondary memory. An entire segment may temporarily be copied into an available region of main memory (segmentation) or the segment may be divided into pages, which can be individually copied into main memory (combined segmentation and paging.)
 
 
 
