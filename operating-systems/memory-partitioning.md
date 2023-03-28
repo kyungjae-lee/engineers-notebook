@@ -12,13 +12,16 @@
   * Segmentation
   * Paging
 
-* Before discussing the virtual memory (a sophisticated scheme), let's first look at the early version of memory management techniques; **partitioning**.
+* Before discussing the virtual memory (a sophisticated scheme), let's first look at the early version of memory management techniques; **partitioning**. 
+  * Partitioning is an early OS memory management technique and it does not involve virtual memory. (Modern OS use virtual memory based on segmentation and paging.)
+
+* A partition is a section of memory a process is loaded into. A process must be fully loaded into memory to run.
 
 
 
 ## Fixed Partitioning
 
-* In a fixed partitioning, main memory is divided into
+* In a fixed partitioning, main memory is divided into:
   * The OS occupying some **fixed space**
   * The rest partitioned into regions with **fixed boundaries**
     * Equal-size partitions
@@ -89,6 +92,12 @@
 ### Placement Algorithms
 
 Since memory compaction is time-consuming, efficient process placement into memory is crucial.
+
+
+
+<img src="./img/example-of-memory-configuration-before-and-after-allocation-of-16-mb-block.png" alt="example-of-memory-configuration-before-and-after-allocation-of-16-mb-block.png" width="650">
+
+
 
 * **Best-fit**
 
