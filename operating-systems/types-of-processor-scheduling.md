@@ -59,7 +59,7 @@
 
 ## Medium-Term Scheduling
 
-* Part of the **swap**ping function. (Suspend / Activate)
+* Part of the **swap**ping (in/out of memory) function. (Suspend / Activate)
 
 * Typically, the swapping-in decision is based on the need to manage the degree of multiprogramming.
 
@@ -71,7 +71,7 @@
 
 ## Short-Term Scheduling
 
-* Known as the **dispatcher**.
+* Known as the **dispatch** carried out by the **dispatcher**.
 * Invoked whenever an event occurs that may lead to the blocking of the current process, or that may provide an opportunity to preempt a currently running process in favor of another. Examples of such events include:
   * Clock interrupts
   * I/O interrupts
