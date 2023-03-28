@@ -10,7 +10,7 @@
   * **Fixed partitioning** - Inefficient memory utilization, internal fragmentation
   * **Dynamic partitioning** - Inefficient memory utilization, external fragmentation
   
-  Both require a process (from start to end) to take up consecutive memory space in main memory.
+  Both require a an <u>entire</u> process to be loaded into main memory and to take up <u>consecutive memory space</u> in main memory.
 * To overcome these limitations, **paging** technique was developed. 
 
 
