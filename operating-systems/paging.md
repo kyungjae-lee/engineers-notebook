@@ -20,7 +20,7 @@
 * In paging, 
 
   * Main memory is partitioned into **equal fixed-size** chunks (i.e., **frames**) that are relatively small.
-    * This prevents external/internal fragmentation.
+    * This prevents external fragmentation. (Internal fragmentation may still exist.)
 
   * Process is also divided into small fixed-size chunks (i.e., **pages**) of the <u>same size</u>.
 
