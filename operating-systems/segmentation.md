@@ -23,7 +23,7 @@
 
 * For purposes of modular programming the program or data may be further broken down into multiple segments. The principal inconvenience of this service is that the programmer must be aware of the maximum segment size limitation.
 
-* Along with the segment tables, the OS also maintains a list of all the unoccupied blocks in main memory that are available for segements.
+* Along with the segment tables, the OS also maintains a list of all the unoccupied blocks in main memory that are available for segments.
 
 ### Address Translation & Segment Tables
 
@@ -35,7 +35,7 @@
 * Address translation sequence:
   1. Extract the segment number as the leftmost $n$ bits of the logical address.
   2. Use the segment number as an index into the process segment table to find the starting physical address of the segment.
-  3. Compare the offset, expressed in the rightmost m bits, to the length of the segment. If the offset is greater than or equal to the length, the address is invalide.
+  3. Compare the offset, expressed in the rightmost m bits, to the length of the segment. If the offset is greater than or equal to the length, the address is invalid.
   4. The desired physical address is the sum of the starting physical address of the segment plus the offset.
 
 
