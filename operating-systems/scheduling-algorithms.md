@@ -109,6 +109,7 @@
 * Principal design issue is the length of the time quantum, or slice, to be used.
 * Particularly effective in a general-purpose time-sharing system or transaction processing system.
 * One drawback is its relative treatment of processor-bound and I/O-bound processes.
+* Different tie-breaking rules can be applied. (e.g., Newly arriving process first)
 
 
 
@@ -119,12 +120,12 @@
 ### Virtual Round Robin (VRR)
 
 * In Round Robin (RR), I/O-bound processes voluntarily give up the CPU to block for I/O. Therefore, processor-bound processes are favored in RR. Virtual Round Robin (VRR) is a refined version of RR that avoids this unfairness.
-* VRR adds an auxiliary queue to hold processes as they return from their wait event. Those processes will be allowed to go ahead of the processes in the regular RR queue.
+* VRR adds an **auxiliary queue** to hold processes as they return from their wait event. Those processes will be allowed to go ahead of the processes in the regular RR queue.
 * Mechanism of VRR scheduling
   * New processes arrive and join the ready queue, which is managed on an FCFS basis.
   * When a running process times out, it is returned to the ready queue.
   * The new feature is an FCFS auxiliary queue to which processes are moved after being released from an I/O block.
-  * When a dispatching decision is to be made, processes in the auxiliary queue get preference over those in the main ready queue.
+  * When a dispatching decision is to be made, processes in the auxiliary queue get preference over those in the main ready queue. (Let these processes finish up their remaining task before allowing new processes to run.)
   * When a process is dispatched from the auxiliary queue, it runs no longer than a time equal to the basic time quantum minus the total time spent running since it was last selected from the main ready queue.
 * Performance is superior to Round Robin in terms of fairness.
 
@@ -151,11 +152,15 @@
 
 ### Highest Response Ratio Next (HRRN)
 
-* Chooses next process with the greatest ratio
+* A problem with SPN( or SJN) and SRT is that they tend to prefer shorter processes, potentially causing longer processes to starve. HRRN attempts to avoid this by factoring in the "waiting time".
+
+* HRRN chooses next process with the greatest ratio. (A process that has been waiting a long time relative to its service time goes first!)
 
 * Attractive because it accounts for the age of the process
 
 * While shorter jobs are favored, aging without service increases the ratio so that a longer process will eventually get past competing
+
+* It is not preemptive, and it will behave like FCFS in the beginning .
 
 * Consider the following ratio:
   $$
@@ -186,7 +191,7 @@
   * Multi-Level Feedback
   * Multi-Level Feedback with aging - If a process languishes too long promote it to eliminate starvation!
 * Mechanism of Feedback scheduling
-  * When a process first enters, it is placed in RQ0.
+  * When a process first enters, it is placed in the normal Round-Robin Queue; RQ0.
   * After its first preemption, when it returns to the Ready state, it is placed in RQ1. Each subsequent time that it is preempted, it is demoted to the next lower-priority queue. (Multi-Level Feedback)
 * Variation 1 - As processes drift down to lower priority queues, give them a longer time quantum when they do get the CPU.
 * Variation 2 - Because processes may still suffer starvation, we can choose to promote a process to a higher-priority queue after it spends a certain amount of time waiting for service in its current queue.
