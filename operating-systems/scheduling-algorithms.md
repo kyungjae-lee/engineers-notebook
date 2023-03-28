@@ -42,11 +42,13 @@
 
 * **Normalized Turnaround time (nTAT)** 
 
-  * The turnaround time normalized to process size:
+  * The turnaround time normalized to process size (Turnaround time relative to the process size):
     $$
     \text{nTAT} = \frac{\text{TAT}}{\text{Service time}}
     $$
     Where "service time" is the computation time of the process. (i.e., The amount of execution time the process needs on the CPU.)
+    
+  * We want the average $nTAT$ value to go down!
 
 * **Wait time**
 
