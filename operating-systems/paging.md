@@ -70,10 +70,11 @@
 
 
 
-## Paging $\to$ Virtual Memory
+## Paging vs. Virtual Memory Paging
 
-* In pure paging scheme, a process maximum size CANNOT be bigger than the size of RAM.
-* In virtual memory scheme, it extends the logical address space even beyond the size of physical RAM. So, a process size can be bigger than the size of RAM. 
+* The simple paging scheme contributes to the realization of the virtual memory scheme later in the CS history.
+* In the simple paging scheme, a process maximum size CANNOT be bigger than the size of RAM.
+* In the virtual memory paging scheme, it extends the logical address space even beyond the size of physical RAM. So, a process size can be bigger than the size of RAM. 
   * A process can have more pages than the number of frames in physical memory.
   * The number of pages is limited by the address space size, not by the physical RAM size.
 
