@@ -4,20 +4,35 @@
 
 
 
+## Characteristics of Paging and Segmentation
+
+Two important characteristics of simple paging and simple segmentation:
+
+1. All memory references within a process are logical address that are dynamically translated into physical addresses at run-time. (A process may be swapped in and out of main memory such that it occupies different regions of main memory at different times during the course of execution. The part of the secondary memory where swapped out pages go is called the "Swap memory/space").
+2. A process may be broken up into a number of pieces (pages or segments) and these pieces need not be contiguously located in main memory during execution. The combination of dynamic run-time address translation and the use of a page or segment table permits this.
+
+These lead to the breakthrough in memory management; **it is not necessary that all of the pages or all of the segments of a process be in main memory during execution**.
+
+
+
+<img src="./img/characteristics-of-paging-and-sgementation.png" alt="characteristics-of-paging-and-sgementation" width="750">
+
+
+
+
+
 ## Introduction to Virtual Memory
 
-* Two important characteristics of simple paging and simple segmentation:
+* With virtual memory:
 
-  1. All memory refrences within a process are logical address that are dynamically translated into physical addresses at run-time. (A process may be swapped in and out of main memory such that it occupies different regions of main memory at different times during the course of execution.)
-  2. A process may be broken up into a number of pieces (pages or segments) and these pieces need not be contiguously located in main memory during execution. The combination of dynamic run-time address translation and the use of a page or segment table permits this.
+  * Not entire process must be loaded into memory for it to run. (Taking the advantage of paging/segmentation.)
+  * Each process are allowed to use much larger address space than the size of the physical RAM.
 
-  These lead to the breakthrough in memory management; **it is not necessary that all of the pages or all of the segments of a process be in main memory during execution**.
-
-* Mechanism of the new strategy
+* Mechanism of the new strategy (i.e., Virtual Memory)
 
   Here, "piece" refers to a "page" or "segment" depending on which scheme is used.
 
-  1. The OS begins by bringing in only one or a few pieces to include the initial program (code + data) piece .
+  1. The OS begins by bringing in only one or a few pieces to include the initial program (code + data) piece. Initial page faults are mandatory.
 
      The portion of a process that is in main memory at a certain point in time is called the **resident set** of the process at that moment.
 
@@ -38,7 +53,7 @@
 * Implications of this new strategy that lead to improved system utilization:
 
   * More processes may be maintained in main memory.
-  * A process may be larger than all main memory.
+  * A process may be larger than all main memory which frees the programmer from having to manage the size of a program.
   * Time is saved because unused pages are not brought into memory.
   * OS have a variety of paging policies to help make decisions on efficient paging/segmentation.
 
@@ -93,7 +108,7 @@
 
 
 
-* Due to the potentially large size of a page table, virtual memory schemes store page tables in virtual memory rather than real memory so that only a subset is maintained in main memory at any time.
+* Due to the potentially **large size of a page table**, virtual memory schemes store page tables in virtual memory rather than real memory so that **only a subset is maintained in main memory** at any time.
   * Page tables are subject to paging just as other pages are.
   * When a process is running, at least a part of its page table must be in main memory, including the page table entry of the currently executing page.
 * Some processors make use of a two-level scheme page table to organize large page tables. (Typically, the maximum length of a page table is restricted to be equal to one page.)
@@ -126,13 +141,15 @@
 
 ### Translation Lookaside Buffer (TLB)
 
+* Because page tables can be really large, a lot of architecture systems provide some hardware to make frame-lookup go faster.
+
 
 
 <img src="./img/use-of-a-translation-lookaside-buffer.png" alt="use-of-a-translation-lookaside-buffer" width="750">
 
 
 
-* TLB is a special high-speed cache for page table entries. (Contains the page table entries that have been most recently used)
+* TLB is a special high-speed cache (on-board hardware) for page table entries. (Contains part of the page table entries that have been most recently used.)
 
 * The following flowchart shows the use of TLB. To keep the flowchart simple, the fact that the OS may dispatch another process while disk I/O is underway is not shown.
 
@@ -307,12 +324,6 @@
 * **Principle of locality**
 
   References to instructions and/or data addresses in a process tend to cluster togehter.
-
-
-
-
-
-
 
 
 
