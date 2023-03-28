@@ -41,8 +41,8 @@
 
 ### Prepaging
 
-* Pages other than the one demanded are also brought in.
-* Tries to minimize disk seeks by bringing in nearby pages, often very useful when a process starts up.
+* Pages other than the one demanded are also brought in. 
+* Tries to minimize disk seeks by bringing in nearby pages, often very useful when a process starts up. (The OS makes an educated guess as to what other pages may need to be brought in with the one on demand.)
 * Uses **principle of locality** to bring in nearby pages, but may be wasteful if those pages are never needed.
 
 
@@ -58,7 +58,7 @@
 
 ## Replacement Policies
 
-* When all of the frames in main memory are occupied and it is necessary to bring in a new page to satisfy a page fault, the replacement policy **determines which page currently in memory is to be replaced**. (When a process has reached its allocated frame size, the operating system must decide which frame must be chosen to use for the new incoming page.  These policies attempt to make the best choice that will hopefully minimize page faults.)
+* When all of the frames in main memory are occupied and it is necessary to bring in a new page to satisfy a page fault, the replacement policy **determines which page currently in memory is to be replaced**. (When a process has reached its allocated frame size, the operating system must decide which frame must be chosen to use for the new incoming page.  These policies attempt to make the best choice that will hopefully minimize page faults; minimize thrashing.)
 * Most of the replacement policies try to predict future behavior based on past behavior. Because of the **principle of locality**, there is often a high correlation between recent refrencing history and near-future referencing patterns.
 * Trade-off that must be considered - The more elaborate and sophisticated the replacement policy, the greater will be the hardware and software overhead to implement it.
 * Frame locking - Some of the important frames in main memory may be locked.
@@ -80,8 +80,8 @@
 #### Optimal
 
 * Selects for replacement the page for which the next time to reference it is the longest (farthest out).
-* This approach will result in the fewest possible page faults.
-* Impossible to implement in practice, because it would require the Os to have perfect knowledge of future events.
+* This approach will result in the **fewest possible page faults**. (Optimal!)
+* Impossible to implement in practice, because it would require the OS to have perfect knowledge of future events.
 * However, it does serve as a standard against which to judge-real-world algorithm. (Baseline for benchmarking other policies)
 
 #### Least Recently Used (LRU)
@@ -89,23 +89,26 @@
 * Replaces the page in memory that has not been referenced for the longest time. (By the principle of locality, this should be the page least likely to be referenced in the near future.)
 * Performs fairly well in practice ($\approx$ Optimal policy)
 * Difficult to implement, and overhead is tremendous.
-  * e.g., Tag each page with the time of its last reference (i.e., timestamp); this would have to be done at each memory reference, both instruction and data. Also, how do you sort the timestamps for a large frame set?
+  * e.g., Tag each page with the time of its last reference (i.e., **timestamp**); this would have to be done at each memory reference, both instruction and data. Also, how do you sort the timestamps for a large frame set?
 
 #### First-In-First-Out (FIFO)
 
 * Replaces the page that has been in memory the longest; a page fetched into memory a long time ago may have now fallen out of use.
 * Treats the page frames allocated to a process as a circular buffer, and pages are removed in round-robin style.
 * One of the simplest page replacement policies to implement and very little overhead. (All that is required is a pointer that circles through the page frames of the process.)
-* Performs poorly in practice because there will often be regions of program or data, which are located at the beginning of the resident set, that are heavily used throughout the life of a program. Those pages will be repeatedly paged in an out by the FIFO algorithm.
+* **Performs poorly in practice** because the assumption is not always true. There will often be regions of program or data, which are located at the beginning of the resident set, that are heavily used throughout the life of a program. Those pages will be repeatedly paged in an out by the FIFO algorithm.
 
 #### Clock
 
-* Many of the algorithms to approximates the performance of LRU with much less overhead are variants of a scheme referred to as the **clock policy**.
+* Many of the algorithms to **approximates the performance of LRU with much less overhead** are variants of a scheme referred to as the **clock policy**.
+  * No sorting, and uses bit instead of timestamp.
+
 * The simplest form of clock policy:
   * Associates an additional bit (i.e., **use bit**) with each frame.
   * Use bit is set when a page is loaded into a frame or when that page is accessed.
   * The set of pages of a process is seen as a circular buffer.
   * When it is time to replace a page, scan the buffer to find a frame with the use bit set to 0. As it passes frames with use bit set to 1, flip them to 0 along the way so that eventually the algorithm finds a frame to free.
+  * Scanning begins at where the "Next frame pointer" left off.
 * Shown to perform fairly well.
 
 
@@ -120,7 +123,7 @@
 
   Each frame falls into one of the following 4 categories:
 
-  * Not accessed recently, not modified (u = 0, m = 0)
+  * Not accessed recently, not modified (u = 0, m = 0) $\to$ Best candidate to replace!
   * Accessed recently, not modified (u = 1, m = 0)
   * Not accessed recently, modified (u = 0, m = 1)
   * Accessed recently, modified (u = 1, m = 1)
@@ -156,6 +159,10 @@
 ## Resident Set Management
 
 * The **resident set** is the portion (i.e., set of pages) of a process that is currently in main memory.
+* The question is how large should the resident set be?
+  * Too small = Thrashing $\uparrow$
+  * Too large = Inefficient allocation of memory
+
 
 ### Resident Set Size
 
@@ -195,7 +202,7 @@
 
 * One strategy to determine resident set size and the timing of changes.
 * **Working set** is a concept that represents the subset of pages that are actually needed in memory for the process to be efficient.
-* There is much research in how to monitor the page request to determine the best working set, and adjust the resident set size accordingly as it changes over time.
+* There is much research in how to monitor the page request to determine the best working set, and adjust the resident set size accordingly as it changes over time. (Resident set size and working set size can grow and shrink as necessary.)
 
 
 
@@ -213,26 +220,40 @@
 * Periodically write out modified frames as the system operates. (Writes modified pages before their page frames are needed so pages can be written out in batches.)
 * Keeps clearing `modified bit`.
 
+[!] Note: **Page buffering** applies here. A technique where the page to be swapped out is temporarily moved to a pending list that the OS maintains in main memory (subsequently, a free-frame will brought into memory to fill that spot). Then that frame can be quickly relinked into the resident set if it is referenced again, without writing out/reading back in from the swap space (secondary memory). Pages that are no longer to be referenced will eventually be rolled out of the list, but still this technique helps reduce disk I/O to a degree.
+
 
 
 ## Load Control
 
+* The idea is that our OS should maximize multiprogramming while minimizing page faults. These are competing criteria.
+
 * Critical in effective memory management (i.e., maximizing multiprogramming while minimizing page faults).
 
   * If too few processes are resident in main memory, then there will be many occasions when all processes are blocked, and much time will be spent in swapping.
-  * If too many processes are resident, then, on average, the size of the resident set of each process will be inadequate and frequent faulting will occur. $\to$ Thrashing!
+  * If too many processes are resident, then, on average, the size of the resident set of each process will be inadequate and frequent faulting will occur. $\to$ **Thrashing**!
 
 * To reduce thrashing, the degree of multiprogramming is to be reduced, which means one or more of the currently resident processes must be suspended (swapped out).
 
   How does the Os choose?
 
   * Lowest-priority process
-  * Faulting process
-  * Last process activated
+  * Highest faulting process
+  * Last process activated (newest activated)
   * Process with the smallest resident set
   * Process with the largest remaining execution window
 
   Which policy to choose is a matter of judgment and depends on many other design factors in the OS, as well as the characteristics of the programs being executed.
+
+
+
+## Do Programmers Need to Understand Memory Management to Write Good Code?
+
+Yes! 
+
+If our code has a high rate of data accesses, it could benefit from understanding page sizes and memory organization of our programs/languages.
+
+e.g., Row-major vs. Column-major storage (Programming language level)
 
 
 
