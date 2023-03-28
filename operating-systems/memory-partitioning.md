@@ -132,6 +132,8 @@ Since memory compaction is time-consuming, efficient process placement into memo
 
 * The **buddy system** compromises these two schemes.
 
+  * Easy to decompose and easy to recompose back together!
+
 * In a buddy system, memory blocks are available of size $2^K$ words, $L \le K \le U$, where
 
   $2^L$ = smallest size block that is allocated
