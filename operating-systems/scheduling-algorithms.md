@@ -149,7 +149,7 @@
 * Risk of starvation of longer processes
 * Should give superior turnaround time performance to SPN, because a short job is given immediate preference to a running longer job.
 
-### Highest Response Ration Next (HRRN)
+### Highest Response Ratio Next (HRRN)
 
 * Chooses next process with the greatest ratio
 
