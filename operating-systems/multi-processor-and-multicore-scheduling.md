@@ -120,10 +120,10 @@
   * **Master-Minion Approach**
     * OS kernel functions always run on a dedicated processor (or a core).
     * Other processes may run on the other processors (or cores).
-    * The master manages all other processes.
+    * The master manages all other processes. (The master is responsible for scheduling.)
     * When a process needs an OS service it sends a request to the master processes and waits.
     * Advantages - Simple to implement.
-    * Disadvantages - The whole system fails if the core running the OS kernel fails. Master becomes the point of bottleneck when there are more requests than it can handle. 
+    * Disadvantages - The whole system fails if the core running the OS kernel fails. The master can become a performance bottleneck when there are more requests than it can handle. 
   * **Peer Approach**
     * The kernel functions (or processes) can execute on any processor. 
     * In fact, the functions can be executed in multiple processes that can be scheduled on any processor and moved. A specific OS kernel process can be placed on the same CPU on which a process that needs that specific service of the OS kernel runs.
@@ -144,7 +144,7 @@ This is about whether or not a CPU can be multiprogrammed.
 
 * Which process should be dispatched from the Ready queue to the Running queue(s)?
 * In coarse-grained systems where there is not much interaction between processes or threads, it actually becomes much less important to "perfect" the dispatching algorithm. Because you have more processors to work with. Just pick the next available process or threads in the ready queue!
-* First Come First Serve with a priority scheme works very well in a system like this, especially if the priority is added. Why?
+* First Come First Serve with a priority scheme works very well in a system like this. Why?
   * In a uniprocessor system, FCFS showed poor performance because the execution of short processes can be delayed by one long process running on the CPU.
   * However, in a multiprocessor system, this problem no longer exists because even if a long process is running on one CPU, the following processes can be dispatched to the next available CPUs without having to wait the long process to finish.
 
