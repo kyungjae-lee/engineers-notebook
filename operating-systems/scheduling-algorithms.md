@@ -120,7 +120,7 @@
 ### Virtual Round Robin (VRR)
 
 * In Round Robin (RR), I/O-bound processes voluntarily give up the CPU to block for I/O. Therefore, processor-bound processes are favored in RR. Virtual Round Robin (VRR) is a refined version of RR that avoids this unfairness.
-* VRR adds an **auxiliary queue** to hold processes as they return from their wait event. Those processes will be allowed to go ahead of the processes in the regular RR queue.
+* VRR adds an **auxiliary queue** to hold processes as they return from their wait event. Those processes with unexpired quantum time due to I/O operation will be allowed to go ahead of the processes in the regular RR queue.
 * Mechanism of VRR scheduling
   * New processes arrive and join the ready queue, which is managed on an FCFS basis.
   * When a running process times out, it is returned to the ready queue.
@@ -160,7 +160,7 @@
 
 * While shorter jobs are favored, aging without service increases the ratio so that a longer process will eventually get past competing
 
-* It is not preemptive, and it will behave like FCFS in the beginning .
+* Non-preemptive - It will behave like FCFS in the beginning.
 
 * Consider the following ratio:
   $$
