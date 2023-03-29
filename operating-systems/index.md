@@ -54,7 +54,7 @@
 
 ### Scheduling: Uniprocessor Scheduling
 
-1. **<a href="./tpes-of-processor-scheduling">Types of Processor Scheduling</a>**
+1. **<a href="./types-of-processor-scheduling">Types of Processor Scheduling</a>**
 2. **<a href="./scheduling-algorithms">Scheduling Algorithms</a>**
 
 ### Scheduling: Multiprocessor, Multicore, and Real-Time Scheduling
