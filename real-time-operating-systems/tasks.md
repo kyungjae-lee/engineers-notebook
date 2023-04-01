@@ -22,6 +22,14 @@
 
 
 
+## Different Types of Tasks
+
+1. Continuous task - Runs continuously on the CPU.
+2. Periodic task - Runs on the CPU with a fixed execution period. 
+3. Aperiodic task - Runs on the CPU when a certain event occurs. (e.g., Keypad interfacing)
+
+
+
 ## Two Steps of Creating a Task in FreeRTOS
 
 1. **Create a task**
