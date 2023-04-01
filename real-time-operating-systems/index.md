@@ -18,4 +18,4 @@
 1. **<a href="./segger-systemview-uart-based-recording">SEGGER SystemView UART-Based Recording</a>**
 1. **<a href="./exercise-toggle-leds">Exercise: Toggle LEDs</a>**
 1. **<a href="./task-states">Task States</a>**
-
+1. **<a href="./freertos-task-delay-apis">FreeRTOS Task Delay APIs</a>**
