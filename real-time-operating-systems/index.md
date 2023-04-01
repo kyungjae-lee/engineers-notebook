@@ -19,3 +19,4 @@
 1. **<a href="./exercise-toggle-leds">Exercise: Toggle LEDs</a>**
 1. **<a href="./task-states">Task States</a>**
 1. **<a href="./freertos-task-delay-apis">FreeRTOS Task Delay APIs</a>**
+1. **<a href="./freertos-task-notification">FreeRTOS Task Notification</a>**
