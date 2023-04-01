@@ -14,8 +14,16 @@
 ## Creating FreeRTOS Project using CubeIDE
 
 * Create a project (e.g., `Project`) under `Workspace/` inside the root folder.
+
 * Create a project with the Targeted Project Type `STM32Cube`. Do not select `Empty` since we are not writing bare-metal program. We want to explore FreeRTOS upon working MCU. 
+
 * If the CubeIDE asks you if you wanted to initialize peripherals $\to$ No!
+
+  Why? 
+
+  There could be peripherals (LCD, accelerometer, etc.) connected  internally to some pins on your development board. For example, a sensor on your board that operates over I2C is connected to pins PB6 and PB7.  If you choose to *enable all peripheral in default mode*, the  IDE will configure the pins PB6 and PB7 for I2C to operate the sensor  connected to these pins. The same is valid for other onboard peripherals as well.
+
+  Check your board's manual for clarification.
 
 
 
