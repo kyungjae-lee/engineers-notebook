@@ -6,9 +6,9 @@ Notebook
 
 
 
-<img src="./img/wallpaper.png" alt="wallpaper" width="350">
+<img src="./img/wallpaper.png" alt="wallpaper" width="250">
 
-### Contents
+### Notebooks
 
 * **<a href="./embedded-systems-programming-arm/">Embedded Systems Programming (ARM)</a>**
 * **<a href="./embedded-linux/">Embedded Linux</a>**
@@ -24,4 +24,7 @@ Notebook
 * **<a href="./computer-software-security/">Computer/Software Security</a>**
 * **<a href="./makefile-and-build-system/">Makefile & Build System</a>**
 * **<a href="./problem-solving/">Problem Solving</a>**
+
+### Projects
+
 * **<a href="./projects/">Projects</a>**
