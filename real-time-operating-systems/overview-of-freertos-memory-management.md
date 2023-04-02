@@ -98,7 +98,7 @@
 
 ## FreeRTOS Heap Management Schemes
 
-* `heap_1.c` ~ `heap_2.c` files provided by the FreeRTOS support different heap management schemes with different advantages/disadvantages.
+* `heap_1.c` ~ `heap_5.c` files provided by the FreeRTOS support different heap management schemes with different advantages/disadvantages.
 * You can choose which scheme to use as per your application's needs, or you can even implement your own heap management scheme.
 
 
