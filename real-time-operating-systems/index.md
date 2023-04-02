@@ -20,3 +20,4 @@
 1. **<a href="./task-states">Task States</a>**
 1. **<a href="./freertos-task-delay-apis">FreeRTOS Task Delay APIs</a>**
 1. **<a href="./freertos-task-notification">FreeRTOS Task Notification</a>**
+1. **<a href="./position-of-freertos-kernel">Position of FreeRTOS Kernel</a>**
