@@ -8,6 +8,7 @@
 
 1. **<a href="./introduction-to-rtos">Introduction to RTOS</a>**
 1. **<a href="./rtos-vs-gpos">RTOS vs. GPOS</a>**
+1. **<a href="./important-links">Important Links</a>**
 1. **<a href="./freertos-directory-structure">FreeRTOS Directory Structure</a>**
 1. **<a href="./creating-freertos-project">Creating FreeRTOS Project</a>**
 1. **<a href="./tasks">Tasks</a>**
@@ -21,3 +22,4 @@
 1. **<a href="./freertos-task-delay-apis">FreeRTOS Task Delay APIs</a>**
 1. **<a href="./freertos-task-notification">FreeRTOS Task Notification</a>**
 1. **<a href="./position-of-freertos-kernel">Position of FreeRTOS Kernel</a>**
+
