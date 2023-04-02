@@ -73,6 +73,39 @@
 * For, embedded system, `malloc` and `free` APIs are not recommended/suitable because they eat up large amount of code space, lack deterministic nature and incur fragmentation over time as blocks of memory are allocated/deallocated.
 
   Therefore, embedded systems programmers need to be careful when using the heap management algorithms.
+  
+* By default, the FreeRTOS heap (size and starting address) is declared by the FreeRTOS kernel.
+
+  Setting `configAPPLICATION_ALLOCATED_HEAP` to 1 allows the heap to be declared by the application instead.
+
+
+
+## FreeRTOS Stack & Heap
+
+* In FreeRTOS, each task's private stack is actually dynamically allocated on heap.
+
+
+
+<img src="./img/freertos-stack-and-heap.png" alt="freertos-stack-and-heap" width="900">
+
+
+
+* Task-1, Task-2, Semaphore, Queue, etc. all these are called the "**dynamically allocated kernel objects**".
+
+  As you might have noticed, `xTaskCreate()`, `xSemaphoreCreateBinary()`, `QueueCreate()`, etc. must be calling `malloc` within them to dynamically allocate memory space.
+
+
+
+## FreeRTOS Heap Management Schemes
+
+* `heap_1.c` ~ `heap_2.c` files provided by the FreeRTOS support different heap management schemes with different advantages/disadvantages.
+* You can choose which scheme to use as per your application's needs, or you can even implement your own heap management scheme.
+
+
+
+<img src="./img/freertos-heap-management-schemes.png" alt="freertos-heap-management-schemes" width="800">
+
+
 
 
 
