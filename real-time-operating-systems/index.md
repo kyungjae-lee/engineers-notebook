@@ -22,4 +22,5 @@
 1. **<a href="./freertos-task-delay-apis">FreeRTOS Task Delay APIs</a>**
 1. **<a href="./freertos-task-notification">FreeRTOS Task Notification</a>**
 1. **<a href="./overview-of-freertos-memory-management">Overview of FreeRTOS Memory Management</a>**
+1. **<a href="./overview-of-freertos-synchronization-and-mutual-exclusion-services">Overview of FreeRTOS Synchronization and Mutual Exclusion Services</a>**
 
