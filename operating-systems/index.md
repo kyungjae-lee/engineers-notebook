@@ -60,8 +60,7 @@
 ### Scheduling: Multiprocessor, Multicore, and Real-Time Scheduling
 
 1. **<a href="./multi-processor-and-multicore-scheduling">Multiprocessor and Multicore Scheduling</a>**
-
-
+1. **<a href="./real-time-scheduling">Real-Time Scheduling</a>**
 
 ### Review
 
