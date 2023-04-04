@@ -317,9 +317,41 @@ Don't be confused!
 
 
 
+## Exercise (007_Task_Priority)
+
+* Write an application that creates 2 tasks:
+
+  * Task-1 
+    * Priority value: 2
+    * Continuous task
+    * Toggles the red LED with 100 ms ON/OFF duration 
+  * Task-2 
+    * Priority value: 3
+    * Continuous task
+    * Toggles the green LED with 1 s ON/OFF duration 
+
+  When the user button is pressed, the priority of the tasks should be exchanged. (i.e., Task-1's priority must be reconfigured for Task-2's priority and vice versa.)
+
+* Check the following 2 APIs that helps reconfiguring the FreeRTOS value of a task.
+  * `uxTaskPriorityGet()`
+  * `vTaskPrioritySet()`
+
+* Error fixes!
+
+
+
+<img src="./img/exercise-007-xtaskgethandle.png" alt="exercise-007-xtaskgethandle" width="800">
+
+
+
+<img src="./img/exercise-007-nvic-setprioritygrouping.png" alt="exercise-007-nvic-setprioritygrouping" width="700">
+
+
+
+
+
 
 
 ## References
 
 Nayak, K. (2022). *Mastering RTOS: Hands on FreeRTOS and STM32Fx with Debugging* [Video file]. Retrieved from https://www.udemy.com/course/mastering-rtos-hands-on-with-freertos-arduino-and-stm32fx/
-
