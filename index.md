@@ -2,9 +2,11 @@ Notebook
 
 # Engineer's Notebook
 
-###### One-stop knowledge management system - by Kyungjae Lee (kjxlee@gmail.com)
+###### One-stop knowledge management system - by Kyungjae Lee (kjxlee@gmail.com / [LinkedIn](https://www.linkedin.com/in/kyungjaelee/))
 
-
+> *"I'm creating this knowledge base to document what I've learned and never have to waste time searching for the same information over and over again."*
+>
+> $-$ January 2021 $-$
 
 <img src="./img/wallpaper.png" alt="wallpaper" width="250">
 
