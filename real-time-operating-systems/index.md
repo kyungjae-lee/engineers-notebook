@@ -26,3 +26,5 @@
 1. **<a href="./deleting-a-task">Deleting a Task</a>**
 1. **<a href="./arm-cortex-m-interrupt-priority-and-freertos-task-priority">ARM Cortex M Interrupt Priority & FreeRTOS Task Priority</a>**
 1. **<a href="./freertos-fromisr-apis">FreeRTOS `FromISR` APIs</a>**
+1. **<a href="./freertos-hook-functions">FreeRTOS Hook Functions</a>**
+
