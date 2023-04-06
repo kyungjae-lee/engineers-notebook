@@ -4,7 +4,7 @@ Notebook
 
 ###### One-stop knowledge management system - by Kyungjae Lee (kjxlee@gmail.com / [LinkedIn](https://www.linkedin.com/in/kyungjaelee/))
 
-> *"I'm creating this knowledge base to document what I've learned and never have to waste time searching for the same information over and over again."*
+> *"I'm creating this knowledge base to document what I've learned and stop wasting time searching for the same information over and over again."*
 >
 > $-$ January 2021 $-$
 
