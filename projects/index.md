@@ -4,17 +4,17 @@
 
 
 
-1. **<a href="./bare-metal-task-scheduler">Bare-Metal Task Scheduler</a>** 
+1. **<a href="./rtos-from-scratch">RTOS from Scratch</a>** 
 
-   *Feb. 2023 - Present*
+   *Mar. 2023 - Present*
 
-   A task scheduler built from scratch on bare-metal STM32F microcontroller (ARM Cortex M4) board
+   Developing a real‐time operating system from scratch without using libraries on STM32‐Discovery board
 
 2. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
 
    *Jan. 2023 - Jan. 2023*
 
-   An embedded C program to control 7-segment display with keypad and STM32F microcontroller board
+   Developed an embedded C program to control 7‐segment display with keypad and STM32‐Discovery board
 
 3. **<a href="./arm-assembly-vending-machine">ARM-Assembly Vending Machine</a>**
 
