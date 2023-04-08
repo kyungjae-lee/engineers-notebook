@@ -16,7 +16,7 @@ Notebook
 * **<a href="./embedded-linux/">Embedded Linux</a>**
 * **<a href="./operating-systems/">Operating Systems</a>**
 * **<a href="./real-time-operating-systems/">Real-Time Operating Systems (RTOS)</a>**
-* **<a href="./c-programming-embedded/">C Programming (Embedded)</a>**
+* **<a href="./c-programming/">C Programming</a>**
 * **<a href="./multi-threading/">Multi-Threading (POSIX Threads)</a>**
 * **<a href="./cpp-programming/">C++ Programming</a>**
 * **<a href="./data-structures/">Data Structures</a>**
