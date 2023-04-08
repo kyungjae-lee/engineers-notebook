@@ -16,7 +16,10 @@
 10. **<a href="./bitwise-operators">Bitwise Operatos</a>**
 11. **<a href="./structures">Structures</a>**
 12. **<a href="./unions">Unions</a>**
-13. **<a href="./preprocessor-directives">Preprocessor Directives</a>**
-14. **<a href="./const-type-qualifier">`const` Type Qualifier</a>**
-15. **<a href="./volatile-type-qualifier">`volatile` Type Qualifier</a>**
+13. **<a href="./storage-classes">Storage Classes</a>**
+14. **<a href="./preprocessor-directives">Preprocessor Directives</a>**
+15. **<a href="./const-type-qualifier">`const` Type Qualifier</a>**
+16. **<a href="./volatile-type-qualifier">`volatile` Type Qualifier</a>**
+
+
 
