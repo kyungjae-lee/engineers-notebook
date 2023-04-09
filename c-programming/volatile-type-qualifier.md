@@ -35,16 +35,18 @@ Use `volatile` when your code is dealing with the following scenarios:
 **Syntax:**
 
 ```c
-volatile uint8_t data;	/* data is a volatile uint_t type variable */
-uint8_t volatile data;
+volatile uint8_t data;	
+uint8_t volatile data;	/* data is a volatile uint_t type variable */
 ```
+
+> Second notation is preferred by many programmers because it's easier to interpret when it gets complicated.
 
 ### Case 2: Non-`volatile` pointer to `volatile` data
 
 **Syntax:**
 
 ```c
-volatile uint8_t *pStatusReg;	/* pStatusReg is a (non-volatile) pointer to a volatile uint8_t type data */
+uint8_t volatile *pStatusReg;	/* pStatusReg is a (non-volatile) pointer to a volatile uint8_t type data */
 								/* instructs the compiler not to do any optimization on data read/write 
 								   operations using pStatusReg */
 ```
@@ -66,7 +68,7 @@ Rarely used.
 **Syntax:**
 
 ```c
-volatile uint8_t *volatile pStatusReg;	/* pStatusReg is a volatile pointer to a volatile uint8_t type data */
+uint8_t volatile *volatile pStatusReg;	/* pStatusReg is a volatile pointer to a volatile uint8_t type data */
 ```
 
 Rarely used.
