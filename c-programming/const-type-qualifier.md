@@ -18,10 +18,6 @@ const uint8_t data2 = 10;	/* data2 is called a constant (read-only) variable */
 data2 = 50;					/* compile-time error; data2's value cannot be modified */
 ```
 
-Since a `const` variable doesn't change, it has only one state throughout the program. So, you don't need to track its states.
-
-`const` improves the readability of your program.
-
 Use `const` generously to enforce pointer access restrictions while writing functions and function prototypes.
 
 Using `const` may also help the compiler generate the optimized code.
@@ -33,11 +29,11 @@ Using `const` may also help the compiler generate the optimized code.
 **Syntax**:
 
 ```c
-const uint8_t data1 = 10; 	/* data1 is a constant (read-only) variable of type uint8_t */
-uint8_t const data1 = 10;
+const uint8_t data1 = 10; 	
+uint8_t const data1 = 10;	/* data1 is a constant (read-only) variable of type uint8_t */
 ```
 
-Some programmers prefer the second way because it helps interpret a complex statement better. First, identify the variable name, then read from left to right.
+Some programmers prefer the second way because it helps interpret a complex statement better (i.e., Reading  backwards). First, identify the variable name, then read from left to right.
 
 
 
@@ -60,7 +56,7 @@ uint8_t *ptr = (uint8_t*)&data;	/* ptr does not know anything about the constnes
 *ptr = 50;		/* OK */
 ```
 
-`const` does not mean that the value will never change. It is just a programming safety feature to prevent the programmer from modifying the value in a certain way.
+`const` does NOT mean that the value will never change. It is just a programming safety feature to prevent the programmer from modifying the value in a certain way.
 
 
 
@@ -161,7 +157,7 @@ Here, the pointer `pData` is not modifiable (read-only), but **from `pData`'s pe
 Use to improve readability and guard the pointer variables.
 
 ```c
-/* updates the dtails of age and salary into the pointer provided by the caller */
+/* updates the details of age and salary into the pointer provided by the caller */
 void update_user_data(uint8_t *const pUserAge, uint32_t *const pUserSalary)
 {
     if (pUserAge != NULL)
