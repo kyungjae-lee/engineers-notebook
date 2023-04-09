@@ -20,6 +20,4 @@
 14. **<a href="./preprocessor-directives">Preprocessor Directives</a>**
 15. **<a href="./const-type-qualifier">`const` Type Qualifier</a>**
 16. **<a href="./volatile-type-qualifier">`volatile` Type Qualifier</a>**
-
-
-
+17. **<a href="./using-const-and-volatile-type-qualifiers-together">Using `const` & `volatile` Type Qualifiers Together</a>**
