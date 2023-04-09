@@ -9,7 +9,7 @@
 * Both `const` and `volatile` qualifiers can be used when declaring a variable depending on what you want to achieve. For example,
 
   ```c
-  uint8_t volatile *const pReg = (uint_t *)0x40000000;
+  uint8_t volatile *const pReg = (uint8_t *)0x40000000;
   	// pReg is a const pointer to a volatile data
   	// 1. From pReg's perspective, data in 0x40000000 is not modifiable.
   	// 2. Data in 0x40000000 may undergo unexpected changes so don't optimize read/write 
@@ -71,6 +71,7 @@
   uint32_t volatile *const pPortAInReg = (uint32_t *)0x40020010; // 'const' to guard the ptr
   
   // due to the nature of GPIOx IDR, 'const' can be added to the data part as well
+  // this is the general way to declare a pointer pointing to a 'read-only' memory mapped registers
   uint32_t const volatile * const pPortAInReg = (uint32_t *)0x40020010;
   ```
 
@@ -123,24 +124,24 @@
   			g_button_pressed = 0;
   		}
   
-  		//Enable interrupt
+  		// enable interrupt
   		*pEXTIMaskReg |= ( 1 << 0);
   	}
   }
   
   void button_init(void)
   {
-    *pClkCtrlReg |= ( 1 << 0);
-    *pClkCtrlRegApb2 |= ( 1 << 14);
-    *pEXTTIEdgeCtrlReg |= ( 1 << 0);
-    *pEXTIMaskReg |= ( 1 << 0);
-    *pNVICIRQEnReg |= ( 1 << 6);
+    *pClkCtrlReg |= (1 << 0);
+    *pClkCtrlRegApb2 |= (1 << 14);
+    *pEXTTIEdgeCtrlReg |= (1 << 0);
+    *pEXTIMaskReg |= (1 << 0);
+    *pNVICIRQEnReg |= (1 << 6);
   }
   
-  /* This is button interrupt handler*/
+  /* button interrupt handler */
   void EXTI0_IRQHandler(void)
   {
-  	//Make this flag SET . if button pressed
+  	// set this flag on button press
     g_button_pressed = 1;
   
     *pEXTTIPendReg |= ( 1 << 0);
