@@ -10,12 +10,17 @@ To see the progress, visit my GitHub repository ([https://github.com/kyungjae-le
 
 ## Introduction
 
-A real‐time operating system developed from scratch without using libraries on STM32‐Discovery board
+A real‐time operating system with board support package developed from scratch without using libraries on STM32‐Discovery board
 
 
 
 ## Objective
 
+* Create from scratch the board support package necessary for RTOS implementation.
+  * LED driver
+  * USART driver
+  * Delay function using hardware timer
+  * User push button driver
 * Understand the real-time operating systems concepts.
 * Understand the internals of an RTOS.
 * Understand how different types of scheduling algorithms are implemented.
