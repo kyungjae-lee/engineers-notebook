@@ -62,6 +62,11 @@
 1. **<a href="./multi-processor-and-multicore-scheduling">Multiprocessor and Multicore Scheduling</a>**
 1. **<a href="./real-time-scheduling">Real-Time Scheduling</a>**
 
+### I/O Management and Disk Scheduling
+
+1. **<a href="./io-management">I/O Management</a>**
+1. **<a href="./disk-scheduling-policies">Disk Scheduling Policies</a>**
+
 ### Review
 
 1. **<a href="./review-questions">Review Questions</a>**
