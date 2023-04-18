@@ -66,6 +66,7 @@
 
 1. **<a href="./io-management">I/O Management</a>**
 1. **<a href="./disk-scheduling-policies">Disk Scheduling Policies</a>**
+1. **<a href="./raid-storage">RAID Storage</a>**
 
 ### Review
 
