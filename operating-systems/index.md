@@ -72,6 +72,10 @@
 
 1. **<a href="./file-management">File Management</a>**
 
+### Virtual Machines
+
+1. **<a href="./virtual-machines">Virtual Machines</a>**
+
 ### Review
 
 1. **<a href="./review-questions">Review Questions</a>**
