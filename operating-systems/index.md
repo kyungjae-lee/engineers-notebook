@@ -68,6 +68,10 @@
 1. **<a href="./disk-scheduling-policies">Disk Scheduling Policies</a>**
 1. **<a href="./raid-storage">RAID Storage</a>**
 
+### File Management
+
+1. **<a href="./file-management">File Management</a>**
+
 ### Review
 
 1. **<a href="./review-questions">Review Questions</a>**
