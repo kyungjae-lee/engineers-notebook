@@ -7,14 +7,23 @@
 ## Introduction
 
 * Virtualization involves managing computer resources so that each process representing a *virtual machine* sees its resources as if only it were using the hardware. A virtual machine is unaware that other VMs run in the same environment.
+
+  A virtual machine itself is essentially a software process that uses the hardware resources of the system it is running on.
+
 * Virtualization provides a layer between a virtual machine's software and the physical hardware of the machine that supports VMs.
+
 * There are 2 main approaches to virtualization:
-  * Virtual machines
-  * Containers - Usually designed to run within the same host operating system.
+  * **Virtual machines** - Can run different types of OSs on a single virtual machine.
+  
+  * **Containers** - Usually designed to run within the same host operating system.
+  
+    e.g., If you are to develop multiple Linux applications, you can put them in Linux containers that are all running on a single machine.
 
 
 
 <img src="./img/virtual-machine-concept.png" alt="virtual-machine-concept" width="350">
+
+
 
 
 
@@ -46,7 +55,7 @@
   These are the "guest" machines on your host. A host can support some number of VMs running at the same time. A true VM host needs lots of memory and processor capability.
 
   * In a true VM environment, each guest machine can run its own OS.
-  * So, I can create a linux machine, a Windows machine and an Android machine on my PC at home if I have enough memory.
+  * So, I can create a Linux machine, a Windows machine and an Android machine on my PC at home if I have enough memory.
 
 * **Guest Applications**
 
@@ -64,7 +73,10 @@
 
 ## Hypervisors
 
+* What operating system is to a regular computing system, hypervisor is to a cloud computing system (or virtual computing environment.)
 * The hypervisor is the software that acts as a broker or traffic controller between the VM guests as they request use of resources from the physical host machine.
+  * e.g., When a VM requests a file I/O, the hypervisor traps that call and figures out where and which device it should actually be mapped to.
+
 * A hypervisor lets you create a VM and configure it with processors, some amount of RAM, some size of "disk", among other features.
 * The hypervisor manages the execution of all of the VMs. It allows you to "power" your VM on/off. It translates I/O requests from the VMs to the host and back.
 * The hypervisor "traps" OS system calls in the VMs and translates them into the appropriate calls.
@@ -78,6 +90,7 @@
 
 
 * Sometimes this is called a **bare-metal** hypervisor.
+* Has complete control over the host machine. (Acts as an overall OS of the host machine.)
 * A "Type 1 Hypervisor" is loaded as a software layer directly on the host. There is no other OS on the host.
 * The hypervisor directly controls the physical resources of the host.
 * Examples include VMWare and Xen.
@@ -107,8 +120,16 @@
 
 * Some systems use paravirtualization to enhance the performance of VMs.
 * With paravirtualization, the guest OS are a special version modified to make calls to the hypervisor where appropriate. So they are "aware" of the hypervisor's existence.
+  * In this case, the hypervisor does NOT have to trap the system calls and do the necessary work. Guest OSs are directly making calls to the hypervisor.
+
 * For example, you might have a special version of Linux designed to run on Amazon VMs. (Which is what they do. You have to use their special versions of OSs.)
 * Or, in a non-paravirtualization system, the guest OS are just the original off the shelf version and the hypervisor has to work to trap the OS calls and interpret them. The guest OS are not aware of the hypervisor's existence.
+
+
+
+## Also Check Out
+
+* Hardware-Assisted Virtualization
 
 
 
