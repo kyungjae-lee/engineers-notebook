@@ -8,7 +8,11 @@ Notebook
 >
 > $-$ January 2021 $-$
 
-<img src="./img/wallpaper.png" alt="wallpaper" width="250">
+
+
+<img src="./img/wallpaper.png" alt="wallpaper" width="300">
+
+
 
 ### Notebooks
 
