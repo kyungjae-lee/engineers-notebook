@@ -76,6 +76,10 @@
 
 1. **<a href="./virtual-machines">Virtual Machines</a>**
 
+### Operating System Security
+
+1. **<a href="./operating-system-security">Operating System Security</a>**
+
 ### Review
 
 1. **<a href="./review-questions">Review Questions</a>**
