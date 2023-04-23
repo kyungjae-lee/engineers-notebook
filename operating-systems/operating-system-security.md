@@ -250,6 +250,8 @@ Aims to detect and abort attacks in executing programs.
 
 ## Operating Systems Hardening
 
+These are administrator's responsibility, not the OS's!
+
 * Basic steps to use to secure an operating system:
   * Install and patch the operating system
   * Harden and configure the operating system to adequately address the identified security needs of the system by:
