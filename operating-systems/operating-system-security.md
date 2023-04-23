@@ -8,22 +8,30 @@
 
 ### Intruders
 
+An intruder is a human being (or a legitimate user) somehow gained access to the system through the operating system with privileged access level that they shouldn't have.
+
 * **Masquerader**
 
-  An individual who is not authorized to use the computer and who penetrates a system's access controls to exploit a legitimate user's account.
+  An individual who is not authorized to use the computer and who penetrates a system's access controls to exploit a legitimate user's account. (Someone who's spoofing a legitimate user.)
+
+  Authentication, which may or may not be part of an OS, can be used as a countermeasure. (e.g., Two-factor authentication, security questions, biometrics data, etc.)
 
 * **Misfeasor**
 
-  A legitimate user who accesses data, programs, or resources for which such access is not authorized, or who is authorized for such access but misuses his or her privileges.
+  A legitimate user who accesses data, programs, or resources for which such access is not authorized, or who is authorized for such access but misuses his or her privileges. (A legitimate user who has authority to access some data but using it for the wrong purposes.)
+
+  The OS cannot detect this type of intruders but it can use various level of permissions and access controls to prevent them doing the wrong thing.
 
 * **Clandestine user**
 
-  An individual who seizes supervisory control of the system and uses this control to evade auditing and access controls or to suppress audit collection.
+  An individual who has managed to get into your system not as a legitimate user (without logging in). They may have piggybacked on a process that's logged in any running a software on behalf of another user and found a way to inject some code into the process that lets them do what they want to do.
+  
+  Seizes supervisory control of the system and uses this control to evade auditing and access controls or to suppress audit collection.
 
 ### Malicious Software
 
 * Programs that exploit vulnerabilities in computing systems
-* Also referred to as malware
+* Also referred to as **malware**
 * Can be divided into two categories:
   * Parasitic
     * Fragments of programs that cannot exist independently of some actual application program, utility, or system program.
@@ -38,17 +46,23 @@
 
 ### Intrusion Detection System (IDS)
 
-* FRC 4949 (Internet Security Glossary) defines intrusion detection as a security service that monitors and analyzes system events for the purpose of finding, and providing real-time or near real-time warning of, attempts to access system resources in an unauthorized manner.
+* Not much an OS can do.
+
+* FRC 4949 (Internet Security Glossary) defines intrusion detection as a security service that monitors and analyzes system events for the purpose of finding, and providing real-time or near real-time warning of, attempts to access system resources in an unauthorized manner. 
 
 * Intrusion detection systems (IDSs) can be classified as:
 
   * **Host-based IDS**
 
-    Monitors the characteristics of a single host and the events occurring within that host for suspicious activity.
+    Monitors the characteristics of a single host and the events occurring within that host for suspicious activity. 
+
+    This is basically a way of trying to detect malware that shouldn't be there, and it typically involves *anti-virus software* (monitor for unknown/unauthorized software).
 
   * **Network-based IDS**
 
     Monitors network traffic for particular network segments or devices and analyzes network, transport, and application protocols to identify suspicious activity.
+    
+    e.g., Program to detect and prevent the DDos attack at the entry point of the system to the network.
 
 * IDS Components
 
@@ -66,14 +80,18 @@
 
 ### Authentication
 
-* In most computer security contexts, user authentication is the fundamental building block and the primary line of defense.
+* OS can do! (First pass)
+
+* In most computer security contexts, user authentication is the fundamental building block and the primary line of defense. (First line of defense an OS can use.)
 
 * RFC 4949 defines user authentication as the process of verifying an identity claimed by or for a system entity.
 
-* An authentication process consists of two steps:
+* An authentication process consists of two steps (Two-factor authentication):
 
   * Identification step - Presenting an identifier to the security system
   * Verification step - Presenting or generating authentication information that corroborates the binding between the entity and the identifier
+
+  e.g., Google account 2-factor authentication, Common Access Card (CAC) requiring password after inserting the card in to a machine.
 
 * Means of authentication
 
@@ -95,24 +113,34 @@
 
 ### Access Control
 
+* OS can do! (Second pass)
+
 * Implements a security policy that specifies who or what may have access to each specific system resource and the type of access that is permitted in each instance.
 * Mediates between a user and system resources, such as applications, operating systems, firewalls, routers, files, and databases.
 * A security administrator maintains an authorization database that specifies what type of access to which resources is allowed for this user.
   * The access control function consults this database to determine whether to grant access.
 * An auditing function monitors and keeps a record of user accesses to system resources.
+* Can be done based on user-by-user, group-by-group, or entity(individual files)-by-entity.
 
 ### Firewalls
 
 * Design goals:
   1. All traffic from inside to outside, and vice versa, must pass through the firewall. This is achieved by physically blocking all access to the local network except via the firewall.
-  2. Only authorized traffic, as defined by the local security policy, will be allowed to pass. Various types of firewalls are used, which implement various types of security policies.
+  2. **Only authorized traffic**, as defined by the local security policy, will be allowed to pass. Various types of firewalls are used, which implement various types of security policies.
   3. The firewall itself is immune to penetration. This implies the use of hardened system with a secured operating system. Trusted computer systems are suitable for hosting a firewall and often required in government applications.
 
 
 
-## Buffer Overflow
+## How Do We Get an Access to Running Software to Change it?
 
-### Buffer Overflow Attacks
+### Cross-Site Scripting (Intentional Attack)
+
+* Cross-Site Scripting (XSS) attacks are a type of injection, in which malicious scripts are injected into otherwise benign and trusted websites. 
+* XSS attacks occur when an attacker uses a web application to send malicious code, generally in the form of a browser side script, to a different end user.
+* Basically, I'm or was logged in as a legitimate user, but some link I clicked redirected me to part of the system where I didn't mean to intentionally enter into.
+* Someone's looking over your shoulder!
+
+### Buffer Overflow Attacks (Intentional Attack)
 
 * Also known as a **buffer overrun**
 
@@ -165,12 +193,16 @@
   * To identify a buffer overflow vulnerability in some program that can be triggered using externally sourced data under the attackers control.
   * To understand how that buffer will be stored in the processes' memory, and hence the potential for corrupting adjacent memory locations and potentially altering the flow of execution of the program.
 
+
+
+## What Can Programming Languages Do to Prevent These Attacks?
+
 ### Compile-Time Defense
 
 Aims to harden programs to resist attacks.
 
 * Choice of programming language
-  * One possibility is to write the program using a modern high-level programming language that has a strong notion of variable type and what constitutes permissible operations on them.
+  * One possibility is to write the program using a modern high-level programming language that has a **strong notion of variable type** and what constitutes **permissible operations** on them.
   * The flexibility and safety provided by these languages does come at a cost in resource use, both at compile-time and also in additional code that must execute at run-time.
 * Safe coding techniques
   * Programmers need to inspect the code and rewrite any unsafe coding constructs.
@@ -182,19 +214,22 @@ Aims to harden programs to resist attacks.
 * Stack protection mechanisms
   * An effective method for protecting programs against classic stack overflow attacks is to instrument the function entry and exit code to set up and then check its stack frame for any evidence of corruption.
   * Stackguard, one of the best-known protection mechanisms, is a GNU Compiler Collection (GCC) compiler extension that inserts additional function entry and exit code.
+* Otherwise, be a good programmer yourself! Be mindful of how memory is used.
 
 ### Run-Time Defense
 
 Aims to detect and abort attacks in executing programs.
 
-* Executable address space protection
+* Executable address space protection (Address space enforcement)
   * A possible defense is to block the execution of code on the stack, on the assumption that executable code should only be found elsewhere in the processes address space.
   * Extensions have been made available to Linux, BSD, and other UNIX-style systems to support the addition of the no-execute bit.
 * Guard pages
-  * Caps are placed between the ranges of addresses used for each of the components of the address space.
+  * Gaps (pages that will never be used) are placed between the ranges of addresses used for each of the components of the address space.
   * These gaps, or guard pages, are flagged in the MMU as illegal addresses and any attempt to access them results in the process being aborted.
   * A further extension places guard pages between stack frames or between different allocations on the heap.
+  * This will increase the size of the process image, but less costly than other two.
 * Address space randomization
+  * At every run-time, the address of the process image is changed. (OS need to be able to support this!)
   * A run-time technique that can be used to thwart attacks involves manipulation of the location of key data structures in the address space of a process.
   * Moving the stack memory region around by a megabyte or so has minimal impact on most programs but makes predicting the targeted buffer's address almost impossible.
   * Another technique is to use security extension that randomizes the order of loading standard libraries by a program and their virtual memory address locations.
@@ -248,6 +283,11 @@ Aims to detect and abort attacks in executing programs.
 * Given the wide-spread prevalence of malware, appropriate antivirus is a critical security component.
 * IDS and IPS software may include additional mechanisms such as traffic monitoring or file integrity checking to identify and even respond to some types of attack.
 * White-listing applications limits the programs that can execute in the system to just those in an explicit list.
+
+### Backup / Continuous Off-site Operating Protocol (COOP)? Strategy
+
+* Backup your system in such a way that in one day you can setup and continue working on from where you left off from another system.
+* This is where the cloud computing helps a lot.
 
 
 
