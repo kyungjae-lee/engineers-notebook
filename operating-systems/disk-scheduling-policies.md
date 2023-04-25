@@ -82,8 +82,8 @@
 
 ### Goal
 
-* Reduce average time spent on seeks
-* Remember, the typical OS is going to maintain a queue of I/O requests on behalf of all of the processes requesting I/O in your system and the targe I/O devices will be given chances to service them. So for a single disk, there will be a number of incoming I/O requests.
+* Reduce average time spent on **seeks**
+* Remember, the typical OS is going to maintain a queue of I/O requests on behalf of all of the processes requesting I/O in your system and the target I/O devices will be given chances to service them. So for a single disk, there will be a number of incoming I/O requests.
 
 ### General Policies
 

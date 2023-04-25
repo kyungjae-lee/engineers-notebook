@@ -9,7 +9,7 @@
 * From a user's point of view, the file system is a very visible and important part of an operating system.
 * A file is a logical unit of blocks of data stored in the disk.
 * OS's responsibility with file systems:
-  * Background work being done to organize the disk blocks into files
+  * Background work to organize the disk blocks into files
   * Uniform interface the OS exposes to programming languages to allow the programmers devlop the software that deals with files
 
 * Files have desirable properties:
@@ -140,7 +140,7 @@ In general, an OS supports multiple file systems. The followings are common file
   * In other words, as a user, you don't care how many blocks you are dealing with behind the scenes. You just deal with "files".
 
 * But, I/O is done at a lower level, on a block bases.
-* i.e., A physical file is composed fo a sequence of physical blocks on a device.
+* i.e., A physical file is composed of a sequence of physical blocks on a device.
 * File management requires the ability to 
   * Allocate files to free blocks in secondary storage
   * Manage the free storage
@@ -157,7 +157,7 @@ There are 2 Basic Strategies for File Storage Allocation.
 
 * Storing a file in a single or very few large contiguous portions allows for dynamic partitioning of the storage system, and better retrieval performance (since all in same area)
 * Can use best fit, worst fit, etc. just like memory partitions. Suffers from fragmentation! 
-* Compaction is necessary every once in a while to improve disck performance. (Lots of block movement happens with this stragety.)
+* Compaction is necessary every once in a while to improve disk performance. (Lots of block movement happens with this stragety.)
 
 ### 2. Block oriented
 
