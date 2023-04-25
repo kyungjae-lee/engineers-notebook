@@ -13,11 +13,11 @@
 * Virtualization provides a layer between a virtual machine's software and the physical hardware of the machine that supports VMs.
 
 * There are 2 main approaches to virtualization:
-  * **Virtual machines** - Can run different types of OSs on a single virtual machine.
+  * **Virtual machines** - Can run different types of OSs regardless of the OS of the host machine.
   
-  * **Containers** - Usually designed to run within the same host operating system.
+  * **Containers** - Usually designed to run within the same host operating system. (In other words, containers on a system share the underlying OS and therefore, if the OS fails all containers will fail.)
   
-    e.g., If you are to develop multiple Linux applications, you can put them in Linux containers that are all running on a single machine.
+    e.g., If you are to develop multiple Linux applications, you can put them in Linux containers that are all running on a single machine whose OS is Linux.
 
 
 
@@ -29,7 +29,7 @@
 
 ## History of Virtualization
 
-* Tradisionally, applications have run directly on an OS on a computer that was running only that single operating system.
+* Traditionally, applications have run directly on an OS on a computer that was running only that single operating system.
 * What if your application needs to be able to run on a different or multiple operating systems?
   * Think about testing software for different platforms. Think about patching legacy software.
   * You can either buy the individual platforms as machines running the desired OSs.
