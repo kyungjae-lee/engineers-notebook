@@ -14,19 +14,19 @@
 
    *Mar. 2023 - Apr. 2023*
 
-   Developed microcontroller‐speci ic peripheral drivers for USART and GPIO on the STM32F407‐Discovery board as part of the ’Bare‐Metal RTOS’ project, enabling the RTOS to perform tasks such as LED blinking and sensor reading
+   Microcontroller‐specific peripheral drivers for USART and GPIO on the STM32F407‐Discovery board as part of the ’Bare‐Metal RTOS’ project, enabling the RTOS to perform tasks such as LED blinking and sensor reading
 
 3. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
 
    *Jan. 2023 - Jan. 2023*
 
-   Developed an embedded C program to control 7‐segment display with keypad and STM32F407-Discovery board
+   An embedded C program to control 7‐segment display with keypad and STM32F407-Discovery board
 
 4. **<a href="./arm-assembly-vending-machine">ARM-Assembly Vending Machine</a>**
 
    *Oct. 2022 - Nov. 2022*
 
-   Developed an assembly program that simulates an interactive vending machine using Raspberry Pi board, buttons and LEDs
+   An assembly program that simulates an interactive vending machine using Raspberry Pi board, buttons and LEDs
 
 5. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
 
@@ -50,5 +50,6 @@
 
    *Jan. 2021 - Present (Lifelong Project)*
 
-   Online one-stop knowledge management system created from scratch using Jekyll, and GitHub Pages
+   A documentation website for storing reusable technical knowledge and information gained from
+   personal endeavors
 
