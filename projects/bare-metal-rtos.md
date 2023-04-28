@@ -17,14 +17,18 @@ To see the full source code, visit my GitHub repository ([https://github.com/kyu
 
 ## Objective
 
-* Understand how the real-time operating systems concepts are implemented in code.
-  * Context switch, memory management, scheduling algorithms, etc.
-* Understand which part of the code in an RTOS kernel is hardware dependent.
-* Be able to debug RTOS software issues.
+* Understand and be able to implement a scheduler, one of the core part of the OS,  from scratch.
+* Be able to set up incremental build system using Make utility.
+* Be able to choose, install and use appropriate Cross-Compiler Toolchain.
+* Be able to compile a C program for an embedded target without using an IDE.
+* Be able to write a microcontroller startup file for STM32F MCU.
+* Understand the different sections of the relocatable object file (i.e., `.o` files).
+* Be able to write a linker script file from scratch.
+* Be able to load the final executable on the target using OpenOCD and GDB client.
 
 
 
-## Demonstration
+## Demonstration (Temorary)
 
 ### Round-Robin scheduling algorithm (Time quantum: 500 ms)
 
@@ -36,7 +40,7 @@ To see the full source code, visit my GitHub repository ([https://github.com/kyu
 
 
 
-## Source Code
+## Source Code (Temporary)
 
 [!] Note: This section only presents the test program and the kernel code. Source code for the peripheral drivers used in testing can be found in [Peripheral Drivers from Scratch](./peripheral-drivers-from-scratch).
 
