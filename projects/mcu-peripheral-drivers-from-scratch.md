@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Projects</a> > Peripheral Drivers from Scratch
+<a href="../">Notebook</a> > <a href="./">Projects</a> > MCU Peripheral Drivers from Scratch
 
-# Peripheral Drivers from Scratch
+# MCU Peripheral Drivers from Scratch
 
 
 
@@ -12,7 +12,7 @@ Developed minimal peripheral drivers (USART, LEDs, Button) for STM32F407-Discove
 
 ## Objective
 
-* Be able to write from scratch the peripheral drivers that initialize peripherals and provide necessary APIs for the RTOS development project
+* Be able to write from scratch the peripheral drivers that initialize peripherals and provide necessary APIs for the 'Bare-Metal RTOS' development project
   * USART driver to print debug message to screen.
   * LEDs driver to check output
   * Button driver to check input

@@ -1,6 +1,6 @@
-<a href="../">Notebook</a> > <a href="./">Projects</a> > RTOS from Scratch
+<a href="../">Notebook</a> > <a href="./">Projects</a> > Bare-Metal RTOS
 
-# RTOS from Scratch
+# Bare-Metal RTOS
 
 ==This project is currently IN PROGRESS. Contents will be continuously updated (04/13/2023)!==
 
@@ -10,7 +10,8 @@ To see the full source code, visit my GitHub repository ([https://github.com/kyu
 
 ## Introduction
 
-A real‐time operating system with board support package developed from scratch without using libraries on STM32‐Discovery board
+* Developing a real‐time operating system on the bare‐metal STM32F407‐Discovery board without using libraries
+* Using Vim editor for software development, GNU Arm Embedded Toolchain for cross‐compiling, and OpenOCD with GDB client to load and debug the project on the target board
 
 
 

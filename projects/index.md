@@ -4,17 +4,17 @@
 
 
 
-1. **<a href="./rtos-from-scratch">RTOS from Scratch</a>** 
+1. **<a href="./bare-metal-rtos">Bare‑Metal RTOS</a>** 
 
-   *Mar. 2023 - Present*
+   *Apr. 2023 - Present*
 
-   Developing a real‐time operating system from scratch without using libraries on STM32F407-Discovery board
+   Developing a real‐time operating system on the bare‐metal STM32F407‐Discovery board without using libraries
 
-2. **<a href="./peripheral-drivers-from-scratch">Peripheral Drivers from Scratch</a>** 
+2. **<a href="./mcu-peripheral-drivers-from-scratch">MCU Peripheral Drivers from Scratch</a>** 
 
    *Mar. 2023 - Apr. 2023*
 
-   Developed minimal peripheral drivers (USART, LEDs, Button) for STM32F407-Discovery board to be used in the RTOS development project
+   Developed microcontroller‐speci ic peripheral drivers for USART and GPIO on the STM32F407‐Discovery board as part of the ’Bare‐Metal RTOS’ project, enabling the RTOS to perform tasks such as LED blinking and sensor reading
 
 3. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
 
@@ -26,7 +26,7 @@
 
    *Oct. 2022 - Nov. 2022*
 
-   Developed an ARM assembly program to simulate a vending machine using Raspberry Pi board, buttons and LEDs
+   Developed an assembly program that simulates an interactive vending machine using Raspberry Pi board, buttons and LEDs
 
 5. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
 
@@ -51,3 +51,4 @@
    *Jan. 2021 - Present (Lifelong Project)*
 
    Online one-stop knowledge management system created from scratch using Jekyll, and GitHub Pages
+
