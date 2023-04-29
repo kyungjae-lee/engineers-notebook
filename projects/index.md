@@ -50,6 +50,5 @@
 
    *Jan. 2021 - Present (Lifelong Project)*
 
-   A documentation website for storing reusable technical knowledge and information gained from
-   personal endeavors
+   A documentation website for storing reusable technical knowledge and information gained from personal endeavors
 
