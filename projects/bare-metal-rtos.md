@@ -2,13 +2,13 @@
 
 # Bare-Metal RTOS
 
-[!] Note: This project is currently IN PROGRESS. Contents will be updated!
+==[!] Note: This project is currently IN PROGRESS. Contents will be updated!==
 
 
 
 ## Introduction
 
-A task scheduler built from scratch on bare-metal STM32F microcontroller (ARM Cortex M4) board. 
+Developing a real‐time operating system on the bare‐metal STM32F407‐Discovery board without using libraries
 
 This project is designed to be completed in the following 3 steps:
 
@@ -33,7 +33,7 @@ This project is designed to be completed in the following 3 steps:
 
 ## Expected Outcome
 
-Following is the demonstration of a task scheduler program using LEDs on STM32F407 Discovery board. 
+Following is the demonstration of the test application for the 'Bare-Metal RTOS' project in action. 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/MYxrrz4UWkc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
