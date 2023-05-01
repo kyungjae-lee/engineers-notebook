@@ -57,32 +57,51 @@
 * Now using a `__attribute__((naked))` function, we can re-write the previous incomplete stack frame analysis code as follows:
 
   ```c
-  // caller
+  /*
+   * The function prologue is a few lines of code at the beginning of a function,
+   * which prepare the stack and registers for use within the function.
+   * Similarly, the function epilogue appears at the end of the function and restores the stack
+   * and registers to the state they were in before the function was called.
+   *
+   * So, if you want to secure the stack pointer right after the automatic stacking is carried out,
+   * it is important that you store the SP before the function prologue further manipulates the stack.
+   * One way to work around this situation is to use __attribute__((naked)) function.
+   */
+  
   __attribute__((naked)) void UsageFault_Handler(void)
   {
-      // extract the value of MSP which happens to be the base address of the stack frame 
-      // (belongs Thread mode code) which got saved during the exception entry from Thread mode
-      // to Handler mode
-      __asm("mrs r0, msp");
-      __asm("b UsageFault_Handler_c");
+  	/*
+  	 * Here we capture the value of MSP which happens to be the base address of the stack frame
+  	 * which got pushed onto stack automatically by the processor during the exception entry
+  	 * from Thread Mode to Handler Mode.
+  	 */
+  
+  	__asm("mrs r0, msp");				/* Secure MSP and store it in r0. (According to AAPCS,
+  										   the value stored in r0 will be passed to the callee
+  										   as the first argument. Therefore, secured MSP value
+  										   will be passed to the first parameter of the
+  										   UsageFault_Handler_C '*pBaseStackFrame'. */
+  	__asm("b UsageFault_Handler_C");	/* Branch to UsageFault_Handler_C */
   }
   
-  // callee
-  void UsageFault_Handler_c(uint32_t *pBaseStackFrame)
+  /* UsageFault handler */
+  void UsageFault_Handler_C(uint32_t *pBaseStackFrame)
   {
-      uint32_t *pUFSR = (uint32_t *)0xE000ED2A;
-      printf("Exception: UsageFault\n");
-      printf("UFSR = %lx\n", (*pUFSR) & 0xFFFF);
-      printf("pBaseStackFrame = %p\n", pBaseStackFrame);
-      printf("Value of r0 = %lx\n", pBaseStackFrame[0]);
-      printf("Value of r1 = %lx\n", pBaseStackFrame[1]);
-      printf("Value of r2 = %lx\n", pBaseStackFrame[2]);
-      printf("Value of r3 = %lx\n", pBaseStackFrame[3]);
-      printf("Value of r12 = %lx\n", pBaseStackFrame[4]);
-      printf("Value of lr = %lx\n", pBaseStackFrame[5]);
-      printf("Value of pc = %lx\n", pBaseStackFrame[6]);
-      printf("Value of xpsr = %lx\n", pBaseStackFrame[7]);
-      while (1);
+  	printf("Exception: UsageFault\n");
+  	printf("UFSR = %lx\n", UFSR & 0xFFFF);	/* Read 16 bits only */
+  	printf("MSP = %p\n", pBaseStackFrame);	/* print  */
+  
+  	/* Print stack frame (to troubleshoot any potential issues occurred when in Thread Mode) */
+  	printf("r0 	= %lx\n", pBaseStackFrame[0]);
+  	printf("r1 	= %lx\n", pBaseStackFrame[1]);
+  	printf("r2 	= %lx\n", pBaseStackFrame[2]);
+  	printf("r3 	= %lx\n", pBaseStackFrame[3]);
+  	printf("r12 = %lx\n", pBaseStackFrame[4]);
+  	printf("lr 	= %lx\n", pBaseStackFrame[5]);
+  	printf("pc 	= %lx\n", pBaseStackFrame[6]);
+  	printf("xpsr = %lx\n", pBaseStackFrame[7]);
+  
+  	while (1);
   }
   ```
 
