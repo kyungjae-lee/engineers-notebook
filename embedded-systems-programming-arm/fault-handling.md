@@ -79,7 +79,7 @@
 * Causes:
   * As its name indicates this fault exception is triggered when memory access violation is detected during read/write operations (access permission by the processor or MPU)
   * Unprivileged thread mode code (such as user application or RTOS task) tries to access a memory region which is marked as "privileged access only" by the MPU
-  * Writing to memory region which are marked as read-only by the MPU4
+  * Writing to memory region which are marked as read-only by the MPU
   * This fault can also be triggered when trying to execute program code from "peripheral" memory regions. Peripheral memory regions are marked as eXecute Never (XN) regions by the processor design to avoid code injection attacks through peripherals.
 
 
