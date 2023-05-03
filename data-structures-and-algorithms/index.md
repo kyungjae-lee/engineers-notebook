@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > Data Structures & Algorithms
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > Data Structures & Algorithms
 
 # Data Structures & Algorithms
 

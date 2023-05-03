@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Data Structures</a> > Queues
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Queues
 
 # Queues
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Data Structures</a> > Singly-Linked Lists
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Singly-Linked Lists
 
 # Singly-Linked Lists
 

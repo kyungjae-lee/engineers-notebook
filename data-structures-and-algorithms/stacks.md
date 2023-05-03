@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Data Structures</a> > Stacks
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Stacks
 
 # Stacks
 
