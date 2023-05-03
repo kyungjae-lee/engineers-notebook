@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Projects</a> > My UNIX Shell
+<a href="../">Home</a> > <a href="./">Projects</a> > My UNIX Shell
 
 
 

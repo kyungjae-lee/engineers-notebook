@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Projects</a> > 7-Segment Display Control with Keypad
+<a href="../">Home</a> > <a href="./">Projects</a> > 7-Segment Display Control with Keypad
 
 # 7-Segment Display Control with Keypad
 

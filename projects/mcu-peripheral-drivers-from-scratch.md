@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Projects</a> > MCU Peripheral Drivers from Scratch
+<a href="../">Home</a> > <a href="./">Projects</a> > MCU Peripheral Drivers from Scratch
 
 # MCU Peripheral Drivers from Scratch
 

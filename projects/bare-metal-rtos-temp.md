@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Projects</a> > Bare-Metal RTOS
+<a href="../">Home</a> > <a href="./">Projects</a> > Bare-Metal RTOS
 
 # Bare-Metal RTOS
 

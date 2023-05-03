@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Projects</a> > TCP/IP Group Chat Application
+<a href="../">Home</a> > <a href="./">Projects</a> > TCP/IP Group Chat Application
 
 # TCP/IP Group Chat Application
 

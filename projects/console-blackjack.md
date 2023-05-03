@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Projects</a> > Console Blackjack
+<a href="../">Home</a> > <a href="./">Projects</a> > Console Blackjack
 
 # Console Blackjack
 
