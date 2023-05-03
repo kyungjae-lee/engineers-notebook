@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 796. Rotate String (sprintf, strstr)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 796. Rotate String (sprintf, strstr)
 
 # LC - 796. Rotate String (sprintf, strstr)
 

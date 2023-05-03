@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 268. Missing Number (bit manipulation)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 268. Missing Number (bit manipulation)
 
 # LC - 268. Missing Number (bit manipulation)
 

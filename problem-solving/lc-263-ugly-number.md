@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 263. Ugly Number
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 263. Ugly Number
 
 # LC - 263. Ugly Number
 

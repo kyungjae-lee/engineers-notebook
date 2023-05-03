@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 338. Counting Bits
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 338. Counting Bits
 
 # LC - 338. Counting Bits
 

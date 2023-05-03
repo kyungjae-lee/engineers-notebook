@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 404. Sum of Left Leaves (DFS)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 404. Sum of Left Leaves (DFS)
 
 # LC - 404. Sum of Left Leaves (DFS)
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > EPI - 5.4. Find a Closest Integer with the Same Weight (bit manipulation)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > EPI - 5.4. Find a Closest Integer with the Same Weight (bit manipulation)
 
 # EPI - 5.4. Find a Closest Integer with the Same Weight (bit manipulation)
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 1356. Sort Integers by The Number of 1 Bits (struct, qsort, bubble sort)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 1356. Sort Integers by The Number of 1 Bits (struct, qsort, bubble sort)
 
 # LC - 1356. Sort Integers by The Number of 1 Bits (struct, qsort, bubble sort)
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 1122. Relative Sort Array (map, multiset)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 1122. Relative Sort Array (map, multiset)
 
 # LC - 1122. Relative Sort Array (map, multiset)
 

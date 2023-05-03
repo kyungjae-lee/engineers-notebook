@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 20. Valid Parentheses (stack, map)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 20. Valid Parentheses (stack, map)
 
 # LC - 20. Valid Parentheses (stack, map)
 

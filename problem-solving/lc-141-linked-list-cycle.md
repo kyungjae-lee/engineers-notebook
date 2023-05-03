@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 141. Linked List Cycle (unordered_set, Floyd's Cycle Detection Algorithm - Two Pointers)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 141. Linked List Cycle (unordered_set, Floyd's Cycle Detection Algorithm - Two Pointers)
 
 # LC - 141. Linked List Cycle (unordered_set, Floyd's Cycle Detection Algorithm - Two Pointers)
 

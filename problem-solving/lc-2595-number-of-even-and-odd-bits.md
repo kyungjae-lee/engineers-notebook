@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 2595. Number of Even and Odd Bits (bit manipulation)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 2595. Number of Even and Odd Bits (bit manipulation)
 
 # LC - 2595. Number of Even and Odd Bits (bit manipulation)
 

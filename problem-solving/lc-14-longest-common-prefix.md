@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 14. Longest Common Prefix
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 14. Longest Common Prefix
 
 # LC - 14. Longest Common Prefix
 

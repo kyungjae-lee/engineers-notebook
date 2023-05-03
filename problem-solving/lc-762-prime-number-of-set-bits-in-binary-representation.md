@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 762. Prime Number of Set Bits in Binary Representation (bit manipulation)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 762. Prime Number of Set Bits in Binary Representation (bit manipulation)
 
 # LC - 762. Prime Number of Set Bits in Binary Representation (bit manipulation)
 

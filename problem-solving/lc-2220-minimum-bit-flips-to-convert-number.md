@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 2220. Minimum Bit Flips to Convert Number
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 2220. Minimum Bit Flips to Convert Number
 
 # LC - 2220. Minimum Bit Flips to Convert Number (bit manipulation)
 

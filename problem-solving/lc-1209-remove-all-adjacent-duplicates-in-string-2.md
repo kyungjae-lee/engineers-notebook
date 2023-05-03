@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Problem Solving</a> > LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Problem Solving</a> > LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)
 
 # LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)
 
