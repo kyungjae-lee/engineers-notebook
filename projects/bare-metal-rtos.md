@@ -12,9 +12,9 @@ Developing a real‐time operating system on the bare‐metal STM32F407‐Discov
 
 This project is designed to be completed in the following 3 steps:
 
-1. Implement the scheduler **using a full-fledged IDE** (STM32 Cube IDE).
+1. Implement an RTOS **using a full-fledged IDE** (STM32 Cube IDE).
 2. Compile and debug the program implemented in Step 1 **without using an IDE**. 
-3. Build the scheduler **from scratch** without an IDE (bare-metal).
+3. Implement an RTOS **from scratch** without an IDE (i.e., Bare-metal development).
 
 
 
