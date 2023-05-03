@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Introduction to Computer Networks
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Introduction to Computer Networks
 
 # Introduction to Computer Networks
 

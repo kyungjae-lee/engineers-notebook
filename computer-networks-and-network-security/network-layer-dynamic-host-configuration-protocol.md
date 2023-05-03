@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Network Layer - Dynamic Host Configuration Protocol (DHCP)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Network Layer - Dynamic Host Configuration Protocol (DHCP)
 
 # Network Layer - Dynamic Host Configuration Protocol (DHCP)
 

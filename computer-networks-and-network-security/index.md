@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > Computer Networks & Network Security
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > Computer Networks & Network Security
 
 # Computer Networks & Network Security
 
