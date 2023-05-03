@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > C++ Programming
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > C++ Programming
 
 # C++ Programming
 
@@ -23,3 +23,4 @@
 1. **<a href="./vectors">Vectors</a>**
 2. **<a href="./stacks">Stacks</a>**
 3. **<a href="./queues">Queues</a>**
+

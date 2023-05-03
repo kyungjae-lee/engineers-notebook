@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C++ Programming</a> > Vectors
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">C++ Programming</a> > Vectors
 
 # Vectors
 
