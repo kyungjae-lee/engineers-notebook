@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Unix/Linux</a> > .vimrc
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Unix/Linux</a> > .vimrc
 
 # .vimrc (Vim Run Command)
 

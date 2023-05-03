@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > Unix/Linux
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > Unix/Linux
 
 # Unix/Linux
 
