@@ -65,7 +65,7 @@
 
   1. Direct execution of SVC instruction with an immediate value.  
 
-     e.g., `svc #0x04` in assembly (using `svc` instruction is very efficient in terms of latency)
+     e.g., `svc #0x04` in assembly (using `svc` instruction is very efficient in terms of latency because it will execute as soon as it is called.)
 
   2. Setting the exception pending bit in **System Handler Control and State Register** of the processor. (Uncommon method)
 
