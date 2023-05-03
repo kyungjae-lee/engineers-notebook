@@ -23,7 +23,7 @@ Notebook
 * **<a href="./multi-threading/">Multi-Threading (POSIX Threads)</a>**
 * **<a href="./c-programming/">C Programming</a>**
 * **<a href="./cpp-programming/">C++ Programming</a>**
-* **<a href="./data-structures/">Data Structures</a>**
+* **<a href="./data-structures-and-algorithms/">Data Structures & Algorithms</a>**
 * **<a href="./computer-architecture-and-organization/">Computer Architecture & Organization</a>**
 * **<a href="./unix-linux/">Unix/Linux</a>**
 * **<a href="./computer-networks-and-network-security/">Computer Networks & Network Security</a>**
