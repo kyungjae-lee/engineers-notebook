@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Exceptions for System-Level Services
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Exceptions for System-Level Services
 
 # Exceptions for System-Level Services
 

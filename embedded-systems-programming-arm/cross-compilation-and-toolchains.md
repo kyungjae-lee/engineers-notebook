@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Cross Compilation & Toolchains
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Cross Compilation & Toolchains
 
 # Cross Compilation & Toolchains
 

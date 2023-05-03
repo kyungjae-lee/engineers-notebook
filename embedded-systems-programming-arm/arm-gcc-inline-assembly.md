@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > ARM GCC Inline Assembly
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > ARM GCC Inline Assembly
 
 # ARM GCC Inline Assembly
 

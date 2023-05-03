@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Implementing a Scheduler
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Implementing a Scheduler
 
 # Implementing a Scheduler
 

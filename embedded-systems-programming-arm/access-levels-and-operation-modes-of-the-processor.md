@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Access Levels & Operation Modes of the Processor
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Access Levels & Operation Modes of the Processor
 
 # Access Levels & Operation Modes of the Processor
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Memory Mapped vs Non-Memory Mapped Registers
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Memory Mapped vs Non-Memory Mapped Registers
 
 # Memory Mapped vs Non-Memory Mapped Registers
 

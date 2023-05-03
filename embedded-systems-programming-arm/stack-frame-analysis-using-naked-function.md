@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Stack Analysis Using `__attribute__((naked))` Function
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Stack Analysis Using `__attribute__((naked))` Function
 
 # Stack Frame Analysis Using `__attribute__((naked))` Function
 

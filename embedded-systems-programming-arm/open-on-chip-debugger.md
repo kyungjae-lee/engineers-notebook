@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Open On-Chip Debugger (OpenOCD)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Open On-Chip Debugger (OpenOCD)
 
 # Open On-Chip Debugger (OpenOCD)
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Analyzing Relocatable Object Files (.o)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Analyzing Relocatable Object Files (.o)
 
 # Analyzing Relocatable Object Files (.o)
 

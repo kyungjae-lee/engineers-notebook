@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > General Purpose Input/Output (GPIO)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > General Purpose Input/Output (GPIO)
 
 # General Purpose Input/Output (GPIO)
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs
 
 # Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs
 

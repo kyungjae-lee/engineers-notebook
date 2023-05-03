@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Interrupt Priority & Priority Configuration
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Interrupt Priority & Priority Configuration
 
 # Interrupt Priority & Priority Configuration
 

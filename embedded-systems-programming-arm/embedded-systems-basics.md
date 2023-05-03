@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Systems Programming (ARM)</a> > Embedded Systems Basics
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> >  <a href="./">Embedded Systems Programming (ARM)</a> > Embedded Systems Basics
 
 # Embedded Systems Basics
 
