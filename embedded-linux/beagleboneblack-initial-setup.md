@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > BeagleBoneBlack(BBB) Initial Setup
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > BeagleBoneBlack(BBB) Initial Setup
 
 # BeagleBoneBlack(BBB) Initial Setup
 

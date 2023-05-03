@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > Linux Device Tree (Flattened Device Tree)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > Linux Device Tree (Flattened Device Tree)
 
 # Linux Device Tree (Flattened Device Tree)
 

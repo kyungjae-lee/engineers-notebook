@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > Exercise - Booting RBL & MLO on BBB
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > Exercise - Booting RBL & MLO on BBB
 
 # Exercise - Booting RBL & MLO on BBB
 

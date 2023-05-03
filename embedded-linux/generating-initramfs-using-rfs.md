@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > Generating "initramfs" Using RFS
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > Generating "initramfs" Using RFS
 
 # Generating "initramfs" Using RFS
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > Embedded Linux
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > Embedded Linux
 
 # Embedded Linux
 

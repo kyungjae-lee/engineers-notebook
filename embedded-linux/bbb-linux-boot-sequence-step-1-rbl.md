@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > BBB Linux Boot Sequence - Step 1: RBL
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > BBB Linux Boot Sequence - Step 1: RBL
 
 # BBB Linux Boot Sequence - Step 1: RBL
 

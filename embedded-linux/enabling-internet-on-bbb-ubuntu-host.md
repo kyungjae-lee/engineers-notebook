@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > Enabling Internet on BBB - Ubuntu Host
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > Enabling Internet on BBB - Ubuntu Host
 
 # Enabling Internet on BBB - Ubuntu Host
 

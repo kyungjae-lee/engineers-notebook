@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > BBB Linux Boot Sequence - Step 4: Linux Kernel
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > BBB Linux Boot Sequence - Step 4: Linux Kernel
 
 # BBB Linux Boot Sequence - Step 4: Linux Kernel
 

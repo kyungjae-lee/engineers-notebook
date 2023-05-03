@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > Root File System (RFS) & Directory Structure
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > Root File System (RFS) & Directory Structure
 
 # Root File System (RFS) & Directory Structure
 

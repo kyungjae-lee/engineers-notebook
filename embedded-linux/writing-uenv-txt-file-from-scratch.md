@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > Writing uEnv.txt File from Scratch
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > Writing uEnv.txt File from Scratch
 
 # Writing uEnv.txt File from Scratch
 

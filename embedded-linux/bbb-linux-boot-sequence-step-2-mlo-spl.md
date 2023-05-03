@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Embedded Linux</a> > BBB Linux Boot Sequence - Step 2: MLO/SPL
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Embedded Linux</a> > BBB Linux Boot Sequence - Step 2: MLO/SPL
 
 # BBB Linux Boot Sequence - Step 2: MLO/SPL
 
