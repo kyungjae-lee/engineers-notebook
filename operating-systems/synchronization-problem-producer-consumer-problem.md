@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Synchronization Problem - Producer/Consumer Problem
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Synchronization Problem - Producer/Consumer Problem
 
 # Synchronization Problem - Producer/Consumer Problem
 

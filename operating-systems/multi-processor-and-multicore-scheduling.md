@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Multiprocessor and Multicore Scheduling
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Multiprocessor and Multicore Scheduling
 
 # Multiprocessor and Multicore Scheduling
 

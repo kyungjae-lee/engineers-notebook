@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Memory Management Requirements
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Memory Management Requirements
 
 # Memory Management Requirements
 

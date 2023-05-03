@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Hardware & Control Structures
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Hardware & Control Structures
 
 # Hardware & Control Structures
 

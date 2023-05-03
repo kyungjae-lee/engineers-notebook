@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Mutual Exclusion - Semaphores (OS Support)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Mutual Exclusion - Semaphores (OS Support)
 
 # Mutual Exclusion - Semaphores (OS Support)
 

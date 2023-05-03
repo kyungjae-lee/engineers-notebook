@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Summary of Memory Management Techniques
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Summary of Memory Management Techniques
 
 # Summary of Memory Management Techniques
 

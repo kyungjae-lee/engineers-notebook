@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > Operating Systems
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > Operating Systems
 
 # Operating Systems
 

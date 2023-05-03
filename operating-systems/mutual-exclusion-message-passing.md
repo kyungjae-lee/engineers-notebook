@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Mutual Exclusion - Monitors (Programming Language Support)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Mutual Exclusion - Monitors (Programming Language Support)
 
 # Mutual Exclusion - Message Passing
 

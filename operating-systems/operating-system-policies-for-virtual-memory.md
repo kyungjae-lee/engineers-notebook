@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Operating System Policies for Virtual Memory
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Operating System Policies for Virtual Memory
 
 # Operating System Policies for Virtual Memory
 

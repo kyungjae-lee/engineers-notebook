@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Interrupt vs. Trap
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Interrupt vs. Trap
 
 # Interrupt vs. Trap in OS
 

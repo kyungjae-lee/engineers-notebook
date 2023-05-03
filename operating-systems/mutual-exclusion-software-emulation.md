@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Operating Systems</a> > Mutual Exclusion - Software Emulation
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Operating Systems</a> > Mutual Exclusion - Software Emulation
 
 # Mutual Exclusion - Software Emulation
 
