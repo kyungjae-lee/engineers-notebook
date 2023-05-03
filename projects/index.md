@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > Projects
+<a href="../">Home</a> > Projects
 
 # Projects
 

@@ -1,12 +1,8 @@
-Notebook
+Home <a href="./notebook">Notebook</a> <a href="./projects">Projects</a>
 
 # Engineer's Notebook
 
-###### One-stop knowledge management system - by Kyungjae Lee (kjxlee@gmail.com / [LinkedIn](https://www.linkedin.com/in/kyungjaelee/))
-
-> *"I'm creating this knowledge base to document what I've learned and stop wasting time searching for the same information over and over again."*
->
-> $-$ January 2021 $-$
+###### Kyungjae's documentation website for storing reusable technical knowledge gained from personal endeavors
 
 
 
@@ -14,22 +10,8 @@ Notebook
 
 
 
-### Notebooks
+* To view my notes, go to **<a href="./notebook">Notebook</a>**.
+* To view my projects, go to **<a href="./projects">Projects</a>**.
+* Connect with me on **[LinkedIn](https://www.linkedin.com/in/kyungjaelee/)**.
+* Contact me at **kjxlee@gmail.com**.
 
-* **<a href="./embedded-systems-programming-arm/">Embedded Systems Programming (ARM)</a>**
-* **<a href="./real-time-operating-systems/">Real-Time Operating Systems (RTOS)</a>**
-* **<a href="./operating-systems/">Operating Systems</a>**
-* **<a href="./embedded-linux/">Embedded Linux</a>**
-* **<a href="./multi-threading/">Multi-Threading (POSIX Threads)</a>**
-* **<a href="./c-programming/">C Programming</a>**
-* **<a href="./cpp-programming/">C++ Programming</a>**
-* **<a href="./data-structures-and-algorithms/">Data Structures & Algorithms</a>**
-* **<a href="./computer-architecture-and-organization/">Computer Architecture & Organization</a>**
-* **<a href="./unix-linux/">Unix/Linux</a>**
-* **<a href="./computer-networks-and-network-security/">Computer Networks & Network Security</a>**
-* **<a href="./makefile-and-build-system/">Makefile & Build System</a>**
-* **<a href="./problem-solving/">Problem Solving</a>**
-
-### Projects
-
-* **<a href="./projects/">Projects</a>**
