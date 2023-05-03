@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Thread-Safe Highly Concurrent CRUD Operations
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Thread-Safe Highly Concurrent CRUD Operations
 
 # Thread Synchronization - Thread-Safe Highly Concurrent CRUD Operations
 

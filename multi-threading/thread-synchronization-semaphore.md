@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Semaphore
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Synchronization - Semaphore
 
 # Thread Synchronization - Semaphore
 

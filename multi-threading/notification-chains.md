@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Notification Chains (NFC)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Notification Chains (NFC)
 
 # Notification Chains (NFC)
 

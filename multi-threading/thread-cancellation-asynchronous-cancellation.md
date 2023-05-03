@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Cancellation - Asynchronous Cancellation
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Multi-Threading (POSIX Threads)</a> > Thread Cancellation - Asynchronous Cancellation
 
 # Thread Cancellation - Asynchronous Cancellation
 

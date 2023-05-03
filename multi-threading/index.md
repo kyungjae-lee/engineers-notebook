@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > Multi-Threading (POSIX Threads)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > Multi-Threading (POSIX Threads)
 
 # Multi-Threading (POSIX Threads)
 
