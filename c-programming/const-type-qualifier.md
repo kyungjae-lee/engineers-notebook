@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C Programming</a> > `const` Type Qualifier
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">C Programming</a> > `const` Type Qualifier
 
 # `const` Type Qualifier
 

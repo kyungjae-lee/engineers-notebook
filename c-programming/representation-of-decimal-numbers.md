@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C Programming</a> > Representation of Decimal Numbers
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">C Programming</a> > Representation of Decimal Numbers
 
 # Representation of Decimal Numbers
 

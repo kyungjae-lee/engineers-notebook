@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">C Programming</a> > Using `const` & `volatile` Type Qualifiers Together
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">C Programming</a> > Using `const` & `volatile` Type Qualifiers Together
 
 # Using `const` & `volatile` Type Qualifiers Together
 
