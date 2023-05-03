@@ -2,7 +2,7 @@ Home <a href="./notebook">Notebook</a> <a href="./projects">Projects</a>
 
 # Engineer's Notebook
 
-###### Kyungjae's documentation website for storing reusable technical knowledge gained from personal endeavors
+###### Kyungjae's website for publishing reusable technical knowledge gained from personal endeavors
 
 
 
