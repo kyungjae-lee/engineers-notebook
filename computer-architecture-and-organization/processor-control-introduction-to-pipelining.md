@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Processor Control - Introduction to Pipelining
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Processor Control - Introduction to Pipelining
 
 # Processor Control - Introduction to Pipelining
 

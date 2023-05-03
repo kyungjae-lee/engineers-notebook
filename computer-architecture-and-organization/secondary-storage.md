@@ -1,12 +1,12 @@
-<a href="../">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Secondary Storage
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Secondary Storage
 
 # Secondary Storage
 
 
 
-## 1. Disk Drive
+## Disk Drive
 
-### 1.1. Disk Drive Format (Side View)
+### Disk Drive Format (Side View)
 
 Read/Write Head is electro-magnetic. This is how the read/write head reads/writes from/to the platter.
 
@@ -14,7 +14,7 @@ Read/Write Head is electro-magnetic. This is how the read/write head reads/write
 
 <img src="./img/disk-drive-format-side-view.png" alt="disk-drive-format-side-view" width="630">
 
-### 1.2. Disk Drive Format (Diagonal View)
+### Disk Drive Format (Diagonal View)
 
 * **Sector**
   * The smallest unit of data that can be read from or written to the (magnetic or optical) disk

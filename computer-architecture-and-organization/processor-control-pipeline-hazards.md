@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Processor Control - Pipeline Hazards
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Processor Control - Pipeline Hazards
 
 # Processor Control - Pipeline Hazards
 

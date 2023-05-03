@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > Computer Architecture & Organization
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > Computer Architecture & Organization
 
 # Computer Architecture & Organization
 

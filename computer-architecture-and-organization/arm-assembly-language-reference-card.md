@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > ARM Assembly Language Reference Card
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > ARM Assembly Language Reference Card
 
 # ARM Assembly Language Reference Card
 

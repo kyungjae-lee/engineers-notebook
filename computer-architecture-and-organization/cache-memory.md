@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Cache Memory
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Cache Memory
 
 # Cache Memory
 
