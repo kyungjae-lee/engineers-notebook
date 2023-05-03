@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > Overview of FreeRTOS Synchronization and Mutual Exclusion Services
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > Overview of FreeRTOS Synchronization and Mutual Exclusion Services
 
 # Overview of FreeRTOS Synchronization and Mutual Exclusion Services
 

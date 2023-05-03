@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > SEGGER SystemView UART-Based Recording
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > SEGGER SystemView UART-Based Recording
 
 # SEGGER SystemView UART-Based Recording
 

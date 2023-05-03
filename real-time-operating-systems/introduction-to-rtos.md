@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > Introduction to RTOS
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > Introduction to RTOS
 
 # Introduction to RTOS
 

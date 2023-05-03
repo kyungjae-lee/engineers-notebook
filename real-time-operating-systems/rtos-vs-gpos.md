@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > RTOS vs. GPOS
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > RTOS vs. GPOS
 
 # RTOS vs. GPOS
 

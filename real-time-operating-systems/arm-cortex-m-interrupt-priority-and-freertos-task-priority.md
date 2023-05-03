@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > ARM Cortex-M Interrupt Priority & FreeRTOS Task Priority
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > ARM Cortex-M Interrupt Priority & FreeRTOS Task Priority
 
 # ARM Cortex-M Interrupt Priority & FreeRTOS Task Priority
 

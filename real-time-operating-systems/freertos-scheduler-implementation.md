@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > FreeRTOS Scheduler Implementation
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > FreeRTOS Scheduler Implementation
 
 # FreeRTOS Scheduler Implementation
 

@@ -1,4 +1,4 @@
-<a href="../">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > Overview of FreeRTOS Memory Management
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Real-Time Operating Systems (RTOS)</a> > Overview of FreeRTOS Memory Management
 
 # Overview of FreeRTOS Memory Management
 
