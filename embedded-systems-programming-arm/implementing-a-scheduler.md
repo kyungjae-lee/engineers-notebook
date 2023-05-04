@@ -37,7 +37,7 @@
   ```plain
   RAM_END     +-------------------+ T1_STACK_START
               | Private stack T1  |
-              +-------------------+ T1_STACK_END = T2_STACK_BEGIN
+              +-------------------+ T1_STACK_END = T2_STACK_START
               | Private stack T2  |
               +-------------------+ T2_STACK_END             
               | Private stack T3  |
