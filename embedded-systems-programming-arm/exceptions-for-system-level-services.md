@@ -111,6 +111,8 @@
 * What would happen when the scheduler is called (i.e., SysTick timer expired) while a user task was being interrupted handled (ISR)?
 
   No matter what, scheduler will do its job (i.e., pends the PendSV), preempting the currently running ISR. When the scheduler returns, ISR will pick up and continue to do what it was doing. PendSV will wait till there is no more active IRQs. So, only after the ISR is finished, the PendSV will start doing its job (i.e., context switching).
+  
+  This model helps context switch to take place after all the previously triggered ISRs are executed.
 
 
 
