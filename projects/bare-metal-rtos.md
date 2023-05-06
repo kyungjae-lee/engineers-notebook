@@ -2,7 +2,9 @@
 
 # Bare-Metal RTOS
 
-==[!] Note: This project is currently IN PROGRESS. Contents will be updated!==
+==[!] Note: This project is currently IN PROGRESS. Contents will be regularly updated!==
+
+To see the source code in progress, go to [https://github.com/kyungjae-lee/bare-metal-rtos](https://github.com/kyungjae-lee/bare-metal-rtos).
 
 
 
@@ -31,7 +33,7 @@ This project is designed to be completed in the following 3 steps:
 
 
 
-## Expected Outcome
+## Demonstration
 
 Following is the demonstration of the test application for the 'Bare-Metal RTOS' project in action. 
 
