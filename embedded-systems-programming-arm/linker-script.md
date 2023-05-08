@@ -311,7 +311,7 @@ Before writing a linker script you must understand what the linker script comman
   
       _la_data = LOADADDR(.data);
   
-      .data :
+      .data :			/* section name and the ':' must be separated by space */
       {   
           _sdata = .; /* location counter always tracks VMA, so here it contains SRAM */
           *(.data)
@@ -340,7 +340,6 @@ Before writing a linker script you must understand what the linker script comman
   }
   ```
 
-  
 
 
 
