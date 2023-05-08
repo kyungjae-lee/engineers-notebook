@@ -57,7 +57,7 @@ Startup file can be a C file (.c) or an assembly file (.s).
   > Syntax:
   >
   > ```c
-  > truct duart a __attribute__ ((section ("DUART_A"))) = { 0 };
+  > struct duart a __attribute__ ((section ("DUART_A"))) = { 0 };
   > 	// place object 'a' in 'DUART_A' section
   > struct duart b __attribute__ ((section ("DUART_B"))) = { 0 };
   > char stack[10000] __attribute__ ((section ("STACK"))) = { 0 };
