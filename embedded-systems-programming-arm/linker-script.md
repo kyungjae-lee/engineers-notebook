@@ -38,7 +38,7 @@ Before writing a linker script you must understand what the linker script comman
 
 * **MEMORY**
 
-  * Allows you to describe the different memories present in the target and there start address and size information.
+  * Allows you to describe the different memories present in the target and their start address and size information.
 
   * The linker uses information mentioned in this command to assign addresses to merged sections. (Relocation of sections)
 
@@ -129,7 +129,9 @@ Before writing a linker script you must understand what the linker script comman
     }
     ```
 
-    > [!] Note: There must be a space between a section name and a `:`. e.g., `.text :` (`.text:` will cause a syntax error.)
+    > There must be a space between a section name and a `:`. e.g., `.text :` (`.text:` will cause a syntax error.)
+    >
+    > When only VMA or LMA is applicable such as `.bss` (VMA only) or `.text` (LMA only), regard it as VMA = LMA and simply specify one. For example, for `.bss` section `>SRAM`, and for `.text` section `>FLASH` is sufficient.
 
 * **KEEP**
 
@@ -157,8 +159,6 @@ Before writing a linker script you must understand what the linker script comman
     ```
 
     > ALIGN(4) forces 4-byte word boundary alignment.
-
-* **AT>**
 
 
 
