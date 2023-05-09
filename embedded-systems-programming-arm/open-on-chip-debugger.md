@@ -4,6 +4,19 @@
 
 
 
+## Downloading Executable to Target
+
+
+
+<img src="./img/downloading-executable-to-target.png" alt="downloading-executable-to-target" width="650">
+
+
+
+* Debug adapter sits between the host machine and the target board and mediates different interfaces that host and target understand.
+* On the host you need a special application that helps send the commands to the target, debug the board, etc. One such application is the **OpenOCD**. 
+
+
+
 ## OpenOCD
 
 * The Open On-Chip Debugger (OpenOCD) aims to provide debugging, in-system programming, and boundary-scan testing for embedded target devices.
