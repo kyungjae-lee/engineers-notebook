@@ -21,7 +21,7 @@
 
 * To create a map file, you need to add the linker flag `-Map=<filename>.map` when running `arm-none-eabi-gcc` or `arm-none-eabi-ld`.
 
-  Sometimes, linker specific flags may not be recognized when running `arm-none-eabi-gcc`. For such case, perpend `-Wl,` to `-Map=<filename>.map`. (i.e., `-Wl,-Map=<filename>.map`)
+  Sometimes, linker specific flags may not be recognized when running `arm-none-eabi-gcc`. For such case, prepend `-Wl,` to `-Map=<filename>.map`. (i.e., `-Wl,-Map=<filename>.map`)
 
 * Map file example:
 
@@ -100,6 +100,8 @@
   > * L44: Next up is the `.text` section of the "led.o"
   >
   > * L60: `.rodata` section is empty since we don't have any constant data in our project.
+  >
+  > * L61: End of `.text` section is the start of `.data` section. (i.e., `_etext` = `_sdata`)
   >
   > Padding will be introduced by the linker if necessary when the section start address is not word-aligned and will be marked with something like `*fill*`. However, the linker does not care about the word-alignment of the section ending. To make sure that we word-align the end of each section for the section that will come immediately after the current section, use `ALIGN` command.
   >
