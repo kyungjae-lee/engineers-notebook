@@ -125,7 +125,7 @@ Consult the *OpenOCD User's Guide* for more information (e.g., commands).
    openocd -f /board/stm32f4discovery.cfg
    ```
 
-   > Full path to the board configuration file: `\usr\share\openocd\scripts\board\stm32f4discovery.cfg`
+   > Full path to the board configuration file: `/usr/share/openocd/scripts/board/stm32f4discovery.cfg`
    >
    > Leave this terminal busy, and launch another terminal. Go to project directory and do Step 4.
 
