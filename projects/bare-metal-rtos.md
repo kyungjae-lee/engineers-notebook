@@ -2,9 +2,7 @@
 
 # Bare-Metal RTOS
 
-==[!] Note: This project is currently IN PROGRESS. Contents will be regularly updated!==
-
-To see the source code in progress, go to [https://github.com/kyungjae-lee/bare-metal-rtos](https://github.com/kyungjae-lee/bare-metal-rtos).
+Source code: [https://github.com/kyungjae-lee/bare-metal-rtos](https://github.com/kyungjae-lee/bare-metal-rtos).
 
 
 

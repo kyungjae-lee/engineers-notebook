@@ -6,7 +6,7 @@
 
 1. **<a href="./bare-metal-rtos">Bare‑Metal RTOS</a>** 
 
-   *Apr. 2023 - Present*
+   *Apr. 2023 - May. 2023*
 
    Developing a real‐time operating system on the bare‐metal STM32F407‐Discovery board without using libraries
 
