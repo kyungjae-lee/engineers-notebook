@@ -357,50 +357,48 @@ LinkedList::~LinkedList()
 
 using namespace std;
 
-void printInfo(LinkedList *list);
-
 int main(int argc, char *argv[])
 {
     // Create a list
-    LinkedList *list = new LinkedList(2);
+    LinkedList *sll = new LinkedList(2);
     
     // Prepend
-    list->prepend(1);
+    sll->prepend(1);
 
     // Append
-    list->append(4);
-    list->append(5);
-    list->append(6);
+    sll->append(4);
+    sll->append(5);
+    sll->append(6);
 
     // Insert (insert 3 at index 2)
-    list->insert(2, 3); 
+    sll->insert(2, 3); 
 
     // Print the list
-    list->printList();      // 1 2 3 4 5 6
+    sll->printList();      // 1 2 3 4 5 6
 
     // Delete first
-    list->deleteFirst();
+    sll->deleteFirst();
 
     // Delete last
-    list->deleteLast();
+    sll->deleteLast();
 
     // Delete from the middle (index 1)
-    list->deleteNode(1);
+    sll->deleteNode(1);
 
     // Print the list
-    list->printList();      // 2 4 5
+    sll->printList();      // 2 4 5
 
     // Set (value of the node at index 1 to 10)
-    list->set(1, 10);
+    sll->set(1, 10);
 
     // Get (value of the node at index 1 to 10)
-    cout << list->get(1)->value << endl;    // 10
+    cout << sll->get(1)->value << endl;    // 10
 
     // Reverse the list
-    list->reverse();
+    sll->reverse();
 
     // Print the list
-    list->printList();      // 5 10 2
+    sll->printList();      // 5 10 2
 
     return 0;
 }
