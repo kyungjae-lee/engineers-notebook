@@ -5,6 +5,8 @@
 
 
 1. **<a href="./state-machine-and-flow-chart">State Machine & Flow Chart</a>**
+1. **<a href="./introduction-to-computer-system-architecture">Introduction to Computer System Architecture</a>**
+1. **<a href="./architecture-and-organization">Architecture & Organization</a>**
 1. **<a href="./arm-assembly-language-reference-card">ARM Assembly Language Reference Card</a>**
 1. **<a href="./processor-control-microarchitecture">Processor Control - Microarchitecture</a>**
 1. **<a href="./processor-control-introduction-to-pipelining">Processor Control - Introduction to Pipelining</a>**
