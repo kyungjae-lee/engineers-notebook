@@ -83,6 +83,7 @@ Node::Node(int value)
 //----------------------------------------------------------------------------------------
 
 // Constructor
+// T = O(1)
 LinkedList::LinkedList(int value)
 {
     Node *newNode = new Node(value);
@@ -92,6 +93,7 @@ LinkedList::LinkedList(int value)
 }
 
 // Add a node at the end
+// T = O(1)
 void LinkedList::append(int value) 
 {
     Node *newNode = new Node(value);
@@ -113,6 +115,7 @@ void LinkedList::append(int value)
 }
 
 // Add a node at the front
+// T = O(1)
 void LinkedList::prepend(int value)
 {
     Node *newNode = new Node(value);
@@ -134,6 +137,7 @@ void LinkedList::prepend(int value)
 }
 
 // Insert a node into the given index position
+// T = O(n)
 bool LinkedList::insert(int index, int value)
 {
     // Validity check for index
@@ -166,6 +170,7 @@ bool LinkedList::insert(int index, int value)
 }
 
 // Delete a node with the given index position
+// T = O(n)
 void LinkedList::deleteNode(int index)
 {
     // Validity check for index
@@ -190,6 +195,7 @@ void LinkedList::deleteNode(int index)
 }
 
 // Delete the last node
+// T = O(1)
 void LinkedList::deleteLast()
 {
     // Do not allow deleting a node from an empty list
@@ -224,6 +230,7 @@ void LinkedList::deleteLast()
 }
 
 // Delete the first node
+// T = O(1)
 void LinkedList::deleteFirst()
 {
     // Do not allow deleting a node from an empty list
@@ -247,6 +254,7 @@ void LinkedList::deleteFirst()
 }
 
 // Get the node value of the given index position
+// T = O(n)
 Node* LinkedList::get(int index)
 {
     // Validity check for index
@@ -263,6 +271,7 @@ Node* LinkedList::get(int index)
 }
 
 // Set the node value of the given index position
+// T = O(n)
 bool LinkedList::set(int index, int value)
 {
     // Get the node
@@ -279,6 +288,7 @@ bool LinkedList::set(int index, int value)
 }
 
 // Reverse the list
+// T = O(n)
 void LinkedList::reverse()
 {
     // Swap head and tail
@@ -300,6 +310,7 @@ void LinkedList::reverse()
 }
 
 // Print the list
+// T = O(n)
 void LinkedList::printList()
 {
     Node *temp = head;
@@ -313,7 +324,8 @@ void LinkedList::printList()
     cout << endl;
 }
 
-// Destructor
+// Destructo
+// T = O(n)
 LinkedList::~LinkedList()
 {
     // head, tail, length will be destroyed by default, but the nodes will not.
