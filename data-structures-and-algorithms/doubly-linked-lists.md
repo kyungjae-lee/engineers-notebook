@@ -318,7 +318,24 @@ bool DoublyLinkedList::set(int index, int value)
 // T = O(n)
 void DoublyLinkedList::reverse()
 {
-	// Implement your code here!
+    // Swap head and tail
+    Node *curr = head;
+    head = tail;
+    tail = curr;
+
+    Node *temp = nullptr;   // Temporary pointer to be used for swaping prev & next pointers
+
+    // Iteratively swap prev and next pointers
+    while (curr)
+    {   
+        // Swap prev and next
+        temp = curr->prev;
+        curr->prev = curr->next;
+        curr->next = temp;
+
+        // Advance curr
+        curr = curr->prev;
+    }   
 }
 
 // Print the list
