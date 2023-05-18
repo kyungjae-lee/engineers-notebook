@@ -1,40 +1,41 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Singly-Linked Lists
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Doubly-Linked Lists
 
-# Singly-Linked Lists
+# Doubly-Linked Lists
 
 
 
-## Singly-Linked List (C++)
+## Doubly-Linked List (C++)
 
 ### Interface
 
 ```c
 //========================================================================================
-// @ File name      : singly_linked_list.h
-// @ Description    : Interface for Linked List
+// @ File name      : doubly_linked_list.h
+// @ Description    : Interface for Doubly-Linked List
 // @ Author         : Kyungjae Lee
-// @ File created   : 05/02/2023
+// @ File created   : 05/17/2023
 //========================================================================================
 
-#ifndef SINGLY_LINKED_LIST_H
-#define SINGLY_LINKED_LIST_H
+#ifndef DOUBLY_LINKED_LIST_H
+#define DOUBLY_LINKED_LIST_H
 
-// Class for singly-linked list nodes
+// Class for list nodes
 class Node
 {
 public:
     int value;
     Node *next;
+    Node *prev;
 
     Node(int value);                    // Constructor
 };
 
-// Class for singly-linked lists
-class SinglyLinkedList
+// Class for doubly-linked lists
+class DoublyLinkedList
 {
 public:    
     // Public interface
-    SinglyLinkedList(int value);        // Constructor
+    DoublyLinkedList(int value);        // Constructor
     void append(int value);             // Add a node at the end
     void prepend(int value);            // Add a node at the front
     bool insert(int index, int value);  // Insert a node into the given index position
@@ -45,7 +46,7 @@ public:
     bool set(int index, int value);     // Set the node value of the given index position
     void reverse();                     // Reverse the list
     void printList();                   // Print the list
-    ~SinglyLinkedList();                // Destructor
+    ~DoublyLinkedList();                // Destructor
 
 private:
     Node *head;
@@ -60,14 +61,14 @@ private:
 
 ```c
 //========================================================================================
-// @ File name      : singly_linked_list.cpp
-// @ Description    : Implementation of Singly-Linked List
+// @ File name      : doubly_linked_list.cpp
+// @ Description    : Implementation of Doubly-Linked List
 // @ Author         : Kyungjae Lee
-// @ File created   : 05/02/2023
+// @ File created   : 05/17/2023
 //========================================================================================
 
 #include <iostream>
-#include "singly_linked_list.h"
+#include "doubly_linked_list.h"
 
 using namespace std;
 
@@ -80,15 +81,16 @@ Node::Node(int value)
 {
     this->value = value;
     next = nullptr;
+    prev = nullptr;
 }
 
 //----------------------------------------------------------------------------------------
-// Implementation of SinglyLinkedList class interface
+// Implementation of DoublyLinkedList class interface
 //----------------------------------------------------------------------------------------
 
 // Constructor
 // T = O(1)
-SinglyLinkedList::SinglyLinkedList(int value)
+DoublyLinkedList::DoublyLinkedList(int value)
 {
     Node *newNode = new Node(value);
     head = newNode;
@@ -98,29 +100,30 @@ SinglyLinkedList::SinglyLinkedList(int value)
 
 // Add a node at the end
 // T = O(1)
-void SinglyLinkedList::append(int value) 
+void DoublyLinkedList::append(int value) 
 {
     Node *newNode = new Node(value);
 
     // Insert a node into an empty list
     if (length == 0)    // (head == nullptr) or (tail == nullptr)
-    {
+    {   
         head = newNode;
         tail = newNode;
     }   
     // Insert a node into a non-empty list
     else
-    {
+    {   
         tail->next = newNode;
+        newNode->prev = tail;
         tail = newNode;
-    }
+    }   
 
     length++;
 }
 
 // Add a node at the front
 // T = O(1)
-void SinglyLinkedList::prepend(int value)
+void DoublyLinkedList::prepend(int value)
 {
     Node *newNode = new Node(value);
 
@@ -134,6 +137,7 @@ void SinglyLinkedList::prepend(int value)
     else
     {
         newNode->next = head;
+        head->prev = newNode;
         head = newNode;
     }
 
@@ -142,7 +146,7 @@ void SinglyLinkedList::prepend(int value)
 
 // Insert a node into the given index position
 // T = O(n)
-bool SinglyLinkedList::insert(int index, int value)
+bool DoublyLinkedList::insert(int index, int value)
 {
     // Validity check for index
     if (index < 0 || index > length)
@@ -164,9 +168,12 @@ bool SinglyLinkedList::insert(int index, int value)
 
     // Insert a node somewhere in the middle
     Node *newNode = new Node(value);
-    Node *temp = get(index - 1);
-    newNode->next = temp->next;
-    temp->next = newNode;
+    Node *before = get(index - 1);
+    Node *after = before->next;
+    newNode->prev = before;
+    newNode->next = after;
+    before->next = newNode;
+    after->prev = newNode;
 
     length++;
 
@@ -175,7 +182,7 @@ bool SinglyLinkedList::insert(int index, int value)
 
 // Delete a node with the given index position
 // T = O(n)
-void SinglyLinkedList::deleteNode(int index)
+void DoublyLinkedList::deleteNode(int index)
 {
     // Validity check for index
     if (index < 0 || index >= length)
@@ -190,9 +197,9 @@ void SinglyLinkedList::deleteNode(int index)
         return deleteLast();
 
     // Delete the node from somewhere in the middle
-    Node *before = get(index - 1);
-    Node *delNode = before->next;
-    before->next = delNode->next;
+    Node *delNode = get(index);
+    delNode->prev->next = delNode->next;
+    delNode->next->prev = delNode->prev;
     delete delNode;
 
     length--;
@@ -200,13 +207,13 @@ void SinglyLinkedList::deleteNode(int index)
 
 // Delete the last node
 // T = O(1)
-void SinglyLinkedList::deleteLast()
+void DoublyLinkedList::deleteLast()
 {
     // Do not allow deleting a node from an empty list
     if (length == 0)
         return;
 
-    Node *delNode = head;
+    Node *delNode = tail;
 
     // If only 1 node in the list
     if (length == 1)
@@ -217,25 +224,18 @@ void SinglyLinkedList::deleteLast()
     // If 2+ nodes in the list
     else
     {
-        Node *before = head;
-
-        while (delNode->next)
-        {
-            before = delNode;
-            delNode = delNode->next;
-        }
-
-        tail = before;
+        tail = tail->prev;
         tail->next = nullptr;
     }
 
     delete delNode;
+
     length--;
 }
 
 // Delete the first node
 // T = O(1)
-void SinglyLinkedList::deleteFirst()
+void DoublyLinkedList::deleteFirst()
 {
     // Do not allow deleting a node from an empty list
     if (length == 0)
@@ -251,15 +251,19 @@ void SinglyLinkedList::deleteFirst()
     }
     // If 2+ nodes in the list
     else
+    {
         head = head->next;
+        head->prev = nullptr;
+    }
 
     delete delNode;
+
     length--;
 }
 
 // Get the node value of the given index position
 // T = O(n)
-Node* SinglyLinkedList::get(int index)
+Node* DoublyLinkedList::get(int index)
 {
     // Validity check for index
     if (index < 0 || index >= length)
@@ -268,15 +272,34 @@ Node* SinglyLinkedList::get(int index)
     Node *temp = head;
 
     // Search for the node
+
+    /* This would still work, but optimization can be done!
     for (int i = 0; i < index; i++)
         temp = temp->next;
+    */
+
+    // If the index is within the first half of the list
+    if (index < length / 2)
+    {
+        // Start searching from the head
+        for (int i = 0; i < index; i++)
+            temp = temp->next;
+    }
+    // If the index is within the second half of the list
+    else
+    {
+        // Start searching from the tail
+        temp = tail;
+        for (int i = length - 1; i > index; i--)
+            temp = temp->prev;
+    }
 
     return temp;
 }
 
 // Set the node value of the given index position
 // T = O(n)
-bool SinglyLinkedList::set(int index, int value)
+bool DoublyLinkedList::set(int index, int value)
 {
     // Get the node
     Node *temp = get(index);
@@ -293,29 +316,14 @@ bool SinglyLinkedList::set(int index, int value)
 
 // Reverse the list
 // T = O(n)
-void SinglyLinkedList::reverse()
+void DoublyLinkedList::reverse()
 {
-    // Swap head and tail
-    Node *temp = head;
-    head = tail;
-    tail = temp;
-
-    Node *after = temp->next;
-    Node *before = nullptr;
-
-    // Iteratively reverse the direction of next pointer
-    for (int i = 0; i < length; i++)
-    {
-        after = temp->next;
-        temp->next = before;
-        before = temp;
-        temp = after;
-    }
+	// Implement your code here!
 }
 
 // Print the list
 // T = O(n)
-void SinglyLinkedList::printList()
+void DoublyLinkedList::printList()
 {
     Node *temp = head;
 
@@ -330,18 +338,18 @@ void SinglyLinkedList::printList()
 
 // Destructor
 // T = O(n)
-SinglyLinkedList::~SinglyLinkedList()
+DoublyLinkedList::~DoublyLinkedList()
 {
     // head, tail, length will be destroyed by default, but the nodes will not.
     // So, make sure to delete them manually in the destructor.
 
-    Node *delNode = head;
+    Node *temp = head;
 
     while (head)
     {
         head = head->next;
-        delete delNode;
-        delNode = head;
+        delete temp;
+        temp = head;
     }
 }
 ```
@@ -351,58 +359,58 @@ SinglyLinkedList::~SinglyLinkedList()
 ```c
 //========================================================================================
 // @ File name      : main.cpp
-// @ Description    : Test driver for Singly-Linked List
+// @ Description    : Test driver for Doubly-Linked List
 // @ Author         : Kyungjae Lee
-// @ File created   : 05/02/2023
+// @ File created   : 05/17/2023
 //========================================================================================
 
 #include <iostream>
-#include "singly_linked_list.h"
+#include "doubly_linked_list.h"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    // Create a list
-    SinglyLinkedList *sll = new SinglyLinkedList(2);
+    // Create a doubly-linked list
+    DoublyLinkedList *dll = new DoublyLinkedList(2);
     
     // Prepend
-    sll->prepend(1);
+    dll->prepend(1);
 
     // Append
-    sll->append(4);
-    sll->append(5);
-    sll->append(6);
+    dll->append(4);
+    dll->append(5);
+    dll->append(6);
 
     // Insert (insert 3 at index 2)
-    sll->insert(2, 3);  
+    dll->insert(2, 3);  
 
     // Print the list
-    sll->printList();       // 1 2 3 4 5 6
+    dll->printList();       // 1 2 3 4 5 6
 
     // Delete first
-    sll->deleteFirst();
+    dll->deleteFirst();
 
     // Delete last
-    sll->deleteLast();
+    dll->deleteLast();
 
     // Delete from the middle (index 1)
-    sll->deleteNode(1);
+    dll->deleteNode(1);
 
     // Print the list
-    sll->printList();       // 2 4 5
+    dll->printList();       // 2 4 5
 
     // Set (value of the node at index 1 to 10)
-    sll->set(1, 10);
+    dll->set(1, 10);
 
     // Get (value of the node at index 1 to 10)
-    cout << sll->get(1)->value << endl; // 10
+    cout << dll->get(1)->value << endl; // 10
 
     // Reverse the list
-    sll->reverse();
+    dll->reverse();
 
     // Print the list
-    sll->printList();       // 5 10 2
+    dll->printList();       // 5 10 2
 
     return 0;
 }
