@@ -54,8 +54,7 @@
 
 ## Properties of Boolean Variables
 
-* Boolean variables follow the normal commutative, associative, and
-  distributive laws of conventional algebra.
+* Boolean variables follow the normal commutative, associative, and distributive laws of conventional algebra.
 
   ```plain
   X + Y + Z = Z + Y + X         (commutative law)
