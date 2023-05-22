@@ -28,4 +28,5 @@
 ### Linux Internals
 
 * **<a href="./embedded-linux/">Embedded Linux</a>**
+* **<a href="./linux-device-drivers/">Linux Device Drivers</a>**
 
