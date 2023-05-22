@@ -12,6 +12,7 @@
 1. **<a href="./overview-of-the-computer-system">Overview of the Computer System</a>**
 1. **<a href="./boolean-algebra">Boolean Algebra</a>**
 1. **<a href="./computer-logic">Computer Logic</a>**
+1. **<a href="./sequential-circuits">Sequential Circuits</a>**
 1. **<a href="./arm-assembly-language-reference-card">ARM Assembly Language Reference Card</a>**
 1. **<a href="./processor-control-microarchitecture">Processor Control - Microarchitecture</a>**
 1. **<a href="./processor-control-introduction-to-pipelining">Processor Control - Introduction to Pipelining</a>**
