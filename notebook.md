@@ -12,21 +12,17 @@
 * **<a href="./data-structures-and-algorithms/">Data Structures & Algorithms</a>**
 * **<a href="./c-programming/">C Programming</a>**
 * **<a href="./cpp-programming/">C++ Programming</a>**
-* **<a href="./unix-linux/">Unix/Linux</a>**
 * **<a href="./computer-networks-and-network-security/">Computer Networks & Network Security</a>**
 * **<a href="./problem-solving/">Problem Solving</a>**
-
-
 
 ### Embedded Systems
 
 * **<a href="./arm-cortex-m3-m4-processor-architecture/">ARM Cortex-M3/M4 Processor Architecture</a>**
 * **<a href="./real-time-operating-systems/">Real-Time Operating Systems (RTOS)</a>**
 
+### Linux
 
-
-### Linux Internals
-
+* **<a href="./unix-linux/">Unix/Linux</a>**
 * **<a href="./embedded-linux/">Embedded Linux</a>**
 * **<a href="./linux-device-drivers/">Linux Device Drivers</a>**
 
