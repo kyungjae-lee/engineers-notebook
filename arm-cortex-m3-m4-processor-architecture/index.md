@@ -4,21 +4,13 @@
 
 
 
-### Common
+### Introduction
 
 1. **<a href="./embedded-systems-basics">Embedded Systems Basics</a>**
-2. **<a href="./cross-compilation-and-toolchains">Cross Compilation & Tool Chains</a>**
-3. **<a href="./build-process-and-makefile">Build Process & Makefile</a>**
 4. **<a href="./cubeide-tips">CubeIDE Tips</a>**
 5. **<a href="./arm-assembly-language-reference-card">ARM Assembly Language Reference Card</a>**
 
-### STM32F407 Discovery Board
-
-1. **<a href="./implementing-delay">Implementing `delay()`</a>**
-1. **<a href="./using-printf-on-arm-cortex-m3-m4-m7-based-mcus">Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs</a>**
-1. **<a href="./general-purpose-input-output">General Purpose Input/Output (GPIO)</a>**
-
-### ARM Cortex-M3/M4 Processor
+### ARM Cortex-M3/M4 Processor Architecture
 
 1. **<a href="./memory-map">Memory Map</a>**
 2. **<a href="./bus-interfaces">Bus Interfaces</a>**
@@ -43,11 +35,19 @@
 ### Bare-Metal Programming
 
 1. **<a href="./bare-metal-programming-overview">Bare-Metal Programming Overview</a>**
-2. **<a href="./analyzing-relocatable-object-files">Analyzing Relocatable Object Files (.o)</a>**
-3. **<a href="./different-sections-of-a-program">Different Sections of a Program</a>**
-4. **<a href="./startup-file">Startup File</a>**
-5. **<a href="./linker-script">Linker Script</a>**
-6. **<a href="./elf-file-analysis">ELF File Analysis</a>**
-7. **<a href="./open-on-chip-debugger">Open On-Chip Debugger (OpenOCD)</a>**
-8. **<a href="./semihosting">Semihosting</a>**
+2. **<a href="./cross-compilation-and-toolchains">Cross Compilation & Tool Chains</a>**
+3. **<a href="./build-process-and-makefile">Build Process & Makefile</a>**
+4. **<a href="./analyzing-relocatable-object-files">Analyzing Relocatable Object Files (.o)</a>**
+5. **<a href="./different-sections-of-a-program">Different Sections of a Program</a>**
+6. **<a href="./startup-file">Startup File</a>**
+7. **<a href="./linker-script">Linker Script</a>**
+8. **<a href="./elf-file-analysis">ELF File Analysis</a>**
+9. **<a href="./open-on-chip-debugger">Open On-Chip Debugger (OpenOCD)</a>**
+10. **<a href="./semihosting">Semihosting</a>**
+
+### STM32F407 Discovery Board
+
+1. **<a href="./implementing-delay">Implementing `delay()`</a>**
+1. **<a href="./using-printf-on-arm-cortex-m3-m4-m7-based-mcus">Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs</a>**
+1. **<a href="./general-purpose-input-output">General Purpose Input/Output (GPIO)</a>**
 
