@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Data Link Layer - Address Resolution Protocol (ARP)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks</a> > Data Link Layer - Address Resolution Protocol (ARP)
 
 # Data Link Layer - Address Resolution Protocol (ARP)
 

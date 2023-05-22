@@ -1,10 +1,8 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > Computer Networks & Network Security
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > Computer Networks
 
-# Computer Networks & Network Security
+# Computer Networks
 
 
-
-### Computer Networks
 
 1. **<a href="./introduction-to-computer-networks">Introduction to Computer Networks</a>**
 2. **<a href="./osi-reference-model">OSI Reference Model</a>**
@@ -17,7 +15,3 @@
 9. **<a href="./network-layer-ipv4-address-subnetting">Network Layer - IPv4 Address - Subnetting</a>**
 10. **<a href="./network-layer-dynamic-host-configuration-protocol">Network Layer - Dynamic Host Configuration Protocol (DHCP)</a>**
 11. **<a href="./application-layer-domain-name-system">Application Layer - Domain Name System (DNS)</a>**
-
-
-
-### Network Security

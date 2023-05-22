@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > OSI Reference Model
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks</a> > OSI Reference Model
 
 # OSI Reference Model
 

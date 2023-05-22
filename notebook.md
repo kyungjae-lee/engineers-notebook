@@ -12,7 +12,7 @@
 * **<a href="./data-structures-and-algorithms/">Data Structures & Algorithms</a>**
 * **<a href="./c-programming/">C Programming</a>**
 * **<a href="./cpp-programming/">C++ Programming</a>**
-* **<a href="./computer-networks-and-network-security/">Computer Networks & Network Security</a>**
+* **<a href="./computer-networks/">Computer Networks</a>**
 * **<a href="./problem-solving/">Problem Solving</a>**
 
 ### Embedded Systems

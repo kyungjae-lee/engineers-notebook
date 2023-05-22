@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Network Layer - IPv4 Address - Public vs. Private IP Addresses
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks</a> > Network Layer - IPv4 Address - Public vs. Private IP Addresses
 
 # Network Layer - IPv4 Address - Public vs. Private IP Addresses
 

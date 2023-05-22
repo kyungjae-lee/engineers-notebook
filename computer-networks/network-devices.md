@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Network Devices
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks</a> > Network Devices
 
 # Network Devices
 

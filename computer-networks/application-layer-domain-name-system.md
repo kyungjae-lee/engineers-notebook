@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks & Network Security</a> > Application Layer - Domain Name System (DNS)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Networks</a> > Application Layer - Domain Name System (DNS)
 
 # Application Layer - Domain Name System (DNS)
 
