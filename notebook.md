@@ -20,7 +20,7 @@
 
 ### Embedded Systems
 
-* **<a href="./embedded-systems-programming-arm/">Embedded Systems Programming (ARM)</a>**
+* **<a href="./arm-cortex-m3-m4-processor-architecture/">ARM Cortex-M3/M4 Processor Architecture</a>**
 * **<a href="./real-time-operating-systems/">Real-Time Operating Systems (RTOS)</a>**
 
 
