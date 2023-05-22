@@ -45,7 +45,7 @@
 9. **<a href="./open-on-chip-debugger">Open On-Chip Debugger (OpenOCD)</a>**
 10. **<a href="./semihosting">Semihosting</a>**
 
-### STM32F407 Discovery Board
+### STM32F407xx MCUs
 
 1. **<a href="./implementing-delay">Implementing `delay()`</a>**
 1. **<a href="./using-printf-on-arm-cortex-m3-m4-m7-based-mcus">Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs</a>**
