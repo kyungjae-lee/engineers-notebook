@@ -4,12 +4,6 @@
 
 
 
-
-
-
-
-
-
 ## Floating-Point Notation
 
 * A floating-point value is stored as two components:
@@ -65,7 +59,7 @@
 <img src="./img/representing-the-value-zero-in-floating-point-arithmetic.png" alt="representing-the-value-zero-in-floating-point-arithmetic" width="500">
 
 
-       
+​       
 
 ## IEEE Floating-Point Numbers
 
