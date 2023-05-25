@@ -15,6 +15,7 @@
 1. **<a href="./sequential-circuits">Sequential Circuits</a>**
 1. **<a href="./multiplication-and-division">Multiplication & Division</a>**
 1. **<a href="./floating-point-numbers">Floating-Point Numbers</a>**
+1. **<a href="./floating-point-arithmetic">Floating-Point Arithmetic</a>**
 1. **<a href="./arm-assembly-language-reference-card">ARM Assembly Language Reference Card</a>**
 1. **<a href="./processor-control-microarchitecture">Processor Control - Microarchitecture</a>**
 1. **<a href="./processor-control-introduction-to-pipelining">Processor Control - Introduction to Pipelining</a>**
