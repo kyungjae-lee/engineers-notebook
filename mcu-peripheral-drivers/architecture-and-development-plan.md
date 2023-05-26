@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Architecture & Development Plan
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > Architecture & Development Plan
 
 # Architecture & Development Plan
 

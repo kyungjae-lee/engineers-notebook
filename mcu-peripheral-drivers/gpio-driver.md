@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > GPIO Driver (`stm32f407xx_gpio_driver.h/.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Driver (`stm32f407xx_gpio_driver.h/.c`)
 
 # GPIO Driver (`stm32f407xx_gpio_driver.h/.c`)
 

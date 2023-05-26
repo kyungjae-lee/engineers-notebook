@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > MCU Block Diagram
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > MCU Block Diagram
 
 # MCU Block Diagram
 

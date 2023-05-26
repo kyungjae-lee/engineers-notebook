@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > GPIO Application 3: Toggling External LED with External Button (`03_ext_led_toggle_with_ext_button.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 3: Toggling External LED with External Button (`03_ext_led_toggle_with_ext_button.c`)
 
 # GPIO Application 3: Toggling External LED with External Button (`03_ext_led_toggle_with_ext_button.c`)
 

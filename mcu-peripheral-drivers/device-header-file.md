@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Device Header File (stm32f407xx.h)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > Device Header File (stm32f407xx.h)
 
 # Device Header File (stm32f407xx.h)
 

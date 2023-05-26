@@ -6,19 +6,18 @@
 
 ### Introduction to Microcontroller
 
-1. **<a href="./stm32cubeide-features-and-tips">STM32CubeIDE Features & Tips</a>**
-2. **<a href="./memory-map">Memory Map</a>**
-3. **<a href="./mcu-bus-interfaces">MCU Bus Interfaces</a>**
-4. **<a href="./mcu-block-diagram">MCU Block Diagram</a>**
-5. **<a href="./clocks">Clocks</a>**
-6. **<a href="./vector-table">Vector Table</a>**
-7. **<a href="./interrupts">Interrupts</a>**
+1. **<a href="./memory-map">Memory Map</a>**
+2. **<a href="./mcu-bus-interfaces">MCU Bus Interfaces</a>**
+3. **<a href="./mcu-block-diagram">MCU Block Diagram</a>**
+4. **<a href="./clocks">Clocks</a>**
+5. **<a href="./vector-table">Vector Table</a>**
+6. **<a href="./interrupts">Interrupts</a>**
 
 
 
 ### MCU Peripheral Driver Development
 
-1. **<a href="./development-plan-and-architecture">Development Plan & Architecture</a>**
+1. **<a href="./architecture-and-development-plan">Architecture & Development Plan</a>**
 1. **<a href="./device-header-file">Device Header File (`stm32f407xx.h`)</a>**
 
 ##### General Purpose Input/Output (GPIO) Driver

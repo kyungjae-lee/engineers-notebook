@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > GPIO Application 4: Toggling LED with External Button Interrupt (`04_led_toggle_with_ext_button_interrupt.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 4: Toggling LED with External Button Interrupt (`04_led_toggle_with_ext_button_interrupt.c`)
 
 # GPIO Application 4: Toggling LED with External Button Interrupt (`04_led_toggle_with_ext_button_interrupt.c`)
 

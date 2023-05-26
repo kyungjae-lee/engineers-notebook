@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > GPIO Application 2: Toggling On-board LED with On-board Button (`02_led_toggle_with_button.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 2: Toggling On-board LED with On-board Button (`02_led_toggle_with_button.c`)
 
 # GPIO Application 2: Toggling On-board LED with On-board Button (`02_led_toggle_with_button.c`)
 
