@@ -4,7 +4,7 @@
 
 
 
-### Computer Science Basics
+### Computer Science
 
 * **<a href="./operating-systems/">Operating Systems</a>**
 * **<a href="./computer-architecture-and-organization/">Computer Architecture & Organization</a>**
