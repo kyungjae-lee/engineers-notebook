@@ -18,6 +18,7 @@
 ### Embedded Systems
 
 * **<a href="./arm-cortex-m3-m4-processor-architecture/">ARM Cortex-M3/M4 Processor Architecture</a>**
+* **<a href="./mcu-peripheral-drivers/">MCU Peripheral Drivers</a>**
 * **<a href="./real-time-operating-systems/">Real-Time Operating Systems (RTOS)</a>**
 
 ### Linux
