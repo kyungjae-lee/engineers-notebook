@@ -22,6 +22,7 @@
 1. **<a href="./introduction-to-the-stored-program-machine-and-arm">Introduction to the Stored Program Machine & ARM</a>**
 1. **<a href="./arm-assembly-language">ARM Assembly Language</a>**
 1. **<a href="./arm-register-set">ARM Register Set</a>**
+1. **<a href="./arm-addressing-modes">ARM Addressing Modes</a>**
 1. **<a href="./processor-control-microarchitecture">Processor Control - Microarchitecture</a>**
 1. **<a href="./processor-control-introduction-to-pipelining">Processor Control - Introduction to Pipelining</a>**
 1. **<a href="./processor-control-pipeline-hazards">Processor Control - Pipeline Hazards</a>**
