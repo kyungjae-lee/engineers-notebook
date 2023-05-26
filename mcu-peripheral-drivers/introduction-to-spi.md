@@ -136,6 +136,177 @@
 
 
 
+## SPI Block Diagram
+
+* Most of the MCUs have similar SPI block diagrams. The foundation is the "Shift register communication".
+
+
+
+<img src="img/spi-block-diagram.png" alt="spi-block-diagram" width="800">
+
+
+
+* In the case of STM32F407xx MCU, the width of the shift register is 16-bit.
+
+* Rx/Tx buffers can be accessed from the address and data bus (APB bus).
+
+  * Tx mechanism:
+
+    When the Tx buffer is free, an interrupt (**Tx buffer empty**) will be triggered and the data application wants to send will be loaded into the Tx buffer. The data will be loaded into the shift register when it's free and then will be sent out through the corresponding communication line.
+
+  * Rx mechanism:
+
+    Whenever the data is received, it will be stored in the shift register. When a complete data unit (8-bit) is received, the shift register will load that data into the Rx buffer. Once done, an interrupt (**Rx buffer full**) will be triggered and the application will read the data from the Rx buffer.
+
+* By using the SPI control registers (`SPIx_CR1`, `SPIx_CR2`) you can configure various aspects of the SPI communication.
+
+
+
+## Slave Select (NSS) Pin Management
+
+* When a device is in slave mode:
+
+  * In slave mode, the NSS works as a standard "chip select" input and lets the slave communicate with the master.
+
+* When a device is in master mode:
+
+  * In master mode, NSS can be used either as output or input.
+
+  * As an input it can prevent multi-master bus collision, and as an output it can drive a slave select signal of a single slave.
+
+  * Example: Single master, single slave scenario
+
+    NSS pin is not required, so set the master's NSS pin to output, the slave's NSS pin to input. (If you set the master's NSS pin to intput then it will be used in detecting multi-master collision when you use the MCU as multi-master circuit. $\to$ Beyond the scope of this project.)
+
+
+
+## 2 Types of Slave Managements
+
+* Hardware or software slave select management can be set using the `SSM` bit in the `SPIx_CR1` register.
+
+### Hardware Slave Management
+
+* In this case, you are using the actual hardware to select the slave.
+* Hardware NSS management (`SSM = 0`)
+  * The NSS pin is managed by the hardware.
+  * The master's NSS pin must be in output mode.
+  * The NSS line must be pulled to low to activate slave's communication with the master.
+
+### Software Slave Management
+
+* Software NSS management (`SSM = 1`)
+  * In this configuration, slave select information is driven internally by the `SSI` bit value in the control register `SPIx_CR1`. The external NSS pin is free for other application uses.
+  * When `SSI = 0`, the NSS pin will be pulled to GND and the slave will be selected to communicate with the master without using the NSS line.
+  * When `SSI = 1`, the NSS will be pulled to HIGH.
+
+### Example
+
+* In the following example of an application, software slave management cannot be used because the master needs to select the slave first.
+
+  Also, since the NSS pin of the master is not used, it is a good idea to pull it to +V~dd~ to avoid any potential errors. (Another way to take care of it is to configure it as "unused". In general NSS pin is nothing but a GPIO pin configured to NSS pin by using alternate function mode.)
+
+* Before initiating the data transfer, the slave must be selected by using the I/O pins of the master as shown below.
+
+
+
+<img src="img/master-and-three-independent-slaves.png" alt="master-and-three-independent-slaves" width="600">
+
+
+
+### Summary
+
+* Scenario 1: Single master, single slave
+  1. No need to use NSS pin of master and slave if software slave management is used.
+  2. If you don't want to use software slave management, you can simply connect the NSS pin of the master to that of the slave's
+* Scenario 2: Single master, multiple slaves
+  1. Software slave management cannot be used here.
+  2. You cannot use NSS pin of the master to connect to the NSS pin of the slaves.
+  3. The master has to use some of its GPIO pins to control the different NSS pins of the slaves.
+
+
+
+## SPI Communication Format
+
+* SPI communication format is dependent on the following three factors:
+  * SCLK PHASE (CPHA)
+  * SCLK POLARITY (CPOL)
+  * Data Frame Format (DFF)
+    * Can be either 8-bit data format or 16-bit data format
+* During SPI communication, Tx/Rx operations are performed simultaneously.
+* The serial clock (SCK) synchronizes the shifting and sampling of the information on the data lines.
+* The communication format depends on the clock phase (CPHA), clock polarity (CPOL) and data frame format (DFF). 
+* To be able to communicate together, the master and slave devices must follow the same communication format.
+
+### CLOCK POLARITY (CPOL)
+
+* The CPOL bit controls the idle state value of the clock when no data is being transferred.
+
+* If CPOL is reset (CPOL = 0), the SCLK pin has a low-level idle state. (Starts LOW, idles LOW)
+
+  If CPOL is set (CPOL = 1), the SCLK pin has a high-level idle state. (Starts HIGH, idles HIGH)
+
+* What to choose purely depends on the requirements of the application. e.g., If an application requires the clock pin to be HIGH during idle state, then CPOL has to be 1.
+
+* By default, CPOL = 0
+
+### CLOCK PHASE (CPHA)
+
+* CPHA controls at which clock edge of the SCLK (1^st^ edge or 2^nd^ edge) the data should be sampled by the slave.
+* The combination of CPOL (clock polarity) and CPHA (clock phase) bits selects the data capture clock edge.
+* Which combination of CPHA and CPOL is to be chosen depends on the requirements of the application.
+* By default, CPHA = 0
+
+### Summary
+
+* Different SPI Modes
+
+  | Mode | CPOL | CPHA |
+  | ---- | ---- | ---- |
+  | 0    | 0    | 0    |
+  | 1    | 0    | 1    |
+  | 2    | 1    | 0    |
+  | 3    | 1    | 1    |
+
+* If **CPHA=0**, data will be sampled on the leading edge of the clock.
+
+  * Slave samples data through MOSI
+  * Master samples data through MISO
+
+
+
+<img src="img/spi-cpha-0.png" alt="spi-cpha-0" width="750">
+
+
+
+* If **CPHA=1**, data will be sampled on the trailing edge of the clock.
+
+
+
+<img src="img/spi-cpha-1.png" alt="spi-cpha-1" width="700">
+
+
+
+
+
+## SPI Serial Clock (SCLK)
+
+* Always check what the maximum SCLK speed of the SPIx peripheral is that is supported by the MCU in use.
+* First, you need to know the speed of the APBx bus on which the SPI peripheral is connected.
+* Then, you can scale the SCLK according to your project's needs.
+* The following diagram represents the STM32F407xx MCU's SPI2/SPI3 clock scaling.
+  * If you use PLL and drive APB1 bus at its maximum rate 42 MHz, the SPI2 and SPI3 can produce SCLK of 21 MHz.
+  * This means the SPI peripheral's maximum data transfer rate will be 21 million bits per second. This is very high-speed compared to that of I2C's.
+
+
+
+<img src="img/spi2-spi3-clock.png" alt="spi2-spi3-clock" width="650">
+
+
+
+* If we use the internal RC oscillator of 16 MHz as the system clock, SPI1/SPI2/SPI3 peripherals can produce the serial clock of maximum 8 MHz.
+
+
+
 ## Various Serial Communication Protocols
 
 | Protocol | Type                | Max Distance (ft.)                      | Max Speed               | Typical Usage                                       |
