@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 1: Toggling On-board LED (`01_led_toggle.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 1: Toggling On-board LED (`01_led_toggle_pushpull.c`, `01_led_toggle_opendrain.c`)
 
-# GPIO Application 1: Toggling On-board LED (`01_led_toggle.c`)
+# GPIO Application 1: Toggling On-board LED (`01_led_toggle_pushpull.c`, `01_led_toggle_opendrain.c`)
 
 
 

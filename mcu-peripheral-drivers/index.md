@@ -24,7 +24,7 @@
 
 1. **<a href="./introduction-to-gpio">Introduction to GPIO</a>**
 1. **<a href="./gpio-driver">GPIO Driver (`stm32f407xx_gpio_driver.h/.c`)</a>**
-1. **<a href="./gpio-application-1">GPIO Application 1: Toggling On-board LED (`01_led_toggle.c`)</a>**
+1. **<a href="./gpio-application-1">GPIO Application 1: Toggling On-board LED (`01_led_toggle_pushpull.c`, `01_led_toggle_opendrain.c`)</a>**
 1. **<a href="./gpio-application-2">GPIO Application 2: Toggling On-board LED with On-board Button (`02_led_toggle_with_button.c`)</a>**
 1. **<a href="./gpio-application-3">GPIO Application 3: Toggling External LED with External Button (`03_ext_led_toggle_with_ext_button.c`)</a>**
 1. **<a href="./gpio-application-4">GPIO Application 4: Toggling LED with External Button Interrupt (`04_led_toggle_with_ext_button_interrupt.c`)</a>**
