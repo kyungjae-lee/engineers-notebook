@@ -4,12 +4,6 @@
 
 
 
-
-
-<img src="./img/memory-hierarchy-1.png" alt="memory-hierarchy-1" width="800">
-
-
-
 ## Introduction to the Stored Program Machine
 
 * A microprocessor like the ARM has a **stored program architecture** which, Locates programs and data in the *same* memory.
