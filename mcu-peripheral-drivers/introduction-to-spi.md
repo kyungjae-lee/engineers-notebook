@@ -296,6 +296,7 @@
 * The following diagram represents the STM32F407xx MCU's SPI2/SPI3 clock scaling.
   * If you use PLL and drive APB1 bus at its maximum rate 42 MHz, the SPI2 and SPI3 can produce SCLK of 21 MHz.
   * This means the SPI peripheral's maximum data transfer rate will be 21 million bits per second. This is very high-speed compared to that of I2C's.
+  * The second prescalar value (whose min value is 2) can be configured in the control register 1 (CR1) bit fields BR[2:0].
 
 
 
