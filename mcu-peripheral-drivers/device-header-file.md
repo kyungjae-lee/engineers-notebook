@@ -31,11 +31,12 @@ Path: `Project/Drivers/Inc/`
  * Filename		: stm32f407xx.h
  * Description	: Device header file for stm32f407xx MCU
  * Author		: Kyungjae Lee
- * Created on	: May 18, 2023
+ * Created     	: May 18, 2023
+ * Updates		: May 28, 2023 - Add SPI peripheral specific information
  */
 
-#ifndef INC_STM32F407XX_H_
-#define INC_STM32F407XX_H_
+#ifndef STM32F407XX_H
+#define STM32F407XX_H
 
 #include <stdint.h>
 
@@ -134,6 +135,7 @@ Path: `Project/Drivers/Inc/`
 #define USART1_BASE		(APB2PERIPH_BASE + 0x1000U)
 #define USART6_BASE		(APB2PERIPH_BASE + 0x1400U)
 #define SPI1_BASE		(APB2PERIPH_BASE + 0x3000U)
+#define SPI4_BASE		(APB2PERIPH_BASE + 0x3400U)
 #define SYSCFG_BASE		(APB2PERIPH_BASE + 0x3800U)
 #define EXTI_BASE		(APB2PERIPH_BASE + 0x3C00U)
 
@@ -215,6 +217,20 @@ typedef struct
 	__IO uint32_t CMPCR;		/* Compensation cell control register,					Address offset: 0x20 */
 } SYSCFG_TypeDef;
 
+/* Serial peripheral interface (SPI) */
+typedef struct
+{
+	__IO uint32_t CR1;			/* SPI control register 1,				Address offset: 0x00 */
+	__IO uint32_t CR2;			/* SPI control register 2,				Address offset: 0x04 */
+	__IO uint32_t SR;			/* SPI status register,					Address offset: 0x08 */
+	__IO uint32_t DR;			/* SPI data register,					Address offset: 0x0C */
+	__IO uint32_t SRCPR;		/* SPI CRC polynomial register,			Address offset: 0x10 */
+	__IO uint32_t RXCRCR;		/* SPI RX CRC register,					Address offset: 0x14 */
+	__IO uint32_t TXCRCR;		/* SPI TX CRC register,					Address offset: 0x18 */
+	__IO uint32_t I2SCFGR;		/* SPI_I2S configuration register,		Address offset: 0x1C */
+	__IO uint32_t I2SPR;		/* SPI_I2S prescaler register,			Address offset: 0x20 */
+
+} SPI_TypeDef;
 /**
  * Peripheral declarations (Peripheral base addresses typecasted to (x_TypeDef *))
  */
@@ -238,6 +254,12 @@ typedef struct
 
 /* SYSCFG */
 #define SYSCFG			((SYSCFG_TypeDef *)SYSCFG_BASE)
+
+/* SPIx */
+#define SPI1			((SPI_TypeDef *)SPI1_BASE)
+#define SPI2			((SPI_TypeDef *)SPI2_BASE)
+#define SPI3			((SPI_TypeDef *)SPI3_BASE)
+#define SPI4			((SPI_TypeDef *)SPI4_BASE)
 
 /**
  * Clock enable macros for peripherals
@@ -302,6 +324,7 @@ typedef struct
 #define SPI1_PCLK_DI()		(RCC->APB2ENR &= ~(1 << 12))
 #define SPI2_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 14))
 #define SPI3_PCLK_DI()		(RCC->APB1ENR &= ~(1 << 15))
+#define SPI4_PCLK_DI()		(RCC->APB2ENR |= ~(1 << 13))
 
 /* USARTx */
 #define USART1_PCLK_DI()	(RCC->APB2ENR &= ~(1 << 4))
@@ -315,8 +338,10 @@ typedef struct
 #define SYSCFG_PCLK_DI()	(RCC->APB2ENR &= ~(1 << 14))
 
 /**
- * Reset GPIOx peripherals (set the corresponding bit, and then clear)
+ * Reset peripherals (set the corresponding bit, and then clear)
  */
+
+/* GPIO */
 #define GPIOA_RESET()		do { (RCC->AHB1RSTR |= (1 << 0)); (RCC->AHB1RSTR &= ~(1 << 0)); } while (0)
 #define GPIOB_RESET()		do { (RCC->AHB1RSTR |= (1 << 1)); (RCC->AHB1RSTR &= ~(1 << 1)); } while (0)
 #define GPIOC_RESET()		do { (RCC->AHB1RSTR |= (1 << 2)); (RCC->AHB1RSTR &= ~(1 << 2)); } while (0)
@@ -326,6 +351,12 @@ typedef struct
 #define GPIOG_RESET()		do { (RCC->AHB1RSTR |= (1 << 6)); (RCC->AHB1RSTR &= ~(1 << 6)); } while (0)
 #define GPIOH_RESET()		do { (RCC->AHB1RSTR |= (1 << 7)); (RCC->AHB1RSTR &= ~(1 << 7)); } while (0)
 #define GPIOI_RESET()		do { (RCC->AHB1RSTR |= (1 << 8)); (RCC->AHB1RSTR &= ~(1 << 8)); } while (0)
+
+/* SPI */
+#define SPI1_RESET()		do { (RCC->APB2RSTR |= (1 << 12)); (RCC->APB2RSTR &= ~(1 << 12)); } while (0)
+#define SPI2_RESET()		do { (RCC->APB1RSTR |= (1 << 14)); (RCC->APB1RSTR &= ~(1 << 14)); } while (0)
+#define SPI3_RESET()		do { (RCC->APB1RSTR |= (1 << 15)); (RCC->APB1RSTR &= ~(1 << 15)); } while (0)
+#define SPI4_RESET()		do { (RCC->APB2RSTR |= (1 << 13)); (RCC->APB2RSTR &= ~(1 << 13)); } while (0)
 
 /**
  * Macro function to return port code for the given GPIO base address
@@ -349,6 +380,8 @@ typedef struct
 #define RESET				DISABLE
 #define GPIO_PIN_SET		SET
 #define GPIO_PIN_RESET		RESET
+#define FLAG_RESET			RESET
+#define FLAG_SET			SET
 
 /**
  * Interrupt Request (IRQ) numbers of STM32F407xx MCU
@@ -383,8 +416,49 @@ typedef struct
 #define NVIC_IRQ_PRI15		15
 
 
-#include "stm32f407xx_gpio_driver.h"
+/*****************************************************************************************
+ * SPI peripheral bit position definitions
+ ****************************************************************************************/
 
-#endif /* INC_STM32F407XX_H_ */
+/* SPI_CR1 */
+#define SPI_CR1_CPHA		0
+#define SPI_CR1_CPOL		1
+#define SPI_CR1_MSTR		2
+#define SPI_CR1_BR  		3
+#define SPI_CR1_SPE 		6
+#define SPI_CR1_LSBFIRST	7
+#define SPI_CR1_SSI 		8
+#define SPI_CR1_SSM 		9
+#define SPI_CR1_RXONLY 		10
+#define SPI_CR1_DFF 		11
+#define SPI_CR1_CRCNEXT		12
+#define SPI_CR1_CRCEN  		13
+#define SPI_CR1_BIDIOE 		14
+#define SPI_CR1_BIDIMODE	15
+
+/* SPI_CR2 */
+#define SPI_CR2_RXDMAEN 	0
+#define SPI_CR2_TXDMAEN 	1
+#define SPI_CR2_SSOE    	2
+#define SPI_CR2_FRF     	4
+#define SPI_CR2_ERRIE   	5
+#define SPI_CR2_RXNEIE  	6
+#define SPI_CR2_XEIE    	7
+
+/* SPI_SR */
+#define SPI_SR_RXNE			0
+#define SPI_SR_TXE 			1
+#define SPI_SR_CHSIDE		2
+#define SPI_SR_UDR 			3
+#define SPI_SR_CRCERR		4
+#define SPI_SR_MODF			5
+#define SPI_SR_OVR 			6
+#define SPI_SR_BSY 			7
+#define SPI_SR_FRE 			8
+
+#include "stm32f407xx_gpio_driver.h"
+#include "stm32f407xx_spi_driver.h"
+
+#endif /* STM32F407XX_H */
 ```
 
