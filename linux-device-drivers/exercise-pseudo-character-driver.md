@@ -47,73 +47,137 @@
 
 ## Pseduo Character Driver (PCD) File Operation Methods
 
-* **Open**
+### Open
+
+* Initialize the device or make device respond to subsequent system calls such as `read()` and `write()`.
+
+* Detect device initialization errors
+
+* Check open permission (`O_RDONLY`, `O_WRONLY`, `O_RDWR`)
+
+* Identify the opened device using the *minor number*
+
+* Prepare device private data structure if required
+
+* Update `f_pos` if required
+
+* `open` method is optional. If not provided, `open` will always succeed and driver is not notified.
+
+* Implementation:
 
   ```c
   /**
-   * pcd_open() - Pseudo char driver open method
-   * @inode: Pointer to an inode associated with the filename
-   * @file: Pointer to a file object
-   *
-   * Opens a file, 
-   * returns 0 on success, negative error code otherwise
+   * pcd_open()
+   * Desc.    : Handles the open() system call from the user space
+   * Param.   : @inode - pointer to inode object
+   *            @filp - pointer to file object
+   * Returns  : 0 on success, negative error code otherwise
+   * Note     : N/A
    */
   int pcd_open(struct inode *inode, struct file *filp)
   {
+      pr_info("open was successful\n");
       return 0;
   }
   ```
 
-  * Initialize the device or make device respond to subsequent system calls such as `read()` and `write()`.
-  * Detect device initialization errors
-  * Check open permission (`O_RDONLY`, `O_WRONLY`, `O_RDWR`)
-  * Identify the opened device using the *minor number*
-  * Prepare device private data structure if required
-  * Update `f_pos` if required
-  * `open` method is optional. If not provided, `open` will always succeed and driver is not notified.
+### Close (e.g., `close(fd)` system call from the user space)
 
-* **Close** (e.g., `close(fd)` system call from the user space)
+* Does the reverse operations of open method. Simply put, release method should put the device in its default state, i.e., the state before the open method was called.
+
+  e.g., If open method brings the device out of low power mode, then release method may send the device back to the low power mode.
+
+* Free any data structures allocated by the open method.
+
+* Returns 0 on success, negative error code otherwise (e.g., the device does not respond when you try to de-initialize the device).
+
+* Implementation:
 
   ```c
   /**
-   * pcd_release() - Pseudo char driver method to handle close() system call
-   * @inode: Pointer to an inode associated with the filename
-   * @filp: Pointer to a file object
-   *
-   * VFS Releases the file object. Called when the last reference to an open file is closed, i.e.,
-   * when the f_count field of the file object becomes 0.
-   * Returns 0 on success, negative error code otherwise
+   * pcd_release()
+   * Desc.    : Handles the close() system call from the user space
+   * Param.   : @inode - pointer to inode struct
+   *            @filp - pointer to file struct
+   * Returns  : 0 on success, negative error code otherwise
+   * Note     : VFS releases the file object. Called when the last reference to an
+   *            open file is closed (i.e., when the f_count field of the file object
+   *            becomes 0.
    */
   int pcd_release(struct inode *inode, struct file *filp)
   {
+      pr_info("close was successful\n");
       return 0;
   }
   ```
 
-  * Does the reverse operations of open method. Simply put, release method should put the device in its default state, i.e., the state before the open method was called.
+### Read (e.g., `read(fd, buff, 20)` system call from the user space)
 
-    e.g., If open method brings the device out of low power mode, then release method may send the device back to the low power mode.
 
-  * Free any data structures allocated by the open method.
 
-  * Returns 0 on success, negative error code otherwise (e.g., the device does not respond when you try to de-initialize the device).
+<img src="img/read-method.png" alt="read-method" width="600">
 
-* **Read** (e.g., `read(fd, buff, 20)` system call from the user space)
+
+
+* Read `count` bytes from a device starting at position `f_pos`.
+* Update the `f_pos` by adding the number bytes successfully read.
+* A return value less than `count` does not mean that an error has occurred.
+* `f_op` and `f_pos`
+
+
+
+<img src="img/f-op-and-f-pos.png" alt="f-op-and-f-pos" width="900">
+
+
+
+* Data copying (kernel space $\to$ user space)
 
   ```c
   /**
-   * pcd_read() - Pseudo char driver method to handle read() system call
-   * @filp: Pointer to a file object
-   * @buff: Pointer of user buffer
-   * @count: Read count given by user
-   * @f_pos: Pointer of current file position from which the read has to begin
-   *
-   * Reads a device file @count byte of data from @f_pos, returns the data back to @buff (user),
-   * and updates @f_pos. Returns the number of bytes successfully read, 0 if there is no bytes to 
-   * read (EOF), appropriate error code (negative value) otherwise.
+   * copy_to_user()
+   * Desc.	: Copies data from kernel space to user space (during read operation)
+   * Param.	: @to - destination address in user space
+   *			  @from - source address in kernel space
+   *			  @n - number of bytes to copy
+   * Returns 	: 0 on success, number of bytes that could not be copied otherwise
+   * Notes	: It checks whether the user space pointer @to is valid or not. 
+   *			  If the pointer is invalid, copy will not be performed. If an invalid address
+   * 			  is encountered during the copy, only part of the data is copied. In either case,
+   * 			  the return value is the amount of memory left to be copied.
+   *			  If this function returns a non-zero value, you should assume that there was
+   * 			  a problem during the data copy.
+   */
+  unsigned long copy_to_user(void __user *to, const void *from, unsigned long n);
+  ```
+
+  > If `copy_to_user()` returns a non-zero value, your read function should return an appropriate error code (-EFAULT).
+
+* Implementation:
+
+  1. Check the user requested `count` value against `DEV_MEM_SIZE` of the device.
+     * If `f_pos` + `count` > `DEV_MEM_SIZE`, then adjust the `count` (`count` = `DEV_MEM_SIZE` - `f_pos`).
+  2. Copy `count` number of bytes from device memory to user buffer.
+  3. Update `f_pos`
+  4. Return number of bytes successfully read or error code
+  5. If `f_pos` is at EOF, then return 0.
+
+  ```c
+  /**
+   * pcd_read()
+   * Desc.    : Handles the read() system call from the user space
+   * Param.   : @filp - pointer to file object
+   *            @buff - pointer to user buffer
+   *            @count - read count given by the user
+   *            @f_pos - pointer to current file position from which the read has to begin
+   * Returns  : The number of bytes read on success,
+   *            0 if there is no bytes to read (EOF),
+   *            appropriate error code (negative value) otherwise
+   * Note     : Reads a device file @count byte(s) of data from @f_pos, returns the data back to
+   *            @buff (user), and updates @f_pos.
    */
   ssize_t pcd_read(struct file *filp, char __user *buff, size_t count, loff_t *f_pos)
   {
+      pr_info("read requested for %zu bytes\n", count);
       return 0;
   }
   ```
@@ -125,46 +189,79 @@
   > * Never try to dereference user given pointers directly in kernel level programming. Instead, use dedicated kernel functions such as `copy_to_user` and `copy_from_user`.
   > * GCC doesn't care whether you use `__user` macro with user level pointer or not. This is checked by `sparse`, a semantic checker tool of Linux kernel to find possible coding faults.
 
-  * Read `count` bytes from a device starting at position `f_pos`.
-  * Update the `f_pos` by adding the number bytes successfully read.
-  * A return value less than `count` does not mean that an error has occurred.
+### Write (e.g., `write(fd, buff, 20)`)
 
-* **Write** (e.g., `write(fd, buff, 20)`)
+* Write `count` bytes into the device starting at position `f_pos`.
 
-  ```c
-  /**
-   * pcd_write() - Pseudo char driver method to handle write() system call
-   * @filp: Pointer to a file object
-   * @buff: Pointer of user buffer
-   * @count: Write count given by user
-   * @f_pos: Pointer of current file position from which the write has to begin
-   *
-   * Writes a device file @count byte of data from @f_pos, returns the data back to 
-   * @buff (user) and updates @f_pos. Returns the number of bytes successfully written,
-   * appropriate error code (negative value) otherwise.
-   */
-  ssize_t pcd_read(struct file *filp, char __user *buff, size_t count, loff_t *f_pos);
-  ```
+* Update the `f_pos` by adding the number of bytes successfully written
 
-  * Write `count` bytes into the device starting at position `f_pos`.
-  * Update the `f_pos` by adding the number of bytes successfully written
-
-* **llseek** (e.g., `llseek(fd, buff, 20)`)
-
-  Used to alter the `f_pos`.
+* Data copying (user space $\to$ kernel space)
 
   ```c
   /**
-   * pcd_lseek() - Pseudo char driver method to handle llseek() system call
-   * @filp: Pointer to a file object
-   * @off: Offset value
-   * @whence: Origin 
-   * 		- SEEK_SET: The file offset is set to @off bytes
-   *		- SEEK_CUR: The file offset is set to its current location plus @off bytes
-   * 		- SEEK_END: The file offset is set to the size of the file plus @off bytes
-   *
-   * Updates the file poitner by using @off and @whence information. Returns the newly updated 
-   * file position on success, error otherwise.
+   * copy_from_user()
+   * Desc.	: Copies data from user space to kernel space (during write operation)
+   * Param.	: @to - destination address in user space
+   *			  @from - source address in kernel space
+   *			  @n - number of bytes to copy
+   * Returns 	: 0 on success, number of bytes that could not be copied otherwise
+   * Notes	: It checks whether the user space pointer @to is valid or not. 
+   *			  If the pointer is invalid, copy will not be performed. If an invalid address
+   * 			  is encountered during the copy, only part of the data is copied. In either case,
+   * 			  the return value is the amount of memory left to be copied.
+   *			  If this function returns a non-zero value, you should assume that there was
+   * 			  a problem during the data copy.
    */
-  loff_t pcd_lseek(struct file *filp, loff_t off, int whence);
+  unsigned long copy_from_user(void *to, const void __user *from, unsigned long n);
   ```
+
+  > If `copy_from_user()` returns a non-zero value, your write function should return an appropriate error code (-EFAULT).
+
+* Implementation:
+
+  ```c
+  /**
+   * pcd_write()
+   * Desc.    : Handles the write() system call from the user space
+   * Param.   : @filp - pointer to file object
+   *            @buff - pointer to user buffer
+   *            @count - read count given by the user
+   *            @f_pos - pointer to current file position from which the read has to begin
+   * Returns  : The number of bytes written on success,
+   *            appropriate error code (negative value) otherwise
+   * Note     : Writes a device file @count byte(s) of data from @f_pos, returns the data back to
+   *            @buff (user) and updates @f_pos.
+   */
+  ssize_t pcd_write(struct file *filp, const char __user *buff, size_t count, loff_t *f_pos)
+  {
+      pr_info("write requested for %zu bytes\n", count);
+      return 0;
+  }
+  ```
+
+### llseek (e.g., `llseek(fd, buff, 20)`)
+
+* Used to alter the `f_pos`.
+
+* Implementation:
+
+  ```c
+  /**
+   * pcd_lseek()
+   * Desc.    : Handles the llseek() system call
+   * Param.   : @filp - pointer to file object
+   *            @off - offset value
+   *            @whence - origin
+   *              - SEEK_SET: The file offset is set to @off bytes
+   *              - SEEK_CUR: The file offset is set to its current location plus @off bytes
+   *              - SEEK_END: The file offset is set to the size of the file plus @off bytes
+   * Returns  : Newly updated file position on sucess, error code other wise
+   * Note     : Updates the file pointer by using @off and @whence information.
+   */
+  loff_t pcd_lseek(struct file *filp, loff_t off, int whence)
+  {
+      pr_info("lseek requested\n");
+      return 0;
+  }
+  ```
+
