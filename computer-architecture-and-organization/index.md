@@ -28,6 +28,7 @@
 1. **<a href="./arm-instruction-set-architecture-flow-control-instructions">ARM Instruction Set Architecture (ISA) - Flow Control Instructions</a>**
 1. **<a href="./arms-load-and-store-encoding">ARM's Load & Store Encoding</a>**
 1. **<a href="./arm-addressing-modes">ARM Addressing Modes</a>**
+1. **<a href="./subroutine-call-and-return">Subroutine Call & Return</a>**
 1. **<a href="./processor-control-microarchitecture">Processor Control - Microarchitecture</a>**
 1. **<a href="./processor-control-introduction-to-pipelining">Processor Control - Introduction to Pipelining</a>**
 1. **<a href="./processor-control-pipeline-hazards">Processor Control - Pipeline Hazards</a>**
