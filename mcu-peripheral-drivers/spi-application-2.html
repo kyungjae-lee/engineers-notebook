@@ -673,10 +673,158 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+							stroke-width: 0;
+						}
 </style>
 </head>
 <body class='typora-export'><div class='typora-export-content'>
-<div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>MCU Peripheral Drivers</span></a><span> &gt; SPI Application 2: Master-Slave Communication (</span><code>02_spi-master-slave-communication.c</code><span>)</span></p><h1 id='spi-application-2-master-slave-communication-02spi-master-slave-communicationc'><span>SPI Application 2: Master-Slave Communication (</span><code>02_spi-master-slave-communication.c</code><span>)</span></h1><p>&nbsp;</p><h2 id='requirements'><span>Requirements</span></h2><ul><li><p><span>SPI master(STM) and SPI slave(Arduino) communication</span></p></li><li><p><span>When the button on the master is pressed, master shall send a string of data to the slave in connection. The data received by the slave shall be displayed on the slave&#39;s serial port.</span></p></li><li><p><span>Requirements</span></p><ol><li><span>Use SPI full duplex mode</span></li><li><span>ST board will be in SPI master mode, and Arduino board will be in SPI slave mode.</span></li><li><span>Use DFF = 0</span></li><li><span>Use hardware slave management (SSM = 0)</span></li><li><span>SCLK speed = 2MHz, f</span><sub><span>clk</span></sub><span> = 16MHz</span></li></ol></li><li><p><span>In this application, master is not going to receive anything from the slave. So, configuring the MISO pin is not necessary.</span></p></li><li><p><span>The slave does not know how many bytes of data master is going to send. So, the master must first send the number of bytes the slave should expect to receive.</span></p></li></ul><h3 id='parts-needed'><span>Parts Needed</span></h3><ol><li><span>Arduino board</span></li><li><span>STM32 board</span></li><li><span>Logic level converter</span></li><li><span>Breadboard and jumper wires</span></li></ol><p>&nbsp;</p><h2 id='code'><span>Code</span></h2><h3 id='02spi-master-slave-communicationc'><code>02_spi-master-slave-communication.c</code></h3><p><span>Path: </span><code>Project/Src/</code></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="c"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="c"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.52344px; left: 35px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>x</pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27px; width: 27px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+<div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>MCU Peripheral Drivers</span></a><span> &gt; SPI Application 2: Master-Slave Communication (</span><code>02_spi-master-slave-communication.c</code><span>)</span></p><h1 id='spi-application-2-master-slave-communication-02spi-master-slave-communicationc'><span>SPI Application 2: Master-Slave Communication (</span><code>02_spi-master-slave-communication.c</code><span>)</span></h1><p>&nbsp;</p><h2 id='requirements'><span>Requirements</span></h2><ul><li><p><span>SPI master(STM) and SPI slave(Arduino) communication</span></p></li><li><p><span>When the button on the master is pressed, master shall send a string of data to the slave in connection. The data received by the slave shall be displayed on the slave&#39;s serial port.</span></p></li><li><p><span>Requirements</span></p><ol start='' ><li><span>Use SPI full duplex mode</span></li><li><span>ST board will be in SPI master mode, and Arduino board will be in SPI slave mode.</span></li><li><span>Use DFF = 0</span></li><li><span>Use hardware slave management (SSM = 0)</span></li><li><span>SCLK speed = 2MHz, f</span><sub><span>clk</span></sub><span> = 16MHz</span></li></ol></li><li><p><span>In this application, master is not going to receive anything from the slave. So, configuring the MISO pin is not necessary.</span></p></li><li><p><span>The slave does not know how many bytes of data master is going to send. So, the master must first send the number of bytes the slave should expect to receive.</span></p></li></ul><h3 id='parts-needed'><span>Parts Needed</span></h3><ol start='' ><li><span>Arduino board</span></li><li><span>STM32 board</span></li><li><span>Logic level converter</span></li><li><span>Breadboard and jumper wires</span></li></ol><h3 id='stm32-board-and-arduino-board-communication-interfaces'><span>STM32 Board and Arduino Board Communication Interfaces</span></h3><p>&nbsp;</p><p><img src="./img/spi-application-2-communication-interfaces.png" alt="spi-application-2-communication-interfaces" width="700"></p><p>&nbsp;</p><h3 id='stm32-board-and-arduino-board-voltage-levels'><span>STM32 Board and Arduino Board Voltage Levels</span></h3><ul><li><span>To work around the voltage level difference, a </span><strong><span>logic level shifter</span></strong><span> will be necessary.</span></li></ul><p>&nbsp;</p><p><img src="./img/spi-application-2-stm32-arduino-voltage-levels.png" alt="spi-application-2-stm32-arduino-voltage-levels" width="700"></p><p>&nbsp;</p><p>&nbsp;</p><h2 id='procedure'><span>Procedure</span></h2><h3 id='1-connect-stm32-discovery-board-with-arduino-uno-board-spi-pins'><span>1. Connect STM32 Discovery board with Arduino Uno board SPI pins</span></h3><ul><li><span>Be careful not to directly supply 5 volts to the STM32 board pins when the board is not powered up as they may be damaged. When the </span><strong><span>logic level shifter</span></strong><span> is used, you don&#39;t need to worry about this issue.</span></li></ul><p>&nbsp;</p><p><img src="./img/spi-application-2-hardware-setup.png" alt="spi-application-2-hardware-setup" width="900"></p><p>&nbsp;</p><ul><li><p><span>To analyze the communication with the logic analyzer, connect the channels as follows:</span></p><ul><li><span>CH0 - SCLK</span></li><li><span>CH1 - MOSI</span></li><li><span>CH2 - MISO</span></li><li><span>CH3 - NSS</span></li><li><span>GND - Common GND of the bread board</span></li></ul></li></ul><h3 id='2-power-arduino-board-and-download-spi-slave-sketch-to-arduino'><span>2. Power Arduino board and download SPI slave sketch to Arduino</span></h3><ul><li><p><span>Sketch name: </span><code>001SPISlaveRxString.ino</code></p><ul><li><span>You don&#39;t need to write an application for Arduino board. It is already provided as a sketch.</span></li><li><span>As soon as you download this sketch to the Arduino board, it will operate as a slave.</span></li></ul></li></ul><h3 id='3-find-out-the-gpio-pins-that-can-be-used-for-spi2-communication'><span>3. Find out the GPIO pins that can be used for SPI2 communication</span></h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2 id='code'><span>Code</span></h2><h3 id='02spi-master-slave-communicationc'><code>02_spi-master-slave-communication.c</code></h3><p><span>Path: </span><code>Project/Src/</code></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="c"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="c"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.52344px; left: 35px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 27px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>1</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -27px; width: 27px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
 </span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="height: 23px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">

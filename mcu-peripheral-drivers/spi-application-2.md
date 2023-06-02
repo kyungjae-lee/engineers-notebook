@@ -24,6 +24,59 @@
 3. Logic level converter
 4. Breadboard and jumper wires
 
+### STM32 Board and Arduino Board Communication Interfaces
+
+
+
+<img src="./img/spi-application-2-communication-interfaces.png" alt="spi-application-2-communication-interfaces" width="700">
+
+
+
+### STM32 Board and Arduino Board Voltage Levels
+
+* To work around the voltage level difference, a **logic level shifter** will be necessary.
+
+
+
+<img src="./img/spi-application-2-stm32-arduino-voltage-levels.png" alt="spi-application-2-stm32-arduino-voltage-levels" width="700">
+
+
+
+
+
+## Procedure
+
+### 1. Connect STM32 Discovery board with Arduino Uno board SPI pins
+
+* Be careful not to directly supply 5 volts to the STM32 board pins when the board is not powered up as they may be damaged. When the **logic level shifter** is used, you don't need to worry about this issue.
+
+
+
+<img src="./img/spi-application-2-hardware-setup.png" alt="spi-application-2-hardware-setup" width="900">
+
+
+
+* To analyze the communication with the logic analyzer, connect the channels as follows:
+  * CH0 - SCLK
+  * CH1 - MOSI
+  * CH2 - MISO
+  * CH3 - NSS
+  * GND - Common GND of the bread board
+
+### 2. Power Arduino board and download SPI slave sketch to Arduino
+
+* Sketch name: `001SPISlaveRxString.ino`
+  * You don't need to write an application for Arduino board. It is already provided as a sketch.
+  * As soon as you download this sketch to the Arduino board, it will operate as a slave.
+
+### 3. Find out the GPIO pins that can be used for SPI2 communication
+
+
+
+
+
+
+
 
 
 
@@ -36,5 +89,4 @@ Path: `Project/Src/`
 ```c
 
 ```
-
 

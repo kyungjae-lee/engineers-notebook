@@ -187,10 +187,17 @@
 ### Hardware Slave Management
 
 * In this case, you are using the actual hardware to select the slave.
+
 * Hardware NSS management (`SSM = 0`)
   * The NSS pin is managed by the hardware.
   * The master's NSS pin must be in output mode.
   * The NSS line must be pulled to low to activate slave's communication with the master.
+  
+* For master, NSS output will be enabled when `SSOE = 1`. When `SSOE = 1`,
+
+  If `SSM = 0` and `SPE = 1`, then `NSS` output = 0 (LOW)
+
+  If `SSM = 0` and `SPE = 0`, then `NSS` output = 1 (HIGH)
 
 ### Software Slave Management
 
