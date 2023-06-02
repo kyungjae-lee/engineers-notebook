@@ -34,4 +34,4 @@
 1. **<a href="./introduction-to-spi">Introduction to SPI</a>**
 1. **<a href="./spi-driver">SPI Driver (`stm32f407xx_spi_driver.h/.c`)</a>**
 1. **<a href="./spi-application-1">SPI Application 1: Send Data (`01_spi_tx_data.c`)</a>**
-1. **<a href="./spi-application-1">SPI Application 2: Master-Slave Communication (`02_spi-master-slave-communication.c`)</a>**
+1. **<a href="./spi-application-2">SPI Application 2: Master-Slave Communication (`02_spi-master-slave-communication.c`)</a>**
