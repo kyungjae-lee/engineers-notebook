@@ -23,7 +23,8 @@ Path: `Project/Src/`
  * Description	: Program to toggle LED whenever an interrupt is triggered by
  * 				  the external button press
  * Author		: Kyungjae Lee
- * Created on	: May 24, 2023
+ * History		: May 24, 2023 - Created file
+ * 				  Jun 02, 2023 - Removed redundant 'GPIO_PeriClockControl()'
  */
 
 #include <string.h>
@@ -33,7 +34,13 @@ Path: `Project/Src/`
 #define LOW 			0
 #define BTN_PRESSED 	LOW
 
-/* Spinlock delay */
+/**
+ * delay()
+ * Desc.	: Spinlock delays the program execution
+ * Param.	: None
+ * Returns	: None
+ * Note		: N/A
+ */
 void delay(void)
 {
 	/* Appoximately ~200ms delay when the system clock freq is 16 MHz */
@@ -60,7 +67,6 @@ int main(int argc, char *argv[])
 	GPIOLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_FAST;
 	GPIOLed.GPIO_PinConfig.GPIO_PinOutType = GPIO_PIN_OUT_TYPE_PP;
 	GPIOLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;
-	GPIO_PeriClockControl(GPIOLed.pGPIOx, ENABLE);
 	GPIO_Init(&GPIOLed);
 
 	/* GPIOBtn configuration */
@@ -70,7 +76,6 @@ int main(int argc, char *argv[])
 	GPIOBtn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_FAST; /* Doesn't matter */
 	//GPIOBtn.GPIO_PinConfig.GPIO_PinOutType = GPIO_PIN_OUT_TYPE_PP;	/* N/A */
 	GPIOBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
-	GPIO_PeriClockControl(GPIOBtn.pGPIOx, ENABLE);
 	GPIO_Init(&GPIOBtn);
 
 	/* IRQ configurations */
