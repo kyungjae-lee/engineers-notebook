@@ -14,7 +14,7 @@
 1. **<a href="./debugging-with-printk-and-kernel-log-levels">Debugging with `printk` & Kernel Log Levels</a>**
 1. **<a href="./introduction-to-linux-device-driver">Introduction to Linux Device Driver</a>**
 1. **<a href="./kernel-apis-used-in-device-drivers">Kernel APIs Used in Device Drivers</a>**
-1. **<a href="./error-codes-and-errno">Error Codes & `errno`</a>**
+1. **<a href="./error-handling-and-error-codes">Error Handling & Error Codes</a>**
 1. **<a href="./character-driver">Character Driver</a>**
 1. **<a href="./exercise-pseudo-character-driver">Exercise: Pseudo Character Driver</a>**
 1. **<a href="./block-driver">Block Driver</a>**

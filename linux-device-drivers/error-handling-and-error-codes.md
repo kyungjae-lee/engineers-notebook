@@ -1,6 +1,73 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Linux Device Drivers</a> > Error Codes & `errno`
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Linux Device Drivers</a> > Error Handling & Error Codes
 
-# Error Codes & `errno`
+# Error Handling & Error Codes
+
+
+
+## Error Handling
+
+* The Linux kernel coding standard document recommends using the `goto` statement of the C programming language for error handling. (Only for error handling)
+
+  This is just a recommendation!
+
+* Error handling structure using `if...else` statement:
+
+  ```c
+  if (try_something_1 != Err)
+  {
+      if (try_something_2 != Err)
+      {
+          if (try_something_3 != Err)
+          {
+              
+          }
+          else
+          {
+              undo_try_something_2;
+              undo_try_something_1;
+          }
+      }
+      else
+      {
+          undo_try_something_1;
+      }
+  }
+  ```
+
+  > You must UNDO the previous successful operations when an error is encountered along the way because there might be some resources opened or held by those operations.
+
+* Error handling structure using `goto` statement:
+
+  ```c
+  if (try_something_1 == Err)
+      goto err1;
+  if (try_something_2 == Err)
+      goto err2;
+  if (try_something_3 == Err)
+      goto err3;
+  
+  err3:
+  	undo_try_something_2;
+  err2:
+  	undo_try_something_1;
+  err1:
+  	return ret;
+  ```
+
+  > Looks cleaner than when using `if...else` statement.
+
+* `if...else` and `goto` statements can also be used in combination.
+
+
+
+## Error Handling of Pointers During Kernel Function Return
+
+* Some kernel macros can be used to deal with return of error pointers by kernel functions.
+  * The reason why the kernel functions do not simply return `NULL` upon fail is because `NULL` does not give any idea what went well. Instead, the kernel functions are generally designed to return a pointer that can be interpreted to a meaningful value that tells the user what went wrong.
+* The following are most frequently used macros (defined in `include/linux/err.h`) help understand what caused the kernel function fail.
+  * `IS_ERR()`
+  * `PTR_ERR()`
+  * `ERR_PTR()`
 
 
 
@@ -10,7 +77,7 @@
 
 * The user space global variable `errno` will be set to that error code from the kernel space so that the user space code is able to understand what has gone wrong in the kernel space.
 
-* `include/uapi/asm-generic/errno-base.h`
+* Error codes are defined in the file `include/uapi/asm-generic/errno-base.h`
 
   ```c
   /* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
@@ -54,5 +121,3 @@
   
   #endif
   ```
-
-  
