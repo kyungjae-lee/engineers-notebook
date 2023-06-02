@@ -1,47 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Linux Device Drivers</a> > Exercise: Pseudo Character Driver
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Linux Device Drivers</a> > Exercise 1-2: Pseudo Character Driver (Single Device) - Implementation
 
-# Exercise: Pseudo Character Driver
-
-
-
-## Problem Statement
-
-* Write a character driver to deal with a pseudo character device
-* The pseudo-device is a memory buffer of some size
-* The driver you write must support reading, writing and seeking to this driver
-* Test the driver functionality by running user-level command such as echo, dd, cat and by writing user level programs
-
-
-
-<img src="img/pseudo-char-driver-1684777614311-33.png" alt="pseudo-char-driver" width="700">
-
-
-
-### Connection Establishment between Device File Access and the Driver
-
-1. Create device number
-   * Request the kernel to dynamically allocate the device numbers(s)
-2. Make a char device registration with the Virtual File System (VFS). (`CDEV_ADD`)
-3. Create device files
-4. Implement the driver's file operation methods for `open`, `close`, `read`, `write`, `llseek`, etc.
-
-### Expected Results
-
-* Do `make host` and see if you are getting `pcd.ko` from `pcd.c`.
-
-* Insert the LKM (`sudo insmod pcd.ko`), run `dmesg` and see if the messages are getting printed.
-
-* Check `/sys/class/` if you see `pcd_class/` which should be created by the **`class_create()`** kernel function.
-
-  * `pcd_class/` directory should contain `pcd` (the same name as your LKM) directory
-  * `pcd_class/pcd/` directory should contain `dev` file whose contents is the device number `<major:minor>`
-  * `pcd_class/pcd/` directory should also contain `uevent` whose contents is major number, minor number and devname.
-
-   `udev` creates the device file under `/dev` directory according to these details which are created and populated by the **`device_create()`** kernel function.
-
-* Check `/dev/` if you see the device file `pcd`.
-
-* Remove the LKM (`sudo rmmod pcd.ko`), run `dmesg` and see if the messages are getting printed.
+# Exercise 1-2: Pseudo Character Driver (Single Device) - Implementation
 
 
 
@@ -363,93 +322,308 @@
 
 
 
-## Testing
+## Pseudo Character Driver (Single Device) Implementation
 
-### On the Host
+```c
+/**
+ * Filename		: pcd.c
+ * Description	: A pseudo character deriver
+ * Author		: Kyungjae Lee
+ * Created		: 05/19/2023
+ * Updates		: 06/01/2023 - Complete file operation methods implementation
+ *							 - Add error handling features
+ */
 
-1. Build the kernel module `pcd.c` against the host Linux kernel version
+#include <linux/module.h>
+#include <linux/fs.h>
+#include <linux/cdev.h>
+#include <linux/device.h>	/* class_create(), device_create() */
+#include <linux/kdev_t.h>	/* MAJOR(), MINOR() */
+#include <linux/uaccess.h>
 
-2. Insert the mode: `sudo insmod pcd.ko`
+#define DEV_MEM_SIZE 512
+#undef pr_fmt
+#define pr_fmt(fmt) "%s :" fmt, __func__	/* For debugging purpose, prefix current function name in front of the string printed by pr_info()  */
 
-3. Test the pseudo character driver: `echo "Hello, welcome!" > /dev/pcd` $\to$ `dmesg`
+/* Global variables */
+char device_buffer[DEV_MEM_SIZE];	/* Pseudo character device's buffer */
+dev_t device_number;				/* Stores the device number */
+struct cdev pcd_cdev;				/* Cdev variable */
 
-   Output:
+/**
+ * Device driver specific file operation methods that handle system calls
+ */
 
-   ```plain
-   [21343.359074] pcd_driver_init :Device number <major>:<minor> = 509:0
-   [21343.359135] pcd_driver_init :Module init was successful
-   [21401.491786] pcd_open :open was successful
-   [21401.491856] pcd_write :Write requested for 16 bytes
-   [21401.491863] pcd_write :Current file position = 0
-   [21401.491868] pcd_write :16 bytes successfully written
-   [21401.491871] pcd_write :Updated file position = 16
-   [21401.491901] pcd_release :close was successful
-   ```
+/**
+ * pcd_lseek()
+ * Desc.	: Handles the llseek() system call
+ * Param.  	: @filp - pointer to file object
+ *			  @offset - offset value
+ *			  @whence - origin
+ * 				- SEEK_SET: The file offset is set to @offset bytes
+ *				- SEEK_CUR: The file offset is set to its current location plus @offset bytes
+ * 				- SEEK_END: The file offset is set to the size of the file plus @offset bytes
+ * Returns	: Newly updated file position on sucess, error code other wise
+ * Note		: Updates the file pointer by using @offset and @whence information.
+ *			  Allows the file offset to be set beyond the end of the file (but this does not
+ *			  change the size of the file).
+ */
+loff_t pcd_lseek(struct file *filp, loff_t offset, int whence)
+{
+	loff_t temp;
 
-   > `echo` command opens the pseudo character device by invoking the `open()` system call. (L5: `pcd_open()` gets called from the driver)
-   >
-   > L7: When a file is opened, the current file position is always 0.
-   >
-   > L10: `echo` invokes `close()` system call, and subsequently `pcd_release()` of the driver gets called.
+	pr_info("lseek requested\n");
+	pr_info("Current file position = %lld\n", filp->f_pos);
 
-4. Check the contents of the device (buffer): `cat /dev/pcd`
+	switch (whence)
+	{
+		case SEEK_SET:
+			if ((offset > DEV_MEM_SIZE) || (offset < 0))
+				return -EINVAL;
+			filp->f_pos = offset;
+			break;
+		case SEEK_CUR:
+			temp = filp->f_pos + offset;
+			if ((temp > DEV_MEM_SIZE) || (temp < 0))
+				return -EINVAL;
+			filp->f_pos = temp;
+			break;
+		case SEEK_END:
+			temp = DEV_MEM_SIZE + offset;
+			if ((temp > DEV_MEM_SIZE) || (temp < 0))
+				return -EINVAL;
+			filp->f_pos = temp;
+			break;
+		default:
+			return -EINVAL;
+	}
 
-   Output:
+	pr_info("Updated file position = %lld\n", filp->f_pos);
+	return filp->f_pos;
+}
 
-   ```plain
-   Hello, welcome!
-   ```
+/**
+ * pcd_read()
+ * Desc.	: Handles the read() system call from the user space
+ * Param.  	: @filp - pointer to file object
+ *            @buff - pointer to user buffer
+ *			  @count - read count given by the user
+ *			  @f_pos - pointer to current file position from which the read has to begin
+ * Returns	: The number of bytes read on success,
+ *			  0 if there is no bytes to read (EOF),
+ *			  appropriate error code (negative value) otherwise
+ * Note		: Reads a device file @count byte(s) of data from @f_pos, returns the data back to
+ *			  @buff (user), and updates @f_pos.
+ */
+ssize_t pcd_read(struct file *filp, char __user *buff, size_t count, loff_t *f_pos)
+{
+	pr_info("Read requested for %zu bytes\n", count);
+	pr_info("Current file position = %lld\n", *f_pos);
 
-5. Check the read activity: `dmesg | tail`
+	/* Adjust the count */
+	if ((*(f_pos) + count) > DEV_MEM_SIZE)
+		count = DEV_MEM_SIZE - *f_pos;
 
-   ```plain
-   [22741.144956] pcd_open :open was successful
-   [22741.144967] pcd_read :Read requested for 131072 bytes
-   [22741.144969] pcd_read :Current file position = 0
-   [22741.144971] pcd_read :512 bytes successfully read
-   [22741.144972] pcd_read :Updated file position = 512
-   [22741.144980] pcd_read :Read requested for 131072 bytes
-   [22741.144981] pcd_read :Current file position = 512
-   [22741.144982] pcd_read :0 bytes successfully read
-   [22741.144983] pcd_read :Updated file position = 512
-   [22741.144991] pcd_release :close was successful
-   ```
+	/* Copy to user buffer 
+	   Note: Global data access should be synchronized by using mutual exclusion to avoid
+	   race condition. */
+	if (copy_to_user(buff, &device_buffer[*f_pos], count))
+	{
+		return -EFAULT;
+	}
 
-   > L2: Read request for 131072 bytes because that's how the `cat` program is implemented!
-   >
-   > L5: Updated file position is 512 bytes (i.e., `DEV_MEM_SIZE`) because that's the size of our buffer.
-   >
-   > L6: `cat` requests to read again
-   >
-   > L8: 0 bytes since no more to read
+	/* Update the current file position f_pos */
+	*f_pos += count;
 
-6. Attempt copying a large text file (> 512 Bytes) into `/dev/pcd`: `cp file.txt /dev/pcd`
+	pr_info("%zu bytes successfully read\n", count);
+	pr_info("Updated file position = %lld\n", *f_pos);
 
-   Output:
+	/* Return the number of bytes successfully read */
+	return count;
+}
 
-   ```plain
-   cp: error writing '/dev/pcd': Cannot allocate memory
-   ```
+/**
+ * pcd_write()
+ * Desc.	: Handles the write() system call from the user space
+ * Param.  	: @filp - pointer to file object
+ *            @buff - pointer to user buffer
+ *			  @count - read count given by the user
+ *			  @f_pos - pointer to current file position from which the read has to begin
+ * Returns	: The number of bytes written on success,
+ *			  appropriate error code (negative value) otherwise
+ * Note		: Writes a device file @count byte(s) of data from @f_pos, returns the data back to
+ *			  @buff (user) and updates @f_pos.
+ */
+ssize_t pcd_write(struct file *filp, const char __user *buff, size_t count, loff_t *f_pos)
+{
+	pr_info("Write requested for %zu bytes\n", count);
+	pr_info("Current file position = %lld\n", *f_pos);
 
-   And run `dmesg` to see what happened:
+	/* Adjust the count */
+	if ((*(f_pos) + count) > DEV_MEM_SIZE)
+		count = DEV_MEM_SIZE - *f_pos;
 
-   ```plain
-   [24039.217897] pcd_driver_init :Module init was successful
-   [24045.901773] pcd_open :open was successful
-   [24045.901788] pcd_write :Write requested for 1717 bytes
-   [24045.901790] pcd_write :Current file position = 0
-   [24045.901792] pcd_write :512 bytes successfully written
-   [24045.901793] pcd_write :Updated file position = 512
-   [24045.901795] pcd_write :Write requested for 1205 bytes
-   [24045.901796] pcd_write :Current file position = 512
-   [24045.901797] pcd_write :No more space left on the device
-   [24045.901973] pcd_release :release was successful
-   ```
+	if (!count)
+	{
+		pr_err("No more space left on the device\n");
+		return -ENOMEM;
+	}
 
-   > L6: 512 bytes successfully written
-   >
-   > L7: The file position reached the end
-   >
-   > L8: `cp` command attempts to copy the rest of the contents (1717 - 512 = 1205 bytes)
-   >
-   > L9: Since the file position is already at the end, no more write can be done. (`pcd_write()` returns the error code `-ENOMEM` which triggers the error message `cp: error writing '/dev/pcd': Cannot allocate memory`.)
+	/* Copy from user buffer 
+	   Note: Global data access should be synchronized by using mutual exclusion to avoid
+	   race condition. */
+	if (copy_from_user(&device_buffer[*f_pos], buff, count))
+	{
+		return -EFAULT;
+	}
+
+	/* Update the current file position f_pos */
+	*f_pos += count;
+
+	pr_info("%zu bytes successfully written\n", count);
+	pr_info("Updated file position = %lld\n", *f_pos);
+
+	/* Return the number of bytes successfully written */
+	return count;
+}
+
+/**
+ * pcd_open()
+ * Desc.	: Handles the open() system call from the user space
+ * Param.	: @inode - pointer to inode object
+ *			  @filp - pointer to file object
+ * Returns	: 0 on success, negative error code otherwise
+ * Note		: N/A
+ */
+int pcd_open(struct inode *inode, struct file *filp)
+{
+	pr_info("open was successful\n");
+
+	return 0;
+}
+
+/**
+ * pcd_release()
+ * Desc.	: Handles the close() system call from the user space
+ * Param.	: @inode - pointer to inode object
+ *			  @filp - pointer to file object
+ * Returns	: 0 on success, negative error code otherwise
+ * Note		: VFS releases the file object. Called when the last reference to an
+ *			  open file is closed (i.e., when the f_count field of the file object
+ *			  becomes 0.
+ */
+int pcd_release(struct inode *inode, struct file *filp)
+{
+	pr_info("release was successful\n");
+
+	return 0;
+}
+
+/* File operations of the driver */
+struct file_operations pcd_fops = {	
+	/* This struct member init method is supported from C99 on */
+	.open = pcd_open,
+	.write = pcd_write,
+	.read = pcd_read,
+	.llseek = pcd_lseek,
+	.release = pcd_release,
+	.owner = THIS_MODULE
+};
+
+struct class *class_pcd;
+struct device *device_pcd;
+
+/* Module initialization entry point */
+static int __init pcd_driver_init(void)
+{
+	int ret;
+
+	/* 1. Dynamically allocate a device number */
+	ret = alloc_chrdev_region(&device_number, 0, 1, "pcd_devices");	/* fs/char_dev.c */
+	/* Handle error */
+	if (ret < 0)
+	{
+		pr_err("Device number allocation (alloc_chrdev_region) failed\n");
+		goto err_alloc_chrdev_region;
+	}
+
+	pr_info("Device number <major>:<minor> = %d:%d\n",MAJOR(device_number), MINOR(device_number));
+		/* Print the function name for debugging purpose */
+
+	/* 2. Initialize the cdev structure with fops */
+	cdev_init(&pcd_cdev, &pcd_fops);
+
+	/* 3. Register a device (cdev structure) with VFS */
+	pcd_cdev.owner = THIS_MODULE;
+	ret = cdev_add(&pcd_cdev, device_number, 1);	/* Register one device */
+	/* Handle error */
+	if (ret < 0)
+	{
+		pr_err("Device registration (cdev_add) failed\n");
+		goto err_cdev_add;
+	}
+
+	/* 4. Create device class under /sys/class/ */
+	class_pcd = class_create(THIS_MODULE, "pcd_class");	/* Returns a pointer to class struct */
+	if (IS_ERR(class_pcd))
+	{
+		pr_err("Class creation (class_create) failed\n");
+		ret = PTR_ERR(class_pcd);
+			/* PTR_ERR() converts pointer to error code (int)
+			   ERR_PTR() converts error code (int) to pointer */
+	 	goto err_class_create;
+	}
+
+	/* 5. Populate the sysfs with device information */
+	device_pcd = device_create(class_pcd, NULL, device_number, NULL, "pcd");
+		/* Second arg is NULL since there's no hierarchy at this point */
+		/* "pdc" will appear under /dev/ */
+	if (IS_ERR(device_pcd))
+	{
+		pr_err("Device creation (device_create) failed\n");
+		ret = PTR_ERR(device_pcd);
+		goto err_device_create;
+	}
+
+	pr_info("Module init was successful\n");
+
+	return 0;
+
+/* Handle when device_create() function fails */
+err_device_create:
+	class_destroy(class_pcd);
+
+/* Handle when class_create() function fails */
+err_class_create:
+	cdev_del(&pcd_cdev);
+
+/* Handle when cdev_add() function fails */
+err_cdev_add:
+	unregister_chrdev_region(device_number, 1);
+
+/* Handle when alloc_chrdev_region() function fails */
+err_alloc_chrdev_region:
+	pr_info("Module insertion failed\n");
+	return ret;	/* returns the error code */
+}
+
+/* Module cleanup entry point */
+static void __exit pcd_driver_cleanup(void)
+{
+	device_destroy(class_pcd, device_number);
+	class_destroy(class_pcd);
+	cdev_del(&pcd_cdev);
+	unregister_chrdev_region(device_number, 1);
+	pr_info("module unloaded\n");
+}
+
+/* Registration */
+module_init(pcd_driver_init);
+module_exit(pcd_driver_cleanup);
+
+/* Module description */
+MODULE_LICENSE("GPL");  /* This module adheres to the GPL licensing */
+MODULE_AUTHOR("Kyungjae Lee");
+MODULE_DESCRIPTION("A pseudo character driver");
+MODULE_INFO(board, "BeagleBone Black REV A5");
+```

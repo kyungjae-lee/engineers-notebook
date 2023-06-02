@@ -16,6 +16,7 @@
 1. **<a href="./kernel-apis-used-in-device-drivers">Kernel APIs Used in Device Drivers</a>**
 1. **<a href="./error-handling-and-error-codes">Error Handling & Error Codes</a>**
 1. **<a href="./character-driver">Character Driver</a>**
-1. **<a href="./exercise-pseudo-character-driver">Exercise: Pseudo Character Driver</a>**
+1. **<a href="./exercise-1-1-pseudo-character-driver-single-device-requirements">Exercise 1-1: Pseudo Character Driver (Single Device) - Requirements</a>**
+1. **<a href="./exercise-1-2-pseudo-character-driver-single-device-implementation">Exercise 1-2: Pseudo Character Driver (Single Device) - Implementation</a>**
+1. **<a href="./exercise-1-3-pseudo-character-driver-single-device-testing">Exercise 1-3: Pseudo Character Driver (Single Device) - Testing</a>**
 1. **<a href="./block-driver">Block Driver</a>**
-
