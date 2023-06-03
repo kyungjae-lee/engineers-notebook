@@ -4,213 +4,229 @@
 
 
 
-## Stack Using Singly-Linked List (C)
+## Stack Using Singly-Linked List (C++)
+
+* `push()` and `pop()` operations are designed to be done on the head of the list since both of their time complexity is O(1).
+
+
+
+<img src="./img/stack-using-singly-linked-list.png" alt="stack-using-singly-linked-list" width="250">
+
+
 
 ### Interface
 
-```c
-/*
- *  File Name   : lstack.h
- *  Description : Interface for stack using singly-linked list (in C)
- *  Author      : Kyungjae Lee
- *  Date Created: 12/23/2022
- */
+```cpp
+//========================================================================================
+// Filename     : stack.h
+// Description  : Interface for Stack using Singly-Linked List
+// Author       : Kyungjae Lee
+// History      : 06/03/2023 - Created file
+//========================================================================================
 
-#ifndef LSTACK_H
-#define LSTACK_H
+#ifndef STACK_H
+#define STACK_H
 
-#include <stdbool.h>    /* C99 only */
-
-typedef int Data;
-
-/* structure for stack (using list) elements */
-typedef struct LStackElem_
+// Class for stack (using singly-linked list) nodes
+class Node
 {
-    Data data;
-    struct LStackElem_ *next;
-} LStackElem;
+public:
+    int value;
+    Node *next;
 
-/* structure for stack (using list) */
-typedef struct LStack_
+    Node(int value);                    // Constructor
+};
+
+// Class for stacks (using singly-linked list)
+class Stack
 {
-    int elem_count;
-    LStackElem *head;
-} LStack;
+public:    
+    // Public interface
+    Stack(int value);       // Constructor  
+    void push(int value);   // Inserts a node into the top of stack
+    int pop(void);          // Deletes a node from the top of stack
+    int getTop(void);       // Returns the value of the top of stack
+    int getHeight(void);    // Returns the number of nodes in the stack
+    void printStack(void);  // Prints all nodes in the stack
+    ~Stack();               // Destructor
 
-/* public interface (ADT) */
-void init(LStack *lstack);
-void push(LStack *lstack, Data data);
-void pop(LStack *lstack);
-Data top(LStack *lstack);
-int size(LStack *lstack);
-bool empty(LStack *lstack);
-void clear(LStack *lstack);
+private:
+    Node *top;				// Pointer to top of stack
+    int height;				// Number of nodes in the stack
+};
 
 #endif
 ```
 
 ### Implementation
 
-```c
-/*
- *  File Name   : lstack.c
- *  Description : Implementation of stack using singly-linked list list (in C)
- *  Author      : Kyungjae Lee
- *  Date Created: 12/23/2022
- */
+```cpp
+//========================================================================================
+// Filename     : stack.cpp
+// Description  : Implementation of Stack using Singly-Linked List
+// Author       : Kyungjae Lee
+// History      : 06/03/2023 - Created file
+//========================================================================================
 
-#include <stdio.h>
-#include <stdlib.h>     /* malloc */
-#include <string.h>     /* memset */
-#include "lstack.h"
+#include <iostream>
+#include "stack.h"
+#include <climits>  // INT_MIN
 
-/* initializes stack */
-void init(LStack *lstack)
+using namespace std;
+
+//----------------------------------------------------------------------------------------
+// Implementation of Node class interface
+//----------------------------------------------------------------------------------------
+
+// Constructor
+// T = O(1)
+Node::Node(int value)
 {
-    /* initialize members */
-    lstack->elem_count = 0;
-    lstack->head = NULL;
+    this->value = value;
+    next = nullptr;
 }
 
-/* inserts an element into the stack */
-void push(LStack *lstack, Data data)
-{
-    /* create a new node to insert */
-    LStackElem *new_elem;
+//----------------------------------------------------------------------------------------
+// Implementation of Stack class interface
+//----------------------------------------------------------------------------------------
 
-    if ((new_elem = (LStackElem*)malloc(sizeof(LStackElem))) == NULL)
+// Constructor
+// T = O(1)
+Stack::Stack(int value)
+{
+    Node *newNode = new Node(value);
+    top = newNode;
+    height = 1;
+}
+
+// Inserts a node into the top of stack
+// T = O(1)
+void Stack::push(int value)
+{
+    Node *newNode = new Node(value);
+
+    // Push a node into a (empty or non-empty) stack
+    newNode->next = top;
+    top = newNode;
+    height++;
+}
+
+// Deletes a node from the top of stack
+// T = O(1)
+int Stack::pop(void)
+{
+    // Handle popping from an empty stack
+    if (height == 0)
+        return INT_MIN;
+
+    Node *delNode = top;
+    int poppedValue = top->value;
+    top = top->next;
+    delete delNode;
+    height--;
+
+    return poppedValue;
+}
+
+// Returns the value of the top of stack
+// T = O(1)
+int Stack::getTop(void)
+{
+    return top->value;
+}
+
+// Returns the number of nodes in the stack
+// T = O(1)
+int Stack::getHeight(void)
+{
+    return height;
+}
+
+// Prints all nodes in the stack
+// T = O(n)
+void Stack::printStack(void)
+{
+    Node *temp = top;
+
+    while (temp)
     {
-        /* no more elements can be created (memory allocation fail) */
-        printf("Error: Stack overflow.\n");
-        exit(1);
+        cout << temp->value << " ";
+        temp = temp->next;
     }
 
-    new_elem->data = data;
-    new_elem->next = NULL;	/* optional */
-    
-    /* insert the new element into the stack */
-    new_elem->next = lstack->head;
-    lstack->head = new_elem;
-
-    /* update the element counter to account for the inserted element */
-    lstack->elem_count++;
+    cout << endl;
 }
 
-/* removes an element from the stack (does not return it) */
-void pop(LStack *lstack)
+// Destructor
+// T = O(n)
+Stack::~Stack(void)
 {
-    LStackElem *rem_elem;
+    // top, height will be destroyed by default, but the nodes will not.
+    // So, make sure to delete them manually in the destructor.
 
-    if (empty(lstack))
+    Node *delNode = top;
+
+    while (top)
     {
-        /* do not allow pop operation on an empty stack */
-        printf("Error: Stack underflow.\n");
-        exit(1);
+        top = top->next;
+        delete delNode;
+        delNode = top;
     }
-
-    /* remove the top element */
-    rem_elem = lstack->head;
-    lstack->head = lstack->head->next;
-    free(rem_elem);
-    rem_elem = NULL;
-
-    /* update the element counter to account for the inserted element */
-    lstack->elem_count--;
-}
-
-/* returns the top element of the stack (does not remove it) */
-Data top(LStack *lstack)
-{
-    /* do not allow top operation on an empty stack */
-    if (empty(lstack))
-    {
-        printf("Error: Stack underflow.\n");
-        exit(1);
-    }
-
-    return lstack->head->data;
-}
-
-/* returns the current number of elements */
-int size(LStack *lstack)
-{
-    return lstack->elem_count;
-}
-
-/* returns whether the stack is empty (equivalent to size() == 0) */
-bool empty(LStack *lstack)
-{
-    return lstack->elem_count == 0;	/* lstack->head == NULL, size(lstack) == 0 */
-}
-
-/* removes all elements from the stack */
-void clear(LStack *lstack)
-{
-    /* remove all elements */
-    while (!empty(lstack))
-        pop(lstack);
-
-    /* clear the structure as a precaution */
-    memset(lstack, 0, sizeof(LStackElem));
 }
 ```
 
 ### Test Driver
 
-```c
-/*
- *  File Name   : lstack_main.c
- *  Description : Test driver for stack using singly-linked list (in C)
- *  Author      : Kyungjae Lee
- *  Date Created: 12/23/2022
- */
+```cpp
+//========================================================================================
+// File name    : main.cpp
+// Description  : Test driver for Stack using Singly-Linked List
+// Author       : Kyungjae Lee
+// File created : 05/02/2023
+//========================================================================================
 
-#include <stdio.h>
-#include "lstack.h"
+#include <iostream>
+#include "stack.h"
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-    LStack s;
-    int i;
-
-    init(&s);
-
-    printf("%d\n", size(&s));   // 0
-    printf("%d\n", empty(&s));  // 1
-    //top(&s);                    // Error: Stack underflow.
-    //pop(&s);                    // Error: Stack underflow.
-
-    for (i = 0; i < 5; ++i)
-        push(&s, i); 
-
-    printf("%d\n", size(&s));   // 5
-    printf("%d\n", top(&s));    // 4
-
-    pop(&s);
-    pop(&s);
-    pop(&s);
+    // Create a stack
+    Stack *s = new Stack(4);
     
-    printf("%d\n", size(&s));   // 2
-    printf("%d\n", top(&s));    // 1
-    printf("%d\n", empty(&s));  // 0
+    // Push nodes to stack
+    s->push(3);
+    s->push(2);
+    s->push(1);
+
+    // Print stack information
+    cout << "Top: " << s->getTop() << endl;         // 1
+    cout << "Height: " << s->getHeight() << endl;   // 4
+    cout << "Stack elements: "; s->printStack();    // 1 2 3 4
     
-    clear(&s);
-    printf("%d\n", size(&s));   // 0
-    printf("%d\n", empty(&s));  // 1
+    cout << endl;
+    
+    // Pop nodes from stack
+    s->pop();
+    s->pop();
+
+    // Print stack information
+    cout << "Top: " << s->getTop() << endl;         // 3
+    cout << "Height: " << s->getHeight() << endl;   // 2
+    cout << "Stack elements: "; s->printStack();    // 3 4
 
     return 0;
-} 
+}
 ```
 
 ```plain
-0
-1
-5
-4
-2
-1
-0
-0
-1
+Top: 1
+Height: 4
+Stack elements: 1 2 3 4 
+
+Top: 3
+Height: 2
+Stack elements: 3 4 
 ```
 
