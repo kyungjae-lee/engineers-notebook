@@ -10,10 +10,10 @@
 
 ```c
 //========================================================================================
-// @ Filename		: singly_linked_list.h
-// @ Description    : Interface for Singly-Linked List
-// @ Author         : Kyungjae Lee
-// @ History		: 05/02/2023 - Created file
+// Filename		: singly_linked_list.h
+// Description	: Interface for Singly-Linked List
+// Author		: Kyungjae Lee
+// History		: 05/02/2023 - Created file
 //========================================================================================
 
 #ifndef SINGLY_LINKED_LIST_H
@@ -60,10 +60,10 @@ private:
 
 ```c
 //========================================================================================
-// @ Filename		: singly_linked_list.cpp
-// @ Description    : Implementation of Singly-Linked List
-// @ Author         : Kyungjae Lee
-// @ History		: 05/02/2023 - Created file
+// Filename		: singly_linked_list.cpp
+// Description	: Implementation of Singly-Linked List
+// Author		: Kyungjae Lee
+// History		: 05/02/2023 - Created file
 //========================================================================================
 
 #include <iostream>
