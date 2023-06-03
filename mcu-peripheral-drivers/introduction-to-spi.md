@@ -315,6 +315,26 @@
 
 
 
+## SPI Tx/Rx Algorithms
+
+* SPI Tx flow chart
+
+
+
+<img src="img/spi-send-data-flow-chart.png" alt="spi-send-data-flow-chart" width="650">
+
+
+
+* SPI Rx flow chart
+
+
+
+<img src="img/spi-receive-data-flow-chart.png" alt="spi-receive-data-flow-chart" width="650">
+
+
+
+
+
 ## Various Serial Communication Protocols
 
 | Protocol | Type                | Max Distance (ft.)                      | Max Speed               | Typical Usage                                       |
