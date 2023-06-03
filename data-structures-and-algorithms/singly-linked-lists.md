@@ -350,10 +350,10 @@ SinglyLinkedList::~SinglyLinkedList()
 
 ```c
 //========================================================================================
-// @ File name      : main.cpp
-// @ Description    : Test driver for Singly-Linked List
-// @ Author         : Kyungjae Lee
-// @ File created   : 05/02/2023
+// File name	: main.cpp
+// Description	: Test driver for Singly-Linked List
+// @ Author		: Kyungjae Lee
+// @ History	: 05/02/2023
 //========================================================================================
 
 #include <iostream>
