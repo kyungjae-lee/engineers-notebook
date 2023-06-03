@@ -229,4 +229,3 @@ Top: 3
 Height: 2
 Stack elements: 3 4 
 ```
-
