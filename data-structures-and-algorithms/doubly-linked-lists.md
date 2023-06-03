@@ -16,10 +16,10 @@
 
 ```c
 //========================================================================================
-// @ Filename		: doubly_linked_list.h
-// @ Description    : Interface for Doubly-Linked List
-// @ Author         : Kyungjae Lee
-// @ History		: 05/17/2023 - Created file
+// Filename		: doubly_linked_list.h
+// Description	: Interface for Doubly-Linked List
+// Author		: Kyungjae Lee
+// History		: 05/17/2023 - Created file
 //========================================================================================
 
 #ifndef DOUBLY_LINKED_LIST_H
@@ -60,17 +60,17 @@ private:
     int length;
 };
 
-#endif
+#endif	// DOUBLY_LINKED_LIST_H
 ```
 
 ### Implementation
 
 ```c
 //========================================================================================
-// @ Filename     	: doubly_linked_list.cpp
-// @ Description    : Implementation of Doubly-Linked List
-// @ Author         : Kyungjae Lee
-// @ History		: 05/17/2023 - Created file
+// Filename		: doubly_linked_list.cpp
+// Description	: Implementation of Doubly-Linked List
+// Author		: Kyungjae Lee
+// History		: 05/17/2023 - Created file
 //========================================================================================
 
 #include <iostream>
@@ -388,10 +388,10 @@ DoublyLinkedList::~DoublyLinkedList()
 
 ```c
 //========================================================================================
-// @ File name      : main.cpp
-// @ Description    : Test driver for Doubly-Linked List
-// @ Author         : Kyungjae Lee
-// @ File created   : 05/17/2023
+// File name	: main.cpp
+// Description	: Test driver for Doubly-Linked List
+// Author		: Kyungjae Lee
+// History		: 05/17/2023 - Created file
 //========================================================================================
 
 #include <iostream>
