@@ -199,7 +199,7 @@ void SinglyLinkedList::deleteNode(int index)
 }
 
 // Delete the last node
-// T = O(1)
+// T = O(n)
 void SinglyLinkedList::deleteLast()
 {
     // Do not allow deleting a node from an empty list
