@@ -11,7 +11,7 @@
 ```c
 //========================================================================================
 // @ Filename		: singly_linked_list.h
-// @ Description    : Interface for Linked List
+// @ Description    : Interface for Singly-Linked List
 // @ Author         : Kyungjae Lee
 // @ History		: 05/02/2023 - Created file
 //========================================================================================
