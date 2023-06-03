@@ -10,10 +10,10 @@
 
 ```c
 //========================================================================================
-// @ File name      : doubly_linked_list.h
+// @ Filename		: doubly_linked_list.h
 // @ Description    : Interface for Doubly-Linked List
 // @ Author         : Kyungjae Lee
-// @ File created   : 05/17/2023
+// @ History		: 05/17/2023 - Created file
 //========================================================================================
 
 #ifndef DOUBLY_LINKED_LIST_H
@@ -61,10 +61,10 @@ private:
 
 ```c
 //========================================================================================
-// @ File name      : doubly_linked_list.cpp
+// @ Filename     	: doubly_linked_list.cpp
 // @ Description    : Implementation of Doubly-Linked List
 // @ Author         : Kyungjae Lee
-// @ File created   : 05/17/2023
+// @ History		: 05/17/2023 - Created file
 //========================================================================================
 
 #include <iostream>
