@@ -190,6 +190,14 @@ void GPIO_ButtonInit(void)
 {
 	GPIO_Handle_TypeDef GPIOBtn;
 
+	/* Zero-out all the fields in the structures (Very important! GPIOLed and GPIOBtn
+	 * are local variables whose members may be filled with garbage values before
+	 * initialization. These garbage values may set (corrupt) the bit fields that
+	 * you did not touch assuming that they will be 0 by default. Do NOT make this
+	 * mistake!
+	 */
+	memset(&GPIOBtn, 0, sizeof(GPIOBtn));
+
 	/* GPIOBtn configuration */
 	GPIOBtn.pGPIOx = GPIOA;
 	GPIOBtn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_0;
@@ -204,6 +212,10 @@ void GPIO_ButtonInit(void)
 int main(int argc, char *argv[])
 {
 	char userData[] = "Hello world";
+
+	/* Initialize and configure GPIO pin for user button */
+	GPIO_ButtonInit();
+
 	/* Initialize and configure GPIO pins to be used as SPI2 pins */
 	SPI2_PinsInit();
 
@@ -238,7 +250,7 @@ int main(int argc, char *argv[])
 
 		/* Arduino sketch expects 1 byte of length information followed by data */
 		/* Send length information to the slave first */
-		uint8_t dataLen = strlen(user_data);
+		uint8_t dataLen = strlen(userData);
 		SPI_TxData(SPI2, &dataLen, 1);
 		/* Send data */
 		SPI_TxData(SPI2, (uint8_t *)userData, strlen(userData));
@@ -259,3 +271,125 @@ int main(int argc, char *argv[])
 }
 ```
 
+
+
+## Arduino Sketch (`001SPISlaveRxString.ino`)
+
+```c
+/* SPI Slave Demo
+ *
+ * SPI pin numbers:
+ * SCK   13  // Serial Clock.
+ * MISO  12  // Master In Slave Out.
+ * MOSI  11  // Master Out Slave In.
+ * SS    10  // Slave Select . Arduino SPI pins respond only if SS pulled low by the master 
+ */
+#include <SPI.h>
+#include<stdint.h>
+#define SPI_SCK 13
+#define SPI_MISO 12
+#define SPI_MOSI 11
+#define SPI_SS 10
+
+char dataBuff[500];
+//Initialize SPI slave.
+void SPI_SlaveInit(void) 
+{ 
+ #if 0 
+  // Initialize SPI pins.
+  pinMode(SPI_SCK, INPUT);
+  pinMode(SPI_MOSI, INPUT);
+  pinMode(SPI_MISO, OUTPUT);
+  pinMode(SPI_SS, INPUT);
+  
+  // Enable SPI as slave.
+  SPCR = (1 << SPE);
+ #endif 
+   // Initialize SPI pins.
+  pinMode(SCK, INPUT);
+  pinMode(MOSI, INPUT);
+  pinMode(MISO, OUTPUT);
+  pinMode(SS, INPUT);
+  //make SPI as slave
+  
+  // Enable SPI as slave.
+  SPCR = (1 << SPE);
+}
+
+//This function returns SPDR Contents 
+uint8_t SPI_SlaveReceive(void)
+{
+  /* Wait for reception complete */
+  while(!(SPSR & (1<<SPIF)));
+  /* Return Data Register */
+  return SPDR;
+}
+
+//sends one byte of data 
+void SPI_SlaveTransmit(char data)
+{
+  /* Start transmission */
+  SPDR = data;
+  
+  /* Wait for transmission complete */
+  while(!(SPSR & (1<<SPIF)));
+}
+  
+// The setup() function runs right after reset.
+void setup() 
+{
+  // Initialize serial communication 
+  Serial.begin(9600);
+  
+  // Initialize SPI Slave.
+  SPI_SlaveInit();
+  
+  Serial.println("Slave Initialized");
+}
+ uint16_t dataLen = 0;
+  uint32_t i = 0;
+// The loop function runs continuously after setup().
+void loop() 
+{
+  Serial.println("Slave waiting for ss to go low");
+  while(digitalRead(SS) );
+
+ //  Serial.println("start");
+   
+  //1. read the length  
+//  dataLen = (uint16_t)( SPI_SlaveReceive() | (SPI_SlaveReceive() << 8) );
+  //Serial.println(String(dataLen,HEX));
+ i = 0;
+  dataLen = SPI_SlaveReceive();
+  for(i = 0 ; i < dataLen ; i++ )
+  {
+    dataBuff[i] =  SPI_SlaveReceive();
+  }
+
+  //  Serial.println(String(i,HEX));
+  dataBuff[i] = '\0';
+  
+  Serial.println("Rcvd:");
+  Serial.println(dataBuff);
+  Serial.print("Length:");
+  Serial.println(dataLen); 
+}
+```
+
+
+
+## Testing
+
+* Logic analyzer snapshot
+
+
+
+<img src="./img/spi-application-2-logic-analyzer-1.png" alt="spi-application-2-logic-analyzer-1" width="1000">
+
+
+
+* Although data was successfully sent out by the STM32 Discovery board (as shown in the snapshot above), the Arduino Uno R3 board didn't seem to receive the data. 
+
+  SPI pins of the STM32 board was set to 2MHz, and Arduino board serial monitor baudrate was set to 9600.
+
+  Test and debug this application again!
