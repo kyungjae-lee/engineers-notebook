@@ -42,6 +42,80 @@
 
 
 
+### Master - Slave Communication
+
+* Communication sequence:
+
+  1. Master sends a command to slave.
+
+  2. Slave responds with `ACK(0xF5)` or `NACK(0xA5)` byte.
+
+  3. If master recieves `ACK`, it sends 1 or more command arguments.
+
+     * Slave takes action and responds to master according to the command/arguments it has received
+
+     If master receives `NACK`, it displays error message.
+
+* Command formats
+
+  Following commands are provided by the Arduino sketch
+
+  ```plain
+  <command_code(1)>		<arg1>					<arg2>
+  ======================	======================	=============
+  CMD_LED_CTRL			<pin no(1)>				<value(1)> (ON/OFF)
+  CMD_SENSOR_READ			<analog pin number(1)>
+  CMD_LED_READ			<pin no(1)>
+  CMD_PRINT				<len(2)>				<message(len)>
+  CMD_ID_READ
+  ```
+
+  > `CMD_LED_CTRL <pin no> <value>` is the command to turn on/off LED connected to a specific Arduino pin
+  >
+  > * `<pin no>` - Digital pin number of the Arduino board (0 to 9) (1 byte)
+  > * `<value>` - 1 = ON, 0 = OFF (1 byte)
+  >
+  > Slave action: Controls the digital pin on/off
+  >
+  > Slave returns: Nothing
+
+  > `CMD_SENSOR_READ <analog pin number>`
+  >
+  > * `<analog pin number>` - Analog pin number of the Arduino board (A0 to A5) (1 byte)
+  >
+  > Slave action: Slave shall read the analog value of the supplied pin
+  >
+  > Slave returns: 1 byte of analog read value
+
+  > `CMD_LED_READ <pin no>`
+  >
+  > * `<pin no>` - Digital pin number of the Arduino board (0 to 9)
+  >
+  > Slave action: Reads the status of the supplied pin number
+  >
+  > Slave returns: 1 byte of LED status (1 = ON, 0 = OFF)
+
+  > `CMD_PRINT <len> <message>`
+  >
+  > * `<len>` - 1 byte of length information of the message to follow
+  > * `<message>` - Message of `len` bytes
+  >
+  > Slave action: Receives the message and displays it via serial port
+  >
+  > Slave returns: Nothing
+
+  > `CMD_ID_READ`
+  >
+  > Slave returns: 10 bytes of board ID string
+
+### Application Flow Chart
+
+
+
+<img src="./img/spi-application-3-flow-chart.png" alt="sspi-application-3-flow-chart" width="350">
+
+
+
 
 
 ## Procedure
