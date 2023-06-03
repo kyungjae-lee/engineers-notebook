@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 2: Master-Slave Communication (`02_spi-master-slave-communication.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 2: Master-Slave Communication (`02_spi-master-slave-tx.c`)
 
-# SPI Application 2: Master-Slave Communication (`02_spi-master-slave-communication.c`)
+# SPI Application 2: Master-Slave Tx (`02_spi-master-slave-tx.c`)
 
 
 
@@ -82,13 +82,13 @@
 
 ## Code
 
-### `02_spi-master-slave-communication.c`
+### `02_spi-master-slave-tx.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 02_spi_master_slave_communication.c
+ * Filename		: 02_spi_master_slave_tx.c
  * Description	: Program to test SPI send data functionality
  * Author		: Kyungjae Lee
  * History 		: Jun 02, 2023 - Created file
@@ -277,35 +277,29 @@ int main(int argc, char *argv[])
 
 ```c
 /* SPI Slave Demo
+
  *
  * SPI pin numbers:
  * SCK   13  // Serial Clock.
  * MISO  12  // Master In Slave Out.
  * MOSI  11  // Master Out Slave In.
- * SS    10  // Slave Select . Arduino SPI pins respond only if SS pulled low by the master 
+ * SS    10  // Slave Select . Arduino SPI pins respond only if SS pulled low by the master
+ *
+ 
  */
 #include <SPI.h>
-#include<stdint.h>
+#include<stdint.h>  
 #define SPI_SCK 13
 #define SPI_MISO 12
 #define SPI_MOSI 11
 #define SPI_SS 10
 
 char dataBuff[500];
+
 //Initialize SPI slave.
 void SPI_SlaveInit(void) 
 { 
- #if 0 
   // Initialize SPI pins.
-  pinMode(SPI_SCK, INPUT);
-  pinMode(SPI_MOSI, INPUT);
-  pinMode(SPI_MISO, OUTPUT);
-  pinMode(SPI_SS, INPUT);
-  
-  // Enable SPI as slave.
-  SPCR = (1 << SPE);
- #endif 
-   // Initialize SPI pins.
   pinMode(SCK, INPUT);
   pinMode(MOSI, INPUT);
   pinMode(MISO, OUTPUT);
@@ -325,46 +319,42 @@ uint8_t SPI_SlaveReceive(void)
   return SPDR;
 }
 
+
 //sends one byte of data 
 void SPI_SlaveTransmit(char data)
 {
   /* Start transmission */
   SPDR = data;
-  
   /* Wait for transmission complete */
   while(!(SPSR & (1<<SPIF)));
 }
   
+
 // The setup() function runs right after reset.
 void setup() 
 {
   // Initialize serial communication 
   Serial.begin(9600);
-  
   // Initialize SPI Slave.
   SPI_SlaveInit();
-  
   Serial.println("Slave Initialized");
 }
- uint16_t dataLen = 0;
-  uint32_t i = 0;
+
 // The loop function runs continuously after setup().
 void loop() 
 {
+  uint32_t i;
+  uint16_t dataLen = 0;
   Serial.println("Slave waiting for ss to go low");
-  while(digitalRead(SS) );
+  while(digitalRead(SS));
 
- //  Serial.println("start");
-   
-  //1. read the length  
-//  dataLen = (uint16_t)( SPI_SlaveReceive() | (SPI_SlaveReceive() << 8) );
-  //Serial.println(String(dataLen,HEX));
- i = 0;
+  i = 0;
   dataLen = SPI_SlaveReceive();
   for(i = 0 ; i < dataLen ; i++ )
   {
     dataBuff[i] =  SPI_SlaveReceive();
   }
+
 
   //  Serial.println(String(i,HEX));
   dataBuff[i] = '\0';
@@ -372,7 +362,7 @@ void loop()
   Serial.println("Rcvd:");
   Serial.println(dataBuff);
   Serial.print("Length:");
-  Serial.println(dataLen); 
+  Serial.println(dataLen);
 }
 ```
 
@@ -386,7 +376,7 @@ void loop()
 
 <img src="./img/spi-application-2-logic-analyzer-1.png" alt="spi-application-2-logic-analyzer-1" width="1000">
 
-
+> Notice that as soon as `SPE` is set to 0, `NSS` is pulled to GND (LOW), and as soon as `SPE` is set to 1, `NSS` is pulled to HIGH automatically by the hardware.
 
 * Although data was successfully sent out by the STM32 Discovery board (as shown in the snapshot above), the Arduino Uno R3 board didn't seem to receive the data. 
 
