@@ -6,6 +6,12 @@
 
 ## Doubly-Linked List (C++)
 
+
+
+<img src="./img/doubly-linked-list.png" alt="doubly-linked-list" width="700">
+
+
+
 ### Interface
 
 ```c
@@ -68,6 +74,7 @@ private:
 //========================================================================================
 
 #include <iostream>
+#include <cstdlib>		// EXIT_FAILURE
 #include "doubly_linked_list.h"
 
 using namespace std;
@@ -209,9 +216,12 @@ void DoublyLinkedList::deleteNode(int index)
 // T = O(1)
 void DoublyLinkedList::deleteLast()
 {
-    // Do not allow deleting a node from an empty list
+    // Do not allow delete operation on an empty list
     if (length == 0)
-        return;
+    {
+        cout << "ERROR: Cannot delete from an empty list. Terminating!" << endl;
+        exit(EXIT_FAILURE);
+    }
 
     Node *delNode = tail;
 
@@ -237,9 +247,12 @@ void DoublyLinkedList::deleteLast()
 // T = O(1)
 void DoublyLinkedList::deleteFirst()
 {
-    // Do not allow deleting a node from an empty list
+    // Do not allow delete operation on an empty list
     if (length == 0)
-        return;
+    {
+        cout << "ERROR: Cannot delete from an empty list. Terminating!" << endl;
+        exit(EXIT_FAILURE);
+    }
 
     Node *delNode = head;
 

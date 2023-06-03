@@ -6,6 +6,12 @@
 
 ## Singly-Linked List (C++)
 
+
+
+<img src="./img/singly-linked-list.png" alt="singly-linked-list" width="500">
+
+
+
 ### Interface
 
 ```c
@@ -67,6 +73,7 @@ private:
 //========================================================================================
 
 #include <iostream>
+#include <cstdlib>		// EXIT_FAILURE
 #include "singly_linked_list.h"
 
 using namespace std;
@@ -202,9 +209,12 @@ void SinglyLinkedList::deleteNode(int index)
 // T = O(n)
 void SinglyLinkedList::deleteLast()
 {
-    // Do not allow deleting a node from an empty list
+    // Do not allow delete operation on an empty list
     if (length == 0)
-        return;
+    {
+        cout << "ERROR: Cannot delete from an empty list. Terminating!" << endl;
+        exit(EXIT_FAILURE);
+    }
 
     Node *delNode = head;
 
@@ -237,9 +247,12 @@ void SinglyLinkedList::deleteLast()
 // T = O(1)
 void SinglyLinkedList::deleteFirst()
 {
-    // Do not allow deleting a node from an empty list
+    // Do not allow delete operation on an empty list
     if (length == 0)
-        return;
+    {
+        cout << "ERROR: Cannot delete from an empty list. Terminating!" << endl;
+        exit(EXIT_FAILURE);
+    }
 
     Node *delNode = head;
 

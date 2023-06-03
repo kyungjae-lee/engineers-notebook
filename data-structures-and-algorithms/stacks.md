@@ -70,7 +70,7 @@ private:
 
 #include <iostream>
 #include "stack.h"
-#include <climits>  // INT_MIN
+#include <cstdlib>		// EXIT_FAILURE
 
 using namespace std;
 
@@ -87,7 +87,7 @@ Node::Node(int value)
 }
 
 //----------------------------------------------------------------------------------------
-// Implementation of Stack class interface
+// Implementation of Stack (using singly-linked list) class interface
 //----------------------------------------------------------------------------------------
 
 // Constructor
@@ -115,9 +115,12 @@ void Stack::push(int value)
 // T = O(1)
 int Stack::pop(void)
 {
-    // Handle popping from an empty stack
-    if (height == 0)
-        return INT_MIN;
+    // Do not allow pop operation on an empty stack
+    if (length == 0)
+    {
+        cout << "ERROR: Cannot pop from an empty stack. Terminating!" << endl;
+        exit(EXIT_FAILURE);
+    }
 
     Node *delNode = top;
     int poppedValue = top->value;

@@ -4,245 +4,269 @@
 
 
 
-## Queue Using Singly-Linked List (C)
+## Queue Using Singly-Linked List (C++)
+
+* The only design that allows both the `enqueue()` and `dequeue()` to be of O(1) time complexity is to enqueue to the last node and dequeue from the first node.
+
+
+
+<img src="./img/queue-using-singly-linked-list.png" alt="queue-using-singly-linked-list" width="700">
+
+
 
 ### Interface
 
 ```c
-/*
- *  File Name   : lqueue.h
- *  Description : Interface for queue using singly-linked list (in C)
- *  Author      : Kyungjae Lee
- *  Date Created: 12/24/2022
- */
+/========================================================================================
+// Filename     : queue.h
+// Description  : Interface for Queue using Singly-Linked List
+// Author       : Kyungjae Lee
+// History      : 06/03/2023 - Created file
+//========================================================================================
 
-#ifndef LQUEUE_H
-#define LQUEUE_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
-#include <stdbool.h>    /* C99 only */
-
-typedef int Data;
-
-/* structure for queue (using list) elements */
-typedef struct LQueueElem_
+// Class for queue (using singly-linked list) nodes
+class Node
 {
-    Data data;
-    struct LQueueElem_ *next;
-} LQueueElem;
+public:
+    int value;
+    Node *next;
 
-/* structure for queue (using list) */
-typedef struct LQueue_
+    Node(int value);            // Constructor
+};
+
+// Class for queues (using singly-linked list)
+class Queue
 {
-    int elem_count;
-    LQueueElem *head;
-    LQueueElem *tail;
-} LQueue;
+public:    
+    // Public interface
+    Queue(int value);           // Constructor  
+    void enqueue(int value);    // Inserts a node into the last node of the queue
+    int dequeue();              // Deletes the first node of the queue
+    int getFirst(void);         // Returns the value of the first node of queue
+    int getLast(void);          // Returns the number of the last node of the queue
+    int getLength(void);        // Returns the number of the last node of the queue
+    void printQueue(void);      // Prints all nodes in the queue
+    ~Queue();                   // Destructor
 
-/* public interface (ADT) */
-void init(LQueue *lqueue);    
-void enqueue(LQueue *lqueue, Data data);  
-void dequeue(LQueue *lqueue);
-Data front(LQueue *lqueue);
-Data back(LQueue *lqueue);
-int size(LQueue *lqueue);
-bool empty(LQueue *lqueue);
-void clear(LQueue *lqueue);
+private:
+    Node *first;
+    Node *last;
+    int length;
+};
 
-#endif
+#endif  // QUEUE_H
 ```
 
 ### Implementation
 
 ```c
-/*
- *  File Name   : lqueue.c
- *  Description : Implementation of queue using singly-linked list (in C)
- *  Author      : Kyungjae Lee
- *  Date Created: 12/24/2022
- */
+//========================================================================================
+// Filename     : queue.cpp
+// Description  : Implementation of Queue using Singly-Linked List
+// Author       : Kyungjae Lee
+// History      : 06/03/2023 - Created file
+//========================================================================================
 
-#include <stdio.h>    
-#include <stdlib.h>     /* malloc */
-#include <string.h>     /* memset */
-#include "lqueue.h"
+#include <iostream>
+#include <cstdlib>		// EXIT_FAILURE
+#include "queue.h"
 
-/* initializes the queue */
-void init(LQueue *lqueue)
+
+using namespace std;
+
+//----------------------------------------------------------------------------------------
+// Implementation of Node class interface
+//----------------------------------------------------------------------------------------
+
+// Constructor
+// T = O(1)
+Node::Node(int value)
 {
-    lqueue->elem_count = 0;
-    lqueue->head = NULL;
-    lqueue->tail = NULL;
+    this->value = value;
+    next = nullptr;
 }
 
-/* inserts an element into the queue */
-void enqueue(LQueue *lqueue, Data data)
+//----------------------------------------------------------------------------------------
+// Implementation of Queue (using singly-linked list) class interface
+//----------------------------------------------------------------------------------------
+
+// Constructor
+// T = O(1)
+Queue::Queue(int value)
 {
-    /* create a new node to insert */
-    LQueueElem *new_elem;
+    Node *newNode = new Node(value);
+    first = newNode;
+    last = newNode;
+    length = 1;
+}
 
-    if ((new_elem = (LQueueElem*)malloc(sizeof(LQueueElem))) == NULL)
+// Inserts a node into the last node of the queue
+// T = O(1)
+void Queue::enqueue(int value)
+{
+    Node *newNode = new Node(value);
+
+    // Insert a node into an empty queue
+    if (length == 0)    // (first == nullptr) or (last == nullptr)
     {
-        /* no more elements can be created (memory allocation fail) */
-        printf("Error: Queue overflow.\n");
-        exit(1);
+        first = newNode;
+        last = newNode;
     }
-
-    new_elem->data = data;
-    new_elem->next = NULL;  /* mandatory */
-
-    /* insert the new element into the queue (enqueue to the tail) */
-    if (lqueue->head == NULL)   /* lqueue->tail == NULL, size(lqueue) == 0 */
-    {
-        lqueue->head = new_elem;
-        lqueue->tail = new_elem;
-    }
+    // Insert a node into a non-empty queue
     else
     {
-        lqueue->tail->next = new_elem;
-        lqueue->tail = new_elem;
+        last->next = newNode;
+        last = newNode;
     }
+
+    length++;
+}
+
+// Deletes the first node of the queue
+// T = O(1)
+int Queue::dequeue(void)
+{
+    // Do not allow dequeue operation on an empty queue
+    if (length == 0)
+    {
+        cout << "ERROR: Cannot dequeue from an empty queue. Terminating!" << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    Node *delNode = first;
+    int dequeuedValue = first->value;
+
+    // If only 1 node in the queue
+    if (length == 1)
+    {
+        first == nullptr;
+        last == nullptr;
+    }
+    // If 2+ nodes in the queue
+    else
+    {   
+        first = first->next;
+    }
+
+    delete delNode;
+    length--;
     
-    /* update the element counter to account for the inserted element */
-    lqueue->elem_count++;
+    return dequeuedValue;
 }
 
-/* removes an element from the queue (does not return it) */
-void dequeue(LQueue *lqueue)
+// Returns the value of the first node of the queue
+// T = O(1)
+int Queue::getFirst(void)
 {
-    LQueueElem *rem_elem;
+    return first->value;
+}
 
-    if (lqueue->head == NULL)   /* lqueue->tail == NULL, size(lqueue) == 0 */
+// Returns the value of the last node of the queue
+// T = O(1)
+int Queue::getLast(void)
+{
+    return last->value;
+}
+
+// Returns the number of nodes in the queue
+// T = O(1)
+int Queue::getLength(void)
+{
+    return length;
+}
+
+// Prints all nodes in the queue
+// T = O(n)
+void Queue::printQueue(void)
+{
+    Node *temp = first;
+
+    while (temp)
     {
-        /* do not allow dequeue operation on an empty queue */
-        printf("Error: Queue underflow.\n");
-        exit(1);
+        cout << temp->value << " ";
+        temp = temp->next;
     }
 
-    /* remove the new element from the queue (dequeue from the head) */
-    rem_elem = lqueue->head;
-
-    if ((lqueue->head = lqueue->head->next) == NULL)
-        lqueue->tail = NULL;    /* handle removing the last element from the queue */
-
-    free(rem_elem);
-    rem_elem = NULL;
-
-    /* update the element counter to account for the inserted element */
-    lqueue->elem_count--;
+    cout << endl;
 }
 
-/* returns the next element (inserted first) in the queue without removing it */
-Data front(LQueue *lqueue)
+// Destructor
+// T = O(n)
+Queue::~Queue(void)
 {
-    if (lqueue->head == NULL)   /* lqueue->tail == NULL, size(lqueue) == 0 */
+    // first, last, length will be destroyed by default, but the nodes will not.
+    // So, make sure to delete them manually in the destructor.
+
+    Node *delNode = first;
+
+    while (first)
     {
-        /* do not allow front operation on an empty queue */
-        printf("Error: Queue underflow.\n");
-        exit(1);
+        first = first->next;
+        delete delNode;
+        delNode = first;
     }
-
-    return lqueue->head->data;
-}
-
-/* returns the last element (inserted last) in the queue without removing it */
-Data back(LQueue *lqueue)
-{
-    if (lqueue->head == NULL)   /* lqueue->tail == NULL, size(lqueue) == 0 */
-    {
-        /* do not allow back operation on an empty queue */
-        printf("Error: Queue underflow.\n");
-        exit(1);
-    }
-
-    return lqueue->tail->data;
-}
-
-/* returns the current number of elements */
-int size(LQueue *lqueue)
-{
-    return lqueue->elem_count;
-}
-
-/* returns whether the queue is empty */
-bool empty(LQueue *lqueue)
-{
-    return lqueue->elem_count == 0;
-}
-
-/* removes all elements from the queue */
-void clear(LQueue *lqueue)
-{
-    /* remove all elements from the queue */
-    //
-    while (size(lqueue))    /* lqueue->head != NULL, lqueue->tail != NULL */
-        dequeue(lqueue);
-
-    /* clear the structure as a precaution */
-    memset(lqueue, 0, sizeof(LQueue));    
 }
 ```
 
 ### Test Driver
 
 ```c
-/*
- *  File Name   : lqueue_main.c
- *  Description : Test driver for queue using singly-linked list (in C)
- *  Author      : Kyungjae Lee
- *  Date Created: 12/24/2022
- */
+//========================================================================================
+// File name    : main.cpp
+// Description  : Test driver for Queue using Singly-Linked List
+// Author       : Kyungjae Lee
+// History      : 06/03/2023 - Created file
+//========================================================================================
 
-#include <stdio.h>
-#include "lqueue.h"
+#include <iostream>
+#include "queue.h"
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-    LQueue q;
-    int i;
-
-    init(&q);
-
-    printf("%d\n", size(&q));   // 0
-    printf("%d\n", empty(&q));  // 1
-    //front(&q);                  // Error: Stack underflow
-    //back(&q);                   // Error: Stack underflow
-    //dequeue(&q);                // Error: Stack underflow
-
-    for (i = 0; i < 5; ++i)
-        enqueue(&q, i); 
-
-    printf("%d\n", size(&q));   // 5
-    printf("%d\n", front(&q));  // 0
-    printf("%d\n", back(&q));   // 4
-
-    dequeue(&q);
-    dequeue(&q);
-    dequeue(&q);
+    // Create a queue
+    Queue *q = new Queue(4);
     
-    printf("%d\n", size(&q));   // 2
-    printf("%d\n", front(&q));  // 3
-    printf("%d\n", back(&q));   // 4
-    printf("%d\n", empty(&q));  // 0
+    // Enqueue nodes into the queue
+    q->enqueue(3);
+    q->enqueue(2);
+    q->enqueue(1);
+
+    // Print queue information
+    cout << "First: " << q->getFirst() << endl;     // 4
+    cout << "Last: " << q->getLast() << endl;       // 1
+    cout << "Length: " << q->getLength() << endl;   // 4
+    cout << "Queue elements: "; q->printQueue();    // 4 3 2 1
+
+    cout << endl;
     
-    clear(&q);
-    printf("%d\n", size(&q));   // 0
-    printf("%d\n", empty(&q));  // 1
+    // Dequeue nodes from the queue
+    q->dequeue();
+    q->dequeue();
+
+    // Print queue information
+    cout << "First: " << q->getFirst() << endl;     // 2
+    cout << "Last: " << q->getLast() << endl;       // 1
+    cout << "Length: " << q->getLength() << endl;   // 2
+    cout << "Queue elements: "; q->printQueue();    // 2 1
 
     return 0;
 }
 ```
 
 ```plain
-0
-1
-5
-0
-4
-2
-3
-4
-0
-0
-1
+First: 4
+Last: 1
+Length: 4
+Queue elements: 4 3 2 1 
+
+First: 2
+Last: 1
+Length: 2
+Queue elements: 2 1 
 ```
 
