@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
 
 
 
-## Analysis
+## Testing
 
 * Logic Analyzer - Zoomed out overview ("Hello world" being transferred through MOSI line)
 
