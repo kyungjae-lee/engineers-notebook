@@ -12,5 +12,5 @@ Home <a href="./notebook">Notebook</a> <a href="./projects">Projects</a>
 
 * To view my notes, go to **<a href="./notebook">Notebook</a>**.
 * To view my projects, go to **<a href="./projects">Projects</a>**.
-* Connect with me on **[LinkedIn](https://www.linkedin.com/in/kyungjaelee/)**.
+* Connect with me on **[LinkedIn](https://www.linkedin.com/in/kyungjaelee/)** and **[GitHub](https://github.com/kyungjae-lee)**.
 * Contact me at **kjxlee@gmail.com**.
