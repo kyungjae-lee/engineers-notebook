@@ -116,6 +116,33 @@
 
 
 
+### Semihosting Setup for Using `printf()` to Print Debug Messages in Eclipse Console
+
+* Semihosting will work only when the Eclipse IDE and the board are in debug mode. (Keep the board in debugging mode!)
+
+* Semihosting setup steps:
+
+  1. Linker argument settings
+
+     ```plain
+     -specs=rdimon.specs -lc -lrdimon
+     ```
+
+  2. Debug configuration of your application
+
+     ```plain
+     monitor arm semohosting enable
+     ```
+
+  3. In `main.c`, add the following lines of code
+
+     ```c
+     extern void initialise_monitor_handles();
+     initialise_monitor_handles();
+     ```
+
+     
+
 
 
 ## Procedure
@@ -161,7 +188,137 @@
 Path: `Project/Src/`
 
 ```c
+		/* Wait until button is pressed */
+		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));
 
+		/* Introduce debouncing time for button press */
+		delay();
+
+		cmdCode = CMD_PRINT;
+
+		/* Send command */
+		SPI_TxData(SPI2, &cmdCode, 1);
+			/* Remember! In SPI communication, when master or slave sends 1 byte of data
+			 * it also receives 1 byte in return.
+			 *
+			 * This transmission of 1 byte results in 1 garbage byte collection in
+			 * Rx buffer of the master and therefore RXNE flag will be set. So, do the
+			 * dummy read and clear the flag.
+			 */
+
+		/* Dummy read to clear the RXNE bit */
+		SPI_RxData(SPI2, &dummyRead, 1);
+
+		/* Send a dummy byte (or 2 bytes if 16-bit DFF) to fetch the response from the slave.
+		 * (To init the communication)
+		 */
+		SPI_TxData(SPI2, &dummyWrite, 1);
+			/* When this API call returns, response from the slave would've arrived at
+			 * the master. So, let's read next.
+			 */
+
+		/* Read the ACK byte received */
+		SPI_RxData(SPI2, &ackByte, 1);
+
+		uint_8_t message[] = "Hello, how are you?";
+		if (SPI_VerifyResponse(ackByte))
+		{
+			/* Compose arguments */
+			args[0] = strlen((char *)message);
+
+			/* Send arguments */
+			SPI_TxData(SPI2, args, 1);	/* Sending length */
+
+			/* Dummy read to clear the RXNE bit */
+			SPI_RxData(SPI2, &dummyRead, 1);
+
+			/* Introduce delay to give slave enough time to do ADC conversion
+			 * (Master should wait before generating the dummy bits to fetch
+			 * the result.)
+			 */
+			delay();
+			
+			/* Send message */
+			for (int i = 0; i < args[0]; i++)
+			{
+				SPI_TxData(SPI2, &message[i], 1);
+				SPI_RxData(SPI2, &dummyRead, 1);
+			}
+
+			printf("CMD_PRINT executed\n");
+		}
+		/* End of CMD_PRINT */
+
+		/**
+		 * 5. CMD_ID_READ
+		 */
+
+		/* Wait until button is pressed */
+		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));
+
+		/* Introduce debouncing time for button press */
+		delay();
+
+		cmdCode = CMD_PRINT;
+
+		/* Send command */
+		SPI_TxData(SPI2, &cmdCode, 1);
+			/* Remember! In SPI communication, when master or slave sends 1 byte of data
+			 * it also receives 1 byte in return.
+			 *
+			 * This transmission of 1 byte results in 1 garbage byte collection in
+			 * Rx buffer of the master and therefore RXNE flag will be set. So, do the
+			 * dummy read and clear the flag.
+			 */
+
+		/* Dummy read to clear the RXNE bit */
+		SPI_RxData(SPI2, &dummyRead, 1);
+
+		/* Send a dummy byte (or 2 bytes if 16-bit DFF) to fetch the response from the slave.
+		 * (To init the communication)
+		 */
+		SPI_TxData(SPI2, &dummyWrite, 1);
+			/* When this API call returns, response from the slave would've arrived at
+			 * the master. So, let's read next.
+			 */
+
+		/* Read the ACK byte received */
+		SPI_RxData(SPI2, &ackByte, 1);
+
+		uint8_t id[11];
+		uint32_t i = 0;
+		if (SPI_VerifyResponse(ackByte))
+		{
+			/* Read 10 bytes ID from the slave */
+			for (i = 0; i < 10; i++)
+			{
+				/* Send dummy byte to fetch data from slave */
+				SPI_TxData(SPI2, &dummyWrite, 1);
+				SPI_RxData(SPI2, &id[i], 1);
+			}
+
+			id[10] = '\0';
+
+			printf("CMD_ID: %s\n", id);
+		}
+		/* End of CMD_ID_READ */
+
+		/* Wait until SPI no longer busy */
+		while (SPI2->SR & (0x1 << SPI_SR_BSY));
+			/* SPI_SR bit[7] - BSY (Busy flag)
+			 * 0: SPI (or I2S) not busy
+			 * 1: SPI (or I2S) is busy in communication or Tx buffer is not empty
+			 * This flag is set and cleared by hardware.
+			 */
+
+		/* Disable SPI2 peripheral (Terminate communication) */
+		SPI_PeriControl(SPI2, DISABLE);
+
+		printf("SPI communication closed.\n");
+	}
+
+	return 0;
+}
 ```
 
 
