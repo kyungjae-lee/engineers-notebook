@@ -31,16 +31,21 @@ Path: `Project/Drivers/Inc/`
  * Filename		: stm32f407xx.h
  * Description	: Device header file for stm32f407xx MCU
  * Author		: Kyungjae Lee
- * Created     	: May 18, 2023
- * Updates		: May 28, 2023 - Add SPI peripheral specific information
+ * History     	: May 18, 2023
+ *        		  May 28, 2023 - Add SPI peripheral specific information
+ *        	 	  Jun 05, 2023 - Correct typo 'SPI_CR2_XEIE' -> 'SPI_CR2_TXEIE'
+ *							   - Added 'stddef.h'
+ *							   - Added '__WEAK' macro for weak function definitions
  */
 
 #ifndef STM32F407XX_H
 #define STM32F407XX_H
 
 #include <stdint.h>
+#include <stddef.h>	/* NULL */
 
 #define __IO			volatile		/* I/O registers are highly volatile in nature */
+#define __WEAK			__attribute__((weak))
 
 /************************** START: Processor Specific Details ***************************/
 
@@ -387,6 +392,8 @@ typedef struct
  * Interrupt Request (IRQ) numbers of STM32F407xx MCU
  * Note: This information is specific to MCU family
  */
+
+/* GPIO interrupts */
 #define IRQ_NO_EXTI0		6
 #define IRQ_NO_EXTI1		7
 #define IRQ_NO_EXTI2		8
@@ -394,6 +401,14 @@ typedef struct
 #define IRQ_NO_EXTI4		10
 #define IRQ_NO_EXTI9_5		23
 #define IRQ_NO_EXTI15_10	40
+
+/* SPI interrupts */
+#define IRQ_NO_SPI1 		35
+#define IRQ_NO_SPI2 		36
+#define IRQ_NO_SPI3 		51
+
+
+
 
 /**
  * Possible NVIC IRQ priority levels
@@ -443,7 +458,7 @@ typedef struct
 #define SPI_CR2_FRF     	4
 #define SPI_CR2_ERRIE   	5
 #define SPI_CR2_RXNEIE  	6
-#define SPI_CR2_XEIE    	7
+#define SPI_CR2_TXEIE    	7
 
 /* SPI_SR */
 #define SPI_SR_RXNE			0
