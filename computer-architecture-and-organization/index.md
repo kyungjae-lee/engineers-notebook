@@ -32,6 +32,7 @@
 1. **<a href="./data-size-and-arrangements">Data Size & Arrangements</a>**
 1. **<a href="./the-stack-and-data-storage">The Stack & Data Storage</a>**
 1. **<a href="./passing-parameters-via-the-stack">Passing Parameters via the Stack</a>**
+1. **<a href="./privileged-mode-and-exceptions">Privileged Mode and Exceptions</a>**
 1. **<a href="./processor-control-microarchitecture">Processor Control - Microarchitecture</a>**
 1. **<a href="./processor-control-introduction-to-pipelining">Processor Control - Introduction to Pipelining</a>**
 1. **<a href="./processor-control-pipeline-hazards">Processor Control - Pipeline Hazards</a>**
