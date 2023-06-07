@@ -52,7 +52,8 @@
 ### 1. Connect STM32 Discovery board with Arduino Uno board SPI pins
 
 * Pin connection is basically the same as that of the **SPI Application 3**'s. Just an interrupt line is added between the pin `PD6` of the STM32 board and `8` of the Arduino board.
-
+  * Arduino board pin `8` will transition from HIGH to LOW whenever a message (entered by user through Arduino serial monitor) is availablen and this will trigger an interrupt through STM32 board's pin `PD6` to notify the master of the message ready for read.
+  * Master will then generate clock signal to read the data.
 * Be careful not to directly supply 5 volts to the STM32 board pins when the board is not powered up as they may be damaged. When the **logic level shifter** is used, you don't need to worry about this issue.
 
 
@@ -92,55 +93,288 @@
 Path: `Project/Src/`
 
 ```c
+/**
+ * Filename		: spi_04_master_slave_rx_interrupt.c
+ * Description	: Program to demonstrate receiving and printing the user message
+ * 				  received from the Arduino peripheral in SPI interrupt mode.
+ * 				  User sends the message through Arduino IDE's serial monitor tool.
+ * 				  Monitor the message received using the SWV ITM data console of
+ * 				  STM32CubeIDE.
+ * Author		: Kyungjae Lee
+ * History 		: Jun 06, 2023 - Created file
+ *
+ * Note			: Follow the instruction s to test this code.
+ * 					1. Download this code to the STM32 board (master)
+ * 					2. Download slave code (003SPISlaveUartReadOverSPI.ino) to
+ * 					   the Arduino board (slave)
+ * 					3. Reset both boards
+ * 					4. Enable SWV ITM data console to see the message
+ * 					5. Open Arduino IDE serial monitor tool
+ * 					6. Type anything and send the message (Make sure to set the
+ * 					   line ending to 'carriage return'.)
+ */
 
+#include <stdio.h>			/* printf() */
+#include <string.h> 		/* strlen() */
+#include "stm32f407xx.h"
+
+#define MAX_LEN	500
+
+SPI_Handle_TypeDef SPI2Handle;
+char rxBuf[MAX_LEN];
+volatile uint8_t rxByte;
+volatile uint8_t rxStop = 0;
+	/* Declare it as 'volatile' since it gets modified in the
+	 * 'SPI_ApplicationEventCallback()' function, which runs in the
+	 * 'SPI2_IRQHander''s context
+	 */
+volatile uint8_t dataAvailable = 0;
+	/* This flag will be set in the interrupt handler of the Arduino interrupt GPIO
+	 * (Since it gets modified inside the ISR, declare it as 'volatile')
+	 */
+
+/**
+ * Pin selection for SPI communication
+ *
+ * SPI2_NSS  - PB12 (AF5)
+ * SPI2_SCK  - PB13 (AF5)
+ * SPI2_MISO - PB14 (AF5)
+ * SPI2_MOSI - PB15 (AF5)
+ */
+
+/**
+ * delay()
+ * Desc.	: Spinlock delays the program execution
+ * Param.	: None
+ * Returns	: None
+ * Note		: N/A
+ */
+void delay(void)
+{
+	/* Appoximately ~200ms delay when the system clock freq is 16 MHz */
+	for (uint32_t i = 0; i < 500000 / 2; i++);
+}
+
+/**
+ * SPI2_PinsInit()
+ * Desc.	: Initializes and configures GPIO pins to be used as SPI2 pins
+ * Param.	: None
+ * Returns	: None
+ * Note		: N/A
+ */
+void SPI2_PinsInit(void)
+{
+	GPIO_Handle_TypeDef SPIPins;
+
+	SPIPins.pGPIOx = GPIOB;
+	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_ALTFCN;
+	SPIPins.GPIO_PinConfig.GPIO_PinAltFcnMode = 5;
+	SPIPins.GPIO_PinConfig.GPIO_PinOutType = GPIO_PIN_OUT_TYPE_PP;
+		/* I2C - Open-drain only!, SPI - Push-pull okay! */
+	SPIPins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;	/* Optional */
+	SPIPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_FAST; /* Medium or slow ok as well */
+
+	/* SCLK */
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_13;
+	GPIO_Init(&SPIPins);
+
+	/* MOSI */
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_15;
+	GPIO_Init(&SPIPins);
+
+	/* MISO */
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_14;
+	GPIO_Init(&SPIPins);
+
+	/* NSS */
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_12;
+	GPIO_Init(&SPIPins);
+}
+
+/**
+ * SPI2_Init()
+ * Desc.	: Creates an SPI2Handle initializes SPI2 peripheral parameters
+ * Param.	: None
+ * Returns	: None
+ * Note		: N/A
+ */
+void SPI2_Init(void)
+{
+	SPI_Handle_TypeDef SPI2Handle;
+
+	SPI2Handle.pSPIx = SPI2;
+	SPI2Handle.SPI_Config.SPI_BusConfig = SPI_BUS_CONFIG_FULL_DUPLEX;
+	SPI2Handle.SPI_Config.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;
+	SPI2Handle.SPI_Config.SPI_SCLKSpeed = SPI_SCLK_SPEED_PRESCALAR_8;	/* Generates 2MHz SCLK */
+		/* Min prescalar -> maximum clk speed */
+	SPI2Handle.SPI_Config.SPI_DFF = SPI_DFF_8BITS;
+	SPI2Handle.SPI_Config.SPI_CPOL = SPI_CPOL_LOW;
+	SPI2Handle.SPI_Config.SPI_CPHA = SPI_CPHA_LOW;
+	SPI2Handle.SPI_Config.SPI_SSM = SPI_SSM_DI; /* HW slave mgmt enabled (SSM = 0) for NSS pin */
+
+	SPI_Init(&SPI2Handle);
+}
+
+/**
+ * SPI_RxIntPinInit()
+ * Desc.	: Configures the GPIO pin (PD6) over which SPI peripheral issues
+ * 			  'data available' interrupt
+ * Param.	: None
+ * Returns	: None
+ * Note		:
+ */
+void SPI_RxIntPinInit(void)
+{
+	GPIO_Handle_TypeDef spiIntPin;
+	memset(&spiIntPin, 0, sizeof(spiIntPin));
+
+	/* GPIO pin (for interrupt) configuration */
+	spiIntPin.pGPIOx = GPIOD;
+	spiIntPin.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_6;
+	spiIntPin.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_IT_FT;
+	spiIntPin.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_LOW;
+	spiIntPin.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
+
+	GPIO_Init(&spiIntPin);
+
+	GPIO_IRQPriorityConfig(IRQ_NO_EXTI9_5, NVIC_IRQ_PRI15);
+	GPIO_IRQInterruptConfig(IRQ_NO_EXTI9_5, ENABLE);
+}
+
+int main(int argc, char *argv[])
+{
+	uint8_t dummyWrite = 0xff;
+
+	/* Initialize and configure GPIO pin for SPI Rx interrupt */
+	SPI_RxIntPinInit();
+
+	/* Initialize and configure GPIO pins to be used as SPI2 pins */
+	SPI2_PinsInit();
+
+	/* Initialize SPI2 peripheral parameters */
+	SPI2_Init();
+		/* At this point, all the required parameters are loaded into SPIx control registers.
+		 * But, this does not mean that SPI2 peripheral is enabled.
+		 *
+		 * SPI configuration must be completed before it is enabled. When SPI is enabled, it
+		 * will be busy communicating with other device(s) and will not allow modifying its
+		 * control registers.
+		 */
+
+	/* Enable NSS output (Set SPI_CR2 bit[2] SSOE - Slave Select Output Enable) */
+	SPI_SSOEConfig(SPI2, ENABLE);
+		/* Setting SSOE bit to 1 enables the NSS output.
+		 * The NSS pin is automatically managed by the hardware.
+		 * i.e., When SPE = 1, NSS will be pulled to low, and when SPE = 0, NSS will be
+		 * pulled to high.
+		 */
+
+	/* Enable interrupt for SPI2 peripheral */
+	SPI_IRQInterruptConfig(IRQ_NO_SPI2, ENABLE);
+
+	while (1)
+	{
+		rxStop = 0;
+
+		/* Wait until 'data available' interrupt is triggered by the transmitter (slave) */
+		while (!dataAvailable);
+
+		/* Until the master completes reading in the data available, it disables further
+		 * Rx interrupt from the slave device.
+		 */
+		GPIO_IRQInterruptConfig(IRQ_NO_EXTI9_5, DISABLE);
+
+		/* Enable SPI2 peripheral */
+		SPI_PeriControl(SPI2, ENABLE);
+
+		while (!rxStop)
+		{
+			/* Read the data from the SPI2 peripheral byte-by-byte in interrupt mode */
+			while (SPI_TxInterrupt(&SPI2Handle, &dummyWrite, 1) == SPI_BUSY_IN_TX);
+			while (SPI_RxInterrupt(&SPI2Handle, &rxByte, 1) == SPI_BUSY_IN_RX);
+
+			/* Note: Master does not have the length information. This process will
+			 *       go on and on until the 'dataAvailable' flag is set back to 0.
+			 */
+		}
+
+		/* Wait until SPI no longer busy */
+		while (SPI2->SR & (0x1 << SPI_SR_BSY));
+			/* SPI_SR bit[7] - BSY (Busy flag)
+			 * 0: SPI (or I2S) not busy
+			 * 1: SPI (or I2S) is busy in communication or Tx buffer is not empty
+			 * This flag is set and cleared by hardware.
+			 */
+
+		/* Disable SPI2 peripheral (Terminate communication) */
+		SPI_PeriControl(SPI2, DISABLE);
+
+		/* Print the received message to the SWV ITM data console */
+		printf("Rx data = %s\n", rxBuf);
+
+		/* Reset the 'dataAvailable' flag */
+		dataAvailable = 0;
+
+		/* Enable back the interrupt for Rx notification from the slave */
+		GPIO_IRQInterruptConfig(IRQ_NO_EXTI9_5, ENABLE);
+	}
+
+	return 0;
+}
+
+/**
+ * SPI2_IRQHandler()
+ * Desc.	: Handles SPI2 interrupt (by calling 'SPI_IRQHandling()')
+ * Param.	: None
+ * Returns	: None
+ * Note		: N/A
+ */
+void SPI2_IRQHandler(void)
+{
+	SPI_IRQHandling(&SPI2Handle);
+}
+
+/**
+ * SPI_ApplicationEventCallback()
+ * Desc.	: Notifies the application of the event occurred
+ * Param.	: @pSPIHandle - pointer to SPI handle structure
+ * 			  @appEvent - SPI event occurred
+ * Returns	: None
+ * Note		: N/A
+ */
+void SPI_ApplicationEventCallback(SPI_Handle_TypeDef *pSPIHandle, uint8_t appEvent)
+{
+	static uint32_t i = 0;
+
+	/* Upon the Rx complete event, copy the data into Rx buffer.
+	 * '\0' indicates end of message (rxStop = 1)
+	 */
+	if (appEvent == SPI_EVENT_RX_CMPLT)
+	{
+		rxBuf[i++] = rxByte;
+
+		if (rxByte == '\0' || (i == MAX_LEN))
+		{
+			rxStop = 1;
+			rxBuf[i - 1] = '\0';	/* Mark the end of the message with '\0' */
+			i = 0;
+		}
+	}
+}
 ```
 
 
 
-## Arduino Sketch (`002SPISlaveCmdHandling.ino`)
+## Arduino Sketch (`003SPISlaveUartReadOverSPI.ino`)
 
 ```c
-/*
-
- * SPI pin numbers:
- * SCK   13  // Serial Clock.
- * MISO  12  // Master In Slave Out.
- * MOSI  11  // Master Out Slave In.
- * SS    10  // Slave Select
- *
-
- */
-
 #include <SPI.h>
 
-const byte led = 9;           // Slave LED digital I/O pin.
+#define MAX_LEN 500
 
-boolean ledState = HIGH;      // LED state flag.
-
-uint8_t dataBuff[255];
-
-uint8_t board_id[10] = "ARDUINOUNO";
-
-#define NACK 0xA5
-#define ACK 0xF5
-
-
-//command codes
-#define COMMAND_LED_CTRL          0x50
-#define COMMAND_SENSOR_READ       0x51
-#define COMMAND_LED_READ          0x52
-#define COMMAND_PRINT           0x53
-#define COMMAND_ID_READ         0x54
-
-#define LED_ON     1
-#define LED_OFF    0
-
-//arduino analog pins
-#define ANALOG_PIN0   0
-#define ANALOG_PIN1   1
-#define ANALOG_PIN2   2
-#define ANALOG_PIN3   3
-#define ANALOG_PIN4   4
+bool msgComplete = false;  // whether the string is complete
+uint8_t userBuffer[MAX_LEN];
+uint32_t cnt = 0;
 
 //Initialize SPI slave.
 void SPI_SlaveInit(void) 
@@ -150,8 +384,6 @@ void SPI_SlaveInit(void)
   pinMode(MOSI, INPUT);
   pinMode(MISO, OUTPUT);
   pinMode(SS, INPUT);
-  //make SPI as slave
-  
   // Enable SPI as slave.
   SPCR = (1 << SPE);
 }
@@ -175,111 +407,65 @@ void SPI_SlaveTransmit(uint8_t data)
   /* Wait for transmission complete */
   while(!(SPSR & (1<<SPIF)));
 }
-  
-
-// The setup() function runs after reset.
+ 
 void setup() 
 {
   // Initialize serial for troubleshooting.
   Serial.begin(9600);
   
-  // Initialize slave LED pin.
-  pinMode(led, OUTPUT);
-  
-  digitalWrite(led,LOW);
-  
   // Initialize SPI Slave.
   SPI_SlaveInit();
-  
+
+  pinMode(8, INPUT_PULLUP);
+  //digitalWrite(8,LOW);
+
   Serial.println("Slave Initialized");
 }
 
-
-byte checkData(byte commnad)
+void notify_controller(void)
 {
-  //todo
-  return ACK;
+  pinMode(8,OUTPUT);
+  digitalWrite(8,HIGH);
+  delayMicroseconds(50);
+  digitalWrite(8,LOW);
 }
 
-// The loop function runs continuously after setup().
-void loop() 
-{
-  byte data,command,len,ackornack=NACK;
-  
-  //1. fist make sure that ss is low . so lets wait until ss is low 
-  Serial.println("Slave waiting for ss to go low");
-  while(digitalRead(SS) );
-  
-  //2. now lets wait until rx buffer has a byte
-  command = SPI_SlaveReceive();
-  ackornack = checkData(command);
-  
-  SPI_SlaveTransmit(ackornack);
-  
-  len = SPI_SlaveReceive(); //dummy byte
-  
-  if(command == COMMAND_LED_CTRL)
-  {
-    //read 2 more bytes pin number and value 
-    uint8_t pin = SPI_SlaveReceive(); 
-    uint8_t value = SPI_SlaveReceive(); 
-    Serial.println("RCVD:COMMAND_LED_CTRL");
-    if(value == (uint8_t)LED_ON)
-    {
-      digitalWrite(pin,HIGH);
-    }else if (value == (uint8_t) LED_OFF)
-    {
-      digitalWrite(pin,LOW);
-    }
-  
-  }else if ( command == COMMAND_SENSOR_READ)
-  {
-    //read analog pin number 
-    uint16_t aread;
-    uint8_t pin = SPI_SlaveReceive(); 
-    //pinMode(pin+14, INPUT_PULLUP);
-    uint8_t val;
-    aread = analogRead(pin+14);
-    val = map(aread, 0, 1023, 0, 255);
-    
-    SPI_SlaveTransmit(val);
-  
-    val = SPI_SlaveReceive(); //dummy read
-    
-    Serial.println("RCVD:COMMAND_SENSOR_READ");
-  
-    
-  
-  }else if ( command == COMMAND_LED_READ)
-  {
-    uint8_t pin = SPI_SlaveReceive(); 
-    uint8_t val = digitalRead(pin);
-    SPI_SlaveTransmit(val);
-    val = SPI_SlaveReceive(); //dummy read
-    Serial.println("RCVD:COMMAND_LED_READ");
-  
-  }else if ( command == COMMAND_PRINT)
-  {
-    uint8_t len = SPI_SlaveReceive(); 
-    for(int i=0 ; i < len ; i++)
-    {
-      dataBuff[i] = SPI_SlaveReceive();
-    }
-    Serial.println((char*)dataBuff);
-    
-    Serial.println("RCVD:COMMAND_PRINT");
-  
-  }else if ( command == COMMAND_ID_READ)
-  {
-    for(int i=0 ; i < strlen(board_id) ; i++)
-    {
-      SPI_SlaveTransmit(board_id[i]);
-    }
-      SPI_SlaveReceive();
-    Serial.println("RCVD:COMMAND_ID_READ");
-  }
- 
 
+void loop() {
+  
+  Serial.println("Type anything and send...");
+
+  while(!msgComplete){
+    if (Serial.available()) {
+      //Read a byte of incoming serial data.
+      char readByte = (char)Serial.read();
+      //Accumalate in to the buffer
+      userBuffer[cnt++] = readByte;
+      if(readByte == '\r' || ( cnt == MAX_LEN)){
+        msgComplete = true;
+        userBuffer[cnt -1 ] = '\0'; //replace '\r' by '\0'
+      }
+    }
+  }
+  
+  Serial.println("Your message...");
+  Serial.println((char*)userBuffer);
+
+  
+   notify_controller();
+
+  /*Transmit the user buffer over SPI */
+  for(uint32_t i = 0 ; i < cnt ; i++)
+  {
+    SPI_SlaveTransmit(userBuffer[i]);
+  }
+  cnt = 0;
+  msgComplete = false;
+  Serial.println("Message sent...");
+
+  while(!digitalRead(SS));
+  Serial.println("Master ends communication");
+ 
 }
 ```
 

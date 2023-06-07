@@ -45,9 +45,6 @@ Path: `Project/Drivers/Inc/`
  * Description	: STM32F407xx MCU specific SPI driver header file
  * Author		: Kyungjae Lee
  * History		: May 21, 2023 - Created file
- * 				  Jun 05, 2023 - Added interrupt related macros and functions
- * 				  			   - Updated 'SPI_Handle_Typdef' structure
- * 				  			   - Added application callback functions
  */
 
 #ifndef STM32F407XX_SPI_DRIVER_H
@@ -76,8 +73,8 @@ typedef struct
 {
 	SPI_TypeDef 		*pSPIx;	/* Holds the base address of the SPIx(x:0,1,2) peripheral */
 	SPI_Config_TypeDef 	SPI_Config;
-	uint8_t				*pTxBuffer;	/* App's Tx buffer address */
-	uint8_t				*pRxBuffer;	/* App's Rx buffer address */
+	uint8_t	volatile	*pTxBuffer;	/* App's Tx buffer address */
+	uint8_t	volatile	*pRxBuffer;	/* App's Rx buffer address */
 	uint32_t			TxLen;
 	uint32_t			RxLen;
 	uint8_t				TxState;	/* Available values @SPI_ApplicationStateus */
@@ -182,8 +179,8 @@ void SPI_DeInit(SPI_TypeDef *pSPIx);	/* Utilize RCC_AHBxRSTR (AHBx peripheral re
 void SPI_TxBlocking(SPI_TypeDef *pSPIx, uint8_t *pTxBuffer, uint32_t len);
 void SPI_RxBlocking(SPI_TypeDef *pSPIx, uint8_t *pRxBuffer, uint32_t len);
 
-uint8_t SPI_TxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t *pTxBuffer, uint32_t len);
-uint8_t SPI_RxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t *pRxBuffer, uint32_t len);
+uint8_t SPI_TxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t volatile *pTxBuffer, uint32_t len);
+uint8_t SPI_RxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t volatile *pRxBuffer, uint32_t len);
 
 /**
  * IRQ configuration and ISR handling
@@ -225,9 +222,6 @@ Path: `Project/Drivers/Src/`
  * Description	: STM32F407xx MCU specific SPI driver source file
  * Author		: Kyungjae Lee
  * History		: May 27, 2023 - Created file
- * 				  Jun 02, 2023 - Implemented 'SPI_RxBlocking()'
- * 				  Jun 05, 2023 - Added interrupt related functionalities
- * 				  			   - Implemented 'SPI_IRQHandling()'
  */
 
 #include "stm32f407xx.h"
@@ -485,7 +479,7 @@ void SPI_RxBlocking(SPI_TypeDef *pSPIx, uint8_t *pRxBuffer, uint32_t len)
  * 			  data into the data register. Writing will be taken care of by
  * 			  the interrupt handler.
  */
-uint8_t SPI_TxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t *pTxBuffer, uint32_t len)
+uint8_t SPI_TxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t volatile *pTxBuffer, uint32_t len)
 {
 	uint8_t state = pSPIHandle->TxState;
 
@@ -523,7 +517,7 @@ uint8_t SPI_TxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t *pTxBuffer, uint
  * 			  data from the data register. Reading will be taken care of by
  * 			  the interrupt handler.
  */
-uint8_t SPI_RxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t *pRxBuffer, uint32_t len)
+uint8_t SPI_RxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t volatile *pRxBuffer, uint32_t len)
 {
 	uint8_t state = pSPIHandle->RxState;
 
@@ -668,7 +662,7 @@ void SPI_IRQPriorityConfig(uint8_t irqNumber, uint32_t irqPriority)
 
 /**
  * SPI_IRQHandling()
- * Desc.	:
+ * Desc.	: Handles SPI interrupt
  * Param.	: @pSPIHandle - pointer to SPI handle structure
  * Returns	: None
  * Note		: SPI interrupt event flags (TXE, RXNE, MODF, OVR, CRCERR, FRE)
@@ -890,9 +884,10 @@ void SPI_CloseRx(SPI_Handle_TypeDef *pSPIHandle)
 
 /**
  * SPI_ApplicationEventCallback()
- * Desc.	:
- * Param.	:
- * Returns	:
+ * Desc.	: Notifies the application of the event occurred
+ * Param.	: @pSPIHandle - pointer to SPI handle structure
+ * 			  @appEvent - SPI event occurred
+ * Returns	: None
  * Note		: This function must be implemented by the application. Since the driver
  * 			  does not know in which application this function will be implemented,
  * 			  the driver defines it as a weak function. The application may override
