@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 2: Toggling On-board LED with On-board Button (`02_led_toggle_with_button.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 2: Toggling On-board LED with On-board Button (`gpio_02_led_toggle_with_button.c`)
 
-# GPIO Application 2: Toggling On-board LED with On-board Button (`02_led_toggle_with_button.c`)
+# GPIO Application 2: Toggling On-board LED with On-board Button (`gpio_02_led_toggle_with_button.c`)
 
 
 
@@ -13,13 +13,13 @@
 
 ## Code
 
-### `02_led_toggle_with_button.c`
+### `gpio_02_led_toggle_with_button.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 02_led_toggle_with_button.c
+ * Filename		: gpio_02_led_toggle_with_button.c
  * Description	: Program to toggle the on-board LED whenever the on-board button is pressed
  * Author		: Kyungjae Lee
  * History		: May 23, 2023 - Created file
@@ -80,4 +80,3 @@ int main(int argc, char *argv[])
 	return 0;
 }
 ```
-

@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 1: Toggling On-board LED (`01_led_toggle_pushpull.c`, `01_led_toggle_opendrain.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 1: Toggling On-board LED (`gpio_01_led_toggle_pushpull.c`, `gpio_01_led_toggle_opendrain.c`)
 
-# GPIO Application 1: Toggling On-board LED (`01_led_toggle_pushpull.c`, `01_led_toggle_opendrain.c`)
+# GPIO Application 1: Toggling On-board LED (`gpio_01_led_toggle_pushpull.c`, `gpio_01_led_toggle_opendrain.c`)
 
 
 
@@ -14,13 +14,13 @@
 
 ## Code
 
-### Case 1: `01_led_toggle_pushpull.c`
+### Case 1: `gpio_01_led_toggle_pushpull.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 01_led_toggle_pushpull.c
+ * Filename		: gpio_01_led_toggle_pushpull.c
  * Description	: Program to toggle the on-board LED (Push-pull config for output pin)
  * Author		: Kyungjae Lee
  * History		: May 23, 2023 - Created file
@@ -60,13 +60,13 @@ int main(int argc, char *argv[])
 
 
 
-### Case 2: `01_led_toggle_opendrain.c`
+### Case 2: `gpio_01_led_toggle_opendrain.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 01_led_toggle.c
+ * Filename		: gpio_01_led_toggle_opendrain.c
  * Description	: Program to toggle the on-board LED (Open-drain config for output pin)
  * Author		: Kyungjae Lee
  * History		: May 23, 2023 - Created file

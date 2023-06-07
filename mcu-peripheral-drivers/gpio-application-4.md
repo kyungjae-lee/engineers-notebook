@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 4: Toggling LED with External Button Interrupt (`04_led_toggle_with_ext_button_interrupt.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 4: Toggling LED with External Button Interrupt (`gpio_04_led_toggle_with_ext_button_interrupt.c`)
 
-# GPIO Application 4: Toggling LED with External Button Interrupt (`04_led_toggle_with_ext_button_interrupt.c`)
+# GPIO Application 4: Toggling LED with External Button Interrupt (`gpio_04_led_toggle_with_ext_button_interrupt.c`)
 
 
 
@@ -13,13 +13,13 @@
 
 ## Code
 
-### `04_led_toggle_with_ext_button_interrupt.c`
+### `gpio_04_led_toggle_with_ext_button_interrupt.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 04_led_toggle_with_ext_button_interrupt.c
+ * Filename		: gpio_04_led_toggle_with_ext_button_interrupt.c
  * Description	: Program to toggle LED whenever an interrupt is triggered by
  * 				  the external button press
  * Author		: Kyungjae Lee

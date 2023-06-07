@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 3: Master-Slave Tx Rx (Blocking) (`03_spi_master_slave_tx_rx_blocking.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 3: Master-Slave Tx Rx (Blocking) (`spi_03_master_slave_tx_rx_blocking.c`)
 
-# SPI Application 3: Master-Slave Tx Rx (Blocking) (`03_spi_master_slave_tx_rx_blocking.c`)
+# SPI Application 3: Master-Slave Tx Rx (Blocking) (`spi_03_master_slave_tx_rx_blocking.c`)
 
 
 
@@ -211,13 +211,13 @@
 
 ## Code
 
-### `03_spi_master_slave_tx_rx_blocking.c`
+### `spi_03_master_slave_tx_rx_blocking.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 03_spi_master_slave_tx_rx_blocking.c
+ * Filename		: spi_03_master_slave_tx_rx_blocking.c
  * Description	: Program to test SPI master-slave Tx/Rx functionality (blocking)
  * Author		: Kyungjae Lee
  * History 		: Jun 03, 2023 - Created file

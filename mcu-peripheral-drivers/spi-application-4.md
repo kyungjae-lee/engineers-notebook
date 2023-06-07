@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 4: Master-Slave Rx (Interrupt) (`04_spi_master_slave_rx_interrupt`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 4: Master-Slave Rx (Interrupt) (`spi_04_master_slave_rx_interrupt`)
 
-# SPI Application 4: Master-Slave Rx (Interrupt) (`04_spi_master_slave_rx_interrupt`)
+# SPI Application 4: Master-Slave Rx (Interrupt) (`spi_04_master_slave_rx_interrupt`)
 
 
 
@@ -87,7 +87,7 @@
 
 ## Code
 
-### `04_spi_master_slave_rx_interrupt.c`
+### `spi_04_master_slave_rx_interrupt.c`
 
 Path: `Project/Src/`
 

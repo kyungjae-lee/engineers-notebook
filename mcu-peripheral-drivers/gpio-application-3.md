@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 3: Toggling External LED with External Button (`03_ext_led_toggle_with_ext_button.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > GPIO Application 3: Toggling External LED with External Button (`gpio_03_ext_led_toggle_with_ext_button.c`)
 
-# GPIO Application 3: Toggling External LED with External Button (`03_ext_led_toggle_with_ext_button.c`)
+# GPIO Application 3: Toggling External LED with External Button (`gpio_03_ext_led_toggle_with_ext_button.c`)
 
 
 
@@ -27,13 +27,13 @@
 
 ## Code
 
-### `03_ext_led_toggle_with_ext_button.c`
+### `gpio_03_ext_led_toggle_with_ext_button.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 03_ext_led_toggle_with_ext_button.c
+ * Filename		: gpio_03_ext_led_toggle_with_ext_button.c
  * Description	: Program to toggle the external LED whenever the external LED is pressed
  * Author		: Kyungjae Lee
  * History		: May 24, 2023 - Created file
