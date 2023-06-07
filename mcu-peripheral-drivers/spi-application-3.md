@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 3: Master-Slave Command & Response (`03_spi-master-slave-command-and-response.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 3: Master-Slave Tx Rx (Blocking) (`03_spi_master_slave_tx_rx_blocking.c`)
 
-# SPI Application 3: Master-Slave Command & Response (`03_spi-master-slave-command-and-response.c`)
+# SPI Application 3: Master-Slave Tx Rx (Blocking) (`03_spi_master_slave_tx_rx_blocking.c`)
 
 
 
@@ -211,15 +211,14 @@
 
 ## Code
 
-### `03_spi-master-slave-command-and-response.c`
+### `03_spi_master_slave_tx_rx_blocking.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 03_spi_master_slave_command_and_response.c
- * Description	: Program to test SPI master-slave command and response communication
- * 				  (Blocking Tx/Rx)
+ * Filename		: 03_spi_master_slave_tx_rx_blocking.c
+ * Description	: Program to test SPI master-slave Tx/Rx functionality (blocking)
  * Author		: Kyungjae Lee
  * History 		: Jun 03, 2023 - Created file
  * 				  Jun 05, 2023 - Added Semihosting features to utilize printf()
@@ -475,7 +474,7 @@ int main(int argc, char *argv[])
 		uint8_t args[2];
 
 		/* Send command */
-		SPI_TxData(SPI2, &cmdCode, 1);
+		SPI_TxBlocking(SPI2, &cmdCode, 1);
 			/* Remember! In SPI communication, when master or slave sends 1 byte of data
 			 * it also receives 1 byte in return.
 			 *
@@ -485,18 +484,18 @@ int main(int argc, char *argv[])
 			 */
 
 		/* Dummy read to clear the RXNE bit */
-		SPI_RxData(SPI2, &dummyRead, 1);
+		SPI_RxBlocking(SPI2, &dummyRead, 1);
 
 		/* Send a dummy byte (or 2 bytes if 16-bit DFF) to fetch the response from the slave.
 		 * (To init the communication)
 		 */
-		SPI_TxData(SPI2, &dummyWrite, 1);
+		SPI_TxBlocking(SPI2, &dummyWrite, 1);
 			/* When this API call returns, response from the slave would've arrived at
 			 * the master. So, let's read next.
 			 */
 
 		/* Read the ACK byte received */
-		SPI_RxData(SPI2, &ackByte, 1);
+		SPI_RxBlocking(SPI2, &ackByte, 1);
 
 		if (SPI_VerifyResponse(ackByte))
 		{
@@ -505,7 +504,7 @@ int main(int argc, char *argv[])
 			args[1] = LED_ON;
 
 			/* Send arguments */
-			SPI_TxData(SPI2, args, 2);
+			SPI_TxBlocking(SPI2, args, 2);
 
 			printf("CMD_LED_CTRL executed\n");
 		}
@@ -524,7 +523,7 @@ int main(int argc, char *argv[])
 		cmdCode = CMD_SENSOR_READ;
 
 		/* Send command */
-		SPI_TxData(SPI2, &cmdCode, 1);
+		SPI_TxBlocking(SPI2, &cmdCode, 1);
 			/* Remember! In SPI communication, when master or slave sends 1 byte of data
 			 * it also receives 1 byte in return.
 			 *
@@ -534,18 +533,18 @@ int main(int argc, char *argv[])
 			 */
 
 		/* Dummy read to clear the RXNE bit */
-		SPI_RxData(SPI2, &dummyRead, 1);
+		SPI_RxBlocking(SPI2, &dummyRead, 1);
 
 		/* Send a dummy byte (or 2 bytes if 16-bit DFF) to fetch the response from the slave.
 		 * (To init the communication)
 		 */
-		SPI_TxData(SPI2, &dummyWrite, 1);
+		SPI_TxBlocking(SPI2, &dummyWrite, 1);
 			/* When this API call returns, response from the slave would've arrived at
 			 * the master. So, let's read next.
 			 */
 
 		/* Read the ACK byte received */
-		SPI_RxData(SPI2, &ackByte, 1);
+		SPI_RxBlocking(SPI2, &ackByte, 1);
 
 		if (SPI_VerifyResponse(ackByte))
 		{
@@ -553,11 +552,11 @@ int main(int argc, char *argv[])
 			args[0] = ANALOG_PIN0;
 
 			/* Send arguments */
-			SPI_TxData(SPI2, args, 1);
+			SPI_TxBlocking(SPI2, args, 1);
 
 
 			/* Dummy read to clear the RXNE bit */
-			SPI_RxData(SPI2, &dummyRead, 1);
+			SPI_RxBlocking(SPI2, &dummyRead, 1);
 
 			/* Introduce delay to give slave enough time to do ADC conversion
 			 * (Master should wait before generating the dummy bits to fetch
@@ -568,14 +567,14 @@ int main(int argc, char *argv[])
 			/* Send a dummy byte (or 2 bytes if 16-bit DFF) to fetch the response from the slave.
 			 * (To init the communication)
 			 */
-			SPI_TxData(SPI2, &dummyWrite, 1);
+			SPI_TxBlocking(SPI2, &dummyWrite, 1);
 				/* When this API call returns, response from the slave would've arrived at
 				 * the master. So, let's read next.
 				 */
 
 			/* Read sensor data */
 			uint8_t analogData;
-			SPI_RxData(SPI2, &analogData, 1);
+			SPI_RxBlocking(SPI2, &analogData, 1);
 				/* Analog data ranges from 0(0V) to 255(5V) */
 
 			printf("CMD_SENSOR_READ: %d\n", analogData);
@@ -595,7 +594,7 @@ int main(int argc, char *argv[])
 		cmdCode = CMD_LED_READ;
 
 		/* Send command */
-		SPI_TxData(SPI2, &cmdCode, 1);
+		SPI_TxBlocking(SPI2, &cmdCode, 1);
 			/* Remember! In SPI communication, when master or slave sends 1 byte of data
 			 * it also receives 1 byte in return.
 			 *
@@ -605,18 +604,18 @@ int main(int argc, char *argv[])
 			 */
 
 		/* Dummy read to clear the RXNE bit */
-		SPI_RxData(SPI2, &dummyRead, 1);
+		SPI_RxBlocking(SPI2, &dummyRead, 1);
 
 		/* Send a dummy byte (or 2 bytes if 16-bit DFF) to fetch the response from the slave.
 		 * (To init the communication)
 		 */
-		SPI_TxData(SPI2, &dummyWrite, 1);
+		SPI_TxBlocking(SPI2, &dummyWrite, 1);
 			/* When this API call returns, response from the slave would've arrived at
 			 * the master. So, let's read next.
 			 */
 
 		/* Read the ACK byte received */
-		SPI_RxData(SPI2, &ackByte, 1);
+		SPI_RxBlocking(SPI2, &ackByte, 1);
 
 		if (SPI_VerifyResponse(ackByte))
 		{
@@ -624,11 +623,11 @@ int main(int argc, char *argv[])
 			args[0] = LED_PIN;
 
 			/* Send arguments */
-			SPI_TxData(SPI2, args, 1);
+			SPI_TxBlocking(SPI2, args, 1);
 
 
 			/* Dummy read to clear the RXNE bit */
-			SPI_RxData(SPI2, &dummyRead, 1);
+			SPI_RxBlocking(SPI2, &dummyRead, 1);
 
 			/* Introduce delay to give slave enough time to do ADC conversion
 			 * (Master should wait before generating the dummy bits to fetch
@@ -639,13 +638,13 @@ int main(int argc, char *argv[])
 			/* Send a dummy byte (or 2 bytes if 16-bit DFF) to fetch the response from the slave.
 			 * (To init the communication)
 			 */
-			SPI_TxData(SPI2, &dummyWrite, 1);
+			SPI_TxBlocking(SPI2, &dummyWrite, 1);
 				/* When this API call returns, response from the slave would've arrived at
 				 * the master. So, let's read next.
 				 */
 
 			uint8_t ledStatus;
-			SPI_RxData(SPI2, &ledStatus, 1);
+			SPI_RxBlocking(SPI2, &ledStatus, 1);
 
 			printf("CMD_LED_READ: %d\n", ledStatus);
 		}
@@ -664,7 +663,7 @@ int main(int argc, char *argv[])
 		cmdCode = CMD_PRINT;
 
 		/* Send command */
-		SPI_TxData(SPI2, &cmdCode, 1);
+		SPI_TxBlocking(SPI2, &cmdCode, 1);
 			/* Remember! In SPI communication, when master or slave sends 1 byte of data
 			 * it also receives 1 byte in return.
 			 *
@@ -674,18 +673,18 @@ int main(int argc, char *argv[])
 			 */
 
 		/* Dummy read to clear the RXNE bit */
-		SPI_RxData(SPI2, &dummyRead, 1);
+		SPI_RxBlocking(SPI2, &dummyRead, 1);
 
 		/* Send a dummy byte (or 2 bytes if 16-bit DFF) to fetch the response from the slave.
 		 * (To init the communication)
 		 */
-		SPI_TxData(SPI2, &dummyWrite, 1);
+		SPI_TxBlocking(SPI2, &dummyWrite, 1);
 			/* When this API call returns, response from the slave would've arrived at
 			 * the master. So, let's read next.
 			 */
 
 		/* Read the ACK byte received */
-		SPI_RxData(SPI2, &ackByte, 1);
+		SPI_RxBlocking(SPI2, &ackByte, 1);
 
 		uint8_t message[] = "Hello, how are you?";
 		if (SPI_VerifyResponse(ackByte))
@@ -694,10 +693,10 @@ int main(int argc, char *argv[])
 			args[0] = strlen((char *)message);
 
 			/* Send arguments */
-			SPI_TxData(SPI2, args, 1);	/* Sending length */
+			SPI_TxBlocking(SPI2, args, 1);	/* Sending length */
 
 			/* Dummy read to clear the RXNE bit */
-			SPI_RxData(SPI2, &dummyRead, 1);
+			SPI_RxBlocking(SPI2, &dummyRead, 1);
 
 			/* Introduce delay to give slave enough time to do ADC conversion
 			 * (Master should wait before generating the dummy bits to fetch
@@ -708,8 +707,8 @@ int main(int argc, char *argv[])
 			/* Send message */
 			for (int i = 0; i < args[0]; i++)
 			{
-				SPI_TxData(SPI2, &message[i], 1);
-				SPI_RxData(SPI2, &dummyRead, 1);
+				SPI_TxBlocking(SPI2, &message[i], 1);
+				SPI_RxBlocking(SPI2, &dummyRead, 1);
 			}
 
 			printf("CMD_PRINT executed\n");
@@ -729,7 +728,7 @@ int main(int argc, char *argv[])
 		cmdCode = CMD_PRINT;
 
 		/* Send command */
-		SPI_TxData(SPI2, &cmdCode, 1);
+		SPI_TxBlocking(SPI2, &cmdCode, 1);
 			/* Remember! In SPI communication, when master or slave sends 1 byte of data
 			 * it also receives 1 byte in return.
 			 *
@@ -739,18 +738,18 @@ int main(int argc, char *argv[])
 			 */
 
 		/* Dummy read to clear the RXNE bit */
-		SPI_RxData(SPI2, &dummyRead, 1);
+		SPI_RxBlocking(SPI2, &dummyRead, 1);
 
 		/* Send a dummy byte (or 2 bytes if 16-bit DFF) to fetch the response from the slave.
 		 * (To init the communication)
 		 */
-		SPI_TxData(SPI2, &dummyWrite, 1);
+		SPI_TxBlocking(SPI2, &dummyWrite, 1);
 			/* When this API call returns, response from the slave would've arrived at
 			 * the master. So, let's read next.
 			 */
 
 		/* Read the ACK byte received */
-		SPI_RxData(SPI2, &ackByte, 1);
+		SPI_RxBlocking(SPI2, &ackByte, 1);
 
 		uint8_t id[11];
 		uint32_t i = 0;
@@ -760,8 +759,8 @@ int main(int argc, char *argv[])
 			for (i = 0; i < 10; i++)
 			{
 				/* Send dummy byte to fetch data from slave */
-				SPI_TxData(SPI2, &dummyWrite, 1);
-				SPI_RxData(SPI2, &id[i], 1);
+				SPI_TxBlocking(SPI2, &dummyWrite, 1);
+				SPI_RxBlocking(SPI2, &id[i], 1);
 			}
 
 			id[10] = '\0';

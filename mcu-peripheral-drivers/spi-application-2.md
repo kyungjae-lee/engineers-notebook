@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 2: Master-Slave Communication (`02_spi-master-slave-tx.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 2: Master-Slave Tx (Blocking) (`02_spi_master_slave_tx_blocking.c`)
 
-# SPI Application 2: Master-Slave Tx (`02_spi-master-slave-tx.c`)
+# SPI Application 2: Master-Slave Tx (`02_spi_master_slave_tx_blocking.c`)
 
 
 
@@ -82,14 +82,15 @@
 
 ## Code
 
-### `02_spi-master-slave-tx.c`
+### `02_spi_master_slave_tx_blocking.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 02_spi_master_slave_tx.c
- * Description	: Program to test SPI send data functionality
+ * Filename		: 02_spi_master_slave_tx_blocking.c
+ * Description	: Program to test SPI master's Tx (blocking) functionality
+ * 				  (with slave)
  * Author		: Kyungjae Lee
  * History 		: Jun 02, 2023 - Created file
  */
@@ -251,9 +252,9 @@ int main(int argc, char *argv[])
 		/* Arduino sketch expects 1 byte of length information followed by data */
 		/* Send length information to the slave first */
 		uint8_t dataLen = strlen(userData);
-		SPI_TxData(SPI2, &dataLen, 1);
+		SPI_TxBlocking(SPI2, &dataLen, 1);
 		/* Send data */
-		SPI_TxData(SPI2, (uint8_t *)userData, strlen(userData));
+		SPI_TxBlocking(SPI2, (uint8_t *)userData, strlen(userData));
 
 		/* Wait until SPI no longer busy */
 		while (SPI2->SR & (0x1 << SPI_SR_BSY));

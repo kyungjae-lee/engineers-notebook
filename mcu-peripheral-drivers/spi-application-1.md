@@ -1,12 +1,12 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 1: Send Data (`01_spi_tx_data.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 1: Master Only Tx (Blocking) (`01_spi_master_only_tx_blocking.c`)
 
-# SPI Application 1: Send Data (`01_spi_tx_data.c`)
+# SPI Application 1: Master Only Tx (Blocking) (`01_spi_master_only_tx_blocking.c`)
 
 
 
 ## Requirements
 
-* Test the `SPI_TxData()` API to send the string "Hello world" with the following configurations:
+* Test the `SPI_TxBlocking)` API to send the string "Hello world" with the following configurations:
   * SPI2 - Master mode
   * SCLK - Max possible
   * DFF = 0, and DFF = 1
@@ -21,14 +21,15 @@
 
 ## Code
 
-### `01_spi_tx_data.c`
+### `01_spi_master_only_tx_blocking.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: 01_spi_tx_data
- * Description	: Program to test SPI send data functionality
+ * Filename		: 01_spi_master_only_tx_blocking.c
+ * Description	: Program to test SPI master's Tx (blocking) functionality
+ * 				  (without slave)
  * Author		: Kyungjae Lee
  * History   	: May 27, 2023 - File created
  * 				  Jun 02, 2023 - Added 'Wait until SPI no longer busy' logic
@@ -130,7 +131,7 @@ int main(int argc, char *argv[])
 	SPI_PeriControl(SPI2, ENABLE);
 
 	/* Send data */
-	SPI_TxData(SPI2, (uint8_t *)userData, strlen(userData));
+	SPI_TxBlocking(SPI2, (uint8_t *)userData, strlen(userData));
 
 	/* Wait until SPI no longer busy */
 	while (SPI2->SR & (0x1 << SPI_SR_BSY));
