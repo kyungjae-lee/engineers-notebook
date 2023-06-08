@@ -38,3 +38,7 @@
 1. **<a href="./spi-application-2">SPI Application 2: Master-Slave Tx (Blocking) (`spi_02_master_slave_tx_blocking.c`)</a>**
 1. **<a href="./spi-application-3">SPI Application 3: Master-Slave Tx Rx (Blocking) (`spi_03_master_slave_tx_rx_blocking.c`)</a>**
 1. **<a href="./spi-application-4">SPI Application 4: Master-Slave Rx (Interrupt) (`spi_04_master_slave_rx_interrupt`)</a>**
+
+##### Inter-Integrated Circuit (I2C) Driver
+
+1. **<a href="./introduction-to-i2c">Introduction to I2C</a>**

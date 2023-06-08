@@ -592,10 +592,158 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+							stroke-width: 0;
+						}
 </style>
 </head>
 <body class='typora-export'><div class='typora-export-content'>
-<div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; MCU Peripheral Drivers</span></p><h1 id='mcu-peripheral-drivers'><span>MCU Peripheral Drivers</span></h1><p>&nbsp;</p><h3 id='introduction-to-microcontroller'><span>Introduction to Microcontroller</span></h3><ol start='' ><li><strong><a href="./memory-map"><span>Memory Map</span></a></strong></li><li><strong><a href="./mcu-bus-interfaces"><span>MCU Bus Interfaces</span></a></strong></li><li><strong><a href="./mcu-block-diagram"><span>MCU Block Diagram</span></a></strong></li><li><strong><a href="./clocks"><span>Clocks</span></a></strong></li><li><strong><a href="./vector-table"><span>Vector Table</span></a></strong></li><li><strong><a href="./interrupts"><span>Interrupts</span></a></strong></li></ol><p>&nbsp;</p><h3 id='mcu-peripheral-driver-development'><span>MCU Peripheral Driver Development</span></h3><ol start='' ><li><strong><a href="./architecture-and-development-plan"><span>Architecture &amp; Development Plan</span></a></strong></li><li><strong><a href="./device-header-file"><span>Device Header File (</span><code>stm32f407xx.h</code><span>)</span></a></strong></li></ol><h5 id='general-purpose-inputoutput-gpio-driver'><span>General Purpose Input/Output (GPIO) Driver</span></h5><ol start='' ><li><strong><a href="./introduction-to-gpio"><span>Introduction to GPIO</span></a></strong></li><li><strong><a href="./gpio-driver"><span>GPIO Driver (</span><code>stm32f407xx_gpio_driver.h/.c</code><span>)</span></a></strong></li><li><strong><a href="./gpio-application-1"><span>GPIO Application 1: Toggling On-board LED (</span><code>gpio_01_led_toggle_pushpull.c</code><span>, </span><code>gpio_01_led_toggle_opendrain.c</code><span>)</span></a></strong></li><li><strong><a href="./gpio-application-2"><span>GPIO Application 2: Toggling On-board LED with On-board Button (</span><code>gpio_02_led_toggle_with_button.c</code><span>)</span></a></strong></li><li><strong><a href="./gpio-application-3"><span>GPIO Application 3: Toggling External LED with External Button (</span><code>gpio_03_ext_led_toggle_with_ext_button.c</code><span>)</span></a></strong></li><li><strong><a href="./gpio-application-4"><span>GPIO Application 4: Toggling LED with External Button Interrupt (</span><code>gpio_04_led_toggle_with_ext_button_interrupt.c</code><span>)</span></a></strong></li></ol><h5 id='serial-peripheral-interface-spi-driver'><span>Serial Peripheral Interface (SPI) Driver</span></h5><ol start='' ><li><strong><a href="./introduction-to-spi"><span>Introduction to SPI</span></a></strong></li><li><strong><a href="./common-problems-in-spi-and-debugging-tips"><span>Common Problems in SPI &amp; Debugging Tips</span></a></strong></li><li><strong><a href="./spi-driver"><span>SPI Driver (</span><code>stm32f407xx_spi_driver.h/.c</code><span>)</span></a></strong></li><li><strong><a href="./spi-application-1"><span>SPI Application 1: Master Only Tx (Blocking) (</span><code>spi_01_master_only_tx_blocking.c</code><span>)</span></a></strong></li><li><strong><a href="./spi-application-2"><span>SPI Application 2: Master-Slave Tx (Blocking) (</span><code>spi_02_master_slave_tx_blocking.c</code><span>)</span></a></strong></li><li><strong><a href="./spi-application-3"><span>SPI Application 3: Master-Slave Tx Rx (Blocking) (</span><code>spi_03_master_slave_tx_rx_blocking.c</code><span>)</span></a></strong></li><li><strong><a href="./spi-application-4"><span>SPI Application 4: Master-Slave Rx (Interrupt) (</span><code>spi_04_master_slave_rx_interrupt</code><span>)</span></a></strong></li></ol><h5 id='inter-integrated-circuit-i2c-driver'><span>Inter-Integrated Circuit (I2C) Driver</span></h5><ol><li><strong><a href="./introduction-to-i2c"><span>Introduction to I2C</span></a></strong></li></ol><p>&nbsp;</p></div></div>
+<div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>MCU Peripheral Drivers</span></a><span> &gt; Introduction to I2C</span></p><h1 id='introduction-to-i2c'><span>Introduction to I2C</span></h1><p>&nbsp;</p><h3 id='inter-integrated-circuit-i2c-protocol'><span>Inter-Integrated Circuit (I2C) Protocol</span></h3><ul><li><span>Pronounced as &quot;I squared C&quot; or &quot;I two C&quot;</span></li><li><span>I2C is a protocol to achieve serial data communication between integrated circuits (ICs) which are close to each other. (Considered more serious protocol than SPI because companies have come to design a specification.)</span></li><li><span>I2C protocol details such as how data should be sent/received, how hand shaking should happen between sender and receiver, error handling, etc. are more complex than those of SPI&#39;s. In other words, SPI is a simpler protocol compared to I2C.)</span></li></ul><p>&nbsp;</p><h2 id='difference-between-spi-and-i2c'><span>Difference Between SPI and I2C</span></h2><ul><li><p><span>I2C is based on a dedicated global specification which can be downloaded from </span><a href='https://www.nxp.com/docs/en/user-guide/UM10204.pdf' target='_blank' class='url'>https://www.nxp.com/docs/en/user-guide/UM10204.pdf</a><span>.</span></p><p><span>For SPI, however, there&#39;s no dedicated global specification. Only some vendors such as TI and Motorola have their own proprietary specifications.</span></p></li><li><p><span>I2C supports multi-master mode, whereas SPI provides no official guidelines to achieve this (it depends on MCU designers or vendors.)</span></p><p><span>e.g., STM SPI peripherals can be used in multi-master mode, but software is responsible for the arbitration. (In the case of I2C, arbitration is taken care of by the hardware automatically.)</span></p><p><mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="2.262ex" height="1.181ex" role="img" focusable="false" viewBox="0 -511 1000 522" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.025ex;"><defs><path id="MJX-16-TEX-N-2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="2192" xlink:href="#MJX-16-TEX-N-2192"></use></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo accent="false" stretchy="false">→</mo></math></mjx-assistive-mml></mjx-container><script type="math/tex">\to</script><span> One of the most important features of the I2C peripheral!</span></p></li></ul><ul><li><span>I2C hardware automatically ACKs upon reception of every byte, whereas SPI does not support automatic ACKing. (Must be implemented in the software)</span></li><li><span>I2C needs just 2 pins to connect all the masters and slaves, whereas SPI may need 4 or more pins depending on the number of slaves involved in communication.</span></li></ul><p>&nbsp;</p><p><img src="img/i2c-2-pins.png" alt="i2c-2-pins" width="800"></p><p>&nbsp;</p><ul><li><p><span>I2C master talks to slaves based on their addresses, whereas in SPI a dedicated pin (SS) is used to select the slave to talk to. (Each device has their own address.)</span></p></li><li><p><span>I2C is half-duplex, whereas SPI is full-duplex.</span></p></li><li><p><span>I2C&#39;s max speed is 4 MHz in ultra speed plus mode (which is supported by some higher-end MCUs). For some STM MCUs, the max speed is even slower (e.g., 400 KHz). However, SPI&#39;s max speed is its F</span><sub><span>pclk</span></sub><span>/2, which means that if the peripheral clock is 20 MHz, then SPI max speed can be 10 MHz.</span></p><p><span>I2C is slower than SPI in general!</span></p></li></ul><ul><li><p><span>In I2C, slave can make master wait by holding the clock down if it&#39;s busy thanks to the clock stretching feature (supported by most of the MCUs) of I2C. However, in SPI, slave has no control over the clock. Programmers must come up with their own tricks and solutions to overcome this situation.</span></p></li><li><p><span>I2C&#39;s data rate (i.e., number of bits transferred from sender to receiver in 1 second) is much less than that of the SPI&#39;s. For example, when the STM32F4xx MCU supports the peripheral clock of 40 MHz, SPI can support up to 20 Mbps, whereas I2C can support only 400 Kbps.</span></p><p><span>Due to this advantage of SPI over I2C, it is impossible to simply replace all SPI applications with that of I2Cs.</span></p></li></ul><p>&nbsp;</p><h2 id='i2c-terminology'><span>I2C Terminology</span></h2><ul><li><p><span>Definitions of I2C bus terminology</span></p><figure><table><thead><tr><th><span>Term</span></th><th><span>Description</span></th></tr></thead><tbody><tr><td><span>Transmitter</span></td><td><span>Device sending data (to bus)</span></td></tr><tr><td><span>Receiver</span></td><td><span>Device receiving data (from bus)</span></td></tr><tr><td><span>Master</span></td><td><span>Device that initiates data transfer, generates clock signals and terminates data transfer</span></td></tr><tr><td><span>Slave</span></td><td><span>Device addressed by master</span></td></tr><tr><td><span>Multi-master</span></td><td><span>More than one master can attempt to control the bus at the same time without corrupting the message</span></td></tr><tr><td><span>Arbitration</span></td><td><span>Procedure to ensure that if more than one master tries to control the bus simultaneously, only one is allowed to do so and the winning message is not corrupted</span></td></tr><tr><td><span>Synchronization</span></td><td><span>Procedure to synchronize the clock signals of two or more devices</span></td></tr></tbody></table></figure><blockquote><p><span>I2C communication is always initiated by the master.</span></p></blockquote></li></ul><p>&nbsp;</p><h2 id='sda--scl-signals'><span>SDA &amp; SCL Signals</span></h2><ul><li><span>Both the SDA and SCL are bidirectional lines connected to a positive supply voltage via pull-up resistors. When the bus is free, both lines are pulled to HIGH.</span></li><li><span>The output stages of devices connected to the bus must have an open-drain or open-collector configuration.</span></li><li><span>The bus capacitance limits the number of interfaces connected to the bus.</span></li><li><span>Both the SDA and SCL pins must be in open-drain configuration and must use pull-up resistors (either internal or external).</span></li></ul><p>&nbsp;</p><p><img src="img/i2c-pin-configuration.png" alt="i2c-pin-configuration" width="800"></p><p>&nbsp;</p><ul><li><p><span>Troubleshooting tip: When the bus is idle, both the SDA and SCL are pulled to +V</span><sub><span>DD</span></sub><span>.</span></p><p><span>Whenever you face problems in I2C, probe the SDA and SCL line after I2C initialization. (The voltage between GND-SDA(or SCL) should read 3.3V or 1.8V depending on the I/O voltage levels of the board.)</span></p></li></ul><p>&nbsp;</p><h2 id='i2c-modes'><span>I2C Modes</span></h2><figure><table><thead><tr><th><span>Mode</span></th><th><span>Data Rate</span></th><th><span>Notes</span></th></tr></thead><tbody><tr><td><span>Standard mode</span></td><td><span>Up to 100 Kbps</span></td><td><span>Supported by STM32F4xx</span></td></tr><tr><td><span>Fast mode</span></td><td><span>Up to 400 Kbps</span></td><td><span>Supported by STM32F4xx</span></td></tr><tr><td><span>Fast mode +</span></td><td><span>Up to 1Mbps</span></td><td><span>Supported by some STM32F4xx (check the reference manual)</span></td></tr><tr><td><span>High speed mode</span></td><td><span>Up to 3.4 Mbps</span></td><td><span>Not supported by STM32F4xx</span></td></tr></tbody></table></figure><blockquote><p><span>bps: bits per second</span></p></blockquote><h3 id='standard-mode'><span>Standard Mode</span></h3><ul><li><span>In standard mode communication, data transfer rate can reach up to maximum of 100 Kbps.</span></li><li><span>Standard mode was the very first mode introduced when the first I2C specification was released.</span></li><li><span>Standard-mode devices, however, are not forward compatible. (They cannot communicate with the devices of fast mode or above.)</span></li><li><span>Standard-mode devices include basic sensors such as RTC, temperature sensor, etc. (The devices that does not require fast communication.)</span></li></ul><h3 id='fast-mode'><span>Fast Mode</span></h3><ul><li><span>In fast mode, devices can transmit and receive data up to 400 Kbps.</span></li><li><span>Fast-mode devices are backward-compatible and can communicate with standard-mode devices in a 0-100 Kbps I2C bus system.</span></li><li><span>Standard-mode devices, however, are not forward compatible. So, they should not be incorporated in a fast-mode I2C bus system as they cannot follow the faster transfer rate which in turn can lead to unpredictable states.</span></li><li><span>To achieve data transfer rate up to 400 Kbps, you must put the I2C device in the fast mode.</span></li></ul></div></div>
 <center>
 <hr width="400px;">
 This website contains Kyungjae's original work.
