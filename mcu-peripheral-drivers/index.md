@@ -42,3 +42,4 @@
 ##### Inter-Integrated Circuit (I2C) Driver
 
 1. **<a href="./introduction-to-i2c">Introduction to I2C</a>**
+1. **<a href="./i2c-driver">I2C Driver (`stm32f407xx_i2c_driver.h/.c`)</a>**
