@@ -205,7 +205,7 @@ void SPI2_Init(void)
 	SPI2Handle.pSPIx = SPI2;
 	SPI2Handle.SPI_Config.SPI_BusConfig = SPI_BUS_CONFIG_FULL_DUPLEX;
 	SPI2Handle.SPI_Config.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;
-	SPI2Handle.SPI_Config.SPI_SCLKSpeed = SPI_SCLK_SPEED_PRESCALAR_8;	/* Generates 2MHz SCLK */
+	SPI2Handle.SPI_Config.SPI_SCLKSpeed = SPI_SCLK_SPEED_PRESCALAR_32;	/* Generates 500KHz SCLK */
 		/* Min prescalar -> maximum clk speed */
 	SPI2Handle.SPI_Config.SPI_DFF = SPI_DFF_8BITS;
 	SPI2Handle.SPI_Config.SPI_CPOL = SPI_CPOL_LOW;
@@ -363,6 +363,8 @@ void SPI_ApplicationEventCallback(SPI_Handle_TypeDef *pSPIHandle, uint8_t appEve
 }
 ```
 
+> The master's clock frequency has been adjusted from 2 MHz (prescalar = 8) to 500 KHz (prescalar = 32) to be compatible with the baudrate (1200) of the slave.
+
 
 
 ## Arduino Sketch (`003SPISlaveUartReadOverSPI.ino`)
@@ -411,7 +413,7 @@ void SPI_SlaveTransmit(uint8_t data)
 void setup() 
 {
   // Initialize serial for troubleshooting.
-  Serial.begin(9600);
+  Serial.begin(1200);
   
   // Initialize SPI Slave.
   SPI_SlaveInit();
@@ -469,3 +471,4 @@ void loop() {
 }
 ```
 
+> Original baudrate (9600) has been changed to 1200 since the communication didn't work with the original baudrate. (In the STM32 application, the master's clock frequency has been adjusted from 2 MHz to 500 KHz accordingly.)
