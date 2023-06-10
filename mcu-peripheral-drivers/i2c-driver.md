@@ -7,13 +7,34 @@
 ## SPI Driver API Requirements
 
 * I2C initialization
+
+  1. Configure the mode (e.g., standard, fast, ...)
+
+  2. Configure the serial clock (SCL) speed (e.g., 25 KHz, 50 KHz, 100 KHz, 200 KHz, 400 KHz, ...)
+
+     When using higher frequency, the length of the communication wire must be short.
+
+     > In STM32F4x I2C peripheral, CR2 and CCR registers are used to control the I2C serial clock settings and other I2C timings like setup time and hold time.
+
+  3. Configure the device address (Applicable only when the device is slave.)
+
+  4. Enable ACKing (For STM32F407xx MCUs, ACKing is disabled by default.)
+
+  5. Configure the rise time (the time it takes for the signal to reach the VCC level from the GND level) for I2C pins (Also called as "slew rate")
+
+  All of the above configuration must be done while the I2C peripheral is in DISABLED state. (Check the control register!)
+
 * I2C master Tx
   * Since in I2C, only master can initiate the communication, master Tx/Rx and slave Tx/Rx must be separated.
 
 * I2C master Rx
+
 * I2C slave Tx
+
 * I2C slave Rx
+
 * I2C error interrupt handling
+
 * I2C event interrupt handling
 
 ### SPIx Peripheral Configurable Items for User Applications
