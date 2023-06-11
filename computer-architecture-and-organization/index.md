@@ -35,9 +35,9 @@
 1. **<a href="./privileged-mode-and-exceptions">Privileged Mode and Exceptions</a>**
 1. **<a href="./arm-thumb-instruction-set-architecture">ARM Thumb Instruction Set Architecture (ISA)</a>**
 1. **<a href="./performance">Performance</a>**
-1. **<a href="./processor-control-microarchitecture">Processor Control - Microarchitecture</a>**
-1. **<a href="./processor-control-introduction-to-pipelining">Processor Control - Introduction to Pipelining</a>**
-1. **<a href="./processor-control-pipeline-hazards">Processor Control - Pipeline Hazards</a>**
-1. **<a href="./processor-control-branches">Processor Control - Branches</a>**
+1. **<a href="./microarchitecture">Microarchitecture</a>**
+1. **<a href="./introduction-to-pipelining">Introduction to Pipelining</a>**
+1. **<a href="./pipeline-hazards">Pipeline Hazards</a>**
+1. **<a href="./pipeline-and-branches">Pipeline & Branches</a>**
 1. **<a href="./cache-memory">Cache Memory</a>**
 1. **<a href="./secondary-storage">Secondary Storage</a>**

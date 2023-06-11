@@ -1,10 +1,10 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Processor Control - Microarchitecture
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Computer Architecture & Organization</a> > Microarchitecture
 
 # Microarchitecture
 
 
 
-## 1. Hardware & Software Layers
+## Hardware & Software Layers
 
 
 
@@ -38,9 +38,9 @@
 
 
 
-## 2. The Microprogram
+## The Microprogram
 
-### 2.1. The Generic Digital Processor
+### The Generic Digital Processor
 
 Not used anymore, antiquated but good to understand how control signals work.
 
@@ -129,9 +129,10 @@ Generally, CPUs are made of registers, buses, ALUs and Control Units. (Technical
   >
   > Not all, but a lot of RISC machines’ instructions take 1 clock cycle.
 
-  
 
-### 2.2. A Two-Bus CPU Structure
+
+
+### A Two-Bus CPU Structure
 
 
 
@@ -174,7 +175,7 @@ Generally, CPUs are made of registers, buses, ALUs and Control Units. (Technical
 
 
 
-### 2.3. A Four-Bus CPU Structure
+### A Four-Bus CPU Structure
 
 Overall, added more flexibility in how we transfer stuff.
 
@@ -204,36 +205,43 @@ Overall, added more flexibility in how we transfer stuff.
 
 
 
-## 3. Generating the Microoperations
+## Generating the Microoperations
 
-### 3.1. Hardwired Control Unit
+### Hardwired Control Unit
 
-The **Hardwired Control Unit** uses basic gates to activate the control signals for ALU and the registers to execute the instructions. Once burned onto the hardware, cannot be changed!
+* The **Hardwired Control Unit** uses basic gates to activate the control signals for ALU and the registers to execute the instructions. Once burned onto the hardware, cannot be changed!
 
-Has always been faster than *Microcode Control Unit* and therefore used in many modern architectures.
+* Has always been faster than *Microcode Control Unit* and therefore used in many modern architectures.
 
-**Inputs:**
+* **Inputs:**
 
-* Phase (Fectch, Execute)
+  * Phase (Fectch, Execute)
 
-* Clock Cycle (T0 , T1, T2, T3)        
+    * Clock Cycle (T0 , T1, T2, T3)        
 
-  - 4 clock cyles are enough for the most of the operations
+      - 4 clock cyles are enough for the most of the operations
 
-  - If not enough? Just assume more
+      - If not enough? Just assume more
 
-* Instruction        
 
-  - Opcode
+    * Instruction        
 
-* Addressing Mode
+      - Opcode
 
-**Outputs:**
 
-- ALU Operations
-- Memory Read/Write
-- In/Out, From/To Bus
-- CCR Flag Updates
+  * Addressing Mode
+
+
+* **Outputs:**
+
+  - ALU Operations
+
+  - Memory Read/Write
+
+  - In/Out, From/To Bus
+
+  - CCR Flag Updates
+
 
 
 
@@ -241,15 +249,18 @@ Has always been faster than *Microcode Control Unit* and therefore used in many 
 
 
 
-### 3.2. Microcode Control Unit
+### Microcode Control Unit
 
-For the **Microcode Control Unit** these gates have been replaced by:
+* For the **Microcode Control Unit** these gates have been replaced by:
 
-- μPC −  A register that contains the next microinstruction to execute
-- μMemory −  A section in the CPU where the microinstructions are stored
-- μMAR / μIR − Current microinstruction that is being executed (both registers serve the same purpose)
+  - μPC −  A register that contains the next microinstruction to execute
 
-#### 3.2.1. Horizontal Microcode
+  - μMemory −  A section in the CPU where the microinstructions are stored
+
+  - μMAR / μIR − Current microinstruction that is being executed (both registers serve the same purpose)
+
+
+#### 1. Horizontal Microcode
 
 - Each bit of the microcode controls (corresponds to) a specific control signal. (e.g., In the following figure, if R~a0~ bit is set, it means “Register r0 out to bus A”. 
 - The microinstruction has to be as long as the number of control signals. This makes for very long microinstruction and hence a large Microprogram ROM. Also, why would you need to be able to turn on multiple bits when more than two data loaded on one bus is not meaningful! (Plus, shorting multiple output buses is a BAD idea!)
@@ -260,7 +271,7 @@ For the **Microcode Control Unit** these gates have been replaced by:
 
 
 
-#### 3.2.2. Vertical Microcode
+#### 2. Vertical Microcode
 
 - Instead of each bit controlling one signal a group of bits is used that then go into a decoder to turn on the right signal. This system prevents bad or unnecessary things (e.g., conflics) that were allowed  to happen in the *Horizontal Microcode* from happening.
 - Be careful with the groups because the decoder only has one signal active at a time.
@@ -272,15 +283,17 @@ For the **Microcode Control Unit** these gates have been replaced by:
 
 
 
-Microcode Control Units were popular in the 1980’s for several reasons:    
+* Microcode Control Units were popular in the 1980’s for several reasons:    
 
-- Easy to fix problems with the microcode by reburning the microROM.
+  - Easy to fix problems with the microcode by reburning the microROM.
 
-- Completely change the instruction set by just redoing the microcode.
 
-- Fell out of favor because:        
+  - Completely change the instruction set by just redoing the microcode.
 
-  - Tools to design and test the microprocessor got a lot better. So, higher probability the CPUs would work the first time after manufacture.
-  - Speed of the processors increased to the point that reading from the microROM would slow down the processor.
 
-  [!] Note: Intel still uses microcode instead of hardwired one but the usage is  restricted to *cache* management. (Cache management algorithm is complicated and  if any issue is found on the hardwired component, everything has to be thrown away  whereas if done in microcode, it can be fixed at the software level.)
+  - Fell out of favor because:        
+
+    - Tools to design and test the microprocessor got a lot better. So, higher probability the CPUs would work the first time after manufacture.
+    - Speed of the processors increased to the point that reading from the microROM would slow down the processor.
+
+    [!] Note: Intel still uses microcode instead of hardwired one but the usage is  restricted to *cache* management. (Cache management algorithm is complicated and  if any issue is found on the hardwired component, everything has to be thrown away  whereas if done in microcode, it can be fixed at the software level.)
