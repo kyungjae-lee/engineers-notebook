@@ -173,9 +173,17 @@
 
 
 
-## Procedure
+## Setup
 
-### 1. Connect STM32 Discovery board with Arduino Uno board SPI pins
+### 1. Find out the GPIO pins that can be used for SPI2 communication
+
+* For this application, all four SPI communication lines (i.e., MOSI, MISO, SCK and NSS pins) will be used. Find out the GPIO pins over which SPI2 can communicate! Look up the "Alternate function mapping" table in the datasheet.
+  * **SPI2_MOSI $\to$ PB15 (AF5)**
+  * **SPI2_SCK $\to$ PB13 (AF5)**
+  * **SPI2_MISO $\to$ PB14 (AF5)**
+  * **SPI2_NSS $\to$ PB12 (AF5)**
+
+### 2. Connect STM32 Discovery board with Arduino Uno board SPI pins
 
 * Be careful not to directly supply 5 volts to the STM32 board pins when the board is not powered up as they may be damaged. When the **logic level shifter** is used, you don't need to worry about this issue.
 
@@ -192,19 +200,11 @@
   * CH3 - NSS
   * GND - Common GND of the bread board
 
-### 2. Power Arduino board and download SPI slave sketch to Arduino
+### 3. Power Arduino board and download SPI slave sketch to Arduino
 
 * Sketch name: `002SPISlaveCmdHandling.ino`
   * You don't need to write an application for Arduino board. It is already provided as a sketch.
   * As soon as you download this sketch to the Arduino board, it will operate as a slave.
-
-### 3. Find out the GPIO pins that can be used for SPI2 communication
-
-* For this application, all four SPI communication lines (i.e., MOSI, MISO, SCK and NSS pins) will be used. Find out the GPIO pins over which SPI2 can communicate! Look up the "Alternate function mapping" table in the datasheet.
-  * **SPI2_MOSI $\to$ PB15 (AF5)**
-  * **SPI2_SCK $\to$ PB13 (AF5)**
-  * **SPI2_MISO $\to$ PB14 (AF5)**
-  * **SPI2_NSS $\to$ PB12 (AF5)**
 
 
 
