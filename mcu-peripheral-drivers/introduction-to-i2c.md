@@ -402,3 +402,24 @@
   
 
   Each value can be found in the I2C specification.
+
+
+
+## Master Receiving Data from Slave
+
+
+
+<img src="img/transfer-sequence-diagram-for-master-receiver.png" alt="transfer-sequence-diagram-for-master-receiver" width="900">
+
+
+
+* Must read the DR when RxNE = 1. Without confirming the RxNE value, do NOT access the DR.
+* Signal NACK after the last byte received to initiate the termination process. 
+* Reading the final 2 bytes of data:
+  * 2nd to last byte (when len = 2)
+    1. ACK = 0
+    2. STOP = 1
+    3. Read DR
+    4. Decrement the length (i.e., len = 1)
+  * Last byte
+    1. Read DR
