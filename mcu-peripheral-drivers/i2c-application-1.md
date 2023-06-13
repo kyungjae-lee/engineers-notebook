@@ -99,6 +99,12 @@ $$
 
   * GND - Common GND of the bread board
 
+### 3. Power Arduino board and download SPI slave sketch to Arduino
+
+* Sketch name: `001I2CSlaveRxString.ino`
+  * You don't need to write an application for Arduino board. It is already provided as a sketch.
+  * As soon as you download this sketch to the Arduino board, it will operate as a slave.
+
 
 
 
