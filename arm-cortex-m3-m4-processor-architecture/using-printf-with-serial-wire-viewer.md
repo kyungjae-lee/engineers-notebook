@@ -1,36 +1,37 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">ARM Cortex-M3/M4 Processor Architecture</a> > Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">ARM Cortex-M3/M4 Processor Architecture</a> > Using `printf()` with Serial Wire Viewer (SWV)
 
-# Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs
+# Using `printf()` with Serial Wire Viewer (SWV)
 
 
 
 ## Introduction
 
-This discussion in only applicable to MCUs based on ARM Cortex M3/M4/M7 or higher processors. (Not avilable on ARM Cortex M0 processor.)
+* **Serial Wire Viewer (SWV)** is a data trace feature found on many ARM Cortex-M3, M4, M7, M23, and M33 processors. Coretx-M0 and Cortex-M0+ do not have SWV. The SWV frames can be sent out either the one pin SWO (Serial Wire Output) pin or the 4 bit Trace Port.
 
-* `printf()` works over **Serial Wire Output (SWO)** pin of **Serial Wire Debug (SWD)** interface.
-
-* Serial Wire Debug (SWD)
-
-  * Two-wire protocol for accessing the ARM debug interface
-
-  * Part of the ARM Debug Interface Specification v5 and is an alternative to JTAG
-
-  * The physical layer of SWD consists of two lines:
-
-    * SWDIO - A bidirectional data line that carries debug-related data (e.g., break point)
-    * SWCLK - A clock driven by the host (i.e., ST Link circuitry)
-
-    Both of these are managed by the ST Link circuitry on the board.
-
-  * By using SWD interface you should be able to program MCUs internal flash, you can access memory regions, and break points, stop/run CPU.
-
-    Also, you can use the serial wire viewer for your `printf()` statements for debugging.
-
-    
+* This notes explains using `printf()` over **Serial Wire Output (SWO)** pin of **Serial Wire Debug (SWD)** interface.
 
 
-<img src="./img/printf-using-single-wire-viewing.png" alt="printf-using-single-wire-viewing" width="750">
+
+## Serial Wire Debug (SWD)
+
+* Two-wire protocol for accessing the ARM debug interface
+
+* Part of the ARM Debug Interface Specification v5 and is an alternative to JTAG
+
+* The physical layer of SWD consists of two lines:
+
+  * SWDIO - A bidirectional data line that carries debug-related data (e.g., break point)
+  * SWCLK - A clock driven by the host (i.e., ST Link circuitry)
+
+  Both of these are managed by the ST Link circuitry on the board.
+
+* By using SWD interface you should be able to program MCUs internal flash, you can access memory regions, and break points, stop/run CPU.
+
+  Also, you can use the serial wire viewer for your `printf()` statements for debugging.
+
+  
+
+<img src="img/printf-using-serial-wire-viewer-1686753047515-1.png" alt="printf-using-serial-wire-viewer" width="750">
 
 
 
@@ -90,9 +91,9 @@ This discussion in only applicable to MCUs based on ARM Cortex M3/M4/M7 or highe
   	return len;
   }
   ```
-  
+
   > Don't forget to make this modification. I've spent hours to figure out why I couldn't see the `printf()` messages from the SWV ITM Data Consol.
-  
+
 * The way `printf()` works is as follows:
 
   ```c
@@ -123,7 +124,7 @@ This discussion in only applicable to MCUs based on ARM Cortex M3/M4/M7 or highe
 
   
 
-  <img src="./img/debug-configurations.png" alt="debug-configurations" width="700">
+  <img src="img/debug-configurations-1686753047516-2.png" alt="debug-configurations" width="700">
 
   
 
@@ -148,7 +149,5 @@ This discussion in only applicable to MCUs based on ARM Cortex M3/M4/M7 or highe
 
 
 ## References
-
-Nayak, K. (2022). *Microcontroller Embedded C Programming: Absolute Beginners* [Video file]. Retrieved from  https://www.udemy.com/course/microcontroller-embedded-c-programming/
 
 Nayak, K. (2022). *Embedded Systems Programming on ARM Cortex-M3/M4 Processor* [Video file]. Retrieved from  https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/
