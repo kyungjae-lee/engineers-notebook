@@ -23,6 +23,8 @@
 
   Points to remember: Closer (to the CPU) is quicker!
 
+
+
 ## Cache and Virtual Memory
 
 
@@ -90,6 +92,8 @@
     - **Sequential locality**
       - A special case of spatial locality
       - Occurs when data elements are arranged and accessed linearly, such as, traversing the elements in a 1D array.
+
+
 
 
 ## Performance of Cache Memory
