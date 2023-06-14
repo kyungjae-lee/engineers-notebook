@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > I2C Application 1: Master Tx (`i2c_01_master_tx.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > I2C Application 1: Master Tx (Blocking) (`i2c_01_master_tx_blocking.c`)
 
-# I2C Application 1: Master Tx (`i2c_01_master_tx.c`)
+# I2C Application 1: Master Tx (Blocking)(`i2c_01_master_tx_blocking.c`)
 
 
 
@@ -110,13 +110,13 @@ $$
 
 ## Code
 
-### `i2c_01_master_tx.c`
+### `i2c_01_master_tx_blocking.c`
 
 Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: i2c_01_master_tx.c
+ * Filename		: i2c_01_master_tx_blocking.c
  * Description	: Program to test I2C master's Tx functionality
  * Author		: Kyungjae Lee
  * History 		: Jun 12, 2023 - Created file
