@@ -44,5 +44,5 @@
 
 1. **<a href="./introduction-to-i2c">Introduction to I2C</a>**
 1. **<a href="./i2c-driver">I2C Driver (`stm32f407xx_i2c_driver.h/.c`)</a>**
-1. **<a href="./i2c-application-1">I2C Application 1: Master Tx (`i2c_01_master_tx.c`)</a>**
-1. **<a href="./i2c-application-2">I2C Application 2: Master Rx (`i2c_02_master_rx.c`)</a>**
+1. **<a href="./i2c-application-1">I2C Application 1: Master Tx (Blocking) (`i2c_01_master_tx_blocking.c`)</a>**
+1. **<a href="./i2c-application-2">I2C Application 2: Master Rx (Blocking) (`i2c_02_master_rx_blocking.c`)</a>**
