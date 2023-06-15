@@ -423,3 +423,61 @@
     4. Decrement the length (i.e., len = 1)
   * Last byte
     1. Read DR
+
+
+
+## I2C Interrupts
+
+* I2C interrupt requests
+
+
+
+<img src="img/i2c-interrupt-requests.png" alt="i2c-interrupt-requests" width="800">
+
+
+
+* I2C interrupts and IRQ numbers
+
+  IRQ numbers are specific to MCUs. Check the vector table of the MCU's reference manual.
+
+  
+
+<img src="img/i2c-interrupt-mapping-diagram.png" alt="i2c-interrupt-mapping-diagram" width="800">
+
+
+
+
+
+## I2C Errors
+
+I2C driver should be able to catch the following errors and notify the application. Then, it is the application's reponsibility to take necessary action.
+
+* **Bus Error**
+  * This error occurs when the interface detects an SDA rising or falling edge while SCL is high, occuring in a non-valid position during a byte transfer.
+* **Arbitration Loss Error**
+  * This error occurs when the interface loses the arbitration of the bus to another master. (Can occur only in a multi-master environment)
+
+* **ACK Failure Error**
+
+  * Occurs when no ACK is returned for the byte sent. 
+
+* **Overrun Error**
+
+  * Occurs when (during reception) a new byte is received and the data register has not been read yet then the newly received byte gets lost.
+
+  * In I2C, the overrun and underrun will not happen if clock stretching is enabled because in those conditions (i.e., both the Shift Register (SR) and Data Register (DR) are full $\to$ BTF=1) the clock will be held LOW and both communicating devices will enter the wait state. (The BTF bit will be cleared only when the software reads the DR.)
+
+* **Underrun Error**
+
+  * Occurs when (during transmission) a new byte should be sent and the data register has not been written yet then the same byte gets sent twice.
+  * BTF flag in Tx and preventing underrun error
+    * During Tx of a data byte, if TxE=1, then it means that the data register (DR) is empty.
+    * And if the firmware has not written any byte to DR before SR becomes empty (previous byte transmission), then the BTF flag will be set and clock will be stretched to prevent the underrun. Without this mechanism, it is likely that the meaningless data left in DR may flow into SR, which is undesirable.
+    * If RxNE=1, then it means that a new data is waiting in the DR, and if the firmware has not read the data byte yet before the SR is filled with another new data, then also the BTF flag will be set and clock will be stretched to prevent the overrun.
+
+* **PEC Error**
+
+  * Occurs when CRC mismatch is detected while the CRC feature is enabled.
+
+* **Timeout Error**
+  * Occurs when master or slave stretches the clock longer than the recommended amount of time defined in the reference manual.
