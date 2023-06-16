@@ -46,3 +46,4 @@
 1. **<a href="./i2c-driver">I2C Driver (`stm32f407xx_i2c_driver.h/.c`)</a>**
 1. **<a href="./i2c-application-1">I2C Application 1: Master Tx (Blocking) (`i2c_01_master_tx_blocking.c`)</a>**
 1. **<a href="./i2c-application-2">I2C Application 2: Master Rx (Blocking) (`i2c_02_master_rx_blocking.c`)</a>**
+1. **<a href="./i2c-application-3">I2C Application 3: Master Rx (Interrupt) (`i2c_03_master_rx_interrupt.c`)</a>**
