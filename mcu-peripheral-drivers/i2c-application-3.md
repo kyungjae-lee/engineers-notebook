@@ -410,6 +410,8 @@ void I2C_ApplicationEventCallback(I2C_Handle_TypeDef *pI2CHandle, uint8_t appEve
 }
 ```
 
+> To test ACK failure error, simply try and modify the master's address to 0x66, compile and run the program. See if the error message appears in the console.
+
 
 
 ## Arduino Sketch (`002I2CSlaveTxString.ino`)
