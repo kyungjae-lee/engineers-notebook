@@ -41,3 +41,4 @@
 1. **<a href="./pipeline-and-branches">Pipeline & Branches</a>**
 1. **<a href="./cache-memory">Cache Memory</a>**
 1. **<a href="./secondary-storage">Secondary Storage</a>**
+1. **<a href="./input-output">Input/Output</a>**
