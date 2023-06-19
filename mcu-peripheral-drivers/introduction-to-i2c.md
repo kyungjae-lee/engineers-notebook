@@ -4,11 +4,29 @@
 
 
 
-### Inter-Integrated Circuit (I2C) Protocol
+## Inter-Integrated Circuit (I2C) Protocol
 
 * Pronounced as "I squared C" or "I two C"
 * I2C is a protocol to achieve serial data communication between integrated circuits (ICs) which are close to each other. (Considered more serious protocol than SPI because companies have come to design a specification.)
 * I2C protocol details such as how data should be sent/received, how hand shaking should happen between sender and receiver, error handling, etc. are more complex than those of SPI's. In other words, SPI is a simpler protocol compared to I2C.)
+
+
+
+## I2C Terminology
+
+* Definitions of I2C bus terminology
+
+  | Term            | Description                                                  |
+  | --------------- | ------------------------------------------------------------ |
+  | Transmitter     | Device sending data (to bus)                                 |
+  | Receiver        | Device receiving data (from bus)                             |
+  | Master          | Device that initiates data transfer, generates clock signals and terminates data transfer |
+  | Slave           | Device addressed by master                                   |
+  | Multi-master    | More than one master can attempt to control the bus at the same time without corrupting the message |
+  | Arbitration     | Procedure to ensure that if more than one master tries to control the bus simultaneously, only one is allowed to do so and the winning message is not corrupted |
+  | Synchronization | Procedure to synchronize the clock signals of two or more devices |
+
+  > I2C communication is always initiated by the master.
 
 
 
@@ -46,24 +64,6 @@
 * I2C's data rate (i.e., number of bits transferred from sender to receiver in 1 second) is much less than that of the SPI's. For example, when the STM32F4xx MCU supports the peripheral clock of 40 MHz, SPI can support up to 20 Mbps, whereas I2C can support only 400 Kbps.
 
   Due to this advantage of SPI over I2C, it is impossible to simply replace all SPI applications with that of I2Cs.
-
-
-
-## I2C Terminology
-
-* Definitions of I2C bus terminology
-
-  | Term            | Description                                                  |
-  | --------------- | ------------------------------------------------------------ |
-  | Transmitter     | Device sending data (to bus)                                 |
-  | Receiver        | Device receiving data (from bus)                             |
-  | Master          | Device that initiates data transfer, generates clock signals and terminates data transfer |
-  | Slave           | Device addressed by master                                   |
-  | Multi-master    | More than one master can attempt to control the bus at the same time without corrupting the message |
-  | Arbitration     | Procedure to ensure that if more than one master tries to control the bus simultaneously, only one is allowed to do so and the winning message is not corrupted |
-  | Synchronization | Procedure to synchronize the clock signals of two or more devices |
-
-  > I2C communication is always initiated by the master.
 
 
 
@@ -405,24 +405,98 @@
 
 
 
-## Master Receiving Data from Slave
+
+
+## I2C Master & Slave
+
+### Services Provided by I2C Master & Slave
+
+* Master
+  * START
+  * STOP
+  * Read (Master receiver)
+  * Write (Master transmitter)
+* Slave
+  * Send data (Slave transmitter)
+  * Receive data (Slave receiver)
+
+### Master
+
+* **Master transmitter**
+
+  
+
+  <img src="img/i2c-transfer-sequence-diagram-for-master-transmitter.png" alt="i2c-transfer-sequence-diagram-for-master-transmitter" width="900">
 
 
 
-<img src="img/transfer-sequence-diagram-for-master-receiver.png" alt="transfer-sequence-diagram-for-master-receiver" width="900">
+* **Master receiver**
+
+  
+
+  <img src="img/transfer-sequence-diagram-for-master-receiver.png" alt="transfer-sequence-diagram-for-master-receiver" width="900">
+
+  > Must read the DR when RxNE = 1. Without confirming the RxNE value, do NOT access the DR.
+  >
+  > Signal NACK after the last byte received to initiate the termination process.
+  >
+  > Reading the final 2 bytes of data:
+  >
+  > * 2nd to last byte (when len = 2)
+  >   * ACK = 0
+  >   * STOP = 1
+  >   * Read DR
+  >   * Decrement the length (i.e., len = 1)
+  > * Last byte
+  >   * Read DR
+
+### Slave
+
+* **Slave transmitter**
+
+  
+
+  <img src="img/i2c-transfer-sequence-diagram-for-slave-transmitter.png" alt="i2c-transfer-sequence-diagram-for-slave-transmitter" width="800">
+
+  > Master's read transaction is also initiated by the master. (Generating START condition)
+  >
+  > From the slave's stand point the "Address phase" is address matching phase. The slave with matching address will ACK.
+  >
+  > When the slave ACKs, ADDR flag will get set (`EV1`) which means that the address has been matched. (In master, ADDR=1 means the address has been sent.) `EV1` will stretch the SCL low so the software must c;ear the ADDR flag.
+  >
+  > Then, TxE gets set (`EV3-1`) which means both the shift register and data register are empty. (i.e., Request for data). At this point, SW can load the data into DR and the data can be transmitted to the master. At every `EV3` the contents of SR will be written to DR. (TxE=1 will happen only when the master ACKs upon receiving a byte of data from slave.)
+  >
+  > If the master ACKs upon receiving a byte of data, it means that the master is expecting more data.
+  >
+  > If the master NACKs upon receiving a byte of data, it means that the master is not expecting any more data. Thus, the slave should shall stop sending data.
 
 
 
-* Must read the DR when RxNE = 1. Without confirming the RxNE value, do NOT access the DR.
-* Signal NACK after the last byte received to initiate the termination process. 
-* Reading the final 2 bytes of data:
-  * 2nd to last byte (when len = 2)
-    1. ACK = 0
-    2. STOP = 1
-    3. Read DR
-    4. Decrement the length (i.e., len = 1)
-  * Last byte
-    1. Read DR
+* **Slave receiver**
+
+  
+
+  <img src="img/i2c-transfer-sequence-diagram-for-slave-receiver.png" alt="i2c-transfer-sequence-diagram-for-slave-receiver" width="800">
+
+  > Master's write transaction is also initiated by the master. (Generating START condition)
+  >
+  > From the slave's stand point the "Address phase" is address matching phase. The slave with matching address will ACK.
+  >
+  > When the slave ACKs, `ADDR` flag will get set (`EV1`) which means that the address has been matched. (In master, `ADDR=1` means the address has been sent.) `EV1` will stretch the SCL low so the software must clear the `ADDR` flag.
+  >
+  > The moment the `ADDR` flag is cleared, data will be received from the master. Then, only after slave ACKs, `RxNE` will get set. This will generate an event to the application so that SW can perform reading the data (DR).
+  >
+  > When the slave detects the STOP condition (i.e., setting of `STOPF` flag) the slave must conclude that the master has ended the write transaction. (This will happen only when the device is in slave receiver mode.)
+
+* I2C slave mode callback events
+
+  I2C driver must be capable of sending the following callback events to the slave application.
+
+  
+
+  <img src="img/i2c-slave-mode-callback-events.png" alt="i2c-slave-mode-callback-events" width="700">
+
+
 
 
 

@@ -13,42 +13,14 @@
   1. Use I2C SCL = 100 kHz (i.e., standard mode)
   2. Use internal pull-up resistors for SDA and SCL line
 
-  [!] Note: 3.3 kΩ or 4.7 kΩ external pull-up resistors are necessary in case your MCU pins do not support internal pull-up resistors.
-
-### External Pull-Up Resistance Calculation
-
-
-$$
-R_p(max) = \frac{t_r(max)}{0.8473 \times C_b} = \frac{1000 \times 10^{-9}}{0.8473 \times 400 \times 10^{-12}} \approx 3k \ohm
-$$
-
-$$
-t_r(max) \approx 0.8 \times R_p \times C_b
-$$
-
-* According to the I2C specification:
-  * $t_r(max)$ = 1000 ns (in standard mode)
-  * $C_b$ = 400 pF
+  [!] Note: 3.3 kΩ or 4.7 kΩ external pull-up resistors will be necessary in case your MCU pins do not support internal pull-up resistors.
 
 ### Parts Needed
 
 1. Arduino board
-
 2. STM32 board
-
 3. Logic level converter
-
 4. Breadboard and jumper wires
-
-5. 2 pull-up resistors of resistance 3.3 kΩ or 4.7 kΩ (You can also use internal pull-up resistors of the pins in place of external resistors.)
-
-   > Q: We calculated the Rp(max) to be 3 kΩ. If 3 is the max, then why would 3.3 or 4.7 kΩ resistors work? Wouldn't these be higher resistance  than the max? Is there a tolerable range? If so, how do I find this  range?
-   >
-   > A: Rp(max) refers to the maximum recommended value for the pull-up  resistor. If the calculated Rp(max) is 3kOhms, it means that the  manufacturer or standard recommends using a pull-up resistor with a  value equal to or lower than 3kOhms for reliable operation.
-   >
-   > However, using a resistor with a slightly higher value, such as 3.3kOhms or  4.7kOhms, is generally acceptable in practice. The bus capacitance and  other factors in the system design can influence the actual pull-up  resistor value that works reliably. As long as the chosen resistor value is close to the recommended range and the overall system performance is satisfactory, using 3.3kOhms or 4.7kOhms resistors should be fine.
-   >
-   > It's important to note that selecting a pull-up resistor with a  significantly higher value than Rp(max) may lead to slower rise times  and increased susceptibility to noise or signal integrity issues. On the other hand, choosing a resistor with a significantly lower value may  result in excessive current flow and power dissipation. Therefore, it's  generally best to stay within the recommended range while considering  the specific requirements and constraints of the system.
 
 ### STM32 Board and Arduino Board Communication Interfaces
 
