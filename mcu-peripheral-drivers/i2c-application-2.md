@@ -105,8 +105,9 @@ Path: `Project/Src/`
 #include <stdio.h> 			/* printf() */
 #include "stm32f407xx.h"
 
-#define DUMMY_ADDR			0x61
-#define SLAVE_ADDR			0x68	/* Check Arduino IDE serial monitor */
+#define MASTER_ADDR			0x61
+#define SLAVE_ADDR			0x68		/* Check Arduino IDE serial monitor */
+#define MY_ADDR				MASTER_ADDR /* STM32 Discovery board is master */
 
 I2C_Handle_TypeDef I2C1Handle;
 
@@ -128,7 +129,7 @@ void delay(void)
 {
 	/* Appoximately ~200ms delay when the system clock freq is 16 MHz */
 	for (uint32_t i = 0; i < 500000 / 2; i++);
-}
+} /* End of delay */
 
 /**
  * I2C1_PinsInit()
@@ -155,7 +156,7 @@ void I2C1_PinsInit(void)
 	/* SDA */
 	I2CPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_7;
 	GPIO_Init(&I2CPins);
-}
+} /* End of I2C1_PinsInit */
 
 /**
  * I2C1_Init()
@@ -169,7 +170,7 @@ void I2C1_Init(void)
 
 	I2C1Handle.pI2Cx = I2C1;
 	I2C1Handle.I2C_Config.I2C_ACKEnable = I2C_ACK_ENABLE;
-	I2C1Handle.I2C_Config.I2C_DeviceAddress = DUMMY_ADDR;
+	I2C1Handle.I2C_Config.I2C_DeviceAddress = MY_ADDR;
 		/* Since STM32 board is master, I2C_DeviceAddress field does not have
 		 * to be configured. However, you can assign some dummy value to it if
 		 * you wanted to. When selecting the dummy address value, make sure to
@@ -179,7 +180,7 @@ void I2C1_Init(void)
 	I2C1Handle.I2C_Config.I2C_SCLSpeed = I2C_SCL_SPEED_SM;
 
 	I2C_Init(&I2C1Handle);
-}
+} /* End of I2C1_Init */
 
 /**
  * GPIO_ButtonInit()
@@ -209,7 +210,8 @@ void GPIO_ButtonInit(void)
 	GPIOBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;
 		/* External pull-down resistor is already present (see the schematic) */
 	GPIO_Init(&GPIOBtn);
-}
+} /* End of GPIO_ButtonInit */
+
 
 int main(int argc, char *argv[])
 {
@@ -286,7 +288,7 @@ int main(int argc, char *argv[])
 			 */
 		printf("Data received: %s\n", rxBuff);
 	}
-}
+} /* End of main */
 ```
 
 

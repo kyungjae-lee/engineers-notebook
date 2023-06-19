@@ -117,7 +117,7 @@ Path: `Project/Src/`
 ```c
 /**
  * Filename		: i2c_01_master_tx_blocking.c
- * Description	: Program to test I2C master's Tx functionality
+ * Description	: Program to test I2C master's (blocking) Tx functionality
  * Author		: Kyungjae Lee
  * History 		: Jun 12, 2023 - Created file
  */
@@ -125,8 +125,9 @@ Path: `Project/Src/`
 #include <string.h> 		/* strlen() */
 #include "stm32f407xx.h"
 
-#define DUMMY_ADDR			0x61
-#define SLAVE_ADDR			0x68	/* Check Arduino IDE serial monitor */
+#define MASTER_ADDR			0x61
+#define SLAVE_ADDR			0x68		/* Check Arduino IDE serial monitor */
+#define MY_ADDR				MASTER_ADDR /* STM32 Discovery board is master */
 
 I2C_Handle_TypeDef I2C1Handle;
 
@@ -148,7 +149,7 @@ void delay(void)
 {
 	/* Appoximately ~200ms delay when the system clock freq is 16 MHz */
 	for (uint32_t i = 0; i < 500000 / 2; i++);
-}
+} /* End of delay() */
 
 /**
  * I2C1_PinsInit()
@@ -175,7 +176,7 @@ void I2C1_PinsInit(void)
 	/* SDA */
 	I2CPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_7;
 	GPIO_Init(&I2CPins);
-}
+} /* End of I2C1_PinsInit */
 
 /**
  * I2C1_Init()
@@ -199,7 +200,7 @@ void I2C1_Init(void)
 	I2C1Handle.I2C_Config.I2C_SCLSpeed = I2C_SCL_SPEED_SM;
 
 	I2C_Init(&I2C1Handle);
-}
+} /* End of I2C1_Init */
 
 /**
  * GPIO_ButtonInit()
@@ -229,7 +230,8 @@ void GPIO_ButtonInit(void)
 	GPIOBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;
 		/* External pull-down resistor is already present (see the schematic) */
 	GPIO_Init(&GPIOBtn);
-}
+} /* End of GPIO_ButtonInit */
+
 
 int main(int argc, char *argv[])
 {
@@ -263,10 +265,16 @@ int main(int argc, char *argv[])
 		/* Introduce debouncing time for button press */
 		delay();
 
-		/* Send data to slave */
-		I2C_MasterTx(&I2C1Handle, data, strlen((char *)data), SLAVE_ADDR);
+		/* Send data to slave
+		 * Note: 'I2C_MasterTxBlocking()' API has been modified for handling
+		 * 		 extended feature (i.e., repeated start) that are used
+		 * 		 in the next level applications. Another parameter has been
+		 * 		 added after @slaveAddr.
+		 * TODO: Update the following API call to make this application work!
+		 */
+		//I2C_MasterTxBlocking(&I2C1Handle, data, strlen((char *)data), SLAVE_ADDR);
 	}
-}
+} /* End of main */
 ```
 
 

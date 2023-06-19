@@ -131,7 +131,7 @@ void delay(void)
 {
 	/* Appoximately ~200ms delay when the system clock freq is 16 MHz */
 	for (uint32_t i = 0; i < 500000 / 2; i++);
-}
+} /* End of delay */
 
 /**
  * I2C1_PinsInit()
@@ -158,7 +158,7 @@ void I2C1_PinsInit(void)
 	/* SDA */
 	I2CPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_7;
 	GPIO_Init(&I2CPins);
-}
+} /* End of I2C1_PinsInit */
 
 /**
  * I2C1_Init()
@@ -182,7 +182,7 @@ void I2C1_Init(void)
 	I2C1Handle.I2C_Config.I2C_SCLSpeed = I2C_SCL_SPEED_SM;
 
 	I2C_Init(&I2C1Handle);
-}
+} /* End of I2C1_Init */
 
 /**
  * GPIO_ButtonInit()
@@ -212,7 +212,8 @@ void GPIO_ButtonInit(void)
 	GPIOBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;
 		/* External pull-down resistor is already present (see the schematic) */
 	GPIO_Init(&GPIOBtn);
-}
+} /* End of GPIO_ButtonInit */
+
 
 int main(int argc, char *argv[])
 {
@@ -302,7 +303,7 @@ int main(int argc, char *argv[])
 		/* Reset rxCmplt for the next operation */
 		rxCmplt = RESET;
 	}
-}
+} /* End of main */
 
 /**
  * I2C1_ER_IRQHandler()
@@ -315,7 +316,7 @@ int main(int argc, char *argv[])
 void I2C1_ER_IRQHandler(void)
 {
 	I2C_ER_IRQHandling(&I2C1Handle);
-}
+} /* End of I2C1_ER_IRQHandler */
 
 /**
  * I2C1_EV_IRQHandler()
@@ -328,7 +329,7 @@ void I2C1_ER_IRQHandler(void)
 void I2C1_EV_IRQHandler(void)
 {
 	I2C_EV_IRQHandling(&I2C1Handle);
-}
+} /* End of I2C1_EV_IRQHandler */
 
 /**
  * I2C_ApplicationEventCallback()
@@ -379,7 +380,7 @@ void I2C_ApplicationEventCallback(I2C_Handle_TypeDef *pI2CHandle, uint8_t appEve
 		/* Hang in infinite loop */
 		while (1);
 	}
-}
+} /* End of I2C_ApplicationEventCallback */
 ```
 
 > To test ACK failure error, simply try and modify the master's address to 0x66, compile and run the program. See if the error message appears in the console.
