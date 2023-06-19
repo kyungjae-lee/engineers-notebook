@@ -11,7 +11,7 @@
 * When the button on the STM32 board (master) is pressed, the master shall read and display data from the Arduino board (slave). First, the master has to get the length of the data from the slave for it to properly read all data from the slave.
 
   1. Use I2C SCL = 100 kHz (i.e., standard mode)
-  2. Use internal pull-up resistors for SDA and SCL line
+  2. Use external pull-up resistors for SDA and SCL line
 
   [!] Note: 3.3 kΩ or 4.7 kΩ external pull-up resistors are necessary in case your MCU pins do not support internal pull-up resistors.
 
