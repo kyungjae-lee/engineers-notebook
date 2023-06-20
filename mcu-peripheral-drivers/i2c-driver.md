@@ -472,6 +472,7 @@ void I2C_Init(I2C_Handle_TypeDef *pI2CHandle)
  */
 void I2C_DeInit(I2C_TypeDef *pI2Cx)
 {
+	/* Do nothing */
 } /* End of I2C_DeInit */
 
 /**
@@ -653,7 +654,7 @@ void I2C_MasterRxBlocking(I2C_Handle_TypeDef *pI2CHandle, uint8_t *pRxBuffer, ui
 	/* Enable ACK (Before entering this function, ACK was enabled.
 	 * Make sure to re-enable ACK to restore the previous condition.) */
 	if (pI2CHandle->I2C_Config.I2C_ACKEnable == I2C_ACK_ENABLE)
-	I2C_ManageACK(pI2CHandle->pI2Cx, I2C_ACK_ENABLE);
+		I2C_ManageACK(pI2CHandle->pI2Cx, I2C_ACK_ENABLE);
 } /* End of I2C_MasterRxBlocking */
 
 /**
@@ -833,7 +834,11 @@ void I2C_IRQInterruptConfig(uint8_t irqNumber, uint8_t state)
  */
 void I2C_IRQPriorityConfig(uint8_t irqNumber, uint32_t irqPriority)
 {
-
+	/* Find out the IPR register */
+	uint8_t iprNumber = irqNumber / 4;
+	uint8_t iprSection = irqNumber % 4;
+	uint8_t bitOffset = (iprSection * 8) + (8 - NUM_PRI_BITS_USED);
+	*(NVIC_IPR_BASE + iprNumber) |= (irqPriority << bitOffset);
 } /* End of I2C_IRQPriorityConfig */
 
 /**
