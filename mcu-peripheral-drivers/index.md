@@ -49,3 +49,8 @@
 1. **<a href="./i2c-application-2">I2C Application 2: Master Rx (Blocking) (`i2c_02_master_rx_blocking.c`)</a>**
 1. **<a href="./i2c-application-3">I2C Application 3: Master Rx (Interrupt) (`i2c_03_master_rx_interrupt.c`)</a>**
 1. **<a href="./i2c-application-4">I2C Application 4: Slave Tx (Interrupt) (`i2c_04_slave_tx_interrupt.c`)</a>**
+
+##### Universal Synchronous/Asynchronous Receiver-Transmitter (USART/UART) Driver
+
+1. **<a href="./introduction-to-usart-uart">Introduction to USART/UART</a>**
+
