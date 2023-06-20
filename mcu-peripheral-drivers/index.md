@@ -53,4 +53,5 @@
 ##### Universal Synchronous/Asynchronous Receiver-Transmitter (USART/UART) Driver
 
 1. **<a href="./introduction-to-usart-uart">Introduction to USART/UART</a>**
+1. **<a href="./usart-driver">USART Driver (`stm32f407xx_usart_driver.h/.c`)</a>**
 
