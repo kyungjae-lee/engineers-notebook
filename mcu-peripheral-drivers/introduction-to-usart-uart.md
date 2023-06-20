@@ -221,3 +221,128 @@
 <img src="./img/usart-receiver-timing-diagram-1.png" alt="usart-receiver-timing-diagram-1" width="1000">
 
 <img src="./img/usart-receiver-timing-diagram-2.png" alt="usart-receiver-timing-diagram-2" width="1000">
+
+
+
+
+
+## USART Oversampling
+
+* Oversampling is the technique used by USART receivers.
+
+* The receiver implements different user-configurable oversampling techniques (except in synchronous mode) for data recovery by discriminating between valid incoming data and noise.
+
+* The oversampling rate can be selected by configuring the OVER8 bit in the USART_CR1 register and can be either 16 or 8 times the baudrate clock.
+
+* Configurable oversampling method by 16 or by 8 to give flexibility between speed and clock tolerance.
+
+  
+
+  <img src="./img/usart-data-sampling-when-oversampling-by-16.png" alt="usart-data-sampling-when-oversampling-by-16" width="800">
+
+  
+
+  <img src="./img/usart-data-sampling-when-oversampling-by-8.png" alt="usart-data-sampling-when-oversampling-by-8" width="800">
+
+  
+
+  <img src="./img/usart-noise-detection-from-sampled-data.png" alt="usart-noise-detection-from-sampled-data" width="800">
+
+  > * NE status? Typo for NF status? (USART_SR_NF)
+  >
+  > * Only when all bits in the **sampled values** are the same (i.e., 000 or 111), the receiver will regard that there has been no noise.
+  >
+  > * When the noise is detected in a frame:
+  >
+  >   * The NF flag bit is set by the hardware when noise is detected on a received frame.
+  >   * The invalid data is transferred from the Receive Shift Register to the Receive Data Register.
+  >
+  >   * The application may use or discard the data depending on the requirements of the application.
+
+* Selecting the proper oversampling method
+
+  * If you select oversampling by 8 (OVER8=1) then you can achieve max baudrate up to F~PCLK~/8. In this case, the maximum receiver tolerance to clock deviation is decreased. (i.e., The receiver is less tolerant to clock deviation.)
+    * Good choice when the environment in which your application will run is noise-free.
+  * If you select oversampling by 16 (OVER0=0) then you can achieve max baudrate up to F~PCLK~/16. In this case, the maximum receiver tolerance to clock deviation is increased. (i.e., The receiver is more tolerant to clock deviation.)
+    * Good choice when the environment in which your application will run is noise-heavy.
+
+  > Clock deviation of crystal can be caused by the temperature fluctuation or so.
+
+
+
+## USART Baudrate Calculation
+
+* The baudrate for the receiver and transmitter (Rx and Tx) are both set to the same value based on the 12-bit `DIV_Mantissa` and 14-bit `DIV_Fraction` values programmed into the USART_BRR register.
+
+* USART baudrate calculation when using oversampling by 8:
+
+  
+  $$
+  \text{Tx/Rx baud} = \frac{f_{CK}}{8 \times \text{USARTDV}}, \text{when OVER8 bit is set to 1}
+  $$
+  
+
+  > $f_{CK}$: Peripheral clock
+  >
+  > USARTDIV: Divide factor to generate different baudrates (Minimum value is 1.)
+
+* USART baudrate calculation when using oversampling by 8:
+
+
+$$
+\text{Tx/Rx baud} = \frac{f_{CK}}{16 \times \text{USARTDV}}, \text{when OVER8 bit is set to 0}
+$$
+
+
+* Generic forumla:
+
+  
+  $$
+  \text{Tx/Rx baud} = \frac{f_{CK}}{8 \times (2 - \text{OVER8}) \times \text{USARTDIV}}\\
+  \text{OVER8=1, if oversampling by 8 is used}\\
+  \text{OVER8=0, if oversampling by 16 is used}\\
+  $$
+  
+
+### Example 1
+
+* Obtain the value of USARTDIV when,
+
+  * F~CK~ = 16 MHz (USART peripheral clock)
+  * Tx/Rx baue = 9600 bps (Desired baudrate)
+  * OVER8 = 0 (Oversampling by 16)
+
+* Solution:
+
+  USARTDIV = 16000000 / (8 * 2 * 9600) = 104.17
+
+  Now, convert this value to hexadecimal. 
+
+  * **DIV_Fraction** = 0.17 * 16 = 2.72 $\approx$ 3
+  * **DIV_Mantissa** = 104 = 0x68
+
+  $\therefore$ USARTDIV = 0x683
+
+  Write this value to USART_BRR register to generate the desired baudrate of 9600 bps.
+
+### Example 2
+
+* Obtain the value of USARTDIV when,
+
+  * F~CK~ = 16 MHz (USART peripheral clock)
+  * Tx/Rx baue = 115200 bps (Desired baudrate)
+  * OVER8 = 1 (Oversampling by 8)
+
+* Solution:
+
+  USARTDIV = 16000000 / (8 * 1 * 115200) = 17.361
+
+  Now, convert this value to hexadecimal. 
+
+  * **DIV_Fraction** = 0.1875 * 8 = 2.88 $\approx$ 3
+  * **DIV_Mantissa** = 17 = 0x11
+
+  $\therefore$ USARTDIV = 0x113
+
+  Write this value to USART_BRR register to generate the desired baudrate of 115200 bps.
+
