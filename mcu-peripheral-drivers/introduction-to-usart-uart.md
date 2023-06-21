@@ -346,3 +346,32 @@ $$
 
   Write this value to USART_BRR register to generate the desired baudrate of 115200 bps.
 
+
+
+## USART Communication with PC
+
+* USART peripherals of STM32 microcontrollers are able to send data to PC if the virtual COM port support is available.
+
+
+
+<img src="./img/usart-communication-with-pc.png" alt="usart-communication-with-pc" width="800">
+
+
+
+* For STM32 Discovery board, this USB-to-Serial converter chip is not available. So, you need a USB-to-Serial cable is necessary.
+
+
+
+## USART Interrupts
+
+* Setting of **event flags** can generate interrupts only if the corresponding **enable control bits** are enabled.
+
+<img src="./img/usart-interrupt-requests.png" alt="usart-interrupt-requests" width="750">
+
+
+
+* USART peripheral has only one interrupt line that is connected to the NVIC of the processor.
+
+
+
+<img src="./img/usart-interrupt-mapping-diagram.png" alt="usart-interrupt-mapping-diagram" width="750">
