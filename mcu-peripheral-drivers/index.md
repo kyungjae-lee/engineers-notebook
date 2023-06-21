@@ -55,3 +55,6 @@
 1. **<a href="./introduction-to-usart-uart">Introduction to USART/UART</a>**
 1. **<a href="./usart-driver">USART Driver (`stm32f407xx_usart_driver.h/.c`)</a>**
 
+##### Reset and Clock Control (RCC) Driver
+
+1. **<a href="./rcc-driver">RCC Driver (`stm32f407xx_rcc_driver.h/.c`)</a>**
