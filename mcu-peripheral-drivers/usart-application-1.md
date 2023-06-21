@@ -71,7 +71,7 @@
 
 ### 3. Power Arduino board and upload SPI slave sketch to Arduino
 
-* Sketch name: `001I2CSlaveRxString.ino`
+* Sketch name: `001UARTRxString.ino`
   * You don't need to write an application for Arduino board. It is already provided as a sketch.
   * As soon as you upload this sketch to the Arduino board, it will operate as a UART counterpart.
 * If you face an issue while uploading the sketch to the Arduino board, simply remove the Rx line, upload the sketch again and connect back the Rx line.
