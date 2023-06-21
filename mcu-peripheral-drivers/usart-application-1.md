@@ -87,8 +87,8 @@ Path: `Project/Src/`
 
 ```c
 /**
- * Filename		: usart_01_tx.c
- * Description	: Program to test USART Tx functionality
+ * Filename		: usart_01_tx_blocking.c
+ * Description	: Program to test USART Tx (blocking-based) functionality
  * Author		: Kyungjae Lee
  * History 		: Jun 20, 2023 - Created file
  */
