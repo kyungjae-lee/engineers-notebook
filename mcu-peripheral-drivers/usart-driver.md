@@ -27,7 +27,7 @@
 * USART_Baud
   * Baudrate
 
-* USART_NumOfSTOPBits
+* USART_NumOfStopBits
 * USART_WordLength
   * 8-bit
   * 9-bit
