@@ -398,7 +398,7 @@ The following snapshots are taken using the Logic Analyzer.
 
 ### Entire Communication
 
-<img src="./img/spi-application-2-logic-analyzer-1.png" alt="spi-application-2-logic-analyzer-1" width="1000">
+<img src="./img/spi-application-2-testing-entire-communication.png" alt="spi-application-2-testing-entire-communication" width="1000">
 
 > Notice that as soon as `SPE` is set to 0, `NSS` is pulled to GND (LOW), and as soon as `SPE` is set to 1, `NSS` is pulled to HIGH automatically by the hardware.
 
@@ -412,4 +412,4 @@ The following snapshots are taken using the Logic Analyzer.
 
 ### Arduino IDE Serial Monitor
 
-<img src="./img/spi-application-2-logic-analyzer-1.png" alt="spi-application-2-logic-analyzer-1" width="1000">
+<img src="./img/spi-application-2-testing-arduino-ide.png" alt="spi-application-2-testing-arduino-ide" width="850">
