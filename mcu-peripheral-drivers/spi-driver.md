@@ -204,7 +204,7 @@ void SPI_CloseRx(SPI_Handle_TypeDef *pSPIHandle);
  * Note: Since the driver does not know in which application this function will be
  * 	     implemented, it is good idea to give a weak function definition.
  */
-__WEAK void SPI_ApplicationEventCallback(SPI_Handle_TypeDef *pSPIHandle, uint8_t appEvent);
+void SPI_ApplicationEventCallback(SPI_Handle_TypeDef *pSPIHandle, uint8_t appEvent);
 
 
 #endif /* STM32F407XX_SPI_DRIVER_H */
@@ -234,10 +234,6 @@ static void SPI_OVR_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle);
 /*****************************************************************************************
  * APIs supported by the SPI driver (See function definitions for more information)
  ****************************************************************************************/
-
-/**
- * Peripheral clock setup
- */
 
 /**
  * SPI_PeriClockControl()
@@ -271,11 +267,7 @@ void SPI_PeriClockControl(SPI_TypeDef *pSPIx, uint8_t state)
 		else if (pSPIx == SPI4)
 			SPI4_PCLK_DI();
 	}
-}
-
-/**
- * Init and De-init
- */
+} /* End of SPI_PeriClockControl */
 
 /**
  * SPI_Init()
@@ -344,7 +336,7 @@ void SPI_Init(SPI_Handle_TypeDef *pSPIHandle)
 	temp |= pSPIHandle->SPI_Config.SPI_SSM << SPI_CR1_SSM;
 
 	pSPIHandle->pSPIx->CR1 = temp;
-}
+} /* End of SPI_Init */
 
 /**
  * SPI_DeInit()
@@ -364,7 +356,7 @@ void SPI_DeInit(SPI_TypeDef *pSPIx)	/* Utilize RCC_AHBxRSTR (AHBx peripheral res
 		SPI3_RESET();
 	else if (pSPIx == SPI4)
 		SPI4_RESET();
-}
+} /* End of SPI_DeInit */
 
 /**
  * Data send and receive
@@ -419,7 +411,7 @@ void SPI_TxBlocking(SPI_TypeDef *pSPIx, uint8_t *pTxBuffer, uint32_t len)
 			pTxBuffer++;
 		}
 	}
-}
+} /* End of SPI_TxBlocking */
 
 /**
  * SPI_RxBlocking()
@@ -465,7 +457,7 @@ void SPI_RxBlocking(SPI_TypeDef *pSPIx, uint8_t *pRxBuffer, uint32_t len)
 			pRxBuffer++;
 		}
 	}
-}
+} /* End of SPI_RxBlocking */
 
 /**
  * SPI_TxInterrupt()
@@ -541,7 +533,7 @@ uint8_t SPI_RxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t volatile *pRxBuf
 	/* 4. Data reception will be handled by the ISR code. */
 
 	return state;
-}
+} /* End of SPI_RxInterrupt */
 
 /**
  * SPI_PeriControl()
@@ -557,7 +549,7 @@ void SPI_PeriControl(SPI_TypeDef *pSPIx, uint8_t state)
 		pSPIx->CR1 |= (0x1 << SPI_CR1_SPE);		/* Enable */
 	else
 		pSPIx->CR1 &= ~(0x1 << SPI_CR1_SPE);	/* Disable */
-}
+} /* End of SPI_PeriControl */
 
 /**
  * SPI_SSIConfig()
@@ -576,7 +568,7 @@ void SPI_SSIConfig(SPI_TypeDef *pSPIx, uint8_t state)
 		pSPIx->CR1 |= (0x1 << SPI_CR1_SSI);		/* Enable */
 	else
 		pSPIx->CR1 &= ~(0x1 << SPI_CR1_SSI);	/* Disable */
-}
+} /* End of SPI_SSIConfig */
 
 /**
  * SPI_SSOEConfig()
@@ -595,11 +587,7 @@ void SPI_SSOEConfig(SPI_TypeDef *pSPIx, uint8_t state)
 		pSPIx->CR2 |= (0x1 << SPI_CR2_SSOE);	/* Enable */
 	else
 		pSPIx->CR2 &= ~(0x1 << SPI_CR2_SSOE);	/* Disable */
-}
-
-/**
- * IRQ configuration and ISR handling
- */
+} /* End of SPI_SSOEConfig */
 
 /**
  * SPI_IRQInterruptConfig()
@@ -618,9 +606,9 @@ void SPI_IRQInterruptConfig(uint8_t irqNumber, uint8_t state)
 		/* Configure NVIC_ISERx register */
 		if (irqNumber <= 31)
 			*NVIC_ISER0 |= (0x1 << irqNumber);
-		else if (32 <= irqNumber && irqNumber <= 64)
+		else if (32 <= irqNumber && irqNumber <= 63)
 			*NVIC_ISER1 |= (0x1 << irqNumber % 32);
-		else if (65 <= irqNumber && irqNumber <= 96)
+		else if (64 <= irqNumber && irqNumber <= 95)
 			*NVIC_ISER2 |= (0x1 << irqNumber % 32);
 	}
 	else
@@ -628,12 +616,12 @@ void SPI_IRQInterruptConfig(uint8_t irqNumber, uint8_t state)
 		/* Configure NVIC_ICERx register */
 		if (irqNumber <= 31)
 			*NVIC_ICER0 |= (0x1 << irqNumber);
-		else if (32 <= irqNumber && irqNumber <= 64)
+		else if (32 <= irqNumber && irqNumber <= 63)
 			*NVIC_ICER1 |= (0x1 << irqNumber % 32);
-		else if (65 <= irqNumber && irqNumber <= 96)
+		else if (64 <= irqNumber && irqNumber <= 95)
 			*NVIC_ICER2 |= (0x1 << irqNumber % 32);
 	}
-}
+} /* End of SPI_IRQInterruptConfig */
 
 /**
  * SPI_OIRQPriorityConfig()
@@ -658,7 +646,7 @@ void SPI_IRQPriorityConfig(uint8_t irqNumber, uint32_t irqPriority)
 	uint8_t iprSection = irqNumber % 4;
 	uint8_t bitOffset = (iprSection * 8) + (8 - NUM_PRI_BITS_USED);
 	*(NVIC_IPR_BASE + iprNumber) |= (irqPriority << bitOffset);
-}
+} /* End of SPI_IRQPriorityConfig */
 
 /**
  * SPI_IRQHandling()
@@ -705,7 +693,7 @@ void SPI_IRQHandling(SPI_Handle_TypeDef *pSPIHandle)
 	}
 
 	/* Will not consider MODF, CRCERR events here */
-}
+} /* End of SPI_IRQHandling */
 
 /**
  * Private helper functions
@@ -759,7 +747,7 @@ static void SPI_TXE_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle)
 		SPI_ApplicationEventCallback(pSPIHandle, SPI_EVENT_TX_CMPLT);
 			/* This callback function must be implemented by the application */
 	}
-}
+} /* End of SPI_TXE_InterruptHandle */
 
 /**
  * SPI_RXNE_InterruptHandle()
@@ -809,7 +797,7 @@ static void SPI_RXNE_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle)
 		SPI_ApplicationEventCallback(pSPIHandle, SPI_EVENT_RX_CMPLT);
 			/* This callback function must be implemented by the application */
 	}
-}
+} /* End of SPI_RXNE_InterruptHandle */
 
 /**
  * SPI_OVR_InterruptHandle()
@@ -838,9 +826,15 @@ static void SPI_OVR_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle)
 	SPI_ApplicationEventCallback(pSPIHandle, SPI_EVENT_OVR);
 		/* This callback function must be implemented by the application */
 
-	/* Inform the application */
-}
+} /* End of SPI_OVR_InterruptHandle */
 
+/**
+ * SPI_ClearOVRFlag
+ * Desc.	: Clears the OVR flag
+ * Param.	: @pSPIx - base address of SPIx peripheral
+ * Returns	: None
+ * Note		: N/A
+ */
 void SPI_ClearOVRFlag(SPI_TypeDef *pSPIx)
 {
 	uint8_t temp;
@@ -851,9 +845,13 @@ void SPI_ClearOVRFlag(SPI_TypeDef *pSPIx)
 		/* In case you need to read data from a variable/register without having to store it,
 		 * you can typecast it to void. It will suppress compiler 'unused variable 'warnings.
 		 */
-}
+} /* SPI_ClearOVRFlag */
 
 /**
+ * SPI_CloseTx()
+ * Desc.	: Closes Tx operation
+ * Param.	: @pSPIHandle - pointer to SPI handle structure
+ * Returns	: None
  * Note		: Application call this function to abruptly close the SPI communication.
  */
 void SPI_CloseTx(SPI_Handle_TypeDef *pSPIHandle)
@@ -865,8 +863,15 @@ void SPI_CloseTx(SPI_Handle_TypeDef *pSPIHandle)
 	pSPIHandle->pTxBuffer = NULL;
 	pSPIHandle->TxLen = 0;
 	pSPIHandle->TxState = SPI_READY;
-}
+} /* End of SPI_CloseTx */
 
+/**
+ * SPI_CloseRx()
+ * Desc.	: Closes Rx operation
+ * Param.	: @pSPIHandle - pointer to SPI handle structure
+ * Returns	: None
+ * Note		: Application call this function to abruptly close the SPI communication.
+ */
 void SPI_CloseRx(SPI_Handle_TypeDef *pSPIHandle)
 {
 	/* Disable RXNE interrupt */
@@ -876,11 +881,7 @@ void SPI_CloseRx(SPI_Handle_TypeDef *pSPIHandle)
 	pSPIHandle->pRxBuffer = NULL;
 	pSPIHandle->RxLen = 0;
 	pSPIHandle->RxState = SPI_READY;
-}
-
-/**
- * Application callback functions
- */
+} /* End of SPI_CloseRx */
 
 /**
  * SPI_ApplicationEventCallback()
@@ -897,6 +898,6 @@ void SPI_CloseRx(SPI_Handle_TypeDef *pSPIHandle)
  */
 __WEAK void SPI_ApplicationEventCallback(SPI_Handle_TypeDef *pSPIHandle, uint8_t appEvent)
 {
-	// Intentionally left blank (Application will override this function)
-}
+	/* Intentionally left blank (Application will override this function) */
+} /* End of SPI_ApplicationEventCallback */
 ```
