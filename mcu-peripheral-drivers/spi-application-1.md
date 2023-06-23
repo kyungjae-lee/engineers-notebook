@@ -86,13 +86,13 @@ void SPI2_PinsInit(void)
 	GPIO_Init(&SPI2Pins);
 
 	/* MISO (Not required for this application, save it for other use) */
-	//SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_14;
-	//GPIO_Init(&SPIPins);
+	//SPI2Pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_14;
+	//GPIO_Init(&SPI2Pins);
 
 	/* NSS (Not required for this application, save it for other use) */
-	//SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_12;
-	//GPIO_Init(&SPIPins);
-} /* End o SPI2_PinsInit */
+	//SPI2Pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_12;
+	//GPIO_Init(&SPI2Pins);
+} /* End of SPI2_PinsInit */
 
 /**
  * SPI2_Init()
@@ -105,7 +105,7 @@ void SPI2_Init(void)
 {
 	SPI_Handle_TypeDef SPI2Handle;
 
-	/* Zero-out all the fields in the structures (Very important! SPI2Pins
+	/* Zero-out all the fields in the structures (Very important! SPI2Handle
 	 * is a local variables whose members may be filled with garbage values before
 	 * initialization. These garbage values may set (corrupt) the bit fields that
 	 * you did not touch assuming that they will be 0 by default. Do NOT make this
@@ -119,7 +119,7 @@ void SPI2_Init(void)
 	SPI2Handle.SPI_Config.SPI_SCLKSpeed = SPI_SCLK_SPEED_PRESCALAR_2;	/* Generates 8MHz SCLK */
 		/* Min prescalar -> maximum clk speed */
 	SPI2Handle.SPI_Config.SPI_DFF = SPI_DFF_8BITS;
-	SPI2Handle.SPI_Config.SPI_CPOL = SPI_CPOL_HIGH;
+	SPI2Handle.SPI_Config.SPI_CPOL = SPI_CPOL_LOW;
 	SPI2Handle.SPI_Config.SPI_CPHA = SPI_CPHA_LOW;
 	SPI2Handle.SPI_Config.SPI_SSM = SPI_SSM_EN; /* SW slave mgmt enabled for NSS pin since NSS is not used */
 
