@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 3: Master-Slave Tx Rx (Blocking) (`spi_03_master_slave_tx_rx_blocking.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > SPI Application 3: Master-Slave Tx Rx (Blocking) (`spi_03_master_tx_rx_blocking.c`)
 
-# SPI Application 3: Master-Slave Tx Rx (Blocking) (`spi_03_master_slave_tx_rx_blocking.c`)
+# SPI Application 3: Master Tx Rx (Blocking) (`spi_03_master_tx_rx_blocking.c`)
 
 
 
@@ -13,8 +13,7 @@
   2. ST board will be in SPI master mode, and Arduino board will be in SPI slave mode.
   3. Use DFF = 0
   4. Use hardware slave management (SSM = 0)
-  5. SCLK speed = 2MHz, f~clk~ = 16MHz
-* In this application, master is not going to receive anything from the slave. So, configuring the MISO pin is not necessary.
+  5. SCLK speed = 500 KHz, f~clk~ = 16MHz
 * The slave does not know how many bytes of data master is going to send. So, the master must first send the number of bytes the slave should expect to receive.
 
 ### Parts Needed
@@ -28,7 +27,7 @@
 
 
 
-<img src="./img/spi-application-2-communication-interfaces.png" alt="spi-application-2-communication-interfaces" width="700">
+<img src="./img/spi-application-3-communication-interfaces.png" alt="spi-application-3-communication-interfaces" width="500">
 
 
 
@@ -149,40 +148,41 @@
   * CH3 - NSS
   * GND - Common GND of the bread board
 
-### 3. Power Arduino board and download SPI slave sketch to Arduino
+### 3. Power Arduino board and upload SPI slave sketch to Arduino
 
 * Sketch name: `002SPISlaveCmdHandling.ino`
-  * You don't need to write an application for Arduino board. It is already provided as a sketch.
-  * As soon as you download this sketch to the Arduino board, it will operate as a slave.
+  As soon as you download this sketch to the Arduino board, it will operate as a slave.
 
 
 
 
 ## Code
 
-### `spi_03_master_slave_tx_rx_blocking.c`
+### `spi_03_master_tx_rx_blocking.c`
 
 Path: `Project/Src/`
 
 ```c
-/**
- * Filename		: spi_03_master_slave_tx_rx_blocking.c
+/*******************************************************************************
+ * Filename		: spi_03_master_tx_rx_blocking.c
  * Description	: Program to test SPI master-slave Tx/Rx functionality (blocking)
  * Author		: Kyungjae Lee
  * History 		: Jun 03, 2023 - Created file
- * 				  Jun 05, 2023 - Added Semihosting features to utilize printf()
+ * 				  Jun 23, 2023 - Refactored code for consistency
+ ******************************************************************************/
+
+/**
+ * Pin selection for SPI communication
+ *
+ * SPI2_SCK  - PB13 (AF5)
+ * SPI2_MOSI - PB15 (AF5)
+ * SPI2_MISO - PB14 (AF5)
+ * SPI2_NSS  - PB12 (AF5)
  */
 
 #include <stdio.h>			/* printf() */
 #include <string.h> 		/* strlen() */
 #include "stm32f407xx.h"
-
-/* To use Semihosting features
- * (Make sure to exclude or remove 'syscalls.c' file from build. Otherwise,
- * an empty definition of `initialise_monitor_handles()` in `syscalls.c` file
- * will cause a build error.
- */
-extern void initialise_monitor_handles();
 
 /* Arduino (slave) command codes */
 #define CMD_LED_CTRL		0x50
@@ -204,80 +204,86 @@ extern void initialise_monitor_handles();
 /* Arduino LED pin */
 #define LED_PIN 			9
 
-
-/**
- * Pin selection for SPI communication
- *
- * SPI2_NSS  - PB12 (AF5)
- * SPI2_SCK  - PB13 (AF5)
- * SPI2_MISO - PB14 (AF5)
- * SPI2_MOSI - PB15 (AF5)
- */
-
 /**
  * delay()
  * Desc.	: Spinlock delays the program execution
  * Param.	: None
- * Returns	: None
+ * Return	: None
  * Note		: N/A
  */
 void delay(void)
 {
 	/* Appoximately ~200ms delay when the system clock freq is 16 MHz */
 	for (uint32_t i = 0; i < 500000 / 2; i++);
-}
+} /* End of Delay */
 
 /**
  * SPI2_PinsInit()
  * Desc.	: Initializes and configures GPIO pins to be used as SPI2 pins
  * Param.	: None
- * Returns	: None
+ * Return	: None
  * Note		: N/A
  */
 void SPI2_PinsInit(void)
 {
-	GPIO_Handle_TypeDef SPIPins;
+	GPIO_Handle_TypeDef SPI2Pins;
 
-	SPIPins.pGPIOx = GPIOB;
-	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_ALTFCN;
-	SPIPins.GPIO_PinConfig.GPIO_PinAltFcnMode = 5;
-	SPIPins.GPIO_PinConfig.GPIO_PinOutType = GPIO_PIN_OUT_TYPE_PP;
+	/* Zero-out all the fields in the structures (Very important! SPI2Pins
+	 * is a local variables whose members may be filled with garbage values before
+	 * initialization. These garbage values may set (corrupt) the bit fields that
+	 * you did not touch assuming that they will be 0 by default. Do NOT make this
+	 * mistake!
+	 */
+	memset(&SPI2Pins, 0, sizeof(SPI2Pins));
+
+	SPI2Pins.pGPIOx = GPIOB;
+	SPI2Pins.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_ALTFCN;
+	SPI2Pins.GPIO_PinConfig.GPIO_PinAltFcnMode = 5;
+	SPI2Pins.GPIO_PinConfig.GPIO_PinOutType = GPIO_PIN_OUT_TYPE_PP;
 		/* I2C - Open-drain only!, SPI - Push-pull okay! */
-	SPIPins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;	/* Optional */
-	SPIPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_FAST; /* Medium or slow ok as well */
+	SPI2Pins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;	/* Optional */
+	SPI2Pins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_FAST; /* Medium or slow ok as well */
 
 	/* SCLK */
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_13;
-	GPIO_Init(&SPIPins);
+	SPI2Pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_13;
+	GPIO_Init(&SPI2Pins);
 
 	/* MOSI */
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_15;
-	GPIO_Init(&SPIPins);
+	SPI2Pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_15;
+	GPIO_Init(&SPI2Pins);
 
 	/* MISO */
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_14;
-	GPIO_Init(&SPIPins);
+	SPI2Pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_14;
+	GPIO_Init(&SPI2Pins);
 
 	/* NSS */
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_12;
-	GPIO_Init(&SPIPins);
-}
+	SPI2Pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_12;
+	GPIO_Init(&SPI2Pins);
+} /* End of SPI2_PinsInit */
 
 /**
  * SPI2_Init()
- * Desc.	: Creates an SPI2Handle initializes SPI2 peripheral parameters
+ * Desc.	: Creates an SPI2Handle and initializes SPI2 peripheral parameters
  * Param.	: None
- * Returns	: None
+ * Return	: None
  * Note		: N/A
  */
 void SPI2_Init(void)
 {
 	SPI_Handle_TypeDef SPI2Handle;
 
+	/* Zero-out all the fields in the structures (Very important! SPI2Handle
+	 * is a local variables whose members may be filled with garbage values before
+	 * initialization. These garbage values may set (corrupt) the bit fields that
+	 * you did not touch assuming that they will be 0 by default. Do NOT make this
+	 * mistake!
+	 */
+	memset(&SPI2Handle, 0, sizeof(SPI2Handle));
+
 	SPI2Handle.pSPIx = SPI2;
 	SPI2Handle.SPI_Config.SPI_BusConfig = SPI_BUS_CONFIG_FULL_DUPLEX;
 	SPI2Handle.SPI_Config.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;
-	SPI2Handle.SPI_Config.SPI_SCLKSpeed = SPI_SCLK_SPEED_PRESCALAR_32;	/* Generates 500KHz SCLK */
+    SPI2Handle.SPI_Config.SPI_SCLKSpeed = SPI_SCLK_SPEED_PRESCALAR_32;  /* Generates 500KHz SCLK */
 		/* Min prescalar -> maximum clk speed */
 	SPI2Handle.SPI_Config.SPI_DFF = SPI_DFF_8BITS;
 	SPI2Handle.SPI_Config.SPI_CPOL = SPI_CPOL_LOW;
@@ -285,13 +291,13 @@ void SPI2_Init(void)
 	SPI2Handle.SPI_Config.SPI_SSM = SPI_SSM_DI; /* HW slave mgmt enabled (SSM = 0) for NSS pin */
 
 	SPI_Init(&SPI2Handle);
-}
+} /* End of SPI2_Init */
 
 /**
  * GPIO_ButtonInit()
  * Desc.	: Initializes a GPIO pin for button
  * Param.	: None
- * Returns	: None
+ * Return	: None
  * Note		: N/A
  */
 void GPIO_ButtonInit(void)
@@ -299,7 +305,7 @@ void GPIO_ButtonInit(void)
 	GPIO_Handle_TypeDef GPIOBtn;
 
 	/* Zero-out all the fields in the structures (Very important! GPIOLed and GPIOBtn
-	 * are local variables whose members may be filled with garbage values before
+	 * is a local variables whose members may be filled with garbage values before
 	 * initialization. These garbage values may set (corrupt) the bit fields that
 	 * you did not touch assuming that they will be 0 by default. Do NOT make this
 	 * mistake!
@@ -315,21 +321,21 @@ void GPIO_ButtonInit(void)
 	GPIOBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;
 		/* External pull-down resistor is already present (see the schematic) */
 	GPIO_Init(&GPIOBtn);
-}
+} /* End of GPIO_ButtonInit */
 
 /**
  * GPIO_LEDInit()
  * Desc.	: Initializes a GPIO pin for LED
  * Param.	: None
- * Returns	: None
+ * Return	: None
  * Note		: N/A
  */
 void GPIO_LEDInit(void)
 {
 	GPIO_Handle_TypeDef GPIOLed;
 
-	/* Zero-out all the fields in the structures (Very important! GPIOLed and GPIOBtn
-	 * are local variables whose members may be filled with garbage values before
+	/* Zero-out all the fields in the structures (Very important! GPIOLed
+	 * is a local variable whose members may be filled with garbage values before
 	 * initialization. These garbage values may set (corrupt) the bit fields that
 	 * you did not touch assuming that they will be 0 by default. Do NOT make this
 	 * mistake!
@@ -345,12 +351,12 @@ void GPIO_LEDInit(void)
 	GPIOLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;
 		/* External pull-down resistor is already present (see the schematic) */
 	GPIO_Init(&GPIOLed);
-}
+} /* End of GPIO_LEDInit */
 
 /**
  * SPI_VerifyResponse()
  * Desc.	: Verifies response from the slave (Arduino)
- * Param.	: @ackByte
+ * Param.	: @ackByte - response from slave
  * Returns	: 1 if response was ACK, 0 otherwise
  * Note		: N/A
  */
@@ -362,15 +368,12 @@ uint8_t SPI_VerifyResponse(uint8_t ackByte)
 	/* NACK */
 	else
 		return 0;
-}
+} /* End of SPI_VerifyResponse */
 
 int main(int argc, char *argv[])
 {
-	uint8_t dummyWrite = 0xff;
+	uint8_t dummyWrite = 0xFF;
 	uint8_t dummyRead;
-
-	/* Enables Semihosting features (After this, printf() can be use) */
-	initialise_monitor_handles();
 
 	printf("Application is running...\n");
 
@@ -414,9 +417,7 @@ int main(int argc, char *argv[])
 		/* Enable SPI2 peripheral (Set SPI_CR1 bit[6] SPE - Peripheral enabled) */
 		SPI_PeriControl(SPI2, ENABLE);
 
-		/**
-		 * 1. CMD_LED_CTRL <pin no(1)> <value(1)>
-		 */
+		/* 1. CMD_LED_CTRL <pin no(1)> <value(1)> *****************************/
 
 		uint8_t cmdCode = CMD_LED_CTRL;
 		uint8_t ackByte;
@@ -459,9 +460,7 @@ int main(int argc, char *argv[])
 		}
 		/* End of CMD_LED_CTRL */
 
-		/**
-		 * 2. CMD_SENSOR_READ <analog pin number(1)>
-		 */
+		/* 2. CMD_SENSOR_READ <analog pin number(1)> **************************/
 
 		/* Wait until button is pressed */
 		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));
@@ -530,9 +529,7 @@ int main(int argc, char *argv[])
 		}
 		/* End of CMD_SENSOR_READ */
 
-		/**
-		 * 3. CMD_LED_READ <pin no(1)>
-		 */
+		/* 3. CMD_LED_READ <pin no(1)> ****************************************/
 
 		/* Wait until button is pressed */
 		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));
@@ -599,9 +596,7 @@ int main(int argc, char *argv[])
 		}
 		/* End of CMD_LED_READ */
 
-		/**
-		 * 4. CMD_PRINT <len(2)> <message(len)>
-		 */
+		/* 4. CMD_PRINT <len(2)> <message(len)> *******************************/
 
 		/* Wait until button is pressed */
 		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));
@@ -664,9 +659,7 @@ int main(int argc, char *argv[])
 		}
 		/* End of CMD_PRINT */
 
-		/**
-		 * 5. CMD_ID_READ
-		 */
+		/* 5. CMD_ID_READ *****************************************************/
 
 		/* Wait until button is pressed */
 		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));
@@ -733,7 +726,7 @@ int main(int argc, char *argv[])
 	}
 
 	return 0;
-}
+} /* End of main */
 ```
 
 > The master's clock frequency has been adjusted from 2 MHz (prescalar = 8) to 500 KHz (prescalar = 32) to be compatible with the baudrate (1200) of the slave.
@@ -757,16 +750,12 @@ int main(int argc, char *argv[])
 #include <SPI.h>
 
 const byte led = 9;           // Slave LED digital I/O pin.
-
 boolean ledState = HIGH;      // LED state flag.
-
 uint8_t dataBuff[255];
-
 uint8_t board_id[10] = "ARDUINOUNO";
 
 #define NACK 0xA5
 #define ACK 0xF5
-
 
 //command codes
 #define COMMAND_LED_CTRL          0x50
@@ -927,3 +916,9 @@ void loop()
 ```
 
 > Original baudrate (9600) has been changed to 1200 since the communication didn't work with the original baudrate. (In the STM32 application, the master's clock frequency has been adjusted from 2 MHz to 500 KHz accordingly.)
+
+
+
+## Testing
+
+디버깅 필요! 디버거 모드로 한 줄 한 줄 실행 시 양쪽 콘솔에서 메시지들 정상 출력. 그냥 run 시 ackByte에 slave의 ACK 값이 정상적으로 저장되지 않아 일부 항목 건너 뛰는 문제가 있음.

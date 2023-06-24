@@ -13,7 +13,7 @@
   2. ST board will be in SPI master mode, and Arduino board will be in SPI slave mode.
   3. Use DFF = 0
   4. Use hardware slave management (SSM = 0)
-  5. SCLK speed = 2MHz, f~clk~ = 16MHz
+  5. SCLK speed = 500 KHz, f~clk~ = 16MHz
 * In this application, master is not going to receive anything from the slave. So, configuring the MISO pin is not necessary.
 * The slave does not know how many bytes of data master is going to send. So, the master must first send the number of bytes the slave should expect to receive.
 

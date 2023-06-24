@@ -40,12 +40,12 @@
 Path: `Project/Drivers/Inc/`
 
 ```c
-/**
+/*******************************************************************************
  * Filename		: stm32f407xx_spi_driver.h
  * Description	: STM32F407xx MCU specific SPI driver header file
  * Author		: Kyungjae Lee
  * History		: May 21, 2023 - Created file
- */
+ ******************************************************************************/
 
 #ifndef STM32F407XX_SPI_DRIVER_H
 #define STM32F407XX_SPI_DRIVER_H
@@ -222,6 +222,7 @@ Path: `Project/Drivers/Src/`
  * Description	: STM32F407xx MCU specific SPI driver source file
  * Author		: Kyungjae Lee
  * History		: May 27, 2023 - Created file
+ * 				  Jun 23, 2023 - Refactored code
  */
 
 #include "stm32f407xx.h"
@@ -721,7 +722,7 @@ static void SPI_TXE_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle)
 		pSPIHandle->TxLen--;
 
 		/* Adjust the buffer pointer */
-		(uint16_t *)(pSPIHandle->pTxBuffer)++;
+		(uint16_t *)pSPIHandle->pTxBuffer++;
 	}
 	else
 	{
@@ -763,12 +764,11 @@ static void SPI_RXNE_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle)
 	if (pSPIHandle->pSPIx->CR1 & (0x1 << SPI_CR1_DFF))
 	{
 		/* 16-bit DFF */
-		/* Load the data into DR */
-		pSPIHandle->pSPIx->DR = *((uint16_t *)(pSPIHandle->pRxBuffer));	/* Make it 16-bit data */
+		/* Copy the contents of DR into Rx buffer */
+		*((uint16_t*)pSPIHandle->pRxBuffer) = (uint16_t)pSPIHandle->pSPIx->DR;
 
 		/* Decrement the length (2 bytes) */
-		pSPIHandle->RxLen--;
-		pSPIHandle->RxLen--;
+		pSPIHandle->RxLen -= 2;
 
 		/* Adjust the buffer pointer */
 		(uint16_t *)(pSPIHandle->pRxBuffer)++;
@@ -776,8 +776,8 @@ static void SPI_RXNE_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle)
 	else
 	{
 		/* 8-bit DFF */
-		/* Load the data into DR */
-		pSPIHandle->pSPIx->DR = *(pSPIHandle->pRxBuffer);
+		/* Copy the contents of DR into Rx buffer */
+		*(pSPIHandle->pRxBuffer) = (uint8_t)pSPIHandle->pSPIx->DR;
 
 		/* Decrement the length (1 byte) */
 		pSPIHandle->RxLen--;
