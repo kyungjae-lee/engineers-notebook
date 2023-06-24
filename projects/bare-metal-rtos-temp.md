@@ -2,8 +2,6 @@
 
 # Bare-Metal RTOS
 
-==This project is currently IN PROGRESS. Contents will be continuously updated (04/13/2023)!==
-
 To see the full source code, visit my GitHub repository ([https://github.com/kyungjae-lee/rtos-from-scratch](https://github.com/kyungjae-lee/rtos-from-scratch)).
 
 
