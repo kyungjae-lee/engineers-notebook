@@ -66,3 +66,5 @@
 ### Project: Real-Time Clock on LCD
 
 1. **<a href="./introduction-to-real-time-clock-on-lcd">Introduction to Real-Time Clock on LCD</a>**
+1. **<a href="./board-support-package">Board Support Package (BSP)</a>**
+
