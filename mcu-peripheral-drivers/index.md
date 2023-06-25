@@ -61,3 +61,8 @@
 
 1. **<a href="./rcc-driver">RCC Driver (`stm32f407xx_rcc_driver.h/.c`)</a>**
 
+
+
+### Project: Real-Time Clock on LCD
+
+1. **<a href="./introduction-to-real-time-clock-on-lcd">Introduction to Real-Time Clock on LCD</a>**
