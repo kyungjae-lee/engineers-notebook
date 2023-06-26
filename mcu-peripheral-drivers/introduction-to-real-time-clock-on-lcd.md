@@ -26,6 +26,10 @@
 
 
 
+* Internal pull-up resistors can also be used instead of external pull-up resistors.
+
+
+
 ### Software Layers
 
 * Hardware Abstraction Layer is MCU-Family dependent.
@@ -33,3 +37,9 @@
 
 
 <img src="img/realtime-clock-on-lcd-software-layers.png" alt="realtime-clock-on-lcd-software-layers" width="800">
+
+
+
+### Using `printf()` to Print Messages in STM32CubeIDE Console
+
+* See <a href="./using-printf-with-serial-wire-viewer">Using `printf()` with Serial Wire Viewer (SWV)</a>
