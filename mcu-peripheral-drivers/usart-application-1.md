@@ -39,6 +39,10 @@
 
 
 
+### Using `printf()` to Print Messages in STM32CubeIDE Console
+
+* See <a href="./using-printf-with-serial-wire-viewer">Using `printf()` with Serial Wire Viewer (SWV)</a>
+
 
 
 ## Setup
