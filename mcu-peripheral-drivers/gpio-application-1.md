@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 	GPIOLed.pGPIOx = GPIOD;
 	GPIOLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_12;
 	GPIOLed.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_OUT;
-	GPIOLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_FAST;
+	GPIOLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_HIGH;
 	GPIOLed.GPIO_PinConfig.GPIO_PinOutType = GPIO_PIN_OUT_TYPE_PP;
 	GPIOLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;	/* Push-pull, no pupd necessary */
 
@@ -70,7 +70,6 @@ Path: `Project/Src/`
  * Description	: Program to toggle the on-board LED (Open-drain config for output pin)
  * Author		: Kyungjae Lee
  * History		: May 23, 2023 - Created file
- * 				  Jun 02, 2023 - Removed redundant 'GPIO_PeriClockControl()'
  */
 
 #include "stm32f407xx.h"
@@ -95,7 +94,7 @@ int main(int argc, char *argv[])
 	GPIOLed.pGPIOx = GPIOD;
 	GPIOLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_12;
 	GPIOLed.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_OUT;
-	GPIOLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_FAST;
+	GPIOLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_HIGH;
 	GPIOLed.GPIO_PinConfig.GPIO_PinOutType = GPIO_PIN_OUT_TYPE_OD;	/* Open-drain config */
 	GPIOLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;
 		/* Even if you use internal pull-up resistor (GPIO_PIN_PU), the LED will toggle very dim.
