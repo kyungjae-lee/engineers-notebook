@@ -14,19 +14,22 @@
 
 ## My .vimrc
 
-```plain
-" File Name		: .vimrc (Vim Run Command)
-" Description	: Optimized for C/C++ development, but useful also for other things. 
-" Author		: Kyungjae Lee
-" File created	: 01/14/2021
-" Last updated	: 12/30/2022
-
+```shell
+"*******************************************************************************
+" Filename      : .vimrc (Vim Run Command)
+" Description   : Optimized for C/C++ development, but useful also for other 
+"                 things. 
+" Author        : Kyungjae Lee
+" History       : 01/14/2021 - Created file
+"                 06/27/2023 - Added settings to fix glitch in colors when using
+"                              vim with tmux 
+"*******************************************************************************
 
 " turn line numbers on
 set number
 
 " wrap line at 90 chars 
-set textwidth=90
+"set textwidth=90
 
 " display current column number
 set ruler
@@ -46,5 +49,8 @@ set smartindent
 
 " enable syntax color scheme
 syntax on
-```
 
+" fixes glitch? in colors when using vim with tmux
+set background=dark
+set t_Co=256
+```
