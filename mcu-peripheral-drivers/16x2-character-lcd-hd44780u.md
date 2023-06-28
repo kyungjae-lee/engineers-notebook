@@ -1,12 +1,12 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > 16x2 Character LCD
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > 16x2 Character LCD (HD44780U)
 
-# 16x2 Character LCD
+# 16x2 Character LCD (HD44780U)
 
 This notes contains only a small portion of 16x2 Character LCD specification. For more information, check the reference manual for the 16x2 Character LCD. 
 
 
 
-## 16x2 Character LCD
+## 16x2 Character LCD (HD44780U)
 
 * Image reference: https://www.electroduino.com/16x2-lcd-display-module-how-its-works/
 

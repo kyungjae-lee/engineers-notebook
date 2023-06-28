@@ -1,6 +1,6 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > DS1307 Real-Time Clock (RTC)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > DS1307 Real-Time Clock (RTC) (DS1307)
 
-# DS1307 Real-Time Clock (RTC)
+# DS1307 Real-Time Clock (RTC) (DS1307)
 
 This notes contains only a small portion of DS1307 specification. For more information, check the reference manual for the DS1307 RTC Chip. 
 
