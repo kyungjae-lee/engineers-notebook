@@ -4,10 +4,6 @@ This repository contains the source code for my website **Engineer's Notebook ([
 
 
 
-<img src="./img/wallpaper.png" alt="wallpaper" width="300">
-
-
-
 ## Introduction
 
 Documentation website for publishing reusable technical information gained through personal studies and projects
