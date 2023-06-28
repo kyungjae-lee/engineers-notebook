@@ -5,6 +5,7 @@
 
 
 1. **<a href="./vimrc">.vimrc (Vim Run Command)</a>**
+1. **<a href="./bashrc">.bashrc (Bash Run Command)</a>**
 1. **<a href="./cli-cheat-sheet">CLI Cheat Sheet</a>**
 1. **<a href="./gdb-cheat-sheet">GDB Cheat Sheet</a>**
 1. **<a href="./git-cheat-sheet">Git Cheat Sheet</a>**
