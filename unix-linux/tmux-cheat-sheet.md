@@ -41,7 +41,7 @@
   ```
 
   ```plain
-  tmux kill-ses -t <session_name>
+  tmux kill-session -t <session_name>
   ```
 
 * Kill/delete all sessions but the current
