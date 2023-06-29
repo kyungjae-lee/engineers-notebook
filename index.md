@@ -4,13 +4,13 @@ Home <a href="./notebook">Notebook</a> <a href="./projects">Projects</a>
 
 
 
-<img src="./img/wallpaper.png" alt="wallpaper" width="280">
+<img src="./img/wallpaper.png" alt="wallpaper" width="250">
 
 
 
-Hi, my name is Kyungjae!
+Hi, welcome to my website!
 
-Welcome to my website, where I publish reusable technical information gained through personal studies and projects. My  primary focus is on **Embedded Software**, **RTOS**, and the **Linux Kernel**.
+My name is Kyungjae, and this is where I share what I've learned through personal studies and projects. My primary focus is on *embedded software*, *real-time operating systems (RTOS)*, and the *Linux kernel*.
 
 * To access my notes, visit the **<a href="./notebook">Notebook</a>** section.
 * To explore my projects, navigate to the **<a href="./projects">Projects</a>** section.
