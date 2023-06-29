@@ -8,7 +8,7 @@
 
 
 
-<img src="img/mcu-peripheral-driver-development-project-architecture-1685055400431-20.png" alt="mcu-peripheral-driver-development-project-architecture" width="700">
+<img src="img/mcu-peripheral-driver-development-project-architecture.png" alt="mcu-peripheral-driver-development-project-architecture" width="600">
 
 
 
