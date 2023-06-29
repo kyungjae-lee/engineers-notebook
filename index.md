@@ -2,15 +2,19 @@ Home <a href="./notebook">Notebook</a> <a href="./projects">Projects</a>
 
 # Engineer's Notebook
 
-###### Kyungjae's website for publishing reusable technical information gained through personal studies and projects
+
+
+<img src="./img/wallpaper.png" alt="wallpaper" width="280">
 
 
 
-<img src="./img/wallpaper.png" alt="wallpaper" width="300">
+Hi, my name is Kyungjae!
 
+Welcome to my website, where I publish reusable technical information gained through personal studies and projects. My  primary focus is on **Embedded Software**, **RTOS**, and the **Linux Kernel**.
 
-
-* To view my notes, go to **<a href="./notebook">Notebook</a>**.
-* To view my projects, go to **<a href="./projects">Projects</a>**.
+* To access my notes, visit the **<a href="./notebook">Notebook</a>** section.
+* To explore my projects, navigate to the **<a href="./projects">Projects</a>** section.
 * Connect with me on **[LinkedIn](https://www.linkedin.com/in/kyungjaelee/)** and **[GitHub](https://github.com/kyungjae-lee)**.
-* Contact me at **kjxlee@gmail.com**.
+* Feel free to reach out to me at **kjxlee@gmail.com**.
+
+Enjoy your time here!
