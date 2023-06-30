@@ -11,5 +11,5 @@
 1. **<a href="./git-cheat-sheet">Git Cheat Sheet</a>**
 1. **<a href="./tmux-cheat-sheet">Tmux Cheat Sheet</a>**
 1. **<a href="./vim-cheat-sheet">Vim Cheat Sheet</a>**
-1. **<a href="./ctags">Ctags</a>**
+1. **<a href="./ctags-cheat-sheet">Ctags Cheat Sheet</a>**
 1. **<a href="./shell-script">Shell Script</a>**
