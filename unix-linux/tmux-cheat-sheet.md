@@ -268,6 +268,12 @@
 
   `Ctrl` + `b` `Ctrl` `←`
 
+* Equally balance split panes
+
+  `Ctrl` + `b`, `Alt` + `1` (horizontal; equal width)
+  
+  `Ctrl` + `b`, `Alt` + `2` (vertical; equal height)
+  
 * Close current pane
 
   `Ctrl` + `b` `x`
