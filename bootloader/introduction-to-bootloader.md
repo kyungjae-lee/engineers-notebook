@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Introduction to Bootloader</a> > Introduction to Bootloader
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Bootloader</a> > Introduction to Bootloader
 
 # Introduction to Bootloader
 

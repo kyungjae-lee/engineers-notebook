@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Introduction to Bootloader</a> > STM32F407xx Memory Organization
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Bootloader</a> > STM32F407xx Memory Organization
 
 # STM32F407xx Memory Organization
 
