@@ -1,93 +1,306 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > Board Support Package (BSP) (`rtc_ds1307.h/.c`, `lcd_hd44780u.h/.c`)
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > Application: Real-Time Clock on LCD (`rtc_lcd.c`)
 
-# Board Support Package (BSP) (`rtc_ds1307.h/.c`, `rtc_ds1307.h/.c`)
+# Application: Real-Time Clock on LCD (`rtc_lcd.c`)
 
 
 
-## `rtc_ds1307.h`
-
-* Contains device (RTC) related information
-  * I2C address (For this project, slave address)
-  * Register addresses (Registers from which the date and time information can be extracted)
-  * Data structure to handle information
-  * Prototypes of the functions that are to be exposed to user applications
-  * Application configurable items
+## `rtc_lcd.c`
 
 ```c
 /*******************************************************************************
- * Filename		: rtc_ds1307.h
- * Description	: APIs for DS1307 RTC module
+ * Filename		: rtc_lcd.c
+ * Description	: Application to read time and date information from DS1207 RTC
+ *				  chip and display it on the 16x2 Character LCD
  * Author		: Kyungjae Lee
  * History 		: Jun 25, 2023 - Created file
  ******************************************************************************/
 
-#ifndef RTC_DS1307_H
-#define RTC_DS1307_H
-
+#include <lcd_hd44780u.h>
+#include "rtc_ds1307.h"
+#include <string.h> 		/* strlen() */
+#include <stdio.h> 			/* printf() */
 #include "stm32f407xx.h"
 
-/* Application configurable items */
-#define DS1307_I2C				I2C1
-#define DS1307_I2C_GPIO_PORT	GPIOB
-#define DS1307_I2C_PIN_SCL		GPIO_PIN_6
-#define DS1307_I2C_PIN_SDA		GPIO_PIN_7
-#define DS1307_I2C_SPEED		I2C_SCL_SPEED_SM /* Doesn't support fast mode */
-#define DS1307_I2C_PUPD			GPIO_PIN_PU		 /* Using internal pull-up R */
+#define SYSTICK_TIM_CLK		16000000UL
 
-/* Register addresses */
-#define DS1307_SEC				0x00
-#define DS1307_MIN				0x01
-#define DS1307_HR				0x02
-#define DS1307_DAY				0x03
-#define DS1307_DATE  			0x04
-#define DS1307_MONTH			0x05
-#define DS1307_YEAR				0x06
+/* SysTick timer registers */
+#define SYST_CSR			(*(uint32_t volatile *)0xE000E010)
+#define SYST_RVR			(*(uint32_t volatile *)0xE000E014)
 
-/* DS1307 I2C address */
-#define DS1307_I2C_ADDR			0x68 /* 1101000(2) */
+/* SysTick Control and Status Register (SYST_CSR) bit fields */
+#define SYST_CSR_ENABLE		(1 << 0U) /* Counter enabled */
+#define SYST_CSR_TICKINT	(1 << 1U)
+#define SYST_CSR_CLKSOURCE	(1 << 2U) /* Processor clock */
 
-/* Time formats */
-#define TIME_FORMAT_12HRS_AM 	0
-#define TIME_FORMAT_12HRS_PM	1
-#define TIME_FORMAT_24HRS	 	2
+#define PRINT_ON_LCD	/* Comment this out if LCD is not installed */
 
-/* Days */
-#define SUNDAY					0
-#define MONDAY					1
-#define TUESDAY					2
-#define WEDNESDAY				3
-#define THURSDAY				4
-#define FRIDAY					5
-#define SATURDAY				6
+/* Function prototypes */
+char* TimeToString(RTC_Time_TypeDef *rtcTime);
+char* DateToString(RTC_Date_TypeDef *rtcDate);
+char* GetDay(uint8_t dayCode);
+void NumToString(uint8_t num, char *buf);
+void SysTickTimer_Init(uint32_t tickHz);
+void DelayMs(uint32_t delayInMs);
 
-typedef struct
+
+int main(int argc, char *argv[])
 {
-	uint8_t date;
-	uint8_t month;
-	uint8_t year;
-	uint8_t day;
-} RTC_Date_TypeDef;
+	RTC_Time_TypeDef currTime;
+	RTC_Date_TypeDef currDate;
+	char *amPm;
 
-typedef struct
+	printf("RTC test application running...\n");
+
+#ifndef PRINT_ON_LCD
+    printf("RTC test without LCD");
+#else
+	LCD_Init();
+
+    LCD_PrintString("RTC test on LCD");
+
+    DelayMs(2000);
+
+    /* Start printing from the beginning */
+    LCD_ClearDisplay();
+    LCD_ReturnHome();
+#endif
+
+	if (DS1307_Init())
+	{
+		/* RTC initialization was unsuccessful */
+		printf("RTC init failed\n");
+
+		while (1);
+	}
+
+	/* Initialize the SysTick Timer so it generates 1 interrupt per second */
+	SysTickTimer_Init(1);
+
+	currDate.day = FRIDAY;
+	currDate.date = 25;
+	currDate.month = 6;
+	currDate.year = 23;		/* Only the last two digits of the year */
+
+	currTime.hours = 11;
+	currTime.minutes = 59;
+	currTime.seconds = 30;
+	currTime.timeFormat = TIME_FORMAT_12HRS_PM;
+
+	DS1307_SetCurrentDate(&currDate);
+	DS1307_SetCurrentTime(&currTime);
+
+	DS1307_GetCurrentDate(&currDate);
+	DS1307_GetCurrentTime(&currTime);
+
+	/* Print current time *****************************************************/
+
+	if (currTime.timeFormat != TIME_FORMAT_24HRS)
+	{
+		/* 12HRS format (e.g., 08:33:45 PM) */
+		amPm = (currTime.timeFormat) ? "PM" : "AM";
+#ifndef PRINT_ON_LCD
+		printf("Current time = %s %s\n", TimeToString(&currTime), amPm);
+#else
+		LCD_PrintString(TimeToString(&currTime));
+		LCD_PrintString(amPm);
+#endif
+	}
+	else
+	{
+		/* 24HRS format (e.g., 20:33:45) */
+#ifndef PRINT_ON_LCD
+		printf("Current time = %s\n", TimeToString(&currTime));
+#else
+		LCD_PrintString(TimeToString(&currTime));
+#endif
+	}
+
+	/* Print current date in 'MM/DD/YY <Day>' format **************************/
+
+#ifndef PRINT_ON_LCD
+	printf("Current date = %s <%s>\n", DateToString(&currDate), GetDay(currDate.day));
+#else
+	LCD_SetCursor(1, 2);
+	LCD_PrintString(DateToString(&currDate));
+#endif
+
+	while (1);
+
+	return 0;
+} /* End of main */
+
+/**
+ * TimeToString()
+ * Desc.	: Converts the time represented by @rtcTime to a string
+ * Param.	: @rtcTime - pointer to RTC Time structure
+ * Return	: Time in string format (e.g., HH:MM:SS PM)
+ * Note		: N/A
+ */
+char* TimeToString(RTC_Time_TypeDef *rtcTime)
 {
-	uint8_t seconds;
-	uint8_t minutes;
-	uint8_t hours;
-	uint8_t	timeFormat;
-} RTC_Time_TypeDef;
+	static char buf[9]; /* Make it static not to return a dangling ptr */
 
-/*******************************************************************************
- * APIs (See the function definitions for more information)
- ******************************************************************************/
+	buf[2] = ':';
+	buf[5] = ':';
 
-uint8_t DS1307_Init(void);
-void DS1307_SetCurrentTime(RTC_Time_TypeDef *);
-void DS1307_GetCurrentTime(RTC_Time_TypeDef *);
-void DS1307_SetCurrentDate(RTC_Date_TypeDef *);
-void DS1307_GetCurrentDate(RTC_Date_TypeDef *);
+	NumToString(rtcTime->hours, buf);
+	NumToString(rtcTime->minutes, &buf[3]);
+	NumToString(rtcTime->seconds, &buf[6]);
 
+	buf[8] = '\0';
 
-#endif /* RTC_DS1307_H */
+	return buf;
+} /* End of TimeToString */
+
+/**
+ * DateToString()
+ * Desc.	: Converts the date represented by @rtcDate to a string
+ * Param.	: @rtcDate - pointer to RTC Date structure
+ * Return	: Date in string format (e.g., MM/DD/YY <Day>)
+ * Note		: N/A
+ */
+char* DateToString(RTC_Date_TypeDef *rtcDate)
+{
+	static char buf[9]; /* Make it static not to return a dangling ptr */
+
+	buf[2] = '/';
+	buf[5] = '/';
+
+	NumToString(rtcDate->month, buf);
+	NumToString(rtcDate->date, &buf[3]);
+	NumToString(rtcDate->year, &buf[6]);
+
+	buf[8] = '\0';
+
+	return buf;
+} /* End of DateToString */
+
+/**
+ * GetDay()
+ * Desc.	: Gets the day represented by @dayCode in string format
+ * Param.	: @dayCode - day macro
+ * Return	: Day in string format (e.g., Sunday)
+ * Note		: N/A
+ */
+char* GetDay(uint8_t dayCode)
+{
+	char *days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+	return days[dayCode];
+} /* End of GetDay */
+
+/**
+ * NumToString()
+ * Desc.	: Converts the passed uint8_t number @num and store it into @buf
+ * Param.	: @num - a number to be converted into a string
+ * 			  @buf - pointer to a string buffer
+ * Return	: None
+ * Note		: N/A
+ */
+void NumToString(uint8_t num, char *buf)
+{
+	if (num < 10)
+	{
+		buf[0] = '0';
+		buf[1] = num + '0';
+	}
+	else if (10 <= num && num < 99)
+	{
+		buf[0] = num / 10 + '0';
+		buf[1] = num % 10 + '0';
+	}
+} /* End of NumToString */
+
+/**
+ * SysTickTimer_Init()
+ * Desc.	: Initializes the SysTick Timer
+ * Param.	: @tickHz - number of interrupts to be triggered per second
+ * Return	: None
+ * Note		: Counting down to zero asserts the SysTick exception request.
+ */
+void SysTickTimer_Init(uint32_t tickHz)
+{
+	/* Calculate reload value */
+	uint32_t reloadVal = (SYSTICK_TIM_CLK / tickHz) - 1;
+
+	/* Clear the least significant 24 bits in the SYST_RVR */
+	SYST_RVR &= ~0x00FFFFFF;
+
+	/* Load the counter start value into SYST_RVR */
+	SYST_RVR |= reloadVal;
+
+	/* Configure SYST_CSR */
+	SYST_CSR |= (SYST_CSR_TICKINT | SYST_CSR_CLKSOURCE | SYST_CSR_ENABLE);
+		/* TICKINT	: Enable SysTick exception request */
+		/* CLKSOURCE: Specify clock source; processor clock source */
+		/* ENABLE	: Enable counter */
+} /* End of SysTickTimer_Init */
+
+/**
+ * SysTick_Handler()
+ * Desc.	: Handles the SysTick exception
+ * Param.	: None
+ * Return	: None
+ * Note		: N/A
+ */
+void SysTick_Handler(void)
+{
+	RTC_Time_TypeDef currTime;
+	RTC_Date_TypeDef currDate;
+	char *amPm;
+
+	DS1307_GetCurrentTime(&currTime);
+
+	/* Print current time *****************************************************/
+
+	if (currTime.timeFormat != TIME_FORMAT_24HRS)
+	{
+		/* 12HRS format (e.g., 08:33:45 PM) */
+		amPm = (currTime.timeFormat) ? "PM" : "AM";
+#ifndef PRINT_ON_LCD
+		printf("Current time = %s %s\n", TimeToString(&currTime), amPm);
+#else
+		LCD_SetCursor(1, 1);
+		LCD_PrintString(TimeToString(&currTime));
+		LCD_PrintString(amPm);
+#endif
+	}
+	else
+	{
+		/* 24HRS format (e.g., 20:33:45) */
+#ifndef PRINT_ON_LCD
+		printf("Current time = %s\n", TimeToString(&currTime));
+#else
+		LCD_SetCursor(1, 1);
+		LCD_PrintString(TimeToString(&currTime));
+#endif
+	}
+
+	/* Print current date in 'MM/DD/YY <Day>' format **************************/
+
+	DS1307_GetCurrentDate(&currDate);
+#ifndef PRINT_ON_LCD
+	printf("Current date = %s <%s>\n", DateToString(&currDate), GetDay(currDate.day));
+#else
+	LCD_SetCursor(1, 1);
+	LCD_PrintString(DateToString(&currDate));
+	LCD_PrintChar('<');
+	LCD_PrintString(GetDay(currDate.day));
+	LCD_PrintChar('>');
+#endif
+} /* End of SysTick_Handler */
+
+/**
+ * DelayMs()
+ * Desc.	: Spinlock delays for @delayInMs milliseconds
+ * Param.	: @delayInMs - time to delay in milliseconds
+ * Returns	: None
+ * Note		: N/A
+ */
+void DelayMs(uint32_t delayInMs)
+{
+	for (uint32_t i = 0; i < delayInMs * 1000; i++);
+} /* End of DelayMs */
 ```
 
 

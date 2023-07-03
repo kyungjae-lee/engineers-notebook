@@ -68,5 +68,5 @@
 1. **<a href="./introduction-to-real-time-clock-on-lcd">Introduction to Real-Time Clock on LCD</a>**
 1. **<a href="./real-time-clock-ds1307">Real-Time Clock (RTC) (DS1307)</a>**
 1. **<a href="./16x2-character-lcd-hd44780u">16x2 Character LCD (HD44780U)</a>**
-1. **<a href="./board-support-package">Board Support Package (BSP)</a>**
-
+1. **<a href="./board-support-package">Board Support Package (BSP) (`rtc_ds1307.h/.c`, `lcd_hd44780u.h/.c`)</a>**
+1. **<a href="./application-real-time-clock-on-lcd">Application: Real-Time Clock on LCD (`rtc_lcd.c`)</a>**
