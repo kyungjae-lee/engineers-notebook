@@ -1,6 +1,6 @@
 <a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">MCU Peripheral Drivers</a> > Board Support Package (BSP) (`rtc_ds1307.h/.c`, `lcd_hd44780u.h/.c`)
 
-# Board Support Package (BSP) (`rtc_ds1307.h/.c`, `rtc_ds1307.h/.c`)
+# Board Support Package (BSP) (`rtc_ds1307.h/.c`, `lcd_hd44780u.h/.c`)
 
 
 
