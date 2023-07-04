@@ -4,7 +4,7 @@
 
 
 
-## Boot Configuration of STM32F407xx
+## Boot Configuration of STM32F407xx MCU
 
 
 
@@ -13,3 +13,12 @@
 
 
 * Depending on the configuration of the "boot mode selection pins," the memory region from which the boot will take place, which is to be mapped to the memory address 0x0000 0000, will be chosen differently.
+* For example, when the BOOT1 pin is pulled to GND and the BOOT0 pin is pulled to high (3V), then the boot will take place from the "system memory". (i.e., The memory address 0x0000 0000 will be aliased to the start address of the system memory.)
+
+
+
+## Boot Pins of STM32F407xx MCU
+
+
+
+<img src="./img/boot-pins.png" alt="boot-pins" width="900">
