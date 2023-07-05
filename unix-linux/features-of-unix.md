@@ -4,10 +4,7 @@
 
 
 
-
-## Features of UNIX
-
-### Multiuser System
+## Multiuser System
 
 * **Multiprogramming** system
   - UNIX permits multiple programs (that can be run by different users) to remain in memory and compete for the attention of the CPU.      
@@ -23,7 +20,9 @@
       - This switching happens so quick that every user feels as if he/she is the only one using the system.
   - Even though a program may run for the duration of the time slice allocated for it, it may prematurely leave the CPU during a *blocking* operation (like reading a file) that keeps the CPU idle.
 
-### Multitasking System
+
+
+## Multitasking System
 
 * **Multitasking** system
 
@@ -33,7 +32,9 @@
 
   Machines with multiple CPUs can even dedicate an entire processor for a single program (in a single-user, single-tasking situation).
 
-### Repository of Applications
+
+
+## Repository of Applications
 
 * UNIX applications:
   - General-purpose tools
@@ -44,7 +45,9 @@
   - and many more ...
 * The *shell* and a set of essential *applications* form part of the POSIX specification.
 
-### The Building-Block Approach in Design
+
+
+## The Building-Block Approach in Design
 
 * "Small is beautiful."
   - UNIX keeps small commands for every kind of work, each of which performs one simple job only.
@@ -58,14 +61,17 @@
   - e.g., `printf.*name` matches all lines that contain both `printf` and `name`. (This pattern is called a *regular expression*.)
 
 
-### Programming Facility
+
+## Programming Facility
 
 * **Shell** is also a programming language designed for programmers.
   - It has all the necessary elements such as control structures, loops, variables, etc.
 * **Shell scripts** are programs that run UNIX commands in a batch.
   - Many system's functions can be controlled and automated by using these shell scripts.
 
-### Documentation
+
+
+## Documentation
 
 * **man** command (program)
   - The help facility retains the most important reference for commands and their configuration files.
