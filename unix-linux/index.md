@@ -13,3 +13,4 @@
 1. **<a href="./vim-cheat-sheet">Vim Cheat Sheet</a>**
 1. **<a href="./ctags-cheat-sheet">Ctags Cheat Sheet</a>**
 1. **<a href="./shell-script">Shell Script</a>**
+1. **<a href="./ubuntu-setup">Ubuntu Setup</a>**
