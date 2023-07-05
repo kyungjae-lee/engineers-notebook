@@ -19,6 +19,8 @@
 
 ## Boot Pins of STM32F407xx MCU
 
+* Although it appears that the BOOT1/PB2 pin is pulled to GND by default,  it was not the case when I tested it with the STM32F407-Discovery board. If you want to boot from the system memory, make sure to connect the  BOOT1/PB2 pin to GND, in addition to connecting the BOOT0 pin to Vcc  (3V).
+
 
 
 <img src="./img/boot-pins.png" alt="boot-pins" width="900">
