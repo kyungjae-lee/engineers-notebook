@@ -11,4 +11,5 @@
 1. **<a href="./reset-sequence">Reset Sequence</a>**
 1. **<a href="./boot-configuration">Boot Configuration</a>**
 1. **<a href="./virtual-com-port-support">Virtual COM Port (VCP) Support</a>**
+1. **<a href="./bootloader-host-communication">Bootloader-Host Communication</a>**
 
