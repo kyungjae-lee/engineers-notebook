@@ -14,12 +14,16 @@
 
 
 
+* USART2 peripheral is used for the **Virtual COM Port** support.
+
 
 
 ## Bootloader-Host Communication over USART Peripheral Interface
 
 * Select one USART peripheral (i.e., USART1 or USART3)
-* Connect the board to the host PC using the USB-to-UART adapter as shown in the image below.
+  * Note that the USART2 peripheral is not available for the system memory boot mode since it is used for the Virtual COM Port support.
+
+* Connect the board to the host PC using the **USB-to-UART adapter** as shown in the image below.
 
 
 
@@ -27,4 +31,17 @@
 
 
 
-* Download STM32 Flash loader demonstrator (UM0462) (replaced by STM32CubeProgrammer) 
+* Download the **STM32 Flash Loader Demonstrator** (UM0462) (replaced by STM32CubeProgrammer)
+
+* To boot from the system memory, configure the boot pins as follows:
+
+  * BOOT0 - HIGH (Vcc = 3V)
+  * BOOT1 - LOW (GND)
+
+  Although it appears that the BOOT1/PB2 pin is pulled to GND by default,  it was not the case when I tested it with the STM32F407-Discovery board. If you want to boot from the system memory, make sure to connect the  BOOT1/PB2 pin to GND, in addition to connecting the BOOT0 pin to Vcc  (3V).
+
+* Run the **STM32 Flash Loader Demonstrator**, select the correct port for the USB-to-UART communication and press next. You should be brought to the next page if everything has been successful.
+
+
+
+<img src="./img/flash-loader-demonstrator.png" alt="usb-to-usart-adapter" width="900">
