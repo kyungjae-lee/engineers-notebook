@@ -20,6 +20,21 @@
 
 ## Bootloader-Host Communication over USART Peripheral Interface
 
+### Overview
+
+
+
+<img src="./img/bootloader-host-communication-interfaces.png" alt="bootloader-host-communication-interfaces" width="650">
+
+
+
+### Using the Virtual COM Port
+
+* For STM32F407-Discovery board, the USB-to-UART converter will be necessary. (See [Virtual COM Port (VCP) Support](./virtual-com-port-support))
+* For STM32F446-Nucleo board,  the USB-to-UART converter will not be necessary since the USART2 peripheral can communicate with the host directly over the USB interface.
+
+### Using the Debug Port (Optional)
+
 * Select one USART peripheral (i.e., USART1 or USART3)
   * Note that the USART2 peripheral is not available for the system memory boot mode since it is used for the Virtual COM Port support.
 
