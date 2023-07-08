@@ -40,3 +40,13 @@
 
 
 <img src="./img/host-bootloader-communication-sequence-diagram.png" alt="host-bootloader-communication-sequence-diagram" width="600">
+
+
+
+
+
+## Custom Bootloader Flow Chart
+
+
+
+<img src="./img/custom-bootloader-flow-chart.png" alt="custom-bootloader-flow-chart" width="900">
