@@ -13,4 +13,5 @@
 1. **<a href="./virtual-com-port-support">Virtual COM Port (VCP) Support</a>**
 1. **<a href="./bootloader-host-communication">Bootloader-Host Communication</a>**
 1. **<a href="./custom-bootloader-design">Custom Bootloader Design</a>**
+1. **<a href="./vector-table-offset-register">Vector Table Offset Register (VTOR)</a>**
 
