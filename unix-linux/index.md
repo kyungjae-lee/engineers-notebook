@@ -11,6 +11,7 @@
 1. **<a href="./the-unix-architecture">The UNIX Architecture</a>**
 1. **<a href="./features-of-unix">Features of UNIX</a>**
 1. **<a href="./unix-commands">UNIX Commands</a>**
+1. **<a href="./unix-filesystem">UNIX Filesystem</a>**
 
 
 
