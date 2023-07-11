@@ -13,12 +13,13 @@
 | BL_GET_CID             | 0x53         | Chip identification number (2 bytes)        | Used to read the MCU chip identification number              |
 | BL_GET_RDP_STATUS      | 0x54         | Flash Read Protection (RDP) Level (1 byte)  | Used to read the Flash Protection (RDP) Level                |
 | BL_GO_TO_ADDR          | 0x55         | Success or error code (1 byte)              | Used to jump bootloader to specified address                 |
-| BL_FLASH_ERASE         | 0x56         | Success or error code (1 byte)              | Used to mass erase or sector erase the user Flash            |
-| BL_MEM_WRITE           | 0x57         | Success or error code (1 byte)              | Used to write data into different memories of the MCU        |
+| BL_ERASE_FLASH         | 0x56         | Success or error code (1 byte)              | Used to mass erase or sector erase the user Flash            |
+| BL_WRITE_MEM           | 0x57         | Success or error code (1 byte)              | Used to write data into different memories of the MCU        |
 | BL_EN_RW_PROTECT       | 0x58         | Success or error code (1 byte)              | Used to enable read/write protection on different sectors of the user Flash |
-| BL_DIS_RW_PROTECT      | 0x5C         | Success or error code (1 byte)              | Used to disable read/write protection on all the sectors of the user Flash (i.e., Restores the default state) |
-| BL_MEM_READ            | 0x59         | Memory contents of length asked by the host | Used to read data from different memories of the MCU         |
+| BL_READ_MEM            | 0x59         | Memory contents of length asked by the host | Used to read data from different memories of the MCU         |
 | BL_READ_PROTECT_STATUS | 0x5A         | All sectors' protection status              | Used to read the protection status of all the sectors of the user Flash memory |
+| BL_READ_OTP            | 0x5B         | OTP contents                                | Used to read the OTP contents                                |
+| BL_DIS_RW_PROTECT      | 0x5C         | Success or error code (1 byte)              | Used to disable read/write protection on all the sectors of the user Flash (i.e., Restores the default protection state) |
 
 
 
@@ -85,7 +86,7 @@
 
 
 
-### BL_FLASH_ERASE
+### BL_ERASE_FLASH
 
 * Used to mass erase or sector erase the user Flash
 * Total length (in bytes) of the packet: 8
@@ -94,11 +95,11 @@
 
 
 
-<img src="./img/bl_flash_erase.png" alt="bl_flash_erase" width="850">
+<img src="./img/bl_erase_flash.png" alt="bl_erase_flash" width="850">
 
 
 
-### BL_MEM_WRITE
+### BL_WRITE_MEM
 
 * Used to write data into different memories (e.g., Flash, SRAM, etc.) of the MCU 
   * e.g., Programming binary into the Flash memory
@@ -111,11 +112,11 @@
 
 
 
-<img src="./img/bl_mem_write.png" alt="bl_mem_write" width="850">
+<img src="./img/bl_write_mem.png" alt="bl_write_mem" width="850">
 
 
 
-### BL_MEM_READ
+### BL_READ_MEM
 
 * Used to read data from different memories (e.g., Flash, SRAM, etc.) of the MCU
 * Total length (in bytes) of the packet: 11
@@ -126,7 +127,7 @@
 
 
 
-<img src="./img/bl_mem_read.png" alt="bl_mem_read" width="800">
+<img src="./img/bl_read_mem.png" alt="bl_read_mem" width="800">
 
 
 
@@ -162,7 +163,7 @@
 
 
 
-### BL_READ_SECTOR_STATUS
+### BL_READ_PROTECT_STATUS
 
 * Used to read the protection status of all the sectors of the user Flash memory
 * Total length (in bytes) of the packet: 6
