@@ -6,7 +6,7 @@
 
 ## STM32F407xx Memory Organization
 
-* Internal Flash (a.k.a. embedded Flash / on-chip Flash) memory: 512 KB
+* Internal Flash (a.k.a. embedded Flash / on-chip Flash) memory: Up to 1 MB (Divided into multiple sectors)
 * Internal SRAM1: 112 KB
 * Internal SRAM2: 16 KB
 * System memory (ROM): 30 KB
