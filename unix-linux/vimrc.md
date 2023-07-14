@@ -69,6 +69,9 @@ set cursorline
 " configure comment color 
 highlight Comment ctermfg=DarkGreen
 
+" display the full path of the currently open file
+set laststatus=2
+set statusline=%F
 
 "-------------------------------------------------------------------------------
 " Key Bindings
