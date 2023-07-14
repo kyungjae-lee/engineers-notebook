@@ -15,14 +15,11 @@
 ## My .vimrc
 
 ```shell
-"*******************************************************************************
-" Filename      : .vimrc (Vim Run Command)
-" Description   : Optimized for C/C++ development, but useful also for other 
-"                 things. 
-" Author        : Kyungjae Lee
-" History       : 01/14/2021 - Created file
-"                 06/27/2023 - Added settings to fix glitch in colors when using
-"                              vim with tmux 
+"*******************************************************************************                                                                                                                                                                                                                                                                      
+" @file     : .vimrc (Vim Run Command)
+" @brief    : Optimized for C/C++ development, but useful also for other things
+" @author   : Kyungjae Lee
+" @date     : Jan 14, 2021 - Created file
 "*******************************************************************************
 
 " turn line numbers on
@@ -53,4 +50,14 @@ syntax on
 " fixes glitch? in colors when using vim with tmux
 set background=dark
 set t_Co=256
+
+" underline the current line
+"highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+set cursorline
+
+" configure the line number
+"highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
+" configure comment color 
+highlight Comment ctermfg=DarkGreen
 ```
