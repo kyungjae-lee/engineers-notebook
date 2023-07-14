@@ -92,9 +92,40 @@
   ```plain
   :cs add ./cscope.out
   ```
+  
+* Find the functions that "call" a given function or that "is called" by a given function.
+
+  ```plain
+  :cs find <command> <string>
+  ```
+
+  | Command | String                                               |
+  | ------- | ---------------------------------------------------- |
+  | s       | Find the C symbol `string`                           |
+  | g       | Find the definition `string`                         |
+  | d       | Find the functions called by the function `string`   |
+  | c       | Find the functions which calls the function `string` |
+  | t       | Find the text `string`                               |
+  | e       | Find egrep pattern `string`                          |
+  | f       | Find the file `string`                               |
+  | i       | Find the files #include file `string`                |
 
 ### Basic Commands
 
 * In command mode, type `cs find c memset` to list the path, filename and the line numbers of the occasions of `memset()`
 * In command mode, type `cs find g main` to list the path, filename and the line number of the `main()` function.
 * In command mode, type `cs find e shut*` to list the path, filename and the line numbers of the codes which include the string "shut*"
+
+
+
+## Ctags vs. Cscope
+
+* **Ctags** supports the following two features:
+  1. Jump from function calls to their definitions
+     * When you are over a call to a method, hitting `g]` or `Ctrl+]` will jump to the place where that method is defined or implemented. 
+  2. Omni completion
+     * When you type `foo.` or `foo->`, and if `foo` is a structure, then a pop-up menu with field completion will be shown.
+* **Cscope** also supports jumping from function calls to their definitions but NOT omni completion. However cscope additionally adds the ability to jump to any of the places where a function is called as well.
+* So as far as jumping around a code base is concerned, **ctags** will only ever lead you towards the place where the function is implemented,  whereas **cscope** can show you where a function is called too.
+* Use both. **ctags** is  easier to set up, faster to run and if you only care about jumping one  way it will show you less lines. You can just run `:!ctags -R .` and `g]` just works. It also enables that omni complete thing.
+* In conclusion, **ctags** is easier to set up and mostly works without doing much else, it's vital for omni-complete too. **Cscope** provides more  features if you have to maintain a large and mostly unknown code base,  but requires more leg work.
