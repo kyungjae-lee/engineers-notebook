@@ -22,6 +22,10 @@
 " @date     : Jan 14, 2021 - Created file
 "*******************************************************************************
 
+"-------------------------------------------------------------------------------
+" Development Environment Configuration
+"-------------------------------------------------------------------------------
+
 " turn line numbers on
 set number
 
@@ -44,6 +48,10 @@ set autoindent
 " use intelligent indentation for C
 set smartindent
 
+" use auto-comment in new line (use ctrl-u in insert mode to delete the 
+" automatically inserted comment markers in one key-chord)
+set formatoptions=tcroql
+
 " enable syntax color scheme
 syntax on
 
@@ -60,4 +68,12 @@ set cursorline
 
 " configure comment color 
 highlight Comment ctermfg=DarkGreen
+
+
+"-------------------------------------------------------------------------------
+" Key Bindings
+"-------------------------------------------------------------------------------
+
+" iamroot20 auto-commenting template
+map <F2> o/* <CR>IAMROOT20 <C-R>=strftime("%Y%m%d")<CR><CR>/<ESC>
 ```
