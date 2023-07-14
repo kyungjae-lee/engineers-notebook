@@ -15,7 +15,7 @@
 ## My .vimrc
 
 ```shell
-"*******************************************************************************                                                                                                                                                                                                                                                                      
+"*******************************************************************************
 " @file     : .vimrc (Vim Run Command)
 " @brief    : Optimized for C/C++ development, but useful also for other things
 " @author   : Kyungjae Lee
