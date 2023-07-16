@@ -167,7 +167,7 @@ void DS1307_SetCurrentTime(RTC_Time_TypeDef *rtcTime)
 {
 	uint8_t secs, hrs;
 
-	/* Set seconds ************************************************************/
+	/* Set seconds -----------------------------------------------------------*/
 
 	secs = BinaryToBcd(rtcTime->seconds);
 
@@ -176,11 +176,11 @@ void DS1307_SetCurrentTime(RTC_Time_TypeDef *rtcTime)
 
 	DS1307_Write(secs, DS1307_SEC);
 
-	/* Set minutes ************************************************************/
+	/* Set minutes -----------------------------------------------------------*/
 
 	DS1307_Write(BinaryToBcd(rtcTime->minutes), DS1307_MIN);
 
-	/* Set hours **************************************************************/
+	/* Set hours -------------------------------------------------------------*/
 
 	hrs = BinaryToBcd(rtcTime->hours);
 
@@ -212,17 +212,17 @@ void DS1307_GetCurrentTime(RTC_Time_TypeDef *rtcTime)
 {
 	uint8_t secs, hrs;
 
-	/* Get seconds ************************************************************/
+	/* Get seconds -----------------------------------------------------------*/
 
 	secs = DS1307_Read(DS1307_SEC);
 	secs &= ~(0x1 << 7); 	/* Exclude unnecessary bits */
 	rtcTime->seconds = BcdToBinary(secs);
 
-	/* Get minutes ************************************************************/
+	/* Get minutes -----------------------------------------------------------*/
 
 	rtcTime->minutes = BcdToBinary(DS1307_Read(DS1307_MIN));
 
-	/* Get hours **************************************************************/
+	/* Get hours -------------------------------------------------------------*/
 
 	hrs = DS1307_Read(DS1307_HR);
 
@@ -302,8 +302,8 @@ static void DS1307_I2CPinConfig(void)
 	 */
 
 	i2cSda.pGPIOx = DS1307_I2C_GPIO_PORT;
-	i2cSda.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_ALTFCN;
 	i2cSda.GPIO_PinConfig.GPIO_PinAltFcnMode = 4;
+	i2cSda.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_ALTFCN;
 	i2cSda.GPIO_PinConfig.GPIO_PinNumber = DS1307_I2C_PIN_SDA;
 	i2cSda.GPIO_PinConfig.GPIO_PinOutType= GPIO_PIN_OUT_TYPE_OD;
 	i2cSda.GPIO_PinConfig.GPIO_PinPuPdControl = DS1307_I2C_PUPD;
@@ -312,8 +312,8 @@ static void DS1307_I2CPinConfig(void)
 	GPIO_Init(&i2cSda);
 
 	i2cScl.pGPIOx = DS1307_I2C_GPIO_PORT;
-	i2cScl.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_ALTFCN;
 	i2cScl.GPIO_PinConfig.GPIO_PinAltFcnMode = 4;
+	i2cScl.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_ALTFCN;
 	i2cScl.GPIO_PinConfig.GPIO_PinNumber = DS1307_I2C_PIN_SCL;
 	i2cScl.GPIO_PinConfig.GPIO_PinOutType= GPIO_PIN_OUT_TYPE_OD;
 	i2cScl.GPIO_PinConfig.GPIO_PinPuPdControl = DS1307_I2C_PUPD;
@@ -496,12 +496,13 @@ void LCD_Init(void)
 {
 	GPIO_Handle_TypeDef gpioPin;
 
-	/* 1. Configure the GPIO pins to be used for LCD connections **************/
+	/* 1. Configure the GPIO pins to be used for LCD connections -------------*/
 
 	/* Configure the GPIO pin to be connected to LCD RS pin */
 	gpioPin.pGPIOx = LCD_GPIO_PORT;
-	gpioPin.GPIO_PinConfig.GPIO_PinMode = LCD_PIN_RS;
-	gpioPin.GPIO_PinConfig.GPIO_PinOutType = GPIO_PIN_MODE_OUT;
+	gpioPin.GPIO_PinConfig.GPIO_PinMode = GPIO_PIN_MODE_OUT;
+	gpioPin.GPIO_PinConfig.GPIO_PinNumber = LCD_PIN_RS;
+	gpioPin.GPIO_PinConfig.GPIO_PinOutType = GPIO_PIN_OUT_TYPE_PP;
 	gpioPin.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_NO_PUPD;
 	gpioPin.GPIO_PinConfig.GPIO_PinSpeed = GPIO_PIN_OUT_SPEED_HIGH;
 	GPIO_Init(&gpioPin);
@@ -515,6 +516,7 @@ void LCD_Init(void)
 	GPIO_Init(&gpioPin);
 
 	/* Configure the GPIO pin to be connected to LCD D4 pin */
+	gpioPin.GPIO_PinConfig.GPIO_PinNumber = LCD_PIN_D4;
 	GPIO_Init(&gpioPin);
 
 	/* Configure the GPIO pin to be connected to LCD D5 pin */
@@ -538,7 +540,7 @@ void LCD_Init(void)
 	GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_PIN_D6, RESET);
 	GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_PIN_D7, RESET);
 
-	/* 2. Initialize LCD module ***********************************************
+	/* 2. Initialize LCD module ------------------------------------------------
 	 * (See 'Figure 24. 4-Bit Interface' in the LCD reference manual)
 	 */
 
@@ -559,7 +561,7 @@ void LCD_Init(void)
 
 	Write4Bits(0x3);
 
-	DelayMs(150);
+	DelayUs(150);
 
 	Write4Bits(0x3);
 	Write4Bits(0x2);
@@ -649,7 +651,7 @@ void LCD_ClearDisplay(void)
 void LCD_ReturnHome(void)
 {
 	/* Return home */
-	Write4Bits(LCD_INST_RETURN_HOME);
+	LCD_TxInstruction(LCD_INST_RETURN_HOME);
 
 	DelayMs(2);	/* Wait 2 ms as per the datasheet */
 } /* End of LCD_ReturnHome */
@@ -690,7 +692,7 @@ void LCD_SetCursor(uint8_t row, uint8_t column)
 		LCD_TxInstruction((column |= 0x80));
 		break;
 	case 2:
-		/* Set cusor to 2nd row address and add index */
+		/* Set cursor to 2nd row address and add index */
 		LCD_TxInstruction((column |= 0xC0));
 		break;
 	default:
@@ -763,9 +765,8 @@ static void Write4Bits(uint8_t nibble)
 static void LCD_Enable(void)
 {
 	GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_PIN_EN, SET);
-	DelayMs(10);
+	DelayUs(10);
 	GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_PIN_EN, RESET);
-	DelayMs(10);
-
+	DelayUs(100);
 } /* End of LCD_Enable */
 ```
