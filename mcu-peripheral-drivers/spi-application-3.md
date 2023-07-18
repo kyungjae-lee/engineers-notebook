@@ -164,11 +164,10 @@ Path: `Project/Src/`
 
 ```c
 /*******************************************************************************
- * Filename		: spi_03_master_tx_rx_blocking.c
- * Description	: Program to test SPI master-slave Tx/Rx functionality (blocking)
- * Author		: Kyungjae Lee
- * History 		: Jun 03, 2023 - Created file
- * 				  Jun 23, 2023 - Refactored code for consistency
+ * File		: spi_03_master_tx_rx_blocking.c
+ * Brief	: Program to test SPI master-slave Tx/Rx functionality (blocking)
+ * Author	: Kyungjae Lee
+ * Date		: Jun 03, 2023
  ******************************************************************************/
 
 /**
@@ -206,9 +205,9 @@ Path: `Project/Src/`
 
 /**
  * delay()
- * Desc.	: Spinlock delays the program execution
- * Param.	: None
- * Return	: None
+ * Brief	: Spinlock delays the program execution
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void delay(void)
@@ -219,9 +218,9 @@ void delay(void)
 
 /**
  * SPI2_PinsInit()
- * Desc.	: Initializes and configures GPIO pins to be used as SPI2 pins
- * Param.	: None
- * Return	: None
+ * Brief	: Initializes and configures GPIO pins to be used as SPI2 pins
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void SPI2_PinsInit(void)
@@ -263,9 +262,9 @@ void SPI2_PinsInit(void)
 
 /**
  * SPI2_Init()
- * Desc.	: Creates an SPI2Handle and initializes SPI2 peripheral parameters
- * Param.	: None
- * Return	: None
+ * Brief	: Creates an SPI2Handle and initializes SPI2 peripheral parameters
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void SPI2_Init(void)
@@ -295,9 +294,9 @@ void SPI2_Init(void)
 
 /**
  * GPIO_ButtonInit()
- * Desc.	: Initializes a GPIO pin for button
- * Param.	: None
- * Return	: None
+ * Brief	: Initializes a GPIO pin for button
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void GPIO_ButtonInit(void)
@@ -325,9 +324,9 @@ void GPIO_ButtonInit(void)
 
 /**
  * GPIO_LEDInit()
- * Desc.	: Initializes a GPIO pin for LED
- * Param.	: None
- * Return	: None
+ * Brief	: Initializes a GPIO pin for LED
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void GPIO_LEDInit(void)
@@ -355,9 +354,9 @@ void GPIO_LEDInit(void)
 
 /**
  * SPI_VerifyResponse()
- * Desc.	: Verifies response from the slave (Arduino)
- * Param.	: @ackByte - response from slave
- * Returns	: 1 if response was ACK, 0 otherwise
+ * Brief	: Verifies response from the slave (Arduino)
+ * Param	: @ackByte - response from slave
+ * Retval	: 1 if response was ACK, 0 otherwise
  * Note		: N/A
  */
 uint8_t SPI_VerifyResponse(uint8_t ackByte)
@@ -369,6 +368,7 @@ uint8_t SPI_VerifyResponse(uint8_t ackByte)
 	else
 		return 0;
 } /* End of SPI_VerifyResponse */
+
 
 int main(int argc, char *argv[])
 {
@@ -417,7 +417,7 @@ int main(int argc, char *argv[])
 		/* Enable SPI2 peripheral (Set SPI_CR1 bit[6] SPE - Peripheral enabled) */
 		SPI_PeriControl(SPI2, ENABLE);
 
-		/* 1. CMD_LED_CTRL <pin no(1)> <value(1)> *****************************/
+		/* 1. CMD_LED_CTRL <pin no(1)> <value(1)> ----------------------------*/
 
 		uint8_t cmdCode = CMD_LED_CTRL;
 		uint8_t ackByte;
@@ -460,7 +460,7 @@ int main(int argc, char *argv[])
 		}
 		/* End of CMD_LED_CTRL */
 
-		/* 2. CMD_SENSOR_READ <analog pin number(1)> **************************/
+		/* 2. CMD_SENSOR_READ <analog pin number(1)> -------------------------*/
 
 		/* Wait until button is pressed */
 		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));
@@ -502,6 +502,7 @@ int main(int argc, char *argv[])
 			/* Send arguments */
 			SPI_TxBlocking(SPI2, args, 1);
 
+
 			/* Dummy read to clear the RXNE bit */
 			SPI_RxBlocking(SPI2, &dummyRead, 1);
 
@@ -528,7 +529,7 @@ int main(int argc, char *argv[])
 		}
 		/* End of CMD_SENSOR_READ */
 
-		/* 3. CMD_LED_READ <pin no(1)> ****************************************/
+		/* 3. CMD_LED_READ <pin no(1)> ---------------------------------------*/
 
 		/* Wait until button is pressed */
 		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));
@@ -595,7 +596,7 @@ int main(int argc, char *argv[])
 		}
 		/* End of CMD_LED_READ */
 
-		/* 4. CMD_PRINT <len(2)> <message(len)> *******************************/
+		/* 4. CMD_PRINT <len(2)> <message(len)> ------------------------------*/
 
 		/* Wait until button is pressed */
 		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));
@@ -658,7 +659,7 @@ int main(int argc, char *argv[])
 		}
 		/* End of CMD_PRINT */
 
-		/* 5. CMD_ID_READ *****************************************************/
+		/* 5. CMD_ID_READ ----------------------------------------------------*/
 
 		/* Wait until button is pressed */
 		while (!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_0));

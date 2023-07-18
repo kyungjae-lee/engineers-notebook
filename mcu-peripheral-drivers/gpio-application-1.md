@@ -19,21 +19,28 @@
 Path: `Project/Src/`
 
 ```c
-/**
- * Filename		: gpio_01_led_toggle_pushpull.c
- * Description	: Program to toggle the on-board LED (Push-pull config for output pin)
- * Author		: Kyungjae Lee
- * History		: May 23, 2023 - Created file
- * 				  Jun 02, 2023 - Removed redundant 'GPIO_PeriClockControl()'
- */
+/*******************************************************************************
+ * File		: gpio_01_led_toggle_pushpull.c
+ * Brief	: Program to toggle the on-board LED
+ 			  (Push-pull config for output pin)
+ * Author	: Kyungjae Lee
+ * Date		: May 23, 2023
+ ******************************************************************************/
 
 #include "stm32f407xx.h"
 
-/* Spinlock delay */
+/**
+ * delay()
+ * Brief	: Spinlock delays the program execution
+ * Param	: None
+ * Retval	: None
+ * Note		: N/A
+ */
 void delay(void)
 {
+	/* Appoximately ~200ms delay when the system clock freq is 16 MHz */
 	for (uint32_t i = 0; i < 500000 / 2; i++);
-}
+} /* End of delay */
 
 int main(int argc, char *argv[])
 {
@@ -55,7 +62,7 @@ int main(int argc, char *argv[])
 	}
 
 	return 0;
-}
+} /* End of main */
 ```
 
 
@@ -65,27 +72,29 @@ int main(int argc, char *argv[])
 Path: `Project/Src/`
 
 ```c
-/**
- * Filename		: gpio_01_led_toggle_opendrain.c
- * Description	: Program to toggle the on-board LED (Open-drain config for output pin)
- * Author		: Kyungjae Lee
- * History		: May 23, 2023 - Created file
- */
+/*******************************************************************************
+ * File		: gpio_01_led_toggle_opendrain.c
+ * Brief	: Program to toggle the on-board LED
+ * 			  (Open-drain config for output pin)
+ * Author	: Kyungjae Lee
+ * Date		: May 23, 2023
+ ******************************************************************************/
 
 #include "stm32f407xx.h"
 
 /**
  * delay()
- * Desc.	: Spinlock delays the program execution
- * Param.	: None
- * Returns	: None
+ * Brief	: Spinlock delays the program execution
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void delay(void)
 {
 	/* Appoximately ~200ms delay when the system clock freq is 16 MHz */
 	for (uint32_t i = 0; i < 500000 / 2; i++);
-}
+} /* End of delay */
+
 
 int main(int argc, char *argv[])
 {
@@ -115,6 +124,6 @@ int main(int argc, char *argv[])
 	}
 
 	return 0;
-}
+} /* End of main */
 ```
 

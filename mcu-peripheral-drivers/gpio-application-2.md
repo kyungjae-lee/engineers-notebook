@@ -18,12 +18,13 @@
 Path: `Project/Src/`
 
 ```c
-/**
- * Filename		: gpio_02_led_toggle_with_button.c
- * Description	: Program to toggle the on-board LED whenever the on-board button is pressed
- * Author		: Kyungjae Lee
- * History		: May 23, 2023 - Created file
- */
+/*******************************************************************************
+ * File		: gpio_02_led_toggle_with_button.c
+ * Brief	: Program to toggle the on-board LED whenever the on-board button is
+ * 			  pressed
+ * Author	: Kyungjae Lee
+ * Date		: May 23, 2023
+ ******************************************************************************/
 
 #include "stm32f407xx.h"
 
@@ -32,16 +33,17 @@ Path: `Project/Src/`
 
 /**
  * delay()
- * Desc.	: Spinlock delays the program execution
- * Param.	: None
- * Returns	: None
+ * Brief	: Spinlock delays the program execution
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void delay(void)
 {
 	/* Appoximately ~200ms delay when the system clock freq is 16 MHz */
 	for (uint32_t i = 0; i < 500000 / 2; i++);
-}
+} /* End of delay */
+
 
 int main(int argc, char *argv[])
 {
@@ -66,7 +68,6 @@ int main(int argc, char *argv[])
 		/* External pull-down resistor is already present (see the schematic) */
 	GPIO_Init(&GPIOBtn);
 
-
 	while (1)
 	{
 		if (GPIO_ReadFromInputPin(GPIOBtn.pGPIOx, GPIOBtn.GPIO_PinConfig.GPIO_PinNumber) == BTN_PRESSED)
@@ -77,5 +78,5 @@ int main(int argc, char *argv[])
 	}
 
 	return 0;
-}
+} /* End of main */
 ```

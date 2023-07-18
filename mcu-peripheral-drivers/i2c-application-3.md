@@ -95,10 +95,10 @@ Path: `Project/Src/`
 
 ```c
 /*******************************************************************************
- * Filename		: i2c_03_master_rx_interrupt.c
- * Description	: Program to test I2C master's Rx (interrupt) functionality
- * Author		: Kyungjae Lee
- * History 		: Jun 15, 2023 - Created file
+ * File		: i2c_03_master_rx_interrupt.c
+ * Brief	: Program to test I2C master's Rx (interrupt) functionality
+ * Author	: Kyungjae Lee
+ * Date		: Jun 15, 2023
  ******************************************************************************/
 
 /**
@@ -122,9 +122,9 @@ uint8_t rxCmplt = RESET;
 
 /**
  * delay()
- * Desc.	: Spinlock delays the program execution
- * Param.	: None
- * Returns	: None
+ * Brief	: Spinlock delays the program execution
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void delay(void)
@@ -135,9 +135,9 @@ void delay(void)
 
 /**
  * I2C1_PinsInit()
- * Desc.	: Initializes and configures GPIO pins to be used as I2C1 pins
- * Param.	: None
- * Returns	: None
+ * Brief	: Initializes and configures GPIO pins to be used as I2C1 pins
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void I2C1_PinsInit(void)
@@ -162,9 +162,9 @@ void I2C1_PinsInit(void)
 
 /**
  * I2C1_Init()
- * Desc.	: Creates an SPI2Handle initializes SPI2 peripheral parameters
- * Param.	: None
- * Returns	: None
+ * Brief	: Creates an SPI2Handle initializes SPI2 peripheral parameters
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void I2C1_Init(void)
@@ -186,9 +186,9 @@ void I2C1_Init(void)
 
 /**
  * GPIO_ButtonInit()
- * Desc.	: Initializes a GPIO pin for button
- * Param.	: None
- * Returns	: None
+ * Brief	: Initializes a GPIO pin for button
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void GPIO_ButtonInit(void)
@@ -307,9 +307,9 @@ int main(int argc, char *argv[])
 
 /**
  * I2C1_ER_IRQHandler()
- * Desc.	: Handles I2C error IRQ
- * Param.	: None
- * Return	: None
+ * Brief	: Handles I2C error IRQ
+ * Param	: None
+ * Retval	: None
  * Note		: This function calls 'I2C_ER_IRQHandling()' function which
  * 			  implements the actual error IRQ handling functionality.
  */
@@ -320,9 +320,9 @@ void I2C1_ER_IRQHandler(void)
 
 /**
  * I2C1_EV_IRQHandler()
- * Desc.	: Handles I2C event IRQ
- * Param.	: None
- * Return	: None
+ * Brief	: Handles I2C event IRQ
+ * Param	: None
+ * Retval	: None
  * Note		: This function calls 'I2C_EV_IRQHandling()' function which
  * 			  implements the actual event IRQ handling functionality.
  */
@@ -333,10 +333,10 @@ void I2C1_EV_IRQHandler(void)
 
 /**
  * I2C_ApplicationEventCallback()
- * Desc.	: Notifies the application of the event occurred
- * Param.	: @pSPIHandle - pointer to SPI handle structure
+ * Brief	: Notifies the application of the event occurred
+ * Param	: @pSPIHandle - pointer to SPI handle structure
  * 			  @appEvent - SPI event occurred
- * Returns	: None
+ * Retval	: None
  * Note		: N/A
  */
 void I2C_ApplicationEventCallback(I2C_Handle_TypeDef *pI2CHandle, uint8_t appEvent)

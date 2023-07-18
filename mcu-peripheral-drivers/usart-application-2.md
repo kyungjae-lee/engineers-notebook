@@ -94,13 +94,13 @@ Path: `Project/Src/`
 
 ```c
 /*******************************************************************************
- * Filename		: usasrt_02_tx_rx_interrupt.c
- * Description	: Program to test USART Tx and Rx (both blocking-based and
- * 				  interrupt-based) functionalities.
- * 				  Test all possible cases using blocking/interrupt-based
- * 				  Tx and Rx APIs.
- * Author		: Kyungjae Lee
- * History 		: Jun 21, 2023 - Created file
+ * File		: usasrt_02_tx_rx_interrupt.c
+ * Brief	: Program to test USART Tx and Rx (both blocking-based and
+ * 			  interrupt-based) functionalities.
+ * 			  Test all possible cases using blocking/interrupt-based Tx and Rx
+ * 			  APIs.
+ * Author	: Kyungjae Lee
+ * Date		: Jun 21, 2023
  ******************************************************************************/
 
 /**
@@ -114,9 +114,7 @@ Path: `Project/Src/`
 #include <stdio.h> 			/* printf() */
 #include "stm32f407xx.h"
 
-/**
- * Global variables
- */
+/* Global variables */
 
 /* Messages to transmit to Arduino board */
 char* msg[3] = {"hello world", "my name is", "kyungjae lee!"};
@@ -129,9 +127,9 @@ uint8_t rxCmplt = RESET;
 
 /**
  * delay()
- * Desc.	: Spinlock delays the program execution
- * Param.	: None
- * Returns	: None
+ * Brief	: Spinlock delays the program execution
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void delay(void)
@@ -142,9 +140,9 @@ void delay(void)
 
 /**
  * USART2_PinsInit()
- * Desc.	: Initializes and configures GPIO pins to be used as USART2 pins
- * Param.	: None
- * Returns	: None
+ * Brief	: Initializes and configures GPIO pins to be used as USART2 pins
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void USART2_PinsInit(void)
@@ -177,9 +175,9 @@ void USART2_PinsInit(void)
 
 /**
  * USART2_Init()
- * Desc.	: Initializes USART2 handle
- * Param.	: None
- * Returns	: None
+ * Brief	: Initializes USART2 handle
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void USART2_Init(void)
@@ -197,9 +195,9 @@ void USART2_Init(void)
 
 /**
  * GPIO_ButtonInit()
- * Desc.	: Initializes a GPIO pin for button
- * Param.	: None
- * Returns	: None
+ * Brief	: Initializes a GPIO pin for button
+ * Param	: None
+ * Retval	: None
  * Note		: N/A
  */
 void GPIO_ButtonInit(void)
@@ -290,9 +288,9 @@ int main(int argc, char *argv[])
 
 /**
  * USART2_IRQHandler()
- * Desc.	: Handles USART IRQ
- * Param.	: None
- * Return	: None
+ * Brief	: Handles USART IRQ
+ * Param	: None
+ * Retval	: None
  * Note		: This function calls 'USART_IRQHandling()' function which
  * 			  implements the actual event IRQ handling functionality.
  */
@@ -303,10 +301,10 @@ void USART2_IRQHandler(void)
 
 /**
  * USART_ApplicationEventCallback()
- * Desc.	: Notifies the application of the event occurred
- * Param.	: @pUSARTHandle - pointer to USART handle structure
+ * Brief	: Notifies the application of the event occurred
+ * Param	: @pUSARTHandle - pointer to USART handle structure
  * 			  @appEvent - USART event occurred
- * Returns	: None
+ * Retval	: None
  * Note		: Contents of this function depends on the USART transactions used
  * 			  in the application.
  */
