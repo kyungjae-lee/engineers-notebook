@@ -57,11 +57,14 @@ Path: `Project/Drivers/Inc/`
 
 ```c
 /*******************************************************************************
- * Filename		: stm32f407xx_usart_driver.h
- * Description	: STM32F407xx MCU specific USART driver header file
- * Author		: Kyungjae Lee
- * History		: Jun 20, 2023 - Created file
- ******************************************************************************/
+ * File		: stm32f407xx_usart_driver.h
+ * Brief	: STM32F407xx MCU specific USART driver header file
+ * Author	; Kyungjae Lee
+ * Date		: Jun 20, 2023
+ *
+ * Note		: This code includes only the features that are necessary for my
+ * 			  personal projects.
+ * ****************************************************************************/
 
 #ifndef STM32F407XX_USART_DRIVER_H
 #define STM32F407XX_USART_DRIVER_H
@@ -69,10 +72,11 @@ Path: `Project/Drivers/Inc/`
 #include "stm32f407xx.h"
 
 /*******************************************************************************
- * USART peripheral structures
+ * APIs supported by the USART driver
+ * (See function definitions for more information)
  ******************************************************************************/
 
-/* USART peripheral configuration structure */
+/* USARTx peripheral configuration structure */
 typedef struct
 {
 	uint8_t USART_Mode;				/* Available values @USART_Mode 		 */
@@ -83,15 +87,15 @@ typedef struct
 	uint8_t USART_HWFlowControl;	/* Available values @USART_HWFlowControl */
 } USART_Config_TypeDef;
 
-/* USART peripheral handle structure */
+/* USARTx peripheral handle structure */
 typedef struct
 {
 	USART_TypeDef 			*pUSARTx;	/* Base address of USARTx(x:1,2,3) 	*/
 	USART_Config_TypeDef 	USART_Config;
 	uint8_t 				*pTxBuffer;	/* Application Tx buffer address 	*/
 	uint8_t 				*pRxBuffer;	/* Application Rx buffer address 	*/
-	uint32_t 				TxLen;		/* Length of data left to trasmit	*/
-	uint32_t 				RxLen;		/* Length of data left to receive	*/
+	uint32_t				TxLen;		/* Number of bytes left to transmit */
+	uint32_t				RxLen;		/* Number of bytes left to receive	*/
 	uint8_t 				TxBusyState;/* Available values @TxRxBusyState	*/
 	uint8_t 				RxBusyState;/* Available values @TxRxBusyState	*/
 } USART_Handle_TypeDef;
@@ -233,14 +237,16 @@ Path: `Project/Drivers/Src/`
 
 ```c
 /*******************************************************************************
- * Filename		: stm32f407xx_usart_driver.c
- * Description	: STM32F407xx MCU specific USART driver source file
- * Author		: Kyungjae Lee
- * History		: Jun 20, 2023 - Created file
- ******************************************************************************/
+ * File		: stm32f407xx_usart_driver.c
+ * Brief	: STM32F407xx MCU specific USART driver source file
+ * Author	; Kyungjae Lee
+ * Date		: Jun 20, 2023
+ *
+ * Note		: This code includes only the features that are necessary for my
+ * 			  personal projects.
+ * ****************************************************************************/
 
 #include "stm32f407xx.h"
-
 
 /*******************************************************************************
  * APIs supported by the I2C driver
@@ -249,10 +255,10 @@ Path: `Project/Drivers/Src/`
 
 /**
  * USART_PeriClockControl()
- * Desc.	: Enables or disables USART peripheral clock
- * Param.	: @pUSARTx - base address of USARTx peripheral
+ * Brief	: Enables or disables USART peripheral clock
+ * Param	: @pUSARTx - base address of USARTx peripheral
  * 			  @state - ENABLE or DISABLE macro
- * Return	: None
+ * Retval	: None
  * Note		: N/A
  */
 void USART_PeriClockControl(USART_TypeDef *pUSARTx, uint8_t state)
@@ -291,9 +297,9 @@ void USART_PeriClockControl(USART_TypeDef *pUSARTx, uint8_t state)
 
 /**
  * USART_Init()
- * Desc.	: Initializes USART peripheral
- * Param.	: @pUSARTHandle - pointer to USART handle structure
- * Return	: None
+ * Brief	: Initializes USART peripheral
+ * Param	: @pUSARTHandle - pointer to USART handle structure
+ * Retval	: None
  * Note		: N/A
  */
 void USART_Init(USART_Handle_TypeDef *pUSARTHandle)
@@ -301,7 +307,7 @@ void USART_Init(USART_Handle_TypeDef *pUSARTHandle)
 	/* Temporary variable */
 	uint32_t temp = 0;
 
-	/* Configure USART_CR1 ****************************************************/
+	/* Configure USART_CR1 ---------------------------------------------------*/
 
 	/* Enable USART peripheral clock */
 	USART_PeriClockControl(pUSARTHandle->pUSARTx, ENABLE);
@@ -351,7 +357,7 @@ void USART_Init(USART_Handle_TypeDef *pUSARTHandle)
 	/* Write to USART_CR1 register */
 	pUSARTHandle->pUSARTx->CR1 = temp;
 
-	/* Configure USART_CR2 ****************************************************/
+	/* Configure USART_CR2 ---------------------------------------------------*/
 
 	temp = 0;
 
@@ -361,7 +367,7 @@ void USART_Init(USART_Handle_TypeDef *pUSARTHandle)
 	/* Write to USART_CR2 register */
 	pUSARTHandle->pUSARTx->CR2 = temp;
 
-	/* Configure USART_CR3 ****************************************************/
+	/* Configure USART_CR3 ---------------------------------------------------*/
 
 	temp = 0;
 
@@ -386,7 +392,7 @@ void USART_Init(USART_Handle_TypeDef *pUSARTHandle)
 	/* Write to USART_CR3 register */
 	pUSARTHandle->pUSARTx->CR3 = temp;
 
-	/* Configure USART_BRR (Baud rate register) *******************************/
+	/* Configure USART_BRR (Baud rate register) ------------------------------*/
 
 	/* Configure baudrate */
 	USART_SetBaudRate(pUSARTHandle->pUSARTx, pUSARTHandle->USART_Config.USART_Baud);
@@ -395,9 +401,9 @@ void USART_Init(USART_Handle_TypeDef *pUSARTHandle)
 
 /**
  * USART_DeInit()
- * Desc.	: Deinitializes USART peripheral
- * Param.	: @pUSARTx - base address of USARTx peripheral
- * Return	: None
+ * Brief	: Deinitializes USART peripheral
+ * Param	: @pUSARTx - base address of USARTx peripheral
+ * Retval	: None
  * Note		: N/A
  */
 void USART_DeInit(USART_TypeDef *pUSARTx)
@@ -407,11 +413,11 @@ void USART_DeInit(USART_TypeDef *pUSARTx)
 
 /**
  * USART_TxBlocking()
- * Desc.	: Handles blocking-based USART transmission
- * Param.	: @pUSARTHandle - pointer to USART handle structure
+ * Brief	: Handles blocking-based USART transmission
+ * Param	: @pUSARTHandle - pointer to USART handle structure
  * 			  @pTxBuffer - pointer to Tx buffer
  * 			  @len -
- * Return	: None
+ * Retval	: None
  * Note		: N/A
  */
 void USART_TxBlocking(USART_Handle_TypeDef *pUSARTHandle, uint8_t *pTxBuffer, uint32_t len)
@@ -470,11 +476,11 @@ void USART_TxBlocking(USART_Handle_TypeDef *pUSARTHandle, uint8_t *pTxBuffer, ui
 
 /**
  * USART_RxBlocking()
- * Desc.	: Handles blocking-based USART reception
- * Param.	: @pUSARTHandle - pointer to USART handle structure
+ * Brief	: Handles blocking-based USART reception
+ * Param	: @pUSARTHandle - pointer to USART handle structure
  * 			  @pRxBuffer - pointer to Rx buffer
  * 			  @len -
- * Return	: None
+ * Retval	: None
  * Note		: N/A
  */
 void USART_RxBlocking(USART_Handle_TypeDef *pUSARTHandle, uint8_t *pRxBuffer, uint32_t len)
@@ -525,11 +531,11 @@ void USART_RxBlocking(USART_Handle_TypeDef *pUSARTHandle, uint8_t *pRxBuffer, ui
 
 /**
  * USART_TxInterrupt()
- * Desc.	: Handles interrupt-based USART transmission
- * Param.	: @pUSARTHandle - pointer to USART handle structure
+ * Brief	: Handles interrupt-based USART transmission
+ * Param	: @pUSARTHandle - pointer to USART handle structure
  * 			  @pTxBuffer - pointer to Tx buffer
  * 			  @len -
- * Return	: None
+ * Retval	: None
  * Note		: N/A
  */
 uint8_t USART_TxInterrupt(USART_Handle_TypeDef *pUSARTHandle, uint8_t *pTxBuffer, uint32_t len)
@@ -554,11 +560,11 @@ uint8_t USART_TxInterrupt(USART_Handle_TypeDef *pUSARTHandle, uint8_t *pTxBuffer
 
 /**
  * USART_RxInterrupt()
- * Desc.	: Handles interrupt-based USART reception
- * Param.	: @pUSARTHandle - pointer to USART handle structure
+ * Brief	: Handles interrupt-based USART reception
+ * Param	: @pUSARTHandle - pointer to USART handle structure
  * 			  @pTxBuffer - pointer to Tx buffer
  * 			  @len -
- * Return	: None
+ * Retval	: None
  * Note		: N/A
  */
 uint8_t USART_RxInterrupt(USART_Handle_TypeDef *pUSARTHandle, uint8_t *pRxBuffer, uint32_t len)
@@ -582,10 +588,10 @@ uint8_t USART_RxInterrupt(USART_Handle_TypeDef *pUSARTHandle, uint8_t *pRxBuffer
 
 /**
  * USART_IRQInterruptConfig()
- * Desc.	: Enables or disables USART interrupts
- * Param.	: @irqNumber - IRQ number
+ * Brief	: Enables or disables USART interrupts
+ * Param	: @irqNumber - IRQ number
  * 			  @state - ENABLE or DISABLE macro
- * Return	: None
+ * Retval	: None
  * Note		: N/A
  */
 void USART_IRQInterruptConfig(uint8_t irqNumber, uint8_t state)
@@ -614,13 +620,13 @@ void USART_IRQInterruptConfig(uint8_t irqNumber, uint8_t state)
 
 /**
  * USART_IRQPriorityConfig()
- * Desc.	: Configures USART IRQ interrupt priorities
- * Param.	: @irqNumber - IRQ number
+ * Brief	: Configures USART IRQ interrupt priorities
+ * Param	: @irqNumber - IRQ number
  * 			  @irqPriotity - IRQ priority (Make sure this parameter is of
  * 			  				 type uint32_t. Due to the number of bits it
  * 			  				 needs to be shifted during the calculation,
  * 							 declaring it as uint8_t did not do its job.
- * Return	: None
+ * Retval	: None
  * Note		: N/A
  */
 void USART_IRQPriorityConfig(uint8_t irqNumber, uint32_t irqPriority)
@@ -634,9 +640,9 @@ void USART_IRQPriorityConfig(uint8_t irqNumber, uint32_t irqPriority)
 
 /**
  * USART_IRQHandling()
- * Desc.	: Handles USART event IRQ
- * Param.	: @pUSARTHandle - pointer to USART handle structure
- * Return	: None
+ * Brief	: Handles USART event IRQ
+ * Param	: @pUSARTHandle - pointer to USART handle structure
+ * Retval	: None
  * Note		: This function will first decode the event that occurred, and
  * 			  handle the event accordingly.
  * 			  The compiler will generate unused variable for 'temp3'. (In
@@ -649,7 +655,7 @@ void USART_IRQHandling(USART_Handle_TypeDef *pUSARTHandle)
 	uint32_t temp1, temp2, temp3;
 	uint16_t *pData;
 
-	/* Check for TC (Transmission Complete) flag ******************************/
+	/* Check for TC (Transmission Complete) flag -----------------------------*/
 
 	/* Check the state of TC bit in SR */
 	temp1 = pUSARTHandle->pUSARTx->SR & (0x1 << USART_SR_TC);
@@ -687,7 +693,7 @@ void USART_IRQHandling(USART_Handle_TypeDef *pUSARTHandle)
 		}
 	}
 
-	/* Check for TXE (Transmit data register Empty) flag **********************/
+	/* Check for TXE (Transmit data register Empty) flag ---------------------*/
 
 	/* Check the state of TXE bit in SR */
 	temp1 = pUSARTHandle->pUSARTx->SR & (0x1 << USART_SR_TXE);
@@ -748,7 +754,7 @@ void USART_IRQHandling(USART_Handle_TypeDef *pUSARTHandle)
 		}
 	}
 
-	/* Check for RXNE flag ****************************************************/
+	/* Check for RXNE flag ---------------------------------------------------*/
 
 	temp1 = pUSARTHandle->pUSARTx->SR & (0x1 << USART_SR_RXNE);
 	temp2 = pUSARTHandle->pUSARTx->CR1 & (0x1 << USART_CR1_RXNEIE);
@@ -825,7 +831,7 @@ void USART_IRQHandling(USART_Handle_TypeDef *pUSARTHandle)
 		}
 	}
 
-	/* Check for CTS flag *****************************************************/
+	/* Check for CTS flag ----------------------------------------------------*/
 	/* Note: CTS feature is not applicable for UART4 and UART5 */
 
 	/* Check the state of CTS bit in SR */
@@ -846,7 +852,7 @@ void USART_IRQHandling(USART_Handle_TypeDef *pUSARTHandle)
 		USART_ApplicationEventCallback(pUSARTHandle, USART_EV_CTS);
 	}
 
-	/* Check for IDLE detection flag ******************************************/
+	/* Check for IDLE detection flag -----------------------------------------*/
 
 	/* Check the state of IDLE bit in SR */
 	temp1 = pUSARTHandle->pUSARTx->SR & (0x1 << USART_SR_IDLE);
@@ -863,7 +869,7 @@ void USART_IRQHandling(USART_Handle_TypeDef *pUSARTHandle)
 		USART_ApplicationEventCallback(pUSARTHandle, USART_EV_IDLE);
 	}
 
-	/* Check for Overrun detection flag ***************************************/
+	/* Check for Overrun detection flag --------------------------------------*/
 
 	/* Check the state of ORE flag in SR */
 	temp1 = pUSARTHandle->pUSARTx->SR & USART_SR_ORE;
@@ -881,7 +887,7 @@ void USART_IRQHandling(USART_Handle_TypeDef *pUSARTHandle)
 		USART_ApplicationEventCallback(pUSARTHandle, USART_ER_ORE);
 	}
 
-	/* Check for Error flag ***************************************************/
+	/* Check for Error flag --------------------------------------------------*/
 	/* Note: Noise flag, overrun error and framing error in multibuffer
 	 *		 communication. Multibuffer communication is not dealt in this
 	 *		 driver. Please refer to the MCU reference manual.
@@ -922,10 +928,10 @@ void USART_IRQHandling(USART_Handle_TypeDef *pUSARTHandle)
 
 /**
  * USART_PeriClockControl()
- * Desc.	: Enables or disables USART peripheral
- * Param.	: @pUSARTx - base address of USARTx peripheral
+ * Brief	: Enables or disables USART peripheral
+ * Param	: @pUSARTx - base address of USARTx peripheral
  * 			  @state - ENABLE or DISABLE macro
- * Return	: None
+ * Retval	: None
  * Note		: N/A
  */
 void USART_PeriControl(USART_TypeDef *pUSARTx, uint8_t state)
@@ -942,10 +948,10 @@ void USART_PeriControl(USART_TypeDef *pUSARTx, uint8_t state)
 
 /**
  * USART_SetBaudRate()
- * Desc.	: Sets the baurate for USART communication
- * Param.	: @pUSARTx - base address of USARTx peripheral
+ * Brief	: Sets the baurate for USART communication
+ * Param	: @pUSARTx - base address of USARTx peripheral
  * 			  @baudrate - baudrate in bps
- * Return	: None
+ * Retval	: None
  * Note		: N/A
  */
 void USART_SetBaudRate(USART_TypeDef *pUSARTx, uint32_t baudrate)
@@ -1009,10 +1015,10 @@ void USART_SetBaudRate(USART_TypeDef *pUSARTx, uint32_t baudrate)
 
 /**
  * USART_ApplicationEventCallback()
- * Desc.	: Notifies the application of the event occurred
- * Param.	: @pUSARTHandle - pointer to USART handle structure
+ * Brief	: Notifies the application of the event occurred
+ * Param	: @pUSARTHandle - pointer to USART handle structure
  * 			  @appEvent - USART event occurred
- * Returns	: None
+ * Retval	: None
  * Note		: This function must be implemented by the application. Since the driver
  * 			  does not know in which application this function will be implemented,
  * 			  the driver defines it as a weak function. The application may override

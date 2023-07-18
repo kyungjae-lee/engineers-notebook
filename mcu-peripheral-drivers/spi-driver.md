@@ -41,20 +41,25 @@ Path: `Project/Drivers/Inc/`
 
 ```c
 /*******************************************************************************
- * Filename		: stm32f407xx_spi_driver.h
- * Description	: STM32F407xx MCU specific SPI driver header file
- * Author		: Kyungjae Lee
- * History		: May 21, 2023 - Created file
- ******************************************************************************/
+ * File		: stm32f407xx_spi_driver.h
+ * Brief	: STM32F407xx MCU specific SPI driver header file
+ * Author	; Kyungjae Lee
+ * Date		: May 21, 2023
+ *
+ * Note		: This code includes only the features that are necessary for my
+ * 			  personal projects.
+ * ****************************************************************************/
 
 #ifndef STM32F407XX_SPI_DRIVER_H
 #define STM32F407XX_SPI_DRIVER_H
 
 #include "stm32f407xx.h"
 
-/**
- * SPIx peripheral configuration structure
- */
+/*******************************************************************************
+ * SPIx peripheral structures
+ ******************************************************************************/
+
+/* SPIx peripheral configuration structure */
 typedef struct
 {
 	uint8_t SPI_DeviceMode;		/* Available values @SPI_DeviceMode 		*/
@@ -66,17 +71,15 @@ typedef struct
 	uint8_t SPI_SSM;			/* Available values @SPI_SSM		 		*/
 } SPI_Config_TypeDef;
 
-/**
- * SPIx peripheral handle structure
- */
+/* SPIx peripheral handle structure */
 typedef struct
 {
-	SPI_TypeDef 		*pSPIx;	/* Holds the base address of the SPIx(x:0,1,2) peripheral */
-	SPI_Config_TypeDef 	SPI_Config;
+	SPI_TypeDef 		*pSPIx;		/* Holds the base address of the SPIx(x:0,1,2) peripheral */
+	SPI_Config_TypeDef 	SPI_Config;	/* SPIx peripheral configuration structure */
 	uint8_t	volatile	*pTxBuffer;	/* App's Tx buffer address */
 	uint8_t	volatile	*pRxBuffer;	/* App's Rx buffer address */
-	uint32_t			TxLen;
-	uint32_t			RxLen;
+	uint32_t			TxLen;		/* Number of bytes left to transmit */
+	uint32_t			RxLen;		/* Number of bytes left to receive */
 	uint8_t				TxState;	/* Available values @SPI_ApplicationStateus */
 	uint8_t				RxState;	/* Available values @SPI_ApplicationStateus */
 } SPI_Handle_TypeDef;
@@ -153,9 +156,10 @@ typedef struct
 #define SPI_SSM_EN						1
 
 
-/*****************************************************************************************
- * APIs supported by the SPI driver (See function definitions for more information)
- ****************************************************************************************/
+/*******************************************************************************
+ * APIs supported by the SPI driver
+ * (See function definitions for more information)
+ ******************************************************************************/
 
 /**
  * Peripheral clock setup
@@ -217,13 +221,15 @@ void SPI_ApplicationEventCallback(SPI_Handle_TypeDef *pSPIHandle, uint8_t appEve
 Path: `Project/Drivers/Src/`
 
 ```c
-/**
- * Filename		: stm32f407xx_spi_driver.c
- * Description	: STM32F407xx MCU specific SPI driver source file
- * Author		: Kyungjae Lee
- * History		: May 27, 2023 - Created file
- * 				  Jun 23, 2023 - Refactored code
- */
+/*******************************************************************************
+ * File		: stm32f407xx_spi_driver.c
+ * Brief	: STM32F407xx MCU specific SPI driver source file
+ * Author	; Kyungjae Lee
+ * Date		: May 21, 2023
+ *
+ * Note		: This code includes only the features that are necessary for my
+ * 			  personal projects.
+ * ****************************************************************************/
 
 #include "stm32f407xx.h"
 
@@ -232,16 +238,17 @@ static void SPI_TXE_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle);
 static void SPI_RXNE_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle);
 static void SPI_OVR_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle);
 
-/*****************************************************************************************
- * APIs supported by the SPI driver (See function definitions for more information)
- ****************************************************************************************/
+/*******************************************************************************
+ * APIs supported by the SPI driver
+ * (See function definitions for more information)
+ ******************************************************************************/
 
 /**
  * SPI_PeriClockControl()
- * Desc.	: Enables or disables peripheral clock for SPIx
- * Param.	: @pSPIx - base address of SPIx peripheral
+ * Brief	: Enables or disables peripheral clock for SPIx
+ * Param	: @pSPIx - base address of SPIx peripheral
  * 			  @state - ENABLE or DISABLE macro
- * Returns	: None
+ * Retval	: None
  * Note		: N/A
  */
 void SPI_PeriClockControl(SPI_TypeDef *pSPIx, uint8_t state)
@@ -272,9 +279,9 @@ void SPI_PeriClockControl(SPI_TypeDef *pSPIx, uint8_t state)
 
 /**
  * SPI_Init()
- * Desc.	: Initializes SPI peripheral
- * Param.	: @pSPIHandle - pointer to the SPI handle structure
- * Returns	: None
+ * Brief	: Initializes SPI peripheral
+ * Param	: @pSPIHandle - pointer to the SPI handle structure
+ * Retval	: None
  * Note		: For the serial communication peripherals (e.g., SPI, I2C, ...), there
  * 			  may be
  * 			  - one or more control registers where configurable parameters are stored
@@ -341,9 +348,9 @@ void SPI_Init(SPI_Handle_TypeDef *pSPIHandle)
 
 /**
  * SPI_DeInit()
- * Desc.	: De-initializes SPI peripheral
- * Param.	: @pSPIx - base address of SPIx peripheral
- * Returns	: None
+ * Brief	: De-initializes SPI peripheral
+ * Param	: @pSPIx - base address of SPIx peripheral
+ * Retval	: None
  * Note		: N/A
  */
 void SPI_DeInit(SPI_TypeDef *pSPIx)	/* Utilize RCC_AHBxRSTR (AHBx peripheral reset register) */
@@ -370,11 +377,11 @@ void SPI_DeInit(SPI_TypeDef *pSPIx)	/* Utilize RCC_AHBxRSTR (AHBx peripheral res
 
 /**
  * SPI_TxBlocking()
- * Desc.	: Send from @pSPIx the data of length @len stored in @pTxBuffer
- * Param.	: @pSPIx - base address of SPIx peripheral
+ * Brief	: Send from @pSPIx the data of length @len stored in @pTxBuffer
+ * Param	: @pSPIx - base address of SPIx peripheral
  * 			  @pTxBuffer - address of the Tx buffer
  * 			  @len - length of the data to transmit
- * Returns	: None
+ * Retval	: None
  * Note		: This is a blocking function. This function will not return until
  *            the data is fully sent out.
  */
@@ -416,11 +423,11 @@ void SPI_TxBlocking(SPI_TypeDef *pSPIx, uint8_t *pTxBuffer, uint32_t len)
 
 /**
  * SPI_RxBlocking()
- * Desc.	: Receive the data of length @len stored in @pRxBuffer
- * Param.	: @pSPIx - base address of SPIx peripheral
+ * Brief	: Receive the data of length @len stored in @pRxBuffer
+ * Param	: @pSPIx - base address of SPIx peripheral
  * 			  @pRxBuffer - address of the Rx buffer
  * 			  @len - length of the data to transmit
- * Returns	: None
+ * Retval	: None
  * Note		: This is a blocking function. This function will not return until
  *            the data is fully received.
  */
@@ -462,12 +469,12 @@ void SPI_RxBlocking(SPI_TypeDef *pSPIx, uint8_t *pRxBuffer, uint32_t len)
 
 /**
  * SPI_TxInterrupt()
- * Desc.	: Fills out the necessary information (@pTxBuffer, @len, SPI state) to
+ * Brief	: Fills out the necessary information (@pTxBuffer, @len, SPI state) to
  * 			  transmit data, set TXEIE bit and returns
- * Param.	: @pSPIHandle - pointer to SPI handle structure
+ * Param	: @pSPIHandle - pointer to SPI handle structure
  * 			  @pTxBuffer - address of the Tx buffer
  * 			  @len - length of the data to transmit
- * Returns	: Tx state of the application
+ * Retval	: Tx state of the application
  * Note		: This is a non-blocking function. This function does not write
  * 			  data into the data register. Writing will be taken care of by
  * 			  the interrupt handler.
@@ -500,12 +507,12 @@ uint8_t SPI_TxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t volatile *pTxBuf
 
 /**
  * SPI_RxInterrupt()
- * Desc.	: Fills out the necessary information (@pTxBuffer, @len, SPI state) to
+ * Brief	: Fills out the necessary information (@pTxBuffer, @len, SPI state) to
  * 			  receive data, set RXNEIE bit and returns
- * Param.	: @pSPIHandle - pointer to SPI handle structure
+ * Param	: @pSPIHandle - pointer to SPI handle structure
  * 			  @pRxBuffer - address of the Rx buffer
  * 			  @len - length of the data to transmit
- * Returns	: Rx state of the application
+ * Retval	: Rx state of the application
  * Note		: This is a non-blocking function. This function does not read
  * 			  data from the data register. Reading will be taken care of by
  * 			  the interrupt handler.
@@ -538,10 +545,10 @@ uint8_t SPI_RxInterrupt(SPI_Handle_TypeDef *pSPIHandle, uint8_t volatile *pRxBuf
 
 /**
  * SPI_PeriControl()
- * Desc.	: Enables or disables SPI peripheral @pSPIx
- * Param.	: @pSPIx - base address of SPIx peripheral
+ * Brief	: Enables or disables SPI peripheral @pSPIx
+ * Param	: @pSPIx - base address of SPIx peripheral
  * 			  @state - ENABLE or DISABLE macro
- * Returns	: None
+ * Retval	: None
  * Note		: N/A
  */
 void SPI_PeriControl(SPI_TypeDef *pSPIx, uint8_t state)
@@ -554,10 +561,10 @@ void SPI_PeriControl(SPI_TypeDef *pSPIx, uint8_t state)
 
 /**
  * SPI_SSIConfig()
- * Desc.	: Sets or resets SPI CR1 register's SSI (Internal Slave Select) bit
- * Param.	: @pSPIx - base address of SPIx peripheral
+ * Brief	: Sets or resets SPI CR1 register's SSI (Internal Slave Select) bit
+ * Param	: @pSPIx - base address of SPIx peripheral
  * 			  @state - ENABLE or DISABLE macro
- * Returns	: None
+ * Retval	: None
  * Note		: This bit has an effect only when the SSM bit is set.
  * 			  The value of this bit is forced onto the NSS pin and
  * 			  the IO value of the NSS pin is ignored.
@@ -573,10 +580,10 @@ void SPI_SSIConfig(SPI_TypeDef *pSPIx, uint8_t state)
 
 /**
  * SPI_SSOEConfig()
- * Desc.	: Sets or resets SPI CR2 register's SSOE (Slave Select Output Enable) bit
- * Param.	: @pSPIx - base address of SPIx peripheral
+ * Brief	: Sets or resets SPI CR2 register's SSOE (Slave Select Output Enable) bit
+ * Param	: @pSPIx - base address of SPIx peripheral
  * 			  @state - ENABLE or DISABLE macro
- * Returns	: None
+ * Retval	: None
  * Note		: When SSOE = 1, SS output is disabled in master mode and the cell
  * 			  can work in multimaster configuration
  * 			  When SSOE = 0, SS output is enabled in master mode and when the cell
@@ -592,10 +599,10 @@ void SPI_SSOEConfig(SPI_TypeDef *pSPIx, uint8_t state)
 
 /**
  * SPI_IRQInterruptConfig()
- * Desc.	: Configures IRQ interrupts (processor; NVIC_ISERx, NVIC_ICERx)
- * Param.	: @irqNumber - IRQ number
+ * Brief	: Configures IRQ interrupts (processor; NVIC_ISERx, NVIC_ICERx)
+ * Param	: @irqNumber - IRQ number
  * 			  @state - ENABLE or DISABLE macro
- * Returns	: None
+ * Retval	: None
  * Note		: Reference - Cortex-M4 Devices Generic User Guide
  * 			  Clearing ISERx bit won't disable the interrupt.
  * 			  To disable interrupt ICERx bit has to be set!
@@ -626,14 +633,14 @@ void SPI_IRQInterruptConfig(uint8_t irqNumber, uint8_t state)
 
 /**
  * SPI_OIRQPriorityConfig()
- * Desc.	: Configures IRQ priority (processor; NVIC_IPRx)
- * Param.	: @irqNumber - IRQ number
+ * Brief	: Configures IRQ priority (processor; NVIC_IPRx)
+ * Param	: @irqNumber - IRQ number
  * 			  @irqPriotity - IRQ priority (Make sure this parameter is of
  * 			  				 type uint32_t. Due to the number of bits it
  * 			  				 needs to be shifted during the calculation,
  * 							 declaring it as uint8_t did not do its job.)
  * 			  @state - ENABLE or DISABLE macro
- * Returns	: None
+ * Retval	: None
  * Note		: Reference - Cortex-M4 Devices Generic User Guide
  * 			  STM32F407xx MCUs use only 4 most significant bits within
  * 			  each 8-bit section of IPRx. Make sure to account for
@@ -651,9 +658,9 @@ void SPI_IRQPriorityConfig(uint8_t irqNumber, uint32_t irqPriority)
 
 /**
  * SPI_IRQHandling()
- * Desc.	: Handles SPI interrupt
- * Param.	: @pSPIHandle - pointer to SPI handle structure
- * Returns	: None
+ * Brief	: Handles SPI interrupt
+ * Param	: @pSPIHandle - pointer to SPI handle structure
+ * Retval	: None
  * Note		: SPI interrupt event flags (TXE, RXNE, MODF, OVR, CRCERR, FRE)
  */
 void SPI_IRQHandling(SPI_Handle_TypeDef *pSPIHandle)
@@ -702,9 +709,9 @@ void SPI_IRQHandling(SPI_Handle_TypeDef *pSPIHandle)
 
 /**
  * SPI_TXE_InterruptHandle()
- * Desc.	: Handles TXE interrupt
- * Param.	: @pSPIHandle - pointer to SPI handle structure
- * Returns	: None
+ * Brief	: Handles TXE interrupt
+ * Param	: @pSPIHandle - pointer to SPI handle structure
+ * Retval	: None
  * Note		: This is a private helper function and it not intended to be
  * 			  called by the user application. Thus defined as static function.
  */
@@ -752,9 +759,9 @@ static void SPI_TXE_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle)
 
 /**
  * SPI_RXNE_InterruptHandle()
- * Desc.	: Handles RXNE interrupt
- * Param.	: @pSPIHandle - pointer to SPI handle structure
- * Returns	: None
+ * Brief	: Handles RXNE interrupt
+ * Param	: @pSPIHandle - pointer to SPI handle structure
+ * Retval	: None
  * Note		: This is a private helper function and it not intended to be
  * 			  called by the user application. Thus defined as static function.
  */
@@ -801,9 +808,9 @@ static void SPI_RXNE_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle)
 
 /**
  * SPI_OVR_InterruptHandle()
- * Desc.	: Handles OVR interrupt
- * Param.	: @pSPIHandle - pointer to SPI handle structure
- * Returns	: None
+ * Brief	: Handles OVR interrupt
+ * Param	: @pSPIHandle - pointer to SPI handle structure
+ * Retval	: None
  * Note		: This is a private helper function and it not intended to be
  * 			  called by the user application. Thus defined as static function.
  */
@@ -830,9 +837,9 @@ static void SPI_OVR_InterruptHandle(SPI_Handle_TypeDef *pSPIHandle)
 
 /**
  * SPI_ClearOVRFlag
- * Desc.	: Clears the OVR flag
- * Param.	: @pSPIx - base address of SPIx peripheral
- * Returns	: None
+ * Brief	: Clears the OVR flag
+ * Param	: @pSPIx - base address of SPIx peripheral
+ * Retval	: None
  * Note		: N/A
  */
 void SPI_ClearOVRFlag(SPI_TypeDef *pSPIx)
@@ -849,9 +856,9 @@ void SPI_ClearOVRFlag(SPI_TypeDef *pSPIx)
 
 /**
  * SPI_CloseTx()
- * Desc.	: Closes Tx operation
- * Param.	: @pSPIHandle - pointer to SPI handle structure
- * Returns	: None
+ * Brief	: Closes Tx operation
+ * Param	: @pSPIHandle - pointer to SPI handle structure
+ * Retval	: None
  * Note		: Application call this function to abruptly close the SPI communication.
  */
 void SPI_CloseTx(SPI_Handle_TypeDef *pSPIHandle)
@@ -867,9 +874,9 @@ void SPI_CloseTx(SPI_Handle_TypeDef *pSPIHandle)
 
 /**
  * SPI_CloseRx()
- * Desc.	: Closes Rx operation
- * Param.	: @pSPIHandle - pointer to SPI handle structure
- * Returns	: None
+ * Brief	: Closes Rx operation
+ * Param	: @pSPIHandle - pointer to SPI handle structure
+ * Retval	: None
  * Note		: Application call this function to abruptly close the SPI communication.
  */
 void SPI_CloseRx(SPI_Handle_TypeDef *pSPIHandle)
@@ -885,10 +892,10 @@ void SPI_CloseRx(SPI_Handle_TypeDef *pSPIHandle)
 
 /**
  * SPI_ApplicationEventCallback()
- * Desc.	: Notifies the application of the event occurred
- * Param.	: @pSPIHandle - pointer to SPI handle structure
+ * Brief	: Notifies the application of the event occurred
+ * Param	: @pSPIHandle - pointer to SPI handle structure
  * 			  @appEvent - SPI event occurred
- * Returns	: None
+ * Retval	: None
  * Note		: This function must be implemented by the application. Since the driver
  * 			  does not know in which application this function will be implemented,
  * 			  the driver defines it as a weak function. The application may override
