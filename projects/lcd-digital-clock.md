@@ -8,7 +8,8 @@ Source code: [https://github.com/kyungjae-lee/lcd-digital-clock](https://github.
 
 ## Introduction
 
-* Developed an application to read time and date information from the **Tiny RTC Module (DS1307)** and disaplay it on the **16x2 Character LCD (HD4478U)**
+* LCD digital clock development using the **Tiny RTC Module (DS1307)** and  the **16x2 Character LCD (HD44780U)** interfacing with the  **STM32F407-Discovery board**    
+* Developed an application to read time and date information from the RTC module and display it on the LCD
 * Developed all software layers (HW abstraction layer, BSP layer, application layer) from scratch to implement an LCD Digital Clock
 
 
