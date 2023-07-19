@@ -13,7 +13,7 @@
 | BL_GET_CID             | 0x53         | Chip identification number (2 bytes)        | Used to read the MCU chip identification number              |
 | BL_GET_RDP_STATUS      | 0x54         | Flash Read Protection (RDP) Level (1 byte)  | Used to read the Flash Protection (RDP) Level                |
 | BL_GO_TO_ADDR          | 0x55         | Success or error code (1 byte)              | Used to jump bootloader to specified address                 |
-| BL_ERASE_FLASH         | 0x56         | Success or error code (1 byte)              | Used to mass erase or sector erase the user Flash            |
+| BL_ERASE_FLASH         | 0x56         | Success or error code (1 byte)              | Used to mass-erase or sector-erase the user Flash            |
 | BL_WRITE_MEM           | 0x57         | Success or error code (1 byte)              | Used to write data into different memories of the MCU        |
 | BL_EN_RW_PROTECT       | 0x58         | Success or error code (1 byte)              | Used to enable read/write protection on different sectors of the user Flash |
 | BL_READ_MEM            | 0x59         | Memory contents of length asked by the host | Used to read data from different memories of the MCU         |
