@@ -10,25 +10,25 @@
 
    *Jul. 2023 - Jul. 2023*
 
-   LCD digital clock development using the Tiny RTC Module (DS1307) and  the 16x2 Character LCD (HD44780U) interfacing with the STM32F407-Discovery board
+   LCD digital clock development using the Tiny RTC Module (DS1307) and  the 16x2 Character LCD (HD44780U) interfacing with the STM32F407G-Discovery board
 
-2. **<a href="./bare-metal-rtos">Bare‑Metal RTOS</a>** 
+2. **<a href="./mcu-peripheral-drivers">MCU Peripheral Drivers</a>** 
+
+   *May 2023 - Jun. 2023*
+
+   MCU peripheral (GPIO, I2C, SPI, USART) drivers development from scratch using the STM32F407G-Discover board
+
+3. **<a href="./bare-metal-rtos">Bare‑Metal RTOS</a>** 
 
    *Apr. 2023 - May 2023*
 
-   Real‐time operating system development on the bare‐metal STM32F407‐Discovery board
-
-3. **<a href="./mcu-peripheral-drivers-from-scratch">MCU Peripheral Drivers from Scratch</a>** 
-
-   *Mar. 2023 - Apr. 2023*
-
-   Microcontroller‐specific peripheral drivers for USART and GPIO on the STM32F407‐Discovery board as part of the ’Bare‐Metal RTOS’ project, enabling the RTOS to perform tasks such as LED blinking and sensor reading
+   Real‐time operating system development on the bare‐metal STM32F407G‐Discovery board
 
 4. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
 
    *Jan. 2023 - Jan. 2023*
 
-   An embedded C program to control 7‐segment display with keypad and STM32F407-Discovery board
+   An embedded C program to control 7‐segment display with keypad and STM32F407G-Discovery board
 
 5. **<a href="./engineers-notebook">Engineer's Notebook</a>**
 
