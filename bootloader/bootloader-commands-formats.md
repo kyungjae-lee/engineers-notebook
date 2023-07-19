@@ -88,7 +88,7 @@
 
 ### BL_ERASE_FLASH
 
-* Used to mass erase or sector erase the user Flash
+* Used to mass-erase (all sectors) or sector-erase the user Flash
 * Total length (in bytes) of the packet: 8
 * Length to follow: 7
 * Command code: 0x56
