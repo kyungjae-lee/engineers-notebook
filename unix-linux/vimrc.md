@@ -69,9 +69,13 @@ set cursorline
 " configure comment color 
 highlight Comment ctermfg=DarkGreen
 
-" display the full path of the currently open file
+" configure statusline
 set laststatus=2
-set statusline=%F
+" display the full path of the currently open file
+set statusline+=%F
+" display the line and column numbers left-justified
+set statusline+=\ %=L%l:%=C%c
+" highlight the statusline                                                                                       
 highlight StatusLine ctermfg=Blue
 
 "-------------------------------------------------------------------------------
