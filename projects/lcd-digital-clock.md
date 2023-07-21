@@ -8,9 +8,8 @@ Source code: [https://github.com/kyungjae-lee/lcd-digital-clock](https://github.
 
 ## Introduction
 
-* LCD digital clock development using the **Tiny RTC Module (DS1307)** and the **16x2 Character LCD (HD44780U)**, interfacing with the **STM32F407-Discovery board**.
-* Developed an application to read time and date information from the RTC module and display it on the LCD.
-* Developed all software layers (HW abstraction layer, BSP layer, application layer) from scratch to implement the LCD Digital Clock.
+* Designed the system architecture and developed all software layers (hardware abstraction, BSP, application) to implement an LCD digital clock, which displays time and date information in real‐time
+* Used STM32CubeIDE for software development and debugging, and a logic analyzer for testing
 
 
 
