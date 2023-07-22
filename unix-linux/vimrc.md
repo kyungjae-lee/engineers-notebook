@@ -31,6 +31,10 @@ set number
 
 " wrap line at 90 chars 
 "set textwidth=90
+                                        
+" mark the end of the desired textwidth
+set colorcolumn=80
+highlight ColorColumn ctermbg=DarkGray
 
 " display current column number
 set ruler
@@ -82,6 +86,6 @@ highlight StatusLine ctermfg=Blue
 " Key Bindings
 "-------------------------------------------------------------------------------
 
-" iamroot20 auto-commenting template
-map <F2> o/* <CR>IAMROOT20 <C-R>=strftime("%Y%m%d")<CR><CR>/<ESC>
+" personal auto-commenting template                                             
+map <F7> o/* <CR>@KyungjaeLee <C-R>=strftime("%m/%d/%Y")<CR><CR>/<ESC>
 ```
