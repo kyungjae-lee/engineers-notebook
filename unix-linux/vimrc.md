@@ -87,5 +87,5 @@ highlight StatusLine ctermfg=Blue
 "-------------------------------------------------------------------------------
 
 " personal auto-commenting template                                             
-map <F7> o/* <CR>@KyungjaeLee <C-R>=strftime("%m/%d/%Y")<CR><CR>/<ESC>
+map <F7> o/* <CR>@KyungjaeLee <C-R>=strftime("%m/%d/%Y")<CR><CR>/<ESC><UP><UP>
 ```
