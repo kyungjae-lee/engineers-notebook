@@ -21,6 +21,8 @@
 | BL_READ_OTP            | 0x5B         | OTP contents                                | Used to read the OTP contents                                |
 | BL_DIS_RW_PROTECT      | 0x5C         | Success or error code (1 byte)              | Used to disable read/write protection on all the sectors of the user Flash (i.e., Restores the default protection state) |
 
+> BL_GO_TO_ADDR: When entering the target address to the host application, make sure to account for the T-bit setting. For example, If the address of the user application's reset handler is 0x08008229, then enter 0x08008228. Please see the bootloader source code for more details.
+
 
 
 ## Bootloader Commands Formats
