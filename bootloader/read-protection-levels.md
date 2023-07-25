@@ -15,11 +15,25 @@
 
 
 
+* Managing the option-bytes using the **STM32-ST-Link Utility Tool**
+
+  In this tool, you can manually manage the protection levels as follows. However, our goal is to let the host do it via the host application.
+
+  Writing the custom bootloader program into the sectors 0 and 1 after setting them "write protection" will fail. 
+
+
+
+<img src="./img/checking-option-bytes-using-stm32-st-link-utility-tool.png" alt="checking-option-bytes-using-stm32-st-link-utility-tool" width="800">
+
+
+
+* Note that changing the protection level of a sector from other levels to 0 will entail the mass-erase of all sectors.
+
 
 
 ## Option Bytes
 
-* "Option bytes" are used to manage the security levels of the Flash memory sectors.
+* "Option bytes" are used to manage the security levels of the Flash memory sectors. (Applicable to individual sectors)
 * The option bytes are configured by the end user depending on the application requirements. Table 14 shows the organization of these bytes inside the user configuration sector.
 
 
@@ -31,6 +45,12 @@
 
 
 <img src="./img/description-of-the-option-bytes-1.png" alt="description-of-the-option-bytes-1" width="800">
+
+<img src="./img/description-of-the-option-bytes-2.png" alt="description-of-the-option-bytes-2" width="800">
+
+
+
+<img src="./img/programming-user-option-bytes.png" alt="programming-user-option-bytes" width="800">
 
 
 
