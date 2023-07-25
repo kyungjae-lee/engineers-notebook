@@ -139,12 +139,13 @@
 * Total length (in bytes) of the packet: 8
 * Length to follow: 7
 * Command code: 0x58
-* Sector details (Each bit represents the sector number; e.g., 0^th^ bit is sector 0)
-  * 1: Protection
-  * 2: No protection
-* Protection mode:
-  * 1: Write protection
-  * 2: R/W protection
+* Sector not write protect (Each bit represents the sector number; e.g., 0^th^ bit is sector 0)
+  * 0: Write protection active on selected sector
+  * 1: Write protection inactive on selected sector
+* Read protect mode:
+  * 0: Level 0, read protection not active
+  * 1: Level 1, read protection of memories active
+  * 2: Level 2, chip read protection active
 
 
 
