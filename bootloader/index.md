@@ -14,8 +14,6 @@
 1. **<a href="./bootloader-host-communication">Bootloader-Host Communication</a>**
 1. **<a href="./custom-bootloader-design">Custom Bootloader Design</a>**
 1. **<a href="./vector-table-offset-register">Vector Table Offset Register (VTOR)</a>**
-1. **<a href="./bootloader-commands-formats">Bootloader Commands Formats</a>**
 1. **<a href="./host-machine-setup-python">Host Machine Setup (Python)</a>**
 1. **<a href="./read-protection-levels">Read Protection Levels</a>**
 1. **<a href="./generating-binary-file-using-keil-mdk">Generating Binary File using Keil MDK</a>**
-
