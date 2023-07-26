@@ -196,12 +196,12 @@ For the ease of implementation, **key** will be *string* type, and **value** wil
 ### Interface
 
 ```c
-/*
- *  File Name   : chtbl.h
- *  Description : Interface for chained hash table (in C++)
- *  Author      : Kyungjae Lee
- *  Date Created: 05/16/2022
- */
+//==============================================================================
+//  File	: chtbl.h
+//  Brief	: Interface for chained hash table (in C++)
+//  Author	: Kyungjae Lee
+//  Date	: Dec 23, 2022
+//==============================================================================
 
 #ifndef CHTBL_H
 #define CHTBL_H
@@ -261,16 +261,16 @@ private:
 ### Implementation
 
 ```c
-/*
- *  File Name   : chtbl.c
- *  Description : Implementation of chained hash table (in C++)
- *  Author      : Kyungjae Lee
- *  Date Created: 05/16/2022
- */
+//==============================================================================
+//  File	: chtbl.c
+//  Brief	: Implementation of chained hash table (in C++)
+//  Author	: Kyungjae Lee
+//  Date	: Dec 23, 2022
+//==============================================================================
 
 #include <iostream>
 
-// CHTblNode -----------------------------------------------------------------------------
+// CHTblNode -------------------------------------------------------------------
 
 // Parameterized constructor
 // T = O(1)
@@ -290,7 +290,7 @@ CHTblNode<T>::~CHTblNode()
     delete next;                // recursively destroy the list
 } // end destructor
 
-// CHTbl ---------------------------------------------------------------------------------
+// CHTbl -----------------------------------------------------------------------
 
 // Default constructor
 // T = O(1)
@@ -513,12 +513,12 @@ double CHTbl<T>::getLoadFactor()
 ### Test Driver
 
 ```c
-/*
- *  File Name   : chtbl_main.c
- *  Description : Test driver for chained hash table (in C++)
- *  Author      : Kyungjae Lee
- *  Date Created: 12/23/2022
- */
+//==============================================================================
+//  File	: chtbl_main.c
+//  Brief	: Test driver for chained hash table (in C++)
+//  Author	: Kyungjae Lee
+//  Date	: Dec 23, 2022
+//==============================================================================
 
 #include <iostream>
 #include "chtbl.h"

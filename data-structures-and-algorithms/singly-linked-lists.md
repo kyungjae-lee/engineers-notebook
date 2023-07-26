@@ -15,12 +15,12 @@
 ### Interface
 
 ```c
-//========================================================================================
-// Filename		: singly_linked_list.h
-// Description	: Interface for Singly-Linked List
-// Author		: Kyungjae Lee
-// History		: 05/02/2023 - Created file
-//========================================================================================
+//==============================================================================
+// Filen	: singly_linked_list.h
+// Brief	: Interface for Singly-Linked List
+// Author	: Kyungjae Lee
+// Date		: May 02, 2023
+//==============================================================================
 
 #ifndef SINGLY_LINKED_LIST_H
 #define SINGLY_LINKED_LIST_H
@@ -65,12 +65,12 @@ private:
 ### Implementation
 
 ```c
-//========================================================================================
-// Filename		: singly_linked_list.cpp
-// Description	: Implementation of Singly-Linked List
-// Author		: Kyungjae Lee
-// History		: 05/02/2023 - Created file
-//========================================================================================
+//==============================================================================
+// File		: singly_linked_list.cpp
+// Brief	: Implementation of Singly-Linked List
+// Author	: Kyungjae Lee
+// Date		: May 02, 2023
+//==============================================================================
 
 #include <iostream>
 #include <cstdlib>		// EXIT_FAILURE
@@ -78,9 +78,9 @@ private:
 
 using namespace std;
 
-//----------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // Implementation of Node class interface
-//----------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 // Constructor
 Node::Node(int value)
@@ -89,9 +89,9 @@ Node::Node(int value)
     next = nullptr;
 }
 
-//----------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // Implementation of SinglyLinkedList class interface
-//----------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 // Constructor
 // T = O(1)
@@ -362,12 +362,12 @@ SinglyLinkedList::~SinglyLinkedList()
 ### Test Driver
 
 ```c
-//========================================================================================
-// File name	: main.cpp
-// Description	: Test driver for Singly-Linked List
-// @ Author		: Kyungjae Lee
-// @ History	: 05/02/2023
-//========================================================================================
+//==============================================================================
+// File		: main.cpp
+// Brief	: Test driver for Singly-Linked List
+// Author	: Kyungjae Lee
+// Date		: May 02, 2023
+//==============================================================================
 
 #include <iostream>
 #include "singly_linked_list.h"

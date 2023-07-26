@@ -45,10 +45,10 @@
 
 ```c
 //==============================================================================
-// Filename		: binary_search_tree.h
-// Description	: Interface for Binary Search Tree (BST)
-// Author		: Kyungjae Lee
-// History		: 06/29/2023 - Created file
+// File		: binary_search_tree.h
+// Brief	: Interface for Binary Search Tree (BST)
+// Author	: Kyungjae Lee
+// Date		: Jun 29, 2023
 //==============================================================================
 
 #ifndef BINARY_SEARCH_TREE_H
@@ -86,10 +86,10 @@ public:
 
 ```c
 //==============================================================================
-// Filename		: binary_search_tree.cpp
-// Description	: Implementation of Binary Search Tree (BST)
-// Author		: Kyungjae Lee
-// History		: 06/29/2023 - Created file
+// File		: binary_search_tree.cpp
+// Brief	: Implementation of Binary Search Tree (BST)
+// Author	: Kyungjae Lee
+// Date		: Jun 29, 2023
 //==============================================================================
 
 #include <iostream>
@@ -201,12 +201,12 @@ bool BinarySearchTree::contains(int value)
 ### Test Driver
 
 ```c
-//========================================================================================
-// File name	: main.cpp
-// Description	: Test driver for Binary Search Tree (BST)
-// Author		: Kyungjae Lee
-// File created	: 06/30/2023
-//========================================================================================
+//==============================================================================
+// File		: main.cpp
+// Brief	: Test driver for Binary Search Tree (BST)
+// Author	: Kyungjae Lee
+// Date		: Jun 29, 2023
+//==============================================================================
 
 #include <iostream>
 #include "binary_search_tree.h"
