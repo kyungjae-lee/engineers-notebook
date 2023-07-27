@@ -7,6 +7,7 @@
 ### Embedded Linux using Yocto
 
 1. **<a href="./introduction-to-embedded-linux-and-yocto-project">Introduction to Embedded Linux & Yocto Project</a>**
+1. **<a href="./build-machine-setup">Build Machine Setup</a>**
 
 
 
