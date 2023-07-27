@@ -63,6 +63,20 @@
 * "Yocto" refers to the organization (like one would refer to "canonical", the company behind Ubuntu).
 * "Poky" refers to the actual bits downloaded (analogous to "Ubuntu")
 
+### Other Poky Repositories
+
+* meta-poky, which is Poky-specific metadata
+* Documentation, which contains the Yocto Project source files used to make the set of user manuals.
+
+### Conclusion
+
+* Poky includes:
+  * Some OpenEmbedded components (oe-core)
+  * Bitbake
+  * Demo BSPs
+  * Helper scripts to setup environment
+  * Emulator QEMU to test the image
+
 
 
 ## Metadata
@@ -139,6 +153,14 @@
   * Ubiquiti Networks EdgeRouter Lite (edgerouter)
 
   To develop on other hardware such as Raspberry-Pi, you'll need to complement Poky with hardware-specific Yocto layers.
+
+
+
+## Yocto Project, Poky and OpenEmbedded
+
+
+
+<img src="./img/yocto-project-poky-openembedded.png" alt="yocto-project-poky-openembedded" width="900">
 
 
 
