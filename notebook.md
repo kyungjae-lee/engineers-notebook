@@ -27,4 +27,5 @@
 * **<a href="./unix-linux/">Unix/Linux</a>**
 * **<a href="./embedded-linux/">Embedded Linux</a>**
 * **<a href="./linux-device-drivers/">Linux Device Drivers</a>**
+* **<a href="./linux-kernel-analysis/">Linux Kernel Analysis</a>**
 
