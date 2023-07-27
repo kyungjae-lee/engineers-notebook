@@ -4,7 +4,13 @@
 
 
 
-### Embedded Linux Using BeagleBoneBlack (BBB)
+### Embedded Linux using Yocto
+
+1. **<a href="./introduction-to-embedded-linux-and-yocto-project">Introduction to Embedded Linux & Yocto Project</a>**
+
+
+
+### Embedded Linux using BeagleBoneBlack (BBB)
 
 1. **<a href="./prerequisites">Prerequisites</a>**
 
