@@ -21,11 +21,13 @@
  */
 ```
 
-Why does the kernel startup entry point not care about the I-cache on/off state?
+> Why does the kernel startup entry point not care about the I-cache on/off state?
 
 
 
 ### Image Header Expected by Linux Bootloaders
+
+The following image header conforms to the header format defined in the documentation `Documentation/arm64/booting.rst` section 4.
 
 ```assembly
     /*  
@@ -43,10 +45,8 @@ Why does the kernel startup entry point not care about the I-cache on/off state?
     .long   .Lpe_header_offset  // Offset to the PE header.
 ```
 
-This image header conforms to the header format defined in the documentation `Documentation/arm64/booting.rst` section 4.
-
-`efi_signature_nop` is a macro defined in the file `arch/arm64/kernel/eif-header.S`:
-
+> L4: `efi_signature_nop` is a macro defined in the file `arch/arm64/kernel/eif-header.S`:
+>
 > ```assembly
 >     .macro  efi_signature_nop                                           
 > #ifdef CONFIG_EFI
@@ -66,27 +66,46 @@ This image header conforms to the header format defined in the documentation `Do
 > #endif
 > ```
 >
-> Here `ccmp` instruction is 0xFA405A4D in hex code and this will appear as 4D 5A 40 FA in the kernel image built in little-endian mode, first two of which are 'M' and 'Z' respectively.
->
-> The `nop` instruction will simply consume one clock cycle, doing nothing meaningful.
+> > L8: Here `ccmp` instruction is 0xFA405A4D in hex code and this will appear as 4D 5A 40 FA in the kernel image built in little-endian mode, first two of which are 'M' and 'Z' respectively.
+> >
+> > L15: The `nop` instruction will simply consume one clock cycle, doing nothing meaningful.
 
 
 
 ### __INIT
 
-```assembly
-    __INIT
-```
-
 `__INIT` is a macro defined in `include/linux/init.h`:
 
-> ```c
-> #define __INIT      .section    ".init.text","ax" 
-> ```
+```c
+#define __INIT      .section    ".init.text","ax" 
+```
 
 
 
 ### record_mmu_state
+
+`record_mmu_state` records the MMU on/off state in `x19` upon return.
+
+* If `x19` == 0, cache maintenance (e.g., invalidation) will be necessary
+* If `x19` == 1, cache maintenance will not be necessary
+
+Think of the following four possible scenarios:
+
+1. **Cache on, MMU on (`x19` = 1)**
+
+   Cache invalidation not necessary since the cache will already contain valid data
+
+2. Cache on, MMU off (`x19` = 0)
+
+   Cache invalidation necessary since the validity of the cache contents will not be guaranteed at the moment when the MMU turns on
+
+3. Cache off, MMU on (`x19` = 0)
+
+   Cache invalidation necessary since the validity of the cache contents is not guaranteed
+
+4. Cache off, MMU off (`x19` = 0)
+
+   Cache invalidation necessary since the validity of the cache contents will not be guaranteed at the moment when the MMU turns on
 
 ```assembly
 SYM_CODE_START_LOCAL(record_mmu_state)
@@ -123,25 +142,37 @@ CPU_BE( tbz x19, #SCTLR_ELx_EE_SHIFT, 1f    )
 SYM_CODE_END(record_mmu_state)
 ```
 
-This subroutine records the MMU on/off state in `x19` upon return.
+> Default endianness is little-endian (LE).
+>
+> L8-9: If the endianness is not set correctly, jump to the label `1` and fix it. (`1f` means the label `1` in forward direction.) Else, the endianness is set correctly. So, proceed with the subsequent code.
+>
+> L21-31: Fix the contents of `x19` (i.e., toggle `SCTLR_ELx_EE` bit, clear `SCTLR_ELx_M` bit) $\to$ update `sctlr_elx` with the contents of `x19`
+>
+> L24: Exception macro for a particular chip (Check the related commit log for more details)
 
-* If `x19` == 0, cache maintenance (e.g., invalidation) will be necessary
-* If `x19` == 1, cache maintenance will not be necessary
 
-Think of the following four possible scenarios:
 
-1. **Cache on, MMU on (`x19` = 1)**
+### preserve_boot_args
 
-   Cache invalidation not necessary since the cache will already contain valid data
+```assembly
+*
+ * Preserve the arguments passed by the bootloader in x0 .. x3
+ */
+SYM_CODE_START_LOCAL(preserve_boot_args)
+    mov x21, x0             // x21=FDT
 
-2. Cache on, MMU off (`x19` = 0)
+    adr_l   x0, boot_args           // record the contents of
+    stp x21, x1, [x0]           // x0 .. x3 at kernel entry
+    stp x2, x3, [x0, #16]
 
-   Cache invalidation necessary since the validity of the cache contents will not be guaranteed at the moment when the MMU turns on
+    cbnz    x19, 0f             // skip cache invalidation if MMU is on
+    dmb sy              // needed before dc ivac with
+                        // MMU off
 
-3. Cache off, MMU on (`x19` = 0)
+    add x1, x0, #0x20           // 4 x 8 bytes
+    b   dcache_inval_poc        // tail call
+0:  str_l   x19, mmu_enabled_at_boot, x0
+    ret
+SYM_CODE_END(preserve_boot_args)
+```
 
-   Cache invalidation necessary since the validity of the cache contents is not guaranteed
-
-4. Cache off, MMU off (`x19` = 0)
-
-   Cache invalidation necessary since the validity of the cache contents will not be guaranteed at the moment when the MMU turns on
