@@ -37,6 +37,18 @@ The following comment sets the stage for the kernel's early initialization proce
 
 
 
+### __HEAD
+
+`__INIT` is a macro defined in `include/linux/init.h`:
+
+```c
+#define __HEAD      .section    ".head.text","ax"
+```
+
+When the code is assembled, the assembly code inside the `__HEAD` macro will be placed in the `.head.text` section with the appropriate flags, ensuring that it is both allocatable (`a`) and marked as executable (`x`) in the final output. The section name and flags can be adjusted based on the specific needs of the project.
+
+
+
 ### Image Header Expected by Linux Bootloaders
 
 The image header provides essential information for the boot-loader to load and execute the kernel properly. The bootloader recognizes the  signature (EFI signature NOP) and the magic number to identify this as an ARM64 executable. It then uses the entry point (`primary_entry`) to start executing the kernel and considers the load offset, kernel size, and flags to manage memory allocation and other operations correctly.
