@@ -306,3 +306,73 @@ SYM_FUNC_ALIAS(dcache_inval_poc, __pi_dcache_inval_poc)
 ```
 
 > `SYM_FUNC_START(function_name)` is a symbol defining the start of the `function_name` function. It is typically used for debugging and symbol tracking purposes.
+
+
+
+### create_idmap (arch/arm64/mm/mmu.c)
+
+The function `create_idmap()` is used to create an identity mapping for a specific memory region, called the ID map, in the ARM64 Linux kernel. The identity mapping allows direct access to physical memory using virtual addresses without any translation.
+
+```c
+static void __init create_idmap(void)
+{
+    /* '__pa_symbol' is a macro that retrieves the physical address of a symbol. */
+    u64 start = __pa_symbol(__idmap_text_start);
+    u64 size = __pa_symbol(__idmap_text_end) - start;
+    /*
+     * Declare a pointer 'pgd' which points to a Page Global Directory (PGD) structure 
+     * and initialize it with the address of the 'idmap_pg_dir', which points to the 
+     * Page Global Directory for the ID map.
+     */
+    pgd_t *pgd = idmap_pg_dir;
+    u64 pgd_phys;	// Declare a variable to store the physical address of the PGD.
+
+    /* 
+     * The following code block checks if an additional level of translation is needed
+     * for the ID map.
+     * - 'VA_BITS' represents the number of virtual address bits.
+     * - 'idmap_t0sz' is a kernel configuration parameter that sets the size 
+     *   of the top-level translation table (TTBR0) for the ID map.
+     */
+    if (VA_BITS < 48 && idmap_t0sz < (64 - VA_BITS_MIN)) {
+        /* Allocate memory for the PGD and store its PA into 'pgd_phys'. */
+        pgd_phys = early_pgtable_alloc(PAGE_SHIFT);
+        /*
+         * Set the entry in the PGD corresponding to the start address of the ID map. 
+         * It configures the PGD entry to point to a new level of translation table (P4D)
+         * using the physical address pgd_phys and sets the type to indicate that it's a 
+         * table entry.
+         */
+        set_pgd(&idmap_pg_dir[start >> VA_BITS], __pgd(pgd_phys | P4D_TYPE_TABLE));
+        /* Convert the PA 'pgd_phys' to a VA using the '__va' macro and store it into 'pgd'. */
+        pgd = __va(pgd_phys);
+    }
+    /*
+     * '__create_pgd_mapping' is a helper function that creates a mapping between 
+     * the virtual addresses and physical addresses in the PGD. It sets up the identity
+     * mapping for the ID map by configuring the PGD entries.
+     */
+    __create_pgd_mapping(pgd, start, start, size, PAGE_KERNEL_ROX, early_pgtable_alloc, 0);
+
+    /* 
+     * The following code block creates a mapping for the KPTI (Kernel Page Table Isolation)
+     * synchronization flag if the CONFIG_UNMAP_KERNEL_AT_EL0 kernel configuration is enabled.
+     * - 'CONFIG_UNMAP_KERNEL_AT_EL0' is a kernel configuration option that enables the
+     *   KPTI feature.
+     * - '__idmap_kpti_flag' is a symbol representing the KPTI synchronization flag.
+     */
+    if (IS_ENABLED(CONFIG_UNMAP_KERNEL_AT_EL0)) {
+        extern u32 __idmap_kpti_flag;
+        u64 pa = __pa_symbol(&__idmap_kpti_flag);
+
+        /*   
+         * '__create_pgd_mapping()' function is called again to create a mapping between
+         * the virtual and physical addresses for the KPTI synchronization flag. It is
+         * mapped as read-write with the 'PAGE_KERNEL' flag.
+         */
+        __create_pgd_mapping(pgd, pa, pa, sizeof(u32), PAGE_KERNEL,
+                     early_pgtable_alloc, 0);
+    }    
+}
+```
+
