@@ -238,16 +238,19 @@ SYM_CODE_END(preserve_boot_args)
 >
 > > Due to the limitation bit-field length in expressing 64-bit address, the macro `adr_l` is introduced. It uses the "page address" and the "offset" to express 64-bit address. (Commonly seen in arm64)
 >
-> L7-9: Can be written as the following C code:
->
-> ```c
-> x21 = x0;    // x21 = FDT
-> u64 *arr = &boot_args[0];
-> arr[0] = x21;    // FDT 
-> arr[1] = x1;     // reserved 0
-> arr[2] = x2;     // reserved 0
-> arr[3] = x3;     // reserved 0
-> ```
+
+Can be written as the following C code:
+
+```c
+void preserve_boot_args() {
+  boot_args[0] = x21; // fdt
+  boot_args[1] = x1;
+  boot_args[2] = x2;
+  boot_args[3] = x3;
+  dcache_inval_proc(boot_args);
+  mmu_enabled_at_boot = x19; // MMU on or off
+}
+```
 
 
 
@@ -267,26 +270,24 @@ The function `dcache_inval_poc` is used to invalidate and clean (flush) the data
  *  - end     - kernel end address of region
  */
 SYM_FUNC_START(__pi_dcache_inval_poc)
-    dcache_line_size x2, x3	@ Load the size of a cache line into x2 and x3. x3 is later used
-    						@ to mask off the lower bits to ensure cache-line alignment.
-    sub x3, x2, #1		@ Subtract 1 from the cache line size stored in x2 and store the 
-    					@ result in x3.
-    tst x1, x3          @ Test if the end address x1 is cache line-aligned (i.e., its lower 
-    					@ bits are zero). The result of the test affects whether the end
-    					@ address is adjusted to be cache line-aligned in the subsequent 
-    					@ instructions.
-    bic x1, x1, x3		@ If the end address x1 is not cache line-aligned, this instruction
-    					@ clears the lower bits of x1 to make it cache line aligned.
-    b.eq    1f  		@ If the end address is already cache line-aligned, this branch 
-    					@ skips the cache cleaning steps and jumps to label 1.
-    dc  civac, x1       @ Clean and invalidate the data cache for the end address x1. 
-    					@ The 'civac' cache maintenance operation combines cleaning (write-back)
-                        @ and invalidation of a single cache line.
-1:  tst x0, x3          @ Test if the start address x0 is cache line-aligned.
-    bic x0, x0, x3		@ If the start address x0 is not cache line-aligned, this instruction 
-    					@ clears the lower bits of x0 to make it cache line-aligned.
-    b.eq    2f  		@ If the start address is already cache line-aligned, this branch
-    					@ jumps to label 2 to perform cache invalidation only.
+    dcache_line_size x2, x3	@ Load the size of a cache line into x2. (x3 will be used as a
+    						@ scratch register inside this macro to hold the value of 
+    						@ 'ctr_el0' bits[19:16].
+    sub x3, x2, #1		@ Get x3 ready to be used as a bit-mask to mask off the lower bits of
+    					@ ensure cache-line alignment.
+    tst x1, x3          @ Is the x1 (end address of 'boot_args') cache line-aligned?
+    bic x1, x1, x3		@ Mask off the lower bits of x1 using x3 to make it cache line-aligned.
+    					@ e.g., If the cache line size is 64 bytes and x1 contained 70, then x1
+    					@ will be adjusted to 64. (Lower 6 bits dropped)
+    b.eq    1f  		@ If the end address is already cache line-aligned, skip the cache 
+    					@ maintenance and jump to label 1.
+    dc  civac, x1       @ Clean and invalidate the D-cache line where the end address of 
+    					@ 'boot_args' is located. The 'civac' cache maintenance operation 
+    					@ combines cleaning (write-back)and invalidation of a single cache line.
+1:  tst x0, x3          @ Is the x0 (start address of 'boot_args') cache line-aligned?
+    bic x0, x0, x3		@ Mask off the lower bits of x0 using x3 to make it cache line-aligned.
+    b.eq    2f  		@ If the start address is already cache line-aligned, jump to label 2 
+    					@ to perform cache invalidation only.
     dc  civac, x0       @ Clean and invalidate the data cache for the start address x0.
     b   3f  			@ Branch to label 3 to perform the cache invalidation for the remaining 
     					@ memory range.
@@ -306,6 +307,144 @@ SYM_FUNC_ALIAS(dcache_inval_poc, __pi_dcache_inval_poc)
 ```
 
 > `SYM_FUNC_START(function_name)` is a symbol defining the start of the `function_name` function. It is typically used for debugging and symbol tracking purposes.
+>
+> L12: `dcache_line_size` is a macro defined in `arch/arm64/include/asm/assembler.h `.
+>
+> ```c
+> /*
+>  * dcache_line_size - get the safe D-cache line size across all CPUs                         
+>  */
+>     .macro  dcache_line_size, reg, tmp 
+>     read_ctr	\tmp				// Read the Cache Type Register into \tmp.
+>     ubfm	\tmp, \tmp, #16, #19	// Extract the bits [19:16] from \tmp and store the
+>        								// result back in \tmp.
+>     mov		\reg, #4        		// Bytes per word.
+>     lsl		\reg, \reg, \tmp    	// reg <<= tmp; (Actual cache line size in bytes).
+>     .endm							// End of the macro definition.
+> ```
+
+C representation of this function block:
+
+```c
+x2 = dcache_line_size();
+x3 = x2  - 1;
+if(x1 & x3 != 0) {      // end cache line aligned?
+        // not aligned
+        x1 &= ~x3;
+        dc_civac(x1);   // clean & invalidate D / U line
+}
+// 1:
+if(x0 & x3 != 0) {      // start cache line aligned?
+        // not aligned
+        x0 &= ~x3;
+        dc_civac(x0);   // clean & invalidate D / U line
+}
+
+// 2: 3:
+do {
+        dc_ivac(x0);
+        x0 += x2;       // x0 += dcache_line_size
+} while(x0 < x1) {      // cmp     x0, x1;      b.lo    2b;
+dsb_sy();
+return;
+```
+
+
+
+### create_idmap
+
+`create_idmap` is responsible for setting up the identity mapping (ID map) for  specific memory regions in the ARM64 Linux kernel. The ID map establishes a 1:1 mapping between physical addresses and virtual  addresses, allowing direct access to physical memory using virtual addresses.
+
+```assembly
+SYM_FUNC_START_LOCAL(create_idmap)
+    mov x28, lr
+    /*
+     * The ID map carries a 1:1 mapping of the physical address range
+     * covered by the loaded image, which could be anywhere in DRAM. This
+     * means that the required size of the VA (== PA) space is decided at
+     * boot time, and could be more than the configured size of the VA
+     * space for ordinary kernel and user space mappings.
+     *
+     * There are three cases to consider here:
+     * - 39 <= VA_BITS < 48, and the ID map needs up to 48 VA bits to cover
+     *   the placement of the image. In this case, we configure one extra
+     *   level of translation on the fly for the ID map only. (This case
+     *   also covers 42-bit VA/52-bit PA on 64k pages).
+     *
+     * - VA_BITS == 48, and the ID map needs more than 48 VA bits. This can
+     *   only happen when using 64k pages, in which case we need to extend
+     *   the root level table rather than add a level. Note that we can
+     *   treat this case as 'always extended' as long as we take care not
+     *   to program an unsupported T0SZ value into the TCR register.
+     *
+     * - Combinations that would require two additional levels of
+     *   translation are not supported, e.g., VA_BITS==36 on 16k pages, or
+     *   VA_BITS==39/4k pages with 5-level paging, where the input address
+     *   requires more than 47 or 48 bits, respectively.
+     */
+#if (VA_BITS < 48)
+#define IDMAP_PGD_ORDER (VA_BITS - PGDIR_SHIFT)
+#define EXTRA_SHIFT (PGDIR_SHIFT + PAGE_SHIFT - 3)
+
+    /*
+     * If VA_BITS < 48, we have to configure an additional table level.
+     * First, we have to verify our assumption that the current value of
+     * VA_BITS was chosen such that all translation levels are fully
+     * utilised, and that lowering T0SZ will always result in an additional
+     * translation level to be configured.
+     */
+#if VA_BITS != EXTRA_SHIFT
+#error "Mismatch between VA_BITS and page size/number of translation levels"
+#endif
+#else
+#define IDMAP_PGD_ORDER (PHYS_MASK_SHIFT - PGDIR_SHIFT)
+#define EXTRA_SHIFT
+    /*
+     * If VA_BITS == 48, we don't have to configure an additional
+     * translation level, but the top-level table has more entries.
+     */
+#endif
+    adrp    x0, init_idmap_pg_dir
+    adrp    x3, _text
+    adrp    x6, _end + MAX_FDT_SIZE + SWAPPER_BLOCK_SIZE
+    mov x7, SWAPPER_RX_MMUFLAGS
+
+    map_memory x0, x1, x3, x6, x7, x3, IDMAP_PGD_ORDER, x10, x11, x12, x13, x14, EXTRA_SHIFT
+
+    /* Remap the kernel page tables r/w in the ID map */
+    adrp    x1, _text
+    adrp    x2, init_pg_dir
+    adrp    x3, init_pg_end
+    bic x4, x2, #SWAPPER_BLOCK_SIZE - 1
+    mov x5, SWAPPER_RW_MMUFLAGS
+    mov x6, #SWAPPER_BLOCK_SHIFT
+    bl  remap_region
+
+    /* Remap the FDT after the kernel image */
+    adrp    x1, _text
+    adrp    x22, _end + SWAPPER_BLOCK_SIZE
+    bic x2, x22, #SWAPPER_BLOCK_SIZE - 1
+    bfi x22, x21, #0, #SWAPPER_BLOCK_SHIFT      // remapped FDT address
+    add x3, x2, #MAX_FDT_SIZE + SWAPPER_BLOCK_SIZE
+    bic x4, x21, #SWAPPER_BLOCK_SIZE - 1
+    mov x5, SWAPPER_RW_MMUFLAGS
+    mov x6, #SWAPPER_BLOCK_SHIFT
+    bl  remap_region
+
+    /*
+     * Since the page tables have been populated with non-cacheable
+     * accesses (MMU disabled), invalidate those tables again to
+     * remove any speculatively loaded cache lines.
+     */
+    cbnz    x19, 0f             // skip cache invalidation if MMU is on
+    dmb sy
+
+    adrp    x0, init_idmap_pg_dir
+    adrp    x1, init_idmap_pg_end
+    bl  dcache_inval_poc
+0:  ret x28
+SYM_FUNC_END(create_idmap)
+```
 
 
 
@@ -375,4 +514,3 @@ static void __init create_idmap(void)
     }    
 }
 ```
-
