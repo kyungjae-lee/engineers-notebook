@@ -189,7 +189,270 @@
 
 
 
-## Implementation of Chained Hash Table (C++)
+## Chained Hash Table 1 (C++) 
+
+### Interface
+
+```cpp
+//==============================================================================
+// File		: hash_table.h
+// Brief	: Interface for Hash Table
+// Author	: Kyungjae Lee
+// Date		: Jul 31, 2023
+//
+// Note		: It is known that when the number of bucket array elements is a 
+// 			  prime number, the (key, value) pairs are distributed more 
+// 			  randomely (i.e., less collision).
+//==============================================================================
+
+#ifndef HASH_TABLE_H
+#define HASH_TABLE_H
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// Class for hash table nodes
+class Node
+{
+public:
+	string key;
+	int value;
+	Node *next;
+
+	Node(string key, int value);	// Constructor
+};
+
+// Class for hash table 
+class HashTable
+{
+public:
+	HashTable(int size);		// Constructor
+	void printHashTable(void);	// Prints all the nodes in the hash table
+	void insert(string key, int value);	// Insert a node into the hash table
+	int lookup(string key);		// Looks up a value by key from the hash table
+	vector<string> keys(void);	// Returns a vector of keys in the hash table
+
+	int hash(string key);		// Hash function
+
+private:
+	int bucketArrSize;			// Bucket array size (prime number recommended)
+	vector<Node *> bucketArr;	// Bucket array
+};
+
+#endif // HASH_TABLE_H
+```
+
+### Implementation
+
+```cpp
+//==============================================================================
+// File		: hash_table.cpp
+// Brief	: Implementation of Hash Table
+// Author	: Kyungjae Lee
+// Date		: Jul 31, 2023
+//
+// Note		: It is known that when the number of bucket array elements is a 
+// 			  prime number, the (key, value) pairs are distributed more 
+// 			  randomely (i.e., less collision).
+//==============================================================================
+
+#include "hash_table.h"
+
+using namespace std;
+
+//------------------------------------------------------------------------------
+// Implementation of Node class interface
+//------------------------------------------------------------------------------
+
+// Constructor
+// T = O(1)
+Node::Node(string key, int value)
+{
+	this->key = key;
+	this->value = value;
+	next = nullptr;
+} // End of Node class constructor
+
+//------------------------------------------------------------------------------
+// Implementation of Hash Table class interface
+//------------------------------------------------------------------------------
+
+// Constructor
+// T = O(1)
+HashTable::HashTable(int size)
+{
+	bucketArrSize = size;
+	bucketArr.reserve(size);	// Size of prime number recommended
+} // End of Hash Table class constructor
+
+// Prints all the nodes in the hash table
+// T = O(n)
+void HashTable::printHashTable(void)
+{
+	for (int i = 0; i < bucketArrSize; i++)
+	{
+		cout << i << ": ";
+		if (bucketArr[i])
+		{
+			Node *temp = bucketArr[i];
+			while (temp)
+			{
+				cout << "(" << temp->key << ", " << temp->value << "} ";
+				temp = temp->next;
+			}
+		}
+		cout << endl;
+	}
+} // End of printHashTable
+
+// Inserts a node into the hash table (Closed addressing; chaining)
+// T = O(1)
+void HashTable::insert(string key, int value)
+{
+	int index = hash(key);
+	Node *newNode = new Node(key, value);
+	
+	if (bucketArr[index] == nullptr)
+	{
+		// No collision detected, so simply insert the new node
+		bucketArr[index] = newNode;
+	}
+	else
+	{
+		// Collision detected
+		Node *temp = bucketArr[index];
+
+		// Find the last node of the chain
+		while (temp->next != nullptr)
+			temp = temp->next;
+
+		// Insert the new node after the last node in the chain
+		temp->next = newNode;
+	}
+} // End of insert
+
+// Looks up a value by key from the hash table
+// T = O(1)
+int HashTable::lookup(string key)
+{
+	int index = hash(key);
+	Node *temp = bucketArr[index];
+	
+	// Search the key
+	while (temp)
+	{
+		if (temp->key == key)
+			return temp->value;
+		
+		temp = temp->next;
+	}
+	
+	// Key is not found, return 0
+	return 0;
+} // End of lookup
+
+// Returns a vector of keys in the hash table
+// T = O(n)
+vector<string> HashTable::keys()
+{
+	vector<string> allKeys;
+	for (int i = 0; i < bucketArrSize; i++)
+	{
+		Node *temp = bucketArr[i];
+
+		while (temp)
+		{
+			allKeys.push_back(temp->key);
+			temp = temp->next;
+		}
+	}
+
+	return allKeys;
+} // End of keys
+
+// Hash function
+int HashTable::hash(string key)
+{
+	int hash = 0;
+	for (int i = 0; i < key.length(); i++)
+	{
+		int ascii = key[i];
+
+		// Multiply by 23, a prime number, to make the result more random
+		// Divide by bucketArrSize to normalize the result
+		hash = (hash + ascii * 23) % bucketArrSize;
+	}
+
+	return hash;
+} // End of hash
+```
+
+### Test Driver
+
+```cpp
+//==============================================================================
+// File		: main.cpp
+// Brief	: Test driver for Hash Table
+// Author	: Kyungjae Lee
+// Date		: Jul 31, 2023
+//==============================================================================
+
+#include <iostream>
+#include "hash_table.h"
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    // Create a hash table
+    HashTable *ht = new HashTable(7);
+    
+	// Insert elements
+	ht->insert("nails", 100);
+	ht->insert("tile", 50);
+	ht->insert("lumber", 80);
+	ht->insert("bolts", 200);
+	ht->insert("screws", 140);
+
+	// Print hash table
+	ht->printHashTable();
+
+	// Create a vector of keys present in the hash table
+	vector<string> allKeys = ht->keys();
+
+	cout << endl;
+
+	// Print the keys
+	for (auto key : allKeys)
+		cout << key << " ";
+
+	cout << endl;
+
+	cout << "tile: " << ht->lookup("tile") << endl;
+
+    return 0;
+}
+```
+
+```plain
+0: 
+1: 
+2: 
+3: (screws, 140} 
+4: (bolts, 200} 
+5: 
+6: (nails, 100} (tile, 50} (lumber, 80} 
+
+screws bolts nails tile lumber 
+tile: 50
+```
+
+
+
+## Chained Hash Table 2 (C++)
 
 For the ease of implementation, **key** will be *string* type, and **value** will be *template*.
 
