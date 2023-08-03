@@ -230,11 +230,11 @@ class HashTable
 {
 public:
 	HashTable(int size);		// Constructor
+	~HashTable(void);			// Destructor
 	void printHashTable(void);	// Prints all the nodes in the hash table
 	void insert(string key, int value);	// Insert a node into the hash table
 	int lookup(string key);		// Looks up a value by key from the hash table
 	vector<string> keys(void);	// Returns a vector of keys in the hash table
-
 	int hash(string key);		// Hash function
 
 private:
@@ -287,6 +287,30 @@ HashTable::HashTable(int size)
 	bucketArrSize = size;
 	bucketArr.reserve(size);	// Size of prime number recommended
 } // End of Hash Table class constructor
+
+// Destructor
+// T = O(n)
+HashTable::~HashTable(void)
+{
+	// Destroy all the nodes
+	Node *delNode, *head;
+
+	for (int i = 0; i < bucketArrSize; i++)
+	{
+		delNode = bucketArr[i];
+		head = bucketArr[i];
+
+		while (head)
+		{
+			head = head->next;
+			delete delNode;
+			delNode = head;
+		}
+	}
+
+	// Destory the bucket array
+	bucketArrSize.~vector();
+} // End of Desctructor
 
 // Prints all the nodes in the hash table
 // T = O(n)
@@ -432,6 +456,9 @@ int main(int argc, char *argv[])
 	cout << endl;
 
 	cout << "tile: " << ht->lookup("tile") << endl;
+
+	// Destroy the hash table
+	delete ht;
 
     return 0;
 }
