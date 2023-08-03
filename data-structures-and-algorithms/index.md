@@ -12,6 +12,7 @@
 4. **<a href="./queues">Queues</a>**
 5. **<a href="./trees">Trees</a>**
 6. **<a href="./hash-tables">Hash Tables</a>**
+7. **<a href="./graphs">Graphs</a>**
 
 
 
