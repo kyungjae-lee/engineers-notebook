@@ -4,3 +4,11 @@
 
 
 
+## Generic Steps to Follow while using DMA in an Application
+
+1. Identify the DMAx controller suitable for your application
+2. Initialize the DMA
+3. Trigger the DMA (Manual or automatic trigger)
+   * Manual trigger - Kick starting the DMA engine with the help of a processor core
+   * Automatic trigger - Kick starting the DMA engine with help of a peripheral but not the processor core (Desirable)
+4. Wait for Transmission Complete (TC) flag (i.e., polling) or get callback from DMA driver (i.e., interrupt)
