@@ -1,4 +1,4 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Bootloader</a> > Introduction to DMA
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Direct Memory Access (DMA)</a> > Introduction to DMA
 
 # Introduction to DMA
 
