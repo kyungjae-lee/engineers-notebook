@@ -16,21 +16,21 @@
 
 ## Supported Bootloader Commands
 
-| Host Sends        | Command Code | Bootloader Responds                         | Notes                                                        |
-| ----------------- | ------------ | ------------------------------------------- | ------------------------------------------------------------ |
-| BL_GET_VER        | 0x51         | Bootloader version number (1 byte)          | Used to read the bootloader version from the MCU             |
-| BL_GET_HELP       | 0x52         | All supported command codes (10 bytes)      | Used to retrieve all the commands that are supported by the bootloader |
-| BL_GET_CID        | 0x53         | Chip identification number (2 bytes)        | Used to get the MCU chip identification number               |
-| BL_GO_TO_ADDR     | 0x54         | Success or error code (1 byte)              | Used to jump bootloader to specified address                 |
-| BL_ERASE_FLASH    | 0x55         | Success or error code (1 byte)              | Used to mass-erase or sector-erase the user Flash            |
-| BL_READ_MEM       | 0x56         | Memory contents of length asked by the host | Used to read data from different memories of the MCU         |
-| BL_WRITE_MEM      | 0x57         | Success or error code (1 byte)              | Used to write data into different memories of the MCU        |
-| BL_GET_RDP_LEVEL  | 0x58         | Flash Read Protection (RDP) level (1 byte)  | Used to read the Flash Read Protection (RDP) level           |
-| BL_SET_RDP_LEVEL  | 0x59         | Success or error code (1 byte)              | Used to set the Flash Read Protection (RDP) level            |
-| BL_ENABLE_WRP     | 0x5A         | Success or error code (1 byte)              | Used to enable the Write Protection (WRP) for the selected sectors of the user Flash memory |
-| BL_DISABLE_WRP    | 0x5B         | Success or error code (1 byte)              | Used to disable the Write Protection (WRP) for all the sectors of the user Flash (i.e., Restores the default protection state) |
-| BL_GET_WRP_STATUS | 0x5C         | All sectors' Write Protection (WRP) status  | Used to read the Write Protection (WRP) status of all the sectors of the user Flash memory |
-| BL_READ_OTP       | 0x5D         | OTP contents                                | Used to read the OTP contents                                |
+| Host Sends        | Command Code | Bootloader Responds                                        | Notes                                                        |
+| ----------------- | ------------ | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| BL_GET_VER        | 0x51         | Bootloader version number (1 byte)                         | Used to read the bootloader version from the MCU             |
+| BL_GET_HELP       | 0x52         | All supported command codes (1 byte per supported command) | Used to retrieve all the commands that are supported by the bootloader |
+| BL_GET_CID        | 0x53         | Chip identification number (2 bytes)                       | Used to get the MCU chip identification number               |
+| BL_GO_TO_ADDR     | 0x54         | Success or error code (1 byte)                             | Used to jump bootloader to specified address                 |
+| BL_ERASE_FLASH    | 0x55         | Success or error code (1 byte)                             | Used to mass-erase or sector-erase the user Flash            |
+| BL_READ_MEM       | 0x56         | Memory contents of length asked by the host                | Used to read data from different memories of the MCU         |
+| BL_WRITE_MEM      | 0x57         | Success or error code (1 byte)                             | Used to write data into different memories of the MCU        |
+| BL_GET_RDP_LEVEL  | 0x58         | Flash Read Protection (RDP) level (1 byte)                 | Used to read the Flash Read Protection (RDP) level           |
+| BL_SET_RDP_LEVEL  | 0x59         | Success or error code (1 byte)                             | Used to set the Flash Read Protection (RDP) level            |
+| BL_ENABLE_WRP     | 0x5A         | Success or error code (1 byte)                             | Used to enable the Write Protection (WRP) for the selected sectors of the user Flash memory |
+| BL_DISABLE_WRP    | 0x5B         | Success or error code (1 byte)                             | Used to disable the Write Protection (WRP) for all the sectors of the user Flash (i.e., Restores the default protection state) |
+| BL_GET_WRP_STATUS | 0x5C         | All sectors' Write Protection (WRP) status                 | Used to read the Write Protection (WRP) status of all the sectors of the user Flash memory |
+| BL_READ_OTP       | 0x5D         | OTP contents                                               | Used to read the OTP contents                                |
 
 >BL_GO_TO_ADDR: When entering the target address to the host application, make sure to account for the T-bit setting. For example, If the address of the user application's reset handler is 0x08008229, then enter 0x08008228. Please see the bootloader source code for more details.
 
@@ -165,8 +165,8 @@
 
 * Used to write data into different memories (e.g., Flash, SRAM, etc.) of the MCU 
   * e.g., Programming binary into the Flash memory
-* Total length (in bytes) of the packet: 11+x
-* Length to follow: 10+x
+* Total length (in bytes) of the packet: 11+n
+* Length to follow: 10+n
 * Command code: 0x57
 * Base memory address: 4-byte base memory address from which the writing will take place (LE: Little Endian)
 * Payload length: The number of bytes to write (Max: 255 bytes)
