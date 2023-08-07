@@ -218,8 +218,8 @@
 ### BL_ENABLE_WRP
 
 * Used to enable the Write Protection (WRP) for the selected sectors of the user Flash memory
-* Total length (in bytes) of the packet: 7
-* Length to follow: 6
+* Total length (in bytes) of the packet: 8
+* Length to follow: 7
 * Command code: 0x5A
 * Sector not write protect (Each bit represents the sector number; e.g., 0^th^ bit is sector 0)
   * 0: Write protection active on selected sector
