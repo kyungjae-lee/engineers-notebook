@@ -6,7 +6,8 @@
 
 ## Selection Sort ( T = O(n^2^) )
 
-* A sorting algorithm that iteratively selects the smallest (or largest) element from an unsorted portion of the list and places it at the beginning (or end) of the sorted portion. This process is repeated until the entire list is sorted. 
+* A sorting algorithm that iteratively selects the smallest (or largest) element from an unsorted portion of the list and places it at the beginning (or end) of the sorted portion. This process is repeated until the entire list is sorted.
+* Selection sort has a time complexity of O(n^2^), making it inefficient for large lists.
 
 ### Algorithm
 
