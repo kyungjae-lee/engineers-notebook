@@ -19,4 +19,5 @@
 ### Algorithms
 
 1. **<a href="./recursion">Recursion</a>**
+1. **<a href="./bubble-sort">Bubble Sort</a>**
 
