@@ -8,6 +8,7 @@
 
 * A simple sorting algorithm that repeatedly steps through a list of elements, compares adjacent elements, and swaps them if they  are in the wrong order. This process is repeated for each pair of adjacent elements until the entire list is sorted.
 * Gets its name from the way smaller elements "bubble" to the beginning of the list with each pass.
+* Bubble sort has a time complexity of O(n^2^), making it inefficient for large lists.
 
 ### Algorithm
 
