@@ -22,7 +22,7 @@
 ### Pseudo-code
 
 ```plain
-InsertionSort(arr):
+SelectionSort(arr):
     n = length(arr)
     for i from 1 to n - 1:
         current = arr[i]
