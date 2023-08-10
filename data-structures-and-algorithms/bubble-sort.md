@@ -26,8 +26,8 @@
 ```plain
 BubbleSort(arr):
     n = length(arr)
-    for i from n-1 to 1:
-        for j from 0 to i-1:
+    for i from 0 to n-1:
+        for j from 0 to n-i-2:
             if arr[j] > arr[j+1]:
                 swap(arr[j], arr[j+1])
 ```
@@ -43,9 +43,9 @@ using namespace std;
 
 void bubbleSort(int arr[], int size)
 {
-    for (int i = size - 1; i > 0; i--)
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < i; j++)
+        for (int j = 0; j < size - i - 1; j++)
         {
             if (arr[j] > arr[j + 1])
             {
