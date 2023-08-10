@@ -12,23 +12,25 @@
 ### Algorithm
 
 1. **Input:** An array of elements to be sorted.
-2. **Loop:** Iterate through the array from the beginning to the second-to-last element.
-3. **Find Minimum:** For each iteration, find the index of the smallest element in the remaining unsorted portion of the array (starting from the current iteration index).
-4. **Swap:** Swap the element at the current iteration index with the element at the index of the smallest element found in step 3.
-5. **Repeat:** Continue this process, incrementing the iteration index, until the entire array is sorted.
+2. **Loop:** Start a loop that iterates from the second element to the last element of the array.
+3. **Current Element:** For the current iteration, store the value of the element to be inserted into the sorted portion.
+4. **Inner Loop:** Within the loop, iterate from the current element's position back to the beginning of the array (or until a smaller element is found).
+5. **Shift and Insert:** While iterating in the inner loop, if the current element is smaller than the element being compared, shift the compared element to the right to make space for the current element.
+6. **Insert Current Element:** Once a suitable position is found in the inner loop, insert the current element into that position.
+7. **Repeat:** Continue this process for each element in the array until the entire array is sorted.
 
 ### Pseudo-code
 
 ```plain
-SelectionSort(arr):
-	n = length(arr)
-	for i from 0 to n-2:
-		minIndex = i
-		for j from i+1 to n-1:
-			if arr[j] < arr[minIndex]:
-				minIndex = j
-		if minIndex != i:
-			swap(arr[i], arr[minIndex])
+InsertionSort(arr):
+    n = length(arr)
+    for i from 1 to n - 1:
+        current = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > current:
+            arr[j + 1] = arr[j]
+            j = j - 1
+        arr[j + 1] = current
 ```
 
 
