@@ -8,7 +8,28 @@
 
 * A simple sorting algorithm that repeatedly steps through a list of elements, compares adjacent elements, and swaps them if they  are in the wrong order. This process is repeated for each pair of adjacent elements until the entire list is sorted.
 * Gets its name from the way smaller elements "bubble" to the beginning of the list with each pass.
-* Time complexity: T = O(n^2^)  (Inefficient for large lists)
+
+### Algorithm
+
+1. **Input:** An array of elements to be sorted.
+2. **Loop:** Start a loop that will run for the total number of elements in the array.
+3. **Inner Loop:** Within the loop, iterate through the array from the beginning to the second-to-last element.
+4. **Compare and Swap:** For each pair of adjacent elements in the inner loop, compare them. If the elements are in the wrong order (i.e., the current element is greater than the next element), swap them.
+5. **Repeat:** Continue this process for each pair of adjacent elements in the array for each iteration of the outer loop.
+6. **One Pass Complete:** After each pass of the inner loop, the largest (or smallest, depending on the sorting order) element "bubbles up" to the end (or beginning) of the array.
+7. **Reduce Inner Loop:** In the next iteration of the outer loop, you can reduce the range of the inner loop by one, as the largest (or smallest) element is already in its correct position.
+8. **Repeat Outer Loop:** Repeat steps 3 to 7 for the remaining unsorted portion of the array until the entire array is sorted.
+
+### Pseudo-code
+
+```plain
+BubbleSort(arr):
+    n = length(arr)
+    for i from n-1 to 1:
+        for j from 0 to i-1:
+            if arr[j] > arr[j+1]:
+                swap(arr[j], arr[j+1])
+```
 
 
 
