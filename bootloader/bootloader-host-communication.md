@@ -28,6 +28,16 @@
 
 
 
+### Host Application
+
+* The host application runs on a host machine and provides the user with an interactive menu of the available bootloader commands.
+
+
+
+<img src="./img/host-application-menu.png" alt="host-application-menu" width="600">
+
+
+
 ### Using the Virtual COM Port
 
 * For STM32F407-Discovery board, the USB-to-UART converter will be necessary. (See [Virtual COM Port (VCP) Support](./virtual-com-port-support))

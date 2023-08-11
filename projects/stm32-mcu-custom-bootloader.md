@@ -21,6 +21,28 @@ Source code: [https://github.com/kyungjae-lee/stm32-mcu-custom-bootloader](https
 
 
 
+## Bootloader-Host Communication over USART Peripheral Interface
+
+### Overview
+
+
+
+<img src="img/bootloader-host-communication-interfaces.png" alt="bootloader-host-communication-interfaces" width="650">
+
+
+
+### Host Application
+
+* The host application runs on a host machine and provides the user with an interactive menu of the available bootloader commands.
+
+
+
+<img src="img/host-application-menu.png" alt="host-application-menu" width="550">
+
+
+
+
+
 ## Bootloader Design
 
 ### Bootloader Code Placement in Flash (Main) Memory
