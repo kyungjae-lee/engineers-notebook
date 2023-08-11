@@ -19,6 +19,7 @@
 ### Algorithms
 
 1. **<a href="./recursion">Recursion</a>**
-1. **<a href="./bubble-sort">Bubble Sort</a>**
-1. **<a href="./selection-sort">Selection Sort</a>**
+1. **<a href="./bubble-sort">Bubble Sort: T = O(n^2^) , S = O(1)</a>**
+1. **<a href="./selection-sort">Selection Sort: T = O(n^2^) , S = O(1) </a>**
+1. **<a href="./insertion-sort">Insertion Sort: T = O(n^2^) , S = O(1)</a>**
 

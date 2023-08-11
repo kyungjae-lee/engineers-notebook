@@ -1,14 +1,15 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Bubble Sort
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Bubble Sort: T = O(n^2^) , S = O(1) 
 
-# Bubble Sort
+# Bubble Sort: T = O(n^2^) , S = O(1) 
 
 
 
-## Bubble Sort ( T = O(n^2^) )
+## Bubble Sort
 
 * A simple sorting algorithm that repeatedly steps through a list of elements, compares adjacent elements, and swaps them if they  are in the wrong order. This process is repeated for each pair of adjacent elements until the entire list is sorted.
 * Gets its name from the way smaller elements "bubble" to the beginning of the list with each pass.
 * Bubble sort has a time complexity of O(n^2^), making it inefficient for large lists.
+* Bubble sort has a space complexity of O(1). It sorts the array **in place**, that is, It does not create additional copies of the array.
 
 ### Algorithm
 

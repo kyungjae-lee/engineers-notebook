@@ -1,13 +1,14 @@
-<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Selection Sort
+<a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Selection Sort: T = O(n^2^) , S = O(1) 
 
-# Selection Sort
+# Selection Sort: T = O(n^2^) , S = O(1) 
 
 
 
-## Selection Sort ( T = O(n^2^) )
+## Selection Sort
 
 * A sorting algorithm that iteratively selects the smallest (or largest) element from an unsorted portion of the list and places it at the beginning (or end) of the sorted portion. This process is repeated until the entire list is sorted.
 * Selection sort has a time complexity of O(n^2^), making it inefficient for large lists.
+* Selection sort has a space complexity of O(1). It sorts the array **in place**, that is, It does not create additional copies of the array.
 
 ### Algorithm
 
