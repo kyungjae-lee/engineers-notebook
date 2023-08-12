@@ -1,13 +1,23 @@
 <a href="../../">Home</a> > <a href="../notebook">Notebook</a> > <a href="./">Data Structures & Algorithms</a> > Merge Sort: T = O(n logn) , S = O(n) 
 
-# Selection Sort: T = O(n logn) , S = O(n) 
+# Merge Sort: T = O(n logn) , S = O(n) 
 
 
 
 ## Merge Sort
 
 * A **divide-and-conquer** sorting algorithm that works by repeatedly dividing the unsorted list into smaller sublists, sorting those sublists, and then merging them back together to obtain a sorted list. It employs a recursive approach to sorting.
-* Merge sort is known for its stable nature and efficient time complexity of O(n log n), making it suitable for larger lists.
+
+* Merge sort is known for its stable nature and efficient time complexity of O(n logn), making it suitable for larger lists.
+
+  Technical speaking,
+  $$
+  \text{T} \propto O({n \log n} + n)
+  $$
+  The term 'n log n' signifies that we iterate through all 'n' items 'log  n' times (representing the recursive depth) during the process of splitting the original array into arrays of size 1 and merging them back into an array of size 'n' recursively.
+
+  The last term, 'n,' accounts for the total number of splits required to break down the original array into arrays of size 1. However, this 'n'  term is non-dominant and thus dropped, as it has a lesser impact on the  overall time complexity.
+
 * Merge sort has space complexity of O(n), where "n" is the number of elements in the input array. This is because merge sort requires additional space to store the temporary subarrays during the merging process.
 
 ### Algorithm
