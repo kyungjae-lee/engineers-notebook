@@ -16,7 +16,7 @@
   $$
   The term 'n log n' signifies that we iterate through all 'n' items 'log  n' times (representing the recursive depth) during the process of splitting the original array into arrays of size 1 and merging them back into an array of size 'n' recursively.
 
-  The last term, 'n,' accounts for the total number of splits required to break down the original array into arrays of size 1. However, this 'n'  term is non-dominant and thus dropped, as it has a lesser impact on the  overall time complexity.
+  The last term, 'n,' accounts for the total number of splits required to break down the original array into arrays of size 1 (and, of course, another 'n' for putting them back together). However, this 'n'  term is non-dominant and thus dropped, as it has a lesser impact on the  overall time complexity.
 
 * Merge sort has space complexity of O(n), where "n" is the number of elements in the input array. This is because merge sort requires additional space to store the temporary subarrays during the merging process.
 
