@@ -23,4 +23,5 @@
 1. **<a href="./selection-sort">Selection Sort: T = O(n^2^) , S = O(1) </a>**
 1. **<a href="./insertion-sort">Insertion Sort: T = O(n^2^) , S = O(1)</a>**
 1. **<a href="./merge-sort">Merge Sort: T = O(n logn) , S = O(n)</a>**
+1. **<a href="./quick-sort">Quick Sort: T = O(n logn) , S = O(n)</a>**
 
