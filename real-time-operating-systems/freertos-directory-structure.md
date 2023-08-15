@@ -13,11 +13,24 @@
 
 ## FreeRTOS Directory Structure
 
-+ The **FreeRTOS/Source** directory contains the FreeRTOS source code, and contains its own readme file.
++ The `FreeRTOS/Source/` contains the FreeRTOS kernel source code, and contains its own readme file.
+  + `FreeRTOS/Source/include/` contains header files.
 
-+ The **FreeRTOS/Demo** directory contains a demo application for every official FreeRTOS port, and contains its own readme file.
+  + `FreeRTOS/Source/portable/` contains processor architecture-specific files. (Various compiler directories each of which contains various processor architecture-specific files. We'll be using GCC compiler only!)
 
-+ The **FreeRTOS/Test** directory contains the tests performed on common code and the portable layer code, and contains its own readme file.
+  + Everything else in the `FreeRTOS/Source/` is the architecture-independent code.
+
++ The `FreeRTOS/Demo/` contains a demo application for every official FreeRTOS port (i.e., various MCUs), and contains its own readme file.
+
++ The `FreeRTOS/Test/` contains the tests performed on common code and the portable layer code, and contains its own readme file.
+
++ The `FreeRTOS/License/` contains the license file that allows you to use the FreeRTOS kernel.
+
+
+
+## FreeRTOS-Plus Directory Structure
+
+* `FreeRTOS-Plus/` contains various other middleware which can be used with FreeRTOS kernel such as CLI, IO, TCP, UDP, etc. (We'll not care about this contents.)
 
 
 
