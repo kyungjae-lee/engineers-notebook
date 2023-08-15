@@ -6,8 +6,8 @@
 
 * Before moving on, create a root folder (e.g., `RTOS/`) that contains two folders for the following two contents:
   * `Workspace` - contains project files
-  * `SoftwareToolchains` - contains software and toolchains
-* The FreeRTOS version we will be using here is **FreeRTOSv202012.00**.
+  * `Downloads` - contains software and toolchains
+* The FreeRTOS kernel version we will be using here is **FreeRTOSv202012.00**.
 
 
 
@@ -120,7 +120,7 @@
 
 * Create the `FreeRTOSConfig.h` file which contains the FreeRTOS kernel configuration information. This file is application-specific so does not come with the FreeRTOS kernel download. You need to create it and added it to the project on your own. (Reference: [https://freertos.org/a00110.html](https://freertos.org/a00110.html))
 
-  For the time being, we will import a configuration file from a demo proejct provided by the freertos.org for different microcontrollers. Search for your microcontroller (e.g., stm32f407) in `SoftwareToolchains/FreeRTOSv202012.00/FreeRTOS/Demo/` and copy the corresponding `FreeRTOSConfig.h` file into `Project/ThirdParty/FreeRTOS/`. The one provided for the same microcontroller (stm32f407 in our case) should work.
+  For the time being, we will import a configuration file from a demo proejct provided by the freertos.org for different microcontrollers. Search for your microcontroller (e.g., stm32f407) in `Downloads/FreeRTOSv202012.00/FreeRTOS/Demo/` and copy the corresponding `FreeRTOSConfig.h` file into `Project/ThirdParty/FreeRTOS/`. The one provided for the same microcontroller (stm32f407 in our case) should work.
 
   **Don't forget to add its path `Project/ThirdParty/FreeRTOS/` to the "Include paths"!**
 
