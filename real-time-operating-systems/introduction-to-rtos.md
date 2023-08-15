@@ -50,6 +50,7 @@
   * Handling of interrupts and internal system exceptions
   * Handling of critical sections
   * Scheduling mechanisms, etc.
+    * In general, RTOS scheduling policy favors high-priority tasks.
 
 
 
