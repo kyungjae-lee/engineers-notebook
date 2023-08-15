@@ -167,3 +167,9 @@ int main(void)
 }
 ```
 
+```plain
+Pre-Order Traversal: 1 2 4 5 3 
+In-Order Traversal: 4 2 5 1 3 
+Post-Order Traversal: 4 5 2 3 1 
+```
+
