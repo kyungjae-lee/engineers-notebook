@@ -82,7 +82,7 @@
 
 * **Priority inversion** occurs when circumstances within the system force a higher-priority task to wait for a lower-priority task to finish, effectively inverting the assigned priorities of the tasks.
 
-  e.g., A low priority process acquiring a resource that a high priority process needs, and then being preempted by a medium  priority process, so the high priority process is blocked on the  resource while the medium priority one finishes (effectively being  executed with a lower priority).
+  e.g., A low priority process acquiring a resource that a high priority process needs, and then being preempted by a medium priority process, so the high priority process is blocked on the resource while the medium priority one finishes (effectively being executed with a lower priority).
 
 * **GPOS**
 
@@ -90,7 +90,7 @@
 
 * **RTOS**
 
-  * Priority inversion is a big issue and must be resolved! Most of the real-time kernal implements some techniques to resolve it.
+  * Priority inversion is a big issue and must be resolved! Most of the real-time kernel implements some techniques to resolve it.
 
     e.g., Rescheduling, temporarily elevating the priority of the lower-priority task to the highest among so that it can run first and release the resource as soon as possible.
 
@@ -98,7 +98,7 @@
 
 ## Summary
 
-* The features that RTOS has that GPOS desn't:
+* The features that RTOS has that GPOS doesn't:
 
   * Priority based preemptive scheduling mechanism (i.e., always favors the highest priority task)
 
