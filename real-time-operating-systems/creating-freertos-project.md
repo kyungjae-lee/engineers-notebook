@@ -39,7 +39,7 @@
 
     $\to$ Easier, but only available with the support of tools
 
-  The CMSIS-RTOS API is a generic RTOS interface for Arm® Cortex®-M  processor-based devices. CMSIS-RTOS provides a standardized API for  software components that require RTOS functionality and gives therefore  serious benefits to the users and the software industry. [https://www.keil.com/pack/doc/CMSIS/RTOS/html/genRTOSIF.html](https://www.keil.com/pack/doc/CMSIS/RTOS/html/genRTOSIF.html)
+  The CMSIS-RTOS API is a generic RTOS interface for Arm® Cortex®-M  processor-based devices. CMSIS-RTOS provides a standardized API for software components that require RTOS functionality and gives therefore  serious benefits to the users and the software industry. [https://www.keil.com/pack/doc/CMSIS/RTOS/html/genRTOSIF.html](https://www.keil.com/pack/doc/CMSIS/RTOS/html/genRTOSIF.html)
 
   $\to$ We want to skip using CMSIS APIs for the time being since we want to use the FreeRTOS APIs directly from the application.
 
@@ -47,13 +47,15 @@
 
 <img src="./img/cmsis-rtos-api.png" alt="cmsis-rtos-api" width="800">
 
+
+
 * Project layout
 
   * Application layer (`Project/Core/Src`)
 
   * CMSIS-RTOS API layer will not be used in our project.
   * FreeRTOS layer will be added.
-  * CMSIS-CORE layer provides stadard APIs to access Cortex-M processor's basic peripherals. (Project/Drivers/Include/core_cm4.h)
+  * CMSIS-CORE layer provides stadard APIs to access Cortex-M processor's basic peripherals. (`Project/Drivers/CMSIS/Include/core_cm4.h`)
 
 
 
@@ -69,7 +71,7 @@
 
 * Copy `License/` from the downloaded kernel source folder into `Project/ThirdParty/FreeRTOS`.
 
-* Copy the FreeRTOS kernel source into `Project/ThirdParty/FreeRTOS`. 
+* Copy the FreeRTOS kernel source (the contents of the `Source/` not the folder itself) into `Project/ThirdParty/FreeRTOS`. 
 
   `portable/` contains architecture-dependent part of the FreeRTOS kernel.
 
@@ -77,7 +79,7 @@
 
 * Go to `Project/ThirdParty/FreeRTOS/portable`, delete everything but `GCC/`, `MemMang/`, `readme.txt`.
 
-  Under `GCC/ARM_CM4F/` are two files `portmacro.h` and `port.c`. These are port codes or architecture-level codes that are necessary to run the FreeRTOS on a specific target hardware architecture.
+  Under `GCC/ARM_CM4F/` (i.e., ARM Cortex-M4 with FPU support) are two files `portmacro.h` and `port.c`. These are port codes or architecture-level codes that are necessary to run the FreeRTOS on a specific target hardware architecture.
 
 * Go to `Project/ThirdParty/FreeRTOS/portable/GCC`, delete all the that are not your hardware architecture. (In our case, leave `ARM_CM4F/` only! Trailing 'F' means "with FPU"). 
 
@@ -101,7 +103,7 @@
 
   * `sysmem.c` - contains heap managment code but will NOT be used in our project since FreeRTOS provides its own heap management code (i.e., `FreeRTOS/portable/MemMang/heap_x.c`)
 
-    Feel free to exclude `sysmem.c` from build. Aslo, delete `heap_1.c`, `heap_2.c`, `heap_3.c`, `heap_5.c`, and just keep `heap_4.c`.
+    Feel free to exclude `sysmem.c` from build. Also, delete `heap_1.c`, `heap_2.c`, `heap_3.c`, `heap_5.c`, and just keep `heap_4.c`.
 
   * `syscalls.c` - contains standard library system calls such as `__write()`, `__read()`, etc.
 
@@ -118,7 +120,7 @@
 
 
 
-* Create the `FreeRTOSConfig.h` file which contains the FreeRTOS kernel configuration information. This file is application-specific so does not come with the FreeRTOS kernel download. You need to create it and added it to the project on your own. (Reference: [https://freertos.org/a00110.html](https://freertos.org/a00110.html))
+* Create the `FreeRTOSConfig.h` file which contains the FreeRTOS kernel configuration information. It is a configuration header file used to customize the FreeRTOS kernel. This file is application-specific so does not come with the FreeRTOS kernel download. You need to create it and added it to the project on your own. (Reference: [https://freertos.org/a00110.html](https://freertos.org/a00110.html)) `FreeRTOSConfig.h` also contains architecture-specific configuration items so one for a project will not work for a different architecture.
 
   For the time being, we will import a configuration file from a demo proejct provided by the freertos.org for different microcontrollers. Search for your microcontroller (e.g., stm32f407) in `Downloads/FreeRTOSv202012.00/FreeRTOS/Demo/` and copy the corresponding `FreeRTOSConfig.h` file into `Project/ThirdParty/FreeRTOS/`. The one provided for the same microcontroller (stm32f407 in our case) should work.
 
