@@ -26,7 +26,7 @@
   ```
 
 * More on Current Program Status Register (CPSR)
-  (For more details on "condition flags setting", see [Introduction to the Stored Program Machine & ARM](https://kyungjae.dev/computer-architecture-and-organization/introduction-to-the-stored-program-machine-and-arm).)
+  (For more details on "condition flags setting", see [Introduction to the Stored Program Machine & ARM](https://jackklee.com/computer-architecture-and-organization/introduction-to-the-stored-program-machine-and-arm).)
 
     - [31-28] Condition Codes 
 

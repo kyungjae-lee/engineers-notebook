@@ -290,7 +290,7 @@ int main(int argc, char *argv[])
 		 *
 		 * Note: To use printf() function to print the data to console,
 		 * 		 a couple of settings have to be done.
-		 * 		 See, https://kyungjae.dev/arm-cortex-m3-m4-processor-architecture/using-printf-on-arm-cortex-m3-m4-m7-based-mcus
+		 * 		 See, https://jackklee.com/arm-cortex-m3-m4-processor-architecture/using-printf-on-arm-cortex-m3-m4-m7-based-mcus
 		 *
 		 * 		 You can also use semihosting feature instead.
 		 */

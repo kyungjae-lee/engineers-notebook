@@ -27,7 +27,7 @@
 
 ## ARM Data Processing, Data Transfer, and Compare Instructions
 
-- Remember! This only tells a part of the story. For more information, see [ARM Assembly Language Reference Card](https://kyungjae.dev/computer-architecture-and-organization/arm-assembly-language-reference-card).
+- Remember! This only tells a part of the story. For more information, see [ARM Assembly Language Reference Card](https://jackklee.com/computer-architecture-and-organization/arm-assembly-language-reference-card).
 
   ```plain
   Instruction               ARM Mnemonic        Definition (RTL)

@@ -164,7 +164,9 @@
 * There is a *quotient*, *remainder* and the *sign* that has to be handled as well.
 * You as a programmer have to write the division subroutine yourself.
   - Works best as a loop that does **repeated subraction** until you can no longer subtract the whole number, producing a quotient and a remainder.
-  - See [Multiplication & Division](https://kyungjae.dev/computer-architecture-and-organization/multiplication-and-division) for more details.
+  - See [Multiplication & Division](https://jackklee.com/computer-architecture-and-organization/multiplication-and-division) for more details.
+
+
 
 
 ## Bitwise Logical Operations

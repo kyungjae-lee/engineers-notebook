@@ -1,6 +1,6 @@
 # Engineer's Notebook
 
-This repository contains the source code for my website **Engineer's Notebook ([https://kyungjae.dev/](https://kyungjae.dev/))**.
+This repository contains the source code for my website **Engineer's Notebook ([https://jackklee.com/](https://jackklee.com/))**.
 
 
 
