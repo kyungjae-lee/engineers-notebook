@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -600,7 +616,7 @@ header, .context-menu, .megamenu-content, footer{
 <span>keyboards, printers, displays, network cards, etc.). </span></li></ul></li><li><p><span>Application</span></p><ul><li><span>The end use of the computer.</span></li><li><span>e.g., Desktop, gaming, graphics, embedded systems in a medical device or on a spacecraft.</span></li></ul></li><li><p><span>Tools</span></p><ul><li><span>Although it is not part of the computer itself, it affects the design of computers.</span></li><li><span>Computer </span><em><span>tools</span></em><span> cover a range of software products, from packages that perform hardware design at the circuit level, to computer simulators, and to suites of programs.</span></li></ul></li></ul><p>&nbsp;</p><h2 id='clock-clk'><span>Clock (CLK)</span></h2><p>&nbsp;</p><p><img src="./img/clock.png" alt="clock" width="700"></p><p>&nbsp;</p><ul><li><p><span>In general, </span><strong><span>clock</span></strong><span> refers to a microchip that regulates the timing and speed of all computer functions.</span></p><ul><li><span>In the chip is a crystal that vibrrates at a specific frequency when electricity is applied.</span></li><li><span>The shortest time any computer is capable of performing is </span><em><span>one clock</span></em><span>, or </span><em><span>one vibration</span></em><span> of the clock chip.</span></li></ul></li><li><p><strong><span>Clock rate</span></strong><span> or </span><strong><span>clock speed</span></strong><span> typically refers to the </span><em><span>frequency</span></em><span> at which the clock generator of a processor can generate pulses, which are used to synchronize the operations of its components, and is used as an indicator of the processor&#39;s speed. (It is measured in </span><em><span>clock cycles per second</span></em><span> or its equivalent, the </span><em><span>SI</span></em><span> unit </span><em><span>hertz(Hz)</span></em><span>.</span></p></li><li><p><strong><span>Frequency</span></strong><span> and </span><strong><span>period</span></strong><span>:</span></p><p><img src="./img/frequency-and-period.png" alt="frequency-and-period" width="700"></p><p>&nbsp;</p><p><span>e.g., Period of </span><em><span>2 nanoseconds</span></em><span> gives a frequency of 0.5GHz or 500MHz. (∵ 1/(2 * 10</span><sup><span>-9</span></sup><span>) = 5.0E8)</span></p><p><span>e.g., Frequency of 800MHz gives a period of 1/800000000 = 1.25 nanoseconds.</span></p></li><li><p><span>Some history on clock speeds:</span></p><ul><li><p><span>Intel 6502 Microprocessor </span><em><span>1MHz</span></em><span> to </span><em><span>2MHz</span></em></p><ul><li><em><span>Apple II</span></em><span>, </span><em><span>Rockwell Aim-65</span></em><span>, </span><em><span>Commodore VIC 20</span></em><span> and </span><em><span>Commodore 64</span></em><span> used this CPU.</span></li><li><span>Late 1970&#39;s, early 1980&#39;s technology.</span></li></ul></li><li><p><span>Most modern personal computers are in the </span><em><span>2GHz</span></em><span> to </span><em><span>8GHz</span></em><span> range which is 1,000 to 8,000 times faster.</span></p><ul><li><span>Higher </span><em><span>Hz</span></em><span> does not necessarily mean the processer runs better for your application. More about that in </span><em><span>CS413</span></em><span>.</span></li></ul></li></ul></li></ul><p>&nbsp;</p><h2 id='synchronous--asynchronous'><span>Synchronous &amp; Asynchronous</span></h2><ul><li><span>There have been CPUs and memory systems which do not have a clock (</span><strong><span>asynchronous</span></strong><span>). In some cases systems without a clock do run faster but require more complex hardware.</span></li></ul></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

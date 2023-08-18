@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -682,7 +698,7 @@ header, .context-menu, .megamenu-content, footer{
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  - Opcode</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 69px;"></div><div class="CodeMirror-gutters" style="height: 69px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><ul><li><span>Addressing Mode</span></li></ul><ul><li><p><strong><span>Outputs:</span></strong></p><ul><li><span>ALU Operations</span></li><li><span>Memory Read/Write</span></li><li><span>In/Out, From/To Bus</span></li><li><span>CCR Flag Updates</span></li></ul></li></ul><p>&nbsp;</p><p><img src="./img/basic-structure-of-hardwired-control-unit.png" alt="basic-structure-of-hardwired-control-unit" width="800"></p><p>&nbsp;</p><h3 id='microcode-control-unit'><span>Microcode Control Unit</span></h3><ul><li><p><span>For the </span><strong><span>Microcode Control Unit</span></strong><span> these gates have been replaced by:</span></p><ul><li><span>μPC −  A register that contains the next microinstruction to execute</span></li><li><span>μMemory −  A section in the CPU where the microinstructions are stored</span></li><li><span>μMAR / μIR − Current microinstruction that is being executed (both registers serve the same purpose)</span></li></ul></li></ul><h4 id='1-horizontal-microcode'><span>1. Horizontal Microcode</span></h4><ul><li><span>Each bit of the microcode controls (corresponds to) a specific control signal. (e.g., In the following figure, if R</span><sub><span>a0</span></sub><span> bit is set, it means “Register r0 out to bus A”. </span></li><li><span>The microinstruction has to be as long as the number of control signals. This makes for very long microinstruction and hence a large Microprogram ROM. Also, why would you need to be able to turn on multiple bits when more than two data loaded on one bus is not meaningful! (Plus, shorting multiple output buses is a BAD idea!)</span></li></ul><p>&nbsp;</p><p><img src="./img/horizontal-microcode-encoding.png" alt="horizontal-microcode-encoding" width="800"></p><p>&nbsp;</p><h4 id='2-vertical-microcode'><span>2. Vertical Microcode</span></h4><ul><li><span>Instead of each bit controlling one signal a group of bits is used that then go into a decoder to turn on the right signal. This system prevents bad or unnecessary things (e.g., conflics) that were allowed  to happen in the </span><em><span>Horizontal Microcode</span></em><span> from happening.</span></li><li><span>Be careful with the groups because the decoder only has one signal active at a time.</span></li><li><span>This may be more complex, a bit slowewr than </span><em><span>Horizontal Microcode</span></em><span>, but it makes the microcode word much shorter.</span></li></ul><p>&nbsp;</p><p><img src="./img/vertical-microcode-encoding.png" alt="certical-microcode-encoding" width="700"></p><p>&nbsp;</p><ul><li><p><span>Microcode Control Units were popular in the 1980’s for several reasons:    </span></p><ul><li><span>Easy to fix problems with the microcode by reburning the microROM.</span></li></ul></li></ul><ul><li><span>Completely change the instruction set by just redoing the microcode.</span></li></ul><ul><li><p><span>Fell out of favor because:        </span></p><ul><li><span>Tools to design and test the microprocessor got a lot better. So, higher probability the CPUs would work the first time after manufacture.</span></li><li><span>Speed of the processors increased to the point that reading from the microROM would slow down the processor.</span></li></ul><p><span>[!] Note: Intel still uses microcode instead of hardwired one but the usage is  restricted to </span><em><span>cache</span></em><span> management. (Cache management algorithm is complicated and  if any issue is found on the hardwired component, everything has to be thrown away  whereas if done in microcode, it can be fixed at the software level.)</span></p></li></ul></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

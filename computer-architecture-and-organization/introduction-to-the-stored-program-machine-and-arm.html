@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -723,7 +739,7 @@ header, .context-menu, .megamenu-content, footer{
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">36</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  0000 0000       0000 0000                                       0</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">37</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> -0001 0000      +1111 0000 (two's complement of -0001 0000)    -16 </span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">38</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ----------      ----------                                     ---</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">39</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">                  1111 0000                                     -16 (correct)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">40</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">   </span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">41</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  N=1, Z=0, C=0, V=0</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 945px;"></div><div class="CodeMirror-gutters" style="height: 945px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre></li><li><p><span>Hardware implementation of condition flags</span></p><ul><li><code>N</code><span>: </span><code>MSB</code><span> value</span></li><li><code>Z</code><span>: 32 input NOR gate</span></li><li><code>C</code><span>: Carry out from full-adder directly connected to the </span><code>C</code><span> flag</span></li><li><code>V</code><span>: </span><code>a(n-1)b(n-1)s(n-1)&#39; + a(n-1)&#39;b(n-1)&#39;s(n-1)</code><span> meaning, </span><code>V</code><span> flag is set when </span><code>P+P=N</code><span> or </span><code>N+N=P</code><span>   </span></li></ul></li></ul><p>&nbsp;</p><p><img src="./img/ccr-condition-flags-setting.png" alt="ccr-condition-flags-setting" width="1000"></p><p>&nbsp;</p><ul><li><p><span>Comments about overflows</span></p><ul><li><span>In C, it keeps on going like nothing ever happened.</span></li><li><span>In C++, it has the ability to detect and throw an overflow exception. You as a programmer still have to handle it.</span></li><li><span>In Java, it does not automatically throw an error or overflow exception.</span></li><li><span>In Assembly, no way! You as as programmer have to check the overflow bit and do all that code yourself.</span></li></ul></li></ul></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
