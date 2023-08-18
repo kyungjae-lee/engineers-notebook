@@ -85,7 +85,7 @@
 
 * Before you do this exercise, make sure to go through all the necessary steps to use `print()` function over SWO pin.
 
-  See [Using `printf()` on ARM Cortex M3/M4/M7 Based MCUs](../embedded-systems-programming-arm/using-printf-on-arm-cortex-m3-m4-m7-based-mcus)
+  See [Using `printf()` with Serial Wire Viewer (SWV)](../arm-cortex-m3-m4-processor/using-printf-with-serial-wire-viewer).
   
 * Start the FreeRTOS scheduler:
 

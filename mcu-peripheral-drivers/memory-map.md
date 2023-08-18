@@ -19,7 +19,7 @@
 
 * Different types of MCUs have different memory maps but the fundamentals are the same. Consult the MCU reference manual for the MCU specific information.
 
-* See also, [https://jackklee.com/embedded-systems-programming-arm/memory-map](https://jackklee.com/embedded-systems-programming-arm/memory-map).
+* See also, [https://jackklee.com/arm-cortex-m3-m4-processor/memory-map](https://jackklee.com/arm-cortex-m3-m4-processor/memory-map).
 
 * Some important base addresses of peripheral registers:
 
