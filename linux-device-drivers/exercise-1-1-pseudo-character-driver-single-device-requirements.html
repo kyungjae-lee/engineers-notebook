@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Linux Device Drivers</span></a><span> &gt; Exercise 1: Pseudo Character Driver (Single Device) - Requirements</span></p><h1 id='exercise-1-pseudo-character-driver-single-device---requirements'><span>Exercise 1: Pseudo Character Driver (Single Device) - Requirements</span></h1><p>&nbsp;</p><h2 id='requirements'><span>Requirements</span></h2><ul><li><span>Write a character driver to deal with a pseudo character device</span></li><li><span>The pseudo-device is a memory buffer of some size</span></li><li><span>The driver you write must support reading, writing and seeking to this driver</span></li><li><span>Test the driver functionality by running user-level command such as echo, dd, cat and by writing user level programs</span></li></ul><p>&nbsp;</p><p><img src="img/pseudo-char-driver-1684777614311-33.png" alt="pseudo-char-driver" width="700"></p><p>&nbsp;</p><h2 id='connection-establishment-between-device-file-access-and-the-driver'><span>Connection Establishment between Device File Access and the Driver</span></h2><ol start='' ><li><p><span>Create device number</span></p><ul><li><span>Request the kernel to dynamically allocate the device numbers(s)</span></li></ul></li><li><p><span>Make a char device registration with the Virtual File System (VFS). (</span><code>CDEV_ADD</code><span>)</span></p></li><li><p><span>Create device files</span></p></li><li><p><span>Implement the driver&#39;s file operation methods for </span><code>open</code><span>, </span><code>close</code><span>, </span><code>read</code><span>, </span><code>write</code><span>, </span><code>llseek</code><span>, etc.</span></p></li></ol><p>&nbsp;</p><h2 id='expected-outcome'><span>Expected Outcome</span></h2><ul><li><p><span>Do </span><code>make host</code><span> and see if you are getting </span><code>pcd.ko</code><span> from </span><code>pcd.c</code><span>.</span></p></li><li><p><span>Insert the LKM (</span><code>sudo insmod pcd.ko</code><span>), run </span><code>dmesg</code><span> and see if the messages are getting printed.</span></p></li><li><p><span>Check </span><code>/sys/class/</code><span> if you see </span><code>pcd_class/</code><span> which should be created by the </span><strong><code>class_create()</code></strong><span> kernel function.</span></p><ul><li><code>pcd_class/</code><span> directory should contain </span><code>pcd</code><span> (the same name as your LKM) directory</span></li><li><code>pcd_class/pcd/</code><span> directory should contain </span><code>dev</code><span> file whose contents is the device number </span><code>&lt;major:minor&gt;</code></li><li><code>pcd_class/pcd/</code><span> directory should also contain </span><code>uevent</code><span> whose contents is major number, minor number and devname.</span></li></ul><p><span> </span><code>udev</code><span> creates the device file under </span><code>/dev</code><span> directory according to these details which are created and populated by the </span><strong><code>device_create()</code></strong><span> kernel function.</span></p></li><li><p><span>Check </span><code>/dev/</code><span> if you see the device file </span><code>pcd</code><span>.</span></p></li><li><p><span>Remove the LKM (</span><code>sudo rmmod pcd.ko</code><span>), run </span><code>dmesg</code><span> and see if the messages are getting printed.</span></p></li></ul></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

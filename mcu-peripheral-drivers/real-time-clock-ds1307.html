@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -604,7 +620,7 @@ header, .context-menu, .megamenu-content, footer{
 <span>Timekeeping operation continues while the part operates from the backup supply.</span></p><blockquote><p><span>Binary-Coded Decimal (BCD): Do the binary encoding for 10&#39;s place and 1&#39;s place separately. </span></p><p><span>e.g., 30</span><sub><span>(10)</span></sub><span> in BCD is 0011_0000</span><sub><span>(2)</span></sub><span> </span></p></blockquote></li></ul><h3 id='typical-operating-circuit'><span>Typical Operating Circuit</span></h3><p>&nbsp;</p><p><img src="img/ds1307-tiny-rtc-module-typical-operating-circuit.png" alt="ds1307-tiny-rtc-module-typical-operating-circuit" width="600"></p><p>&nbsp;</p><h3 id='timekeeper-registers'><span>Timekeeper Registers</span></h3><p>&nbsp;</p><p><img src="img/ds1307-tiny-rtc-module-timekeeper-registers.png" alt="ds1307-tiny-rtc-module-typical-operating-circuit" width="900"></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

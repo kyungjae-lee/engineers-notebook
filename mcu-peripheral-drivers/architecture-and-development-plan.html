@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>MCU Peripheral Drivers</span></a><span> &gt; Architecture &amp; Development Plan</span></p><h1 id='architecture--development-plan'><span>Architecture &amp; Development Plan</span></h1><p>&nbsp;</p><h2 id='architecture'><span>Architecture</span></h2><p>&nbsp;</p><p><img src="img/mcu-peripheral-driver-development-project-architecture.png" alt="mcu-peripheral-driver-development-project-architecture" width="600"></p><p>&nbsp;</p><p>&nbsp;</p><h2 id='development-plan'><span>Development Plan</span></h2><ol start='' ><li><p><span>Write a device header file (</span><code>stm32f407xx.h</code><span>)</span></p></li><li><p><span>Write a peripheral driver (</span><code>.c</code><span>/</span><code>.h</code><span>)</span></p><ul><li><span>AHB1 - GPIOA ... GPIOI</span></li><li><span>APB1 - I2C1 ... I2C3, SPI2, SPI3, SPI4, USART2, USART3, UART4, UART5</span></li><li><span>APB2 - SPI1, USART1, USART6, EXTI, SYSCFG</span></li></ul></li><li><p><span>Write sample applications to test the peripheral drivers</span></p></li></ol></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

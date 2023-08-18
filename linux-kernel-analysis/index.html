@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; Linux Kernel Analysis</span></p><h1 id='linux-kernel-analysis'><span>Linux Kernel Analysis</span></h1><p>&nbsp;</p><h3 id='linux-kernel-v642'><span>Linux Kernel v6.4.2</span></h3><ol start='' ><li><strong><a href="./head-s"><span>head.S</span></a></strong></li></ol><p>&nbsp;</p><h3 id='supplements'><span>Supplements</span></h3><ol start='' ><li><strong><a href="./environment-setup"><span>Environment Setup</span></a></strong></li></ol><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

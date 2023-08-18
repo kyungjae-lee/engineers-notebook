@@ -588,7 +588,23 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 #write {
-    max-width: 1080px;
+    max-width: 1300px;
+}
+
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
 }
 
 
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../"><span>Notebook</span></a><span> &gt; Makefile &amp; Build System</span></p><h1 id='makefile--build-system'><span>Makefile &amp; Build System</span></h1><p>&nbsp;</p><ol start='' ><li><strong><a href="./c-cpp-compilation-process"><span>C/C++ Compilation Process</span></a></strong></li><li><strong><a href="./project-directory-structure"><span>Project Directory Structure</span></a></strong></li><li><strong><a href="./make-vs-makefile"><span>Make vs. Makefile</span></a></strong></li><li><strong><a href="./exercise-1"><span>Exercise 1</span></a></strong></li><li><strong><a href="./improve-makefile"><span>Improve Makefile</span></a></strong></li><li><strong><a href="./exercise-2"><span>Exercise 2</span></a></strong></li><li><strong><a href="./exercise-3"><span>Exercise 3</span></a></strong></li></ol></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
