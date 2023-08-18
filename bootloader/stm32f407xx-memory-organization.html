@@ -588,16 +588,33 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 #write {
-	max-width: 1300px;
+    max-width: 1300px;
 }
+
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
-<body class='typora-export os-windows'><div class='typora-export-content'>
+<body class='typora-export'><div class='typora-export-content'>
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Bootloader</span></a><span> &gt; STM32F407xx Memory Organization</span></p><h1 id='stm32f407xx-memory-organization-1'><span>STM32F407xx Memory Organization</span></h1><p>&nbsp;</p><h2 id='stm32f407xx-memory-organization-2'><span>STM32F407xx Memory Organization</span></h2><ul><li><p><span>Internal Flash (a.k.a. embedded Flash / on-chip Flash) memory: Up to 1 MB (Divided into multiple sectors)</span></p></li><li><p><span>Internal SRAM1: 112 KB</span></p></li><li><p><span>Internal SRAM2: 16 KB</span></p></li><li><p><span>System memory (ROM): 30 KB</span></p><ul><li><span>Used by ST for storing the ST&#39;s native bootloader</span></li></ul></li><li><p><span>One-time programmable (OTP) memory: 528 Bytes</span></p><ul><li><span>Typically used for storing the product number of the serial number of a product</span></li></ul></li><li><p><span>Option bytes memory: 16 Bytes</span></p><ul><li><span>Not for general-purpose use</span></li><li><span>These bytes contain some flags, which control the access to the Flash memory.</span></li></ul></li><li><p><span>Backup SRAM: 4 KB</span></p></li></ul><p>&nbsp;</p><p><img src="./img/memory-organization-1.png" alt="memory-organization-1" width="800"></p><p>&nbsp;</p><p><img src="./img/memory-organization-2.png" alt="memory-organization-2" width="800"></p><p>&nbsp;</p><p>&nbsp;</p><h2 id='internal-flash-memory-main-memory'><span>Internal Flash Memory (Main Memory)</span></h2><ul><li><p><span>Capacity (size): up to 1 MB (Divided into multiple sectors)</span></p></li><li><p><span>Address range: 0x0800 0000 - 0x080F FFFF</span></p></li><li><p><span>Used for storing</span></p><ul><li><span>The user </span><strong><span>application code</span></strong><span> </span></li><li><span>The </span><strong><span>read-only data</span></strong><span> of the program</span></li><li><span>The </span><strong><span>vector table</span></strong></li></ul></li><li><p><span>Non-volatile memory</span></p></li></ul><p>&nbsp;</p><h2 id='internal-sram'><span>Internal SRAM</span></h2><h3 id='sram1'><span>SRAM1</span></h3><ul><li><p><span>Size: 112 KB</span></p></li><li><p><span>Address range: 0x2000 0000 - 0x2001 BFFF</span></p></li><li><p><span>Used for</span></p><ul><li><span>The user application </span><strong><span>global variables</span></strong><span> and </span><strong><span>static variables</span></strong></li><li><span>The </span><strong><span>stack</span></strong><span> and </span><strong><span>heap</span></strong></li></ul></li><li><p><span>Volatile memory</span></p></li><li><p><span>Code can be executed from this memory</span></p></li></ul><h3 id='sram2'><span>SRAM2</span></h3><ul><li><p><span>Size: 16 KB</span></p></li><li><p><span>Address range: 0x2001 C000 - 0x2001 FFFF</span></p></li><li><p><span>Used for</span></p><ul><li><span>The user application </span><strong><span>global variables</span></strong><span> and </span><strong><span>static variables</span></strong></li><li><span>The </span><strong><span>stack</span></strong><span> and </span><strong><span>heap</span></strong></li></ul></li><li><p><span>Volatile memory</span></p></li><li><p><span>Code can be executed from this memory</span></p></li></ul><p>&nbsp;</p><h2 id='system-memory-rom'><span>System Memory (ROM)</span></h2><ul><li><span>Size: 30 KB</span></li><li><span>Address range: 0x01FFF 0000 - 0x1FFF 77FF</span></li><li><span>All the ST MCUs store the bootloader in this memory</span></li><li><span>Read-only memory</span></li><li><span>By default, the MCU will not execute any code from this memory, it can be configured to boot or execute the bootloader from this memory.</span></li></ul></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

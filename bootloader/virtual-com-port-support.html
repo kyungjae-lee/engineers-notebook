@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 mjx-container[jax="SVG"] {
   direction: ltr;
@@ -743,10 +759,10 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 </style>
 </head>
 <body class='typora-export'><div class='typora-export-content'>
-<div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Bootloader</span></a><span> &gt; Virtual COM Port (VCP) Support</span></p><h1 id='virtual-com-port-vcp-support-1'><span>Virtual COM Port (VCP) Support</span></h1><p>&nbsp;</p><h2 id='virtual-com-port-vcp-support-2'><span>Virtual COM Port (VCP) Support</span></h2><ul><li><p><span>If your board supports the virtual COM port support, you can communicate with the board from your PC over UART by using the USB cable.</span></p></li><li><p><span>STM32F446RE Nucleo-64 development board supports the VCP.</span></p></li><li><p><span>STM32F407 Discovery development board provides the pins on which the VCP can be supported, but they are not connected to the USART of the STM32F407 MCU.</span></p><p><span>Two possible solutions are introduced in the board </span><em><span>User Manual</span></em><span>.</span></p><ul><li><p><strong><span>Using an USART to USB dongle</span></strong><span> from the market connected for instance to STM32F407 USART2 available on connector P1 pin 14 (PA2: USART2_TX) and P1 pin 13 (PA3: USART2_RX).</span></p><p><mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="2.262ex" height="1.181ex" role="img" focusable="false" viewBox="0 -511 1000 522" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.025ex;"><defs><path id="MJX-27-TEX-N-2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="2192" xlink:href="#MJX-27-TEX-N-2192"></use></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo accent="false" stretchy="false">→</mo></math></mjx-assistive-mml></mjx-container><script type="math/tex">\to</script><span> </span><strong><span>Recommended!</span></strong></p></li><li><p><span>Using flying wires to connect ST-LINK/V2-A Virtual COM port (ST-LINK VCP on U2 pin 12 and 13) to STM32F407 USART2 (PA2 and PA3: P1 pin 14 and 13) as shown in Figure 6.</span></p></li></ul></li></ul><p>&nbsp;</p><p><img src="./img/st-link-vcp-connection-to-usart2.png" alt="st-link-vcp-connection-to-usart2" width="700"></p><p>&nbsp;</p></div></div>
+<div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Bootloader</span></a><span> &gt; Virtual COM Port (VCP) Support</span></p><h1 id='virtual-com-port-vcp-support-1'><span>Virtual COM Port (VCP) Support</span></h1><p>&nbsp;</p><h2 id='virtual-com-port-vcp-support-2'><span>Virtual COM Port (VCP) Support</span></h2><ul><li><p><span>If your board supports the virtual COM port support, you can communicate with the board from your PC over UART by using the USB cable.</span></p></li><li><p><span>STM32F446RE Nucleo-64 development board supports the VCP.</span></p></li><li><p><span>STM32F407 Discovery development board provides the pins on which the VCP can be supported, but they are not connected to the USART of the STM32F407 MCU.</span></p><p><span>Two possible solutions are introduced in the board </span><em><span>User Manual</span></em><span>.</span></p><ul><li><p><strong><span>Using an USART to USB dongle</span></strong><span> from the market connected for instance to STM32F407 USART2 available on connector P1 pin 14 (PA2: USART2_TX) and P1 pin 13 (PA3: USART2_RX).</span></p><p><mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="2.262ex" height="1.181ex" role="img" focusable="false" viewBox="0 -511 1000 522" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.025ex;"><defs><path id="MJX-493-TEX-N-2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="2192" xlink:href="#MJX-493-TEX-N-2192"></use></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo accent="false" stretchy="false">→</mo></math></mjx-assistive-mml></mjx-container><script type="math/tex">\to</script><span> </span><strong><span>Recommended!</span></strong></p></li><li><p><span>Using flying wires to connect ST-LINK/V2-A Virtual COM port (ST-LINK VCP on U2 pin 12 and 13) to STM32F407 USART2 (PA2 and PA3: P1 pin 14 and 13) as shown in Figure 6.</span></p></li></ul></li></ul><p>&nbsp;</p><p><img src="./img/st-link-vcp-connection-to-usart2.png" alt="st-link-vcp-connection-to-usart2" width="700"></p><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

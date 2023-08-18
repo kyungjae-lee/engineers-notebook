@@ -588,8 +588,25 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 #write {
-	max-width: 1300px;
+    max-width: 1300px;
 }
+
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 mjx-container[jax="SVG"] {
   direction: ltr;
@@ -741,11 +758,11 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 						}
 </style>
 </head>
-<body class='typora-export os-windows'><div class='typora-export-content'>
-<div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Bootloader</span></a><span> &gt; Generating Binary File using Keil MDK</span></p><h1 id='generating-binary-file-using-keil-mdk-1'><span>Generating Binary File using Keil MDK</span></h1><p>&nbsp;</p><h2 id='generating-binary-file-using-keil-mdk-2'><span>Generating Binary File using Keil MDK</span></h2><ul><li><p><span>Go to &quot;Options for Target&quot; </span><mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="2.262ex" height="1.181ex" role="img" focusable="false" viewBox="0 -511 1000 522" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.025ex;"><defs><path id="MJX-3-TEX-N-2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="2192" xlink:href="#MJX-3-TEX-N-2192"></use></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo accent="false" stretchy="false">→</mo></math></mjx-assistive-mml></mjx-container><script type="math/tex">\to</script><span> &quot;User&quot; and define the user command as shown in the snapshot below.</span></p><p><span>e.g. </span><code>fromelf.exe --bin –output=&lt;file&gt;.bin &lt;propject&gt;\&lt;project&gt;.axf</code></p></li><li><p><span>This is necessary when testing the </span><code>BL_WRITE_MEM</code><span> command. (e.g., Writing binary file to the Flash memory)</span></p></li></ul><p>&nbsp;</p><p><img src="./img/generating-binary-file-using-keil-mdk.png" alt="generating-binary-file-using-keil-mdk" width="900"></p></div></div>
+<body class='typora-export'><div class='typora-export-content'>
+<div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Bootloader</span></a><span> &gt; Generating Binary File using Keil MDK</span></p><h1 id='generating-binary-file-using-keil-mdk-1'><span>Generating Binary File using Keil MDK</span></h1><p>&nbsp;</p><h2 id='generating-binary-file-using-keil-mdk-2'><span>Generating Binary File using Keil MDK</span></h2><ul><li><p><span>Go to &quot;Options for Target&quot; </span><mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg xmlns="http://www.w3.org/2000/svg" width="2.262ex" height="1.181ex" role="img" focusable="false" viewBox="0 -511 1000 522" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="vertical-align: -0.025ex;"><defs><path id="MJX-483-TEX-N-2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><use data-c="2192" xlink:href="#MJX-483-TEX-N-2192"></use></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo accent="false" stretchy="false">→</mo></math></mjx-assistive-mml></mjx-container><script type="math/tex">\to</script><span> &quot;User&quot; and define the user command as shown in the snapshot below.</span></p><p><span>e.g. </span><code>fromelf.exe --bin –output=&lt;file&gt;.bin &lt;propject&gt;\&lt;project&gt;.axf</code></p></li><li><p><span>This is necessary when testing the </span><code>BL_WRITE_MEM</code><span> command. (e.g., Writing binary file to the Flash memory)</span></p></li></ul><p>&nbsp;</p><p><img src="./img/generating-binary-file-using-keil-mdk.png" alt="generating-binary-file-using-keil-mdk" width="900"></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

@@ -588,16 +588,33 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 #write {
-	max-width: 1300px;
+    max-width: 1300px;
 }
+
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
-<body class='typora-export os-windows'><div class='typora-export-content'>
+<body class='typora-export'><div class='typora-export-content'>
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; Bootloader</span></p><h1 id='bootloader'><span>Bootloader</span></h1><p>&nbsp;</p><h3 id='stm32f-mcu-custom-bootloader'><span>STM32F MCU Custom Bootloader</span></h3><ol start='' ><li><strong><a href="./introduction-to-bootloader"><span>Introduction to Bootloader</span></a></strong></li><li><strong><a href="./stm32f407xx-memory-organization"><span>STM32F407xx Memory Organization</span></a></strong></li><li><strong><a href="./reset-sequence"><span>Reset Sequence</span></a></strong></li><li><strong><a href="./boot-configuration"><span>Boot Configuration</span></a></strong></li><li><strong><a href="./virtual-com-port-support"><span>Virtual COM Port (VCP) Support</span></a></strong></li><li><strong><a href="./bootloader-host-communication"><span>Bootloader-Host Communication</span></a></strong></li><li><strong><a href="./custom-bootloader-design"><span>Custom Bootloader Design</span></a></strong></li><li><strong><a href="./vector-table-offset-register"><span>Vector Table Offset Register (VTOR)</span></a></strong></li><li><strong><a href="./host-machine-setup-python"><span>Host Machine Setup (Python)</span></a></strong></li><li><strong><a href="./read-protection-levels"><span>Read Protection Levels</span></a></strong></li><li><strong><a href="./generating-binary-file-using-keil-mdk"><span>Generating Binary File using Keil MDK</span></a></strong></li></ol></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
