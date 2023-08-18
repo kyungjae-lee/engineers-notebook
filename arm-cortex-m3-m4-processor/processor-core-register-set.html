@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -599,7 +615,7 @@ header, .context-menu, .megamenu-content, footer{
 <span>or SP_process.</span></p></li><li><p><strong><span>Link Register (LR), R14</span></strong></p><p><span>It stores the return information for subroutines, function calls, and exceptions. At all other times, you can treat R14 as a general-purpose register. On reset, the processor sets the LR value to 0xFFFFFFFF.</span></p><p><span>When </span><code>bl</code><span> (branch and link) instruction is used, the LR gets updated to the current PC so that it knowns where to return. (</span><code>bx lr</code><span> at the end of the subroutine to return to the caller)</span></p></li><li><p><strong><span>Program Counter (PC), R15</span></strong></p><p><span>It contains the current program address (i.e., the address of the next instruction to be executed). On reset, the processor loads the PC with the value of the reset vector, which is at address 0x00000004. Bit[0] of the value is loaded into the EPSR T-bit at reset and must be 1. (Has to do with the &quot;Tumb mode&quot;.)</span></p><p><span>Bit [0] of PC is always 0, so instructions are always aligned to word or halfword boundaries.</span></p></li><li><p><strong><span>Special-purpose Program Status Registers, (xPSR)</span></strong></p><p><span>It holds the state of the program that is currently running.</span></p><p><span>The Program Status Register (PSR) combines:</span></p><ul><li><p><strong><span>Application Program Status Register (APSR)</span></strong></p><p><span>Contains the current state of the condition flags from previous instruction executions</span></p></li><li><p><strong><span>Interrupt Program Status Register (IPSR)</span></strong></p><p><span>Contains the exception type number of the current Interrupt Service Routine (ISR)</span></p></li><li><p><strong><span>Execution Program Status Register (EPSR)</span></strong></p><p><span>If &#39;T&#39; bit of the EPSR is set(1), processor thinks that the next instruction to be executed is from Thumb ISA.</span></p><p><span>If &#39;T&#39; bit of the EPSR is reset(0), processor thinks that the next instruction which is about to execute is from ARM ISA.</span></p><p><span>Since ARM Cortex Mx processors only support Thumb Mode, the &#39;T&#39; bit must always be maintained set(1). Execution of an instruction when &#39;T&#39; bit is reset(0) will result in processor fault.</span></p></li></ul><p><span>These registers are mutually exclusive bit-fields in the 32-bit PRS. The bit assignments are:</span></p></li></ul><p>&nbsp;</p><p><img src="./img/the-program-status-register.png" alt="the-program-status-register" width="650"></p><p>&nbsp;</p><p><span>See the </span><em><span>Arm®v7-M Architecture Reference Manual</span></em><span> for more information.</span></p><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Embedded Systems Programming on ARM Cortex-M3/M4 Processor</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/' target='_blank' class='url'>https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

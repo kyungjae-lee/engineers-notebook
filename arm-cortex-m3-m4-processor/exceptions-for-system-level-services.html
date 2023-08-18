@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -724,7 +740,7 @@ header, .context-menu, .megamenu-content, footer{
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">85</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-comment">// at this point pBaseStackFrame[0], which is basically r0, will contain</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">86</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-comment">// the calculation result to be passed to the caller (i.e., Thread mode code)</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">87</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 2005px;"></div><div class="CodeMirror-gutters" style="height: 2005px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><p>&nbsp;</p></li></ul><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Embedded Systems Programming on ARM Cortex-M3/M4 Processor</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/' target='_blank' class='url'>https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -684,7 +700,7 @@ header, .context-menu, .megamenu-content, footer{
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">p2</span> <span class="cm-operator">=</span> (<span class="cm-variable-3">int</span> <span class="cm-variable-3">*</span>)<span class="cm-number">0x20000008</span>;</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">__asm</span> <span class="cm-keyword">volatile</span>(<span class="cm-string">"ldr %0, [%1]"</span>: <span class="cm-string">"=r"</span>(<span class="cm-variable">p1</span>): <span class="cm-string">"r"</span>(<span class="cm-variable">p2</span>)); <span class="cm-tab" role="presentation" cm-text="	"> </span><span class="cm-comment">// p1 = *p2;</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 92px;"></div><div class="CodeMirror-gutters" style="height: 92px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Embedded Systems Programming on ARM Cortex-M3/M4 Processor</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/' target='_blank' class='url'>https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

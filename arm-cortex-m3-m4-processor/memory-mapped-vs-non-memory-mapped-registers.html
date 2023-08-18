@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>ARM Cortex-M3/M4 Processor</span></a><span> &gt; Memory Mapped vs Non-Memory Mapped Registers</span></p><h1 id='memory-mapped-vs-non-memory-mapped-registers'><span>Memory Mapped vs Non-Memory Mapped Registers</span></h1><p>&nbsp;</p><h2 id='non-memory-mapped-registers'><span>Non-Memory Mapped Registers</span></h2><ul><li><span>These registers are internal to the processor core. They do not have unique address to access them. Hence they are not part of the processor memory map. </span></li><li><span>You cannot access these registers in a C program using address dereferencing.</span></li><li><span>To access these registers, you have to use assembly instructions such as </span><code>mov</code><span>, </span><code>ldr</code><span>, etc.</span></li><li><span>Registers belong to ARM Cortex M4 core register set are non-memory mapped registers.</span></li></ul><p>&nbsp;</p><p><img src="./img/arm-cortex-m4-core-register-set.png" alt="arm-cortex-m4-core-register-set" width="650"></p><p>&nbsp;</p><p>&nbsp;</p><h2 id='memory-mapped-registers'><span>Memory Mapped Registers</span></h2><ul><li><p><span>These registers are external to the  processor core. They have been given unique addresses by the microcontroller designer. Hence they are part of the processor memory map. (Every register has its address in the processor memory map.)</span></p></li><li><p><span>You can access these registers in a C program using address dereferencing.</span></p></li><li><p><span>Two groups of memory mapped registers:</span></p><ul><li><p><span>Registers of the processor-specific peripherals (e.g., NVIC, MPU, SCB, DEBUG, etc.)</span></p></li><li><p><span>Registers of the microcontrollerspecific peripherals (e.g., RTC, I2C, TIMER, CAN, USB etc.)</span></p><p><span>Vendor specific registers</span></p></li></ul></li><li><p><span>These are processor specific registers which are implemented by the processor design.</span></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Embedded Systems Programming on ARM Cortex-M3/M4 Processor</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/' target='_blank' class='url'>https://www.udemy.com/course/embedded-system-programming-on-arm-cortex-m3m4/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
