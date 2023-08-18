@@ -299,7 +299,7 @@
 
 * STM32 Cube HAL layer also by deafult uses SysTick timer as its timebase source.
 
-* If you are using both FreeRTOS and STM32 Cube HAL layer in your project, there will be a conflict to use a timebase source.
+* If you are using both FreeRTOS and STM32 Cube HAL layer in your project, there will be a conflict in using a timebase source.
 
 * To resolve this, it is strongly recommended that you 
 
