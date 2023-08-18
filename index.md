@@ -8,10 +8,11 @@ Welcome!
 
 My name is Jack. I'm a software engineer passionate about demystifying the internal workings of *low-level software* and *system software*. On this website, I share what I've learned through my studies, and showcase a variety of related projects aimed at further exploring these software domains.
 
-To access my notes, visit the **<a href="./notebook">Notebook</a>** section.
+Feel free to
 
-* To explore my projects, navigate to the **<a href="./projects">Projects</a>** section.
-* Connect with me on **[LinkedIn](https://www.linkedin.com/in/jackklee1/)** and **[GitHub](https://github.com/kyungjae-lee)**.
-* Feel free to reach out to me at **jackklee32@gmail.com**.
+* Explore my **<a href="./notebook">Notebook</a>**.
+* View my **<a href="./projects">Projects</a>**.
+* Connect with me on **[LinkedIn](https://www.linkedin.com/in/jackklee1/)** / **[GitHub](https://github.com/kyungjae-lee)**.
+* Contact me at **jackklee32@gmail.com**.
 
 Enjoy your time here!
