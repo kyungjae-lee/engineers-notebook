@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Real-Time Operating Systems (RTOS)</span></a><span> &gt; Deleting a Task</span></p><h1 id='deleting-a-task-1'><span>Deleting a Task</span></h1><p>&nbsp;</p><h2 id='creating-a-task'><span>Creating a Task</span></h2><ul><li><code>xTaskCreate()</code><span> is used to create a task.</span></li></ul><p>&nbsp;</p><p><img src="./img/creating-a-freertos-task.png" alt="creating-a-freertos-task" width="800"></p><p>&nbsp;</p><p>&nbsp;</p><h2 id='deleting-a-task-2'><span>Deleting a Task</span></h2><ul><li><p><code>vTaskDelete()</code><span> is used to delete a task.</span></p><p><span>This API just mark the task as &quot;deleted&quot; and does NOT free the memory the task is occupying. It is the responsibility of the </span><strong><span>Idle task</span></strong><span> to free the deleted task&#39;s memory.</span></p></li></ul><p>&nbsp;</p><p><img src="./img/deleting-a-freertos-task.png" alt="deleting-a-freertos-task" width="800"></p><p>&nbsp;</p><ul><li><span>Due to the nature of RTOS, tasks do not get deleted most of the time. Instead, tasks that are not necessary are moved to the Blocked state so it can wait without consuming CPU cycles. However, if, by any chance, you need to delete a task, this is the way to go.</span></li></ul><p>&nbsp;</p><h2 id='exercise'><span>Exercise</span></h2><ul><li><p><span>Implement the task notification using direct notification APIs of FreeRTOS.</span></p><ul><li><p><span>Create 3 tasks that toggle 3 different LEDs of the STM32F407 Discovery board. (Task-1, Task-2, Task-3)</span></p></li><li><p><span>Create a button task that polls for the button press for every 10 ms. (Task-4)</span></p><p><span>If the button press did not last longer than this time period, it will not be recognized.</span></p><p><span>Task-4 is of the highest priority.</span></p></li><li><p><span>If the button task detects button press, it should send a notification to LED toggling task.</span></p></li><li><p><span>When Task-3 deletes itself, it also deletes Task-4 since it is no longer needed.</span></p></li></ul><p>&nbsp;</p></li></ul><p><img src="./img/exercise-deleting-tasks.png" alt="exercise-deleting-tasksk" width="750"></p><p>&nbsp;</p><ul><li><p><span>Use </span><code>USER &amp; WAKE-UP Button</code><span>. See the schematics of the board.</span></p></li><li><p><span>In this program, threads access to the shared variable </span><code>next_task_handle</code><span>. To synchronize this access, we&#39;ll use the following APIs around the critical section.</span></p><ul><li><code>vTaskSuspendAll()</code><span> to suspend the scheduler (i.e., preventing context switch temporarily)</span></li><li><code>xTaskResumeAll()</code><span> to resume the scheduler</span></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Mastering RTOS: Hands on FreeRTOS and STM32Fx with Debugging</span></em><span> [Video file]. Retrieved from </span><a href='https://www.udemy.com/course/mastering-rtos-hands-on-with-freertos-arduino-and-stm32fx/' target='_blank' class='url'>https://www.udemy.com/course/mastering-rtos-hands-on-with-freertos-arduino-and-stm32fx/</a></p><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

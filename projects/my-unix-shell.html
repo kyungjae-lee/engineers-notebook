@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -825,7 +841,7 @@ header, .context-menu, .megamenu-content, footer{
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 35px;">115</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">/*</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 35px;">116</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-comment">* Function     : quit</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 35px;">117</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-comment">* Parameters   : char *message, int exit_status</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 35px;">118</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-comment">* Return type  : void</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 35px;">119</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-comment">* Description  : Prints a passed message and terminates the program.</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 35px;">120</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">*/</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 35px;">121</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-3">void</span> <span class="cm-def">quit</span>(<span class="cm-variable-3">char</span> <span class="cm-variable-3">*</span><span class="cm-variable">message</span>, <span class="cm-variable-3">int</span> <span class="cm-variable">exit_status</span>)</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 35px;">122</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">{</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 35px;">123</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable">fprintf</span>(<span class="cm-variable">stderr</span>, <span class="cm-variable">message</span>);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 35px;">124</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable">exit</span>(<span class="cm-variable">exit_status</span>);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -44px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 35px;">125</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">} <span class="cm-comment">/* end quit */</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 2881px;"></div><div class="CodeMirror-gutters" style="height: 2881px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 43px;"></div></div></div></div></pre><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

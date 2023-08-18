@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Real-Time Operating Systems (RTOS)</span></a><span> &gt; FreeRTOS </span><code>FromISR</code><span> APIs</span></p><h1 id='freertos-fromisr-apis'><span>FreeRTOS </span><code>FromISR</code><span> APIs</span></h1><p>&nbsp;</p><h2 id='introduction'><span>Introduction</span></h2><ul><li><p><span>FreeRTOS </span><code>FromISR</code><span> APIs are also called as &quot;</span><strong><span>interrupt safe APIs</span></strong><span>&quot;.</span></p></li><li><p><span>These are meant to be used from an interrupt handler.</span></p></li><li><p><span>Example:</span></p><ul><li><code>xQueueSend()</code><span> is to be called from the task context.</span></li><li><code>xQueueSendFromISR()</code><span> is to be called from the interrupt context.</span></li></ul></li></ul><p>&nbsp;</p><h2 id='why-do-dedicated-fromisr-apis-exist'><span>Why Do Dedicated </span><code>FromISR</code><span> APIs Exist?</span></h2><ul><li><p><span>It makes APIs implementation simpler:</span></p><p><span>When called from a task context, many RTOS APIs can put the calling task to a blocked state, but the same cannot happen when called from interrupt handlers because you cannot put the interrupt handler or interrupt context code to Blocked state. The Blocked state is for tasks, not for interrupt handlers.</span></p><p><span>So, if there&#39;s no dedicated APIs for interrupt handlers, APIs must be able to tell which context it was being called, interrupt or task context, and operate accordingly. This approach increases code overhead, and some architectures do not support determining the context in which the APIs are getting called. </span></p><p><span>To overcome this problem, FreeRTOS gives separate APIs to be called from interrupt handlers and prohibits using APIs which doesn&#39;t end with &quot;FromISR&quot; inside an interrupt handler.</span></p></li></ul><p>&nbsp;</p><h2 id='disadvantages-of-using-dedicated-fromisr-apis'><span>Disadvantages of Using Dedicated </span><code>FromISR</code><span> APIs?</span></h2><ul><li><span>Application developer must redesign the logic when there is a need to call a third-party function from an interrupt handler that uses FreeRTOS API that doesn&#39;t end with </span><code>FromISR</code><span>.</span></li></ul><p>&nbsp;</p><p><img src="./img/disadvantage-of-using-fromisr-apis.png" alt="disadvantage-of-using-fromisr-apis" width="800"></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Mastering RTOS: Hands on FreeRTOS and STM32Fx with Debugging</span></em><span> [Video file]. Retrieved from </span><a href='https://www.udemy.com/course/mastering-rtos-hands-on-with-freertos-arduino-and-stm32fx/' target='_blank' class='url'>https://www.udemy.com/course/mastering-rtos-hands-on-with-freertos-arduino-and-stm32fx/</a></p><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
