@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Multi-Threading (POSIX Threads)</span></a><span> &gt; Thread Synchronization - Spinlock</span></p><h1 id='thread-synchronization---spinlock'><span>Thread Synchronization - Spinlock</span></h1><p>&nbsp;</p><h2 id='introduction-to-spinlock'><span>Introduction to Spinlock</span></h2><ul><li><p><span>When you stop at the traffic light in red, and it takes only 10 seconds to go green, you don&#39;t switch off your car engine, do you? Why so? The answer to this question forms the foundation of </span><strong><span>spinlocks</span></strong><span> (</span><code>pthread_spinlock_t</code><span>).</span></p></li><li><p><span>A spinlock works basically the same way as a mutex does except the one difference:</span></p><ul><li><span>When a thread is blocked by a </span><strong><span>mutex</span></strong><span>, the thread is taken off the CPU by the OS scheduler (i.e., forced context switch).</span></li><li><span>When a thread is blocked by a </span><strong><span>spinlock</span></strong><span>, the thread continues to spin in a loop (&quot;spin&quot;) while repeatedly checking whether the lock is available. The thread will not release the CPU during that time. (i.e., The OS will never trigger context switching on that thread.)</span></li></ul></li><li><p><span>Spinlocks are preferred to mutexes when the critical section is very insignificant (i.e., involving only a small amount of operations). For example, when a critical section only includes setting/reading some flag(s).</span></p><p><span>Using spinlocks to protect insignificant critical sections yields better performance as compared to using the mutexes. (Context switching, which is an expensive task, happens less with spinlocks.) And, this is why spinlocks were introduced in the first place.</span></p></li><li><p><span>Obviously, over-use of spinlocks will waste CPU cycles.</span></p></li><li><p><span>Use spinlocks just like using mutexes to safeguard critical sections.</span></p></li><li><p><span>Spinlocks CANNOT be used along with condition variables.</span></p></li><li><p><span>Spinlock APIs:</span></p><ul><li><code>pthread_spin_lock()</code></li><li><code>pthread_spin_unlock()</code></li></ul><p><span>Read the spinlock section of the POSIX API for more information.</span></p></li><li><p><span>Do NOT get confused with the kernel version of spinlocks! Here, we are talking about the user space spinlocks. The kernel uses different version of spinlocks which are used to synchronize the threads in the kernel space. (They are a bit more complicated.)</span></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Sagar, A. (2022). </span><em><span>Part A - Multithreading &amp; Thread Synchronization - Pthreads</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/multithreading_parta/' target='_blank' class='url'>https://www.udemy.com/course/multithreading_parta/</a></p><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

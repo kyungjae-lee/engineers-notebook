@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -686,7 +702,7 @@ header, .context-menu, .megamenu-content, footer{
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-3">void</span> <span class="cm-def">callback_registration</span>()</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">{</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable">fn_ptr</span> <span class="cm-operator">=</span> <span class="cm-variable">multiply</span>;</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 323px;"></div><div class="CodeMirror-gutters" style="height: 323px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><blockquote><p><span>Step 1: Thread 2 registers the </span><code>multiply()</code><span> function to the Thread 1&#39;s function pointer </span><code>fn_ptr</code><span>.</span></p><p><span>Step 2: Thread 1 generates the data and performs the multiplication using the function registered to </span><code>fn_ptr</code><span>.</span></p></blockquote><p><span>Above example shows important properties of this model:</span></p><ul><li><span>Data transfer or copy of data from one memory location to another does not take place</span></li><li><span>Usually a uni-directional communication</span></li><li><span>Computation logic is owned by one entity, but is executed by another.</span></li></ul><p>&nbsp;</p><h2 id='publisher-subscriber-model-aka-notification-chain'><span>Publisher Subscriber Model (a.k.a. Notification Chain)</span></h2><p><span>Transfer of Computation (TOC) leads to a famous architectural communication mode called the </span><strong><span>Publisher Subscriber Model (a.k.a. Notification Chain)</span></strong><span>:</span></p><ul><li><span>The pattern of communication which is based on transfer of communication</span></li><li><span>The thread which generates the data is called the </span><strong><span>Publisher</span></strong><span>.</span></li><li><span>The thread which owns the data processing function is called the </span><strong><span>Subscriber</span></strong><span>.</span></li><li><span>The activity of TOC is called the </span><strong><span>Callback Registration</span></strong><span>.</span></li><li><span>The activity of invoking the function through the function pointer is called the </span><strong><span>Notification</span></strong><span>.</span></li></ul><p><span> This model is widely used to set up the Inter-Thread Communication.</span></p><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Sagar, A. (2022). </span><em><span>Part A - Multithreading &amp; Thread Synchronization - Pthreads</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/multithreading_parta/' target='_blank' class='url'>https://www.udemy.com/course/multithreading_parta/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
