@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -693,7 +709,7 @@ header, .context-menu, .megamenu-content, footer{
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 27px;">55</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  <span class="cm-operator">*</span><span class="cm-variable">pEXTTIPendReg</span> <span class="cm-operator">|=</span> ( <span class="cm-number">1</span> <span class="cm-operator">&lt;&lt;</span> <span class="cm-number">0</span>);</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -36px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 27px;">56</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 1291px;"></div><div class="CodeMirror-gutters" style="height: 1291px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 35px;"></div></div></div></div></pre><blockquote><p><span>L27 - If </span><code>volatile</code><span> keyword is not used in L5, the compiler will assume, when compiled with the higher optimization level, that </span><code>g_button_pressed</code><span> will always be 0 since nowhere in the code this global variable gets changed. Therefore, make sure to </span><strong><span>tell the compiler that  </span><code>g_button_pressed</code><span> may change at any time by the ISR, so not to do any optimization on &quot;data read&quot; and &quot;data write&quot; operations on that global variable.</span></strong></p><p><span>L6 - </span><code>volatile</code><span> not necessary since this global variable does not share data between the main code and the ISR code.</span></p><p><span>L29 - If </span><code>volatile</code><span> keyword is not used for </span><code>i</code><span>, the compiler, when compiled with the higher optimization level, is likely to remove (ignore) this loop (i.e., delay for the button press debouncing). This is because the compiler is not aware of our intention and it just thinks that the repetitive operation on </span><code>i</code><span> is meaningless and redundant (i.e., not affecting any other part of the code) only to slow down the program execution. So, </span><strong><span>tell the compiler not to do any optimization on </span><code>i</code></strong><span>.</span></p><p><span>Notice that </span><code>const</code><span> has been used along with </span><code>volatile</code><span> to prevent the pointers from being changed by accident. </span></p></blockquote></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Microcontroller Embedded C Programming: Absolute Beginners</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/microcontroller-embedded-c-programming/' target='_blank' class='url'>https://www.udemy.com/course/microcontroller-embedded-c-programming/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

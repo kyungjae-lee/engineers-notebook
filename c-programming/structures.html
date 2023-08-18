@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -709,7 +725,7 @@ header, .context-menu, .megamenu-content, footer{
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">pGpioDMode</span><span class="cm-operator">-&gt;</span><span class="cm-variable">pin_15</span> <span class="cm-operator">=</span> <span class="cm-number">3</span>; <span class="cm-comment">// set MODER15 to 11(2)</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 138px;"></div><div class="CodeMirror-gutters" style="height: 138px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><blockquote><p><span>The compiler will generate the instructions to program the appropriate bit positions in the peripheral register address. </span></p><p><span>Encountering L6, the compiler will internally perform </span><code>*(0x40020C00) |= (3 &lt;&lt; 30);</code><span>.</span></p><p><span>L3 - Use </span><code>const</code><span> for safety. Also, use </span><code>volatile</code><span> keyword when the memory access is expected. Why? </span></p></blockquote></li><li><p><span>Note that at the end of the day, the compiler will interpret the abstracted code and perform bitwise manipulations internally.</span></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Microcontroller Embedded C Programming: Absolute Beginners</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/microcontroller-embedded-c-programming/' target='_blank' class='url'>https://www.udemy.com/course/microcontroller-embedded-c-programming/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
