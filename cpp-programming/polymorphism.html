@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -756,7 +772,7 @@ header, .context-menu, .megamenu-content, footer{
 <span>behavior without polymorphism</span></li></ul></li></ul></li><li><p><span>With polymorphism, just by accessing the derived objects through the </span><em><span>base class pointer or reference</span></em><span> you will be able to execute those objects&#39; specific behaviors.</span></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Mitropoulos, F. (2022). </span><em><span>Beginning C++ Programming - From Beginner to Beyond</span></em><span> [Video file]. Retrieved from  </span><a href='https://www.udemy.com/course/beginning-c-plus-plus-programming/' target='_blank' class='url'>https://www.udemy.com/course/beginning-c-plus-plus-programming/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
