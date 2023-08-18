@@ -672,6 +672,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -680,7 +696,7 @@ header, .context-menu, .megamenu-content, footer{
 </span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">debian@beaglebone:/sys/class/leds/beaglebone:green:usr3$ echo 'heartbeat' &gt; trigger</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 18px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">debian@beaglebone:/sys/class/leds/beaglebone:green:usr3$ echo 'default-on' &gt; trigger</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -27px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 18px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">debian@beaglebone:/sys/class/leds/beaglebone:green:usr3$ echo 'none' &gt; trigger</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 161px;"></div><div class="CodeMirror-gutters" style="height: 161px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 26px;"></div></div></div></div></pre><blockquote><p><span>Monitor LED USR3 if it operates accordingly!</span></p></blockquote></li><li><p><span>We&#39;ll be writing lots of C applications to access peripherals via SYSFS, like LCD, EEPROM, I2C sensor, 7-segment display, SPI, ADC, etc in this course.</span></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Embedded Linux Step by Step Using Beaglebone Black</span></em><span> [Video file]. Retrieved from </span><a href='https://www.udemy.com/course/embedded-linux-step-by-step-using-beaglebone/' target='_blank' class='url'>https://www.udemy.com/course/embedded-linux-step-by-step-using-beaglebone/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

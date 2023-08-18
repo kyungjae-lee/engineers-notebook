@@ -588,17 +588,34 @@ header, .context-menu, .megamenu-content, footer{
 }
 
 #write {
-	max-width: 1300px;
+    max-width: 1300px;
 }
+
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
-<body class='typora-export os-windows'><div class='typora-export-content'>
+<body class='typora-export'><div class='typora-export-content'>
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Direct Memory Access (DMA)</span></a><span> &gt; Introduction to DMA</span></p><h1 id='introduction-to-dma'><span>Introduction to DMA</span></h1><p>&nbsp;</p><h2 id='what-is-dma'><span>What is DMA?</span></h2><ul><li><span>DMA (Direct Memory Access) is a technique used in embedded systems to transfer data between peripherals and memory without the need for intervention from the microcontroller or microprocessor. DMA enables peripherals such as input/output (I/O) devices or serial interfaces to directly access the system memory, allowing for faster and more efficient data transfers.</span></li><li><span>In a DMA transfer, the peripheral sends a request to the DMA controller, which then takes control of the system bus and initiates the transfer of data between the peripheral and memory. This allows the microcontroller or microprocessor to continue executing other tasks, improving the overall performance of the system.</span></li><li><span>DMA is commonly used in embedded systems for high-speed data transfers, such as streaming audio or video. It can also be used to offload processing tasks from the microcontroller or microprocessor, freeing up processing resources for other tasks.</span></li></ul><p>&nbsp;</p><h2 id='how-is-dma-used-in-embedded-systems'><span>How is DMA used in Embedded Systems?</span></h2><ul><li><span>The use of DMA can improve the overall performance and efficiency of embedded systems. However, it also requires careful design and configuration to avoid conflicts with other system resources and to ensure that data is transferred correctly and securely.</span></li><li><span>Developers can use a variety of tools and techniques to implement DMA in embedded systems, including DMA controllers and software libraries. Proper design and testing of DMA can help ensure the reliability and efficiency of the</span>
 <span>embedded system.</span></li><li><span>In summary, DMA is a technique used in embedded systems to transfer data between peripherals and memory without the need for intervention from the microcontroller or microprocessor. It can improve the performance and efficiency of the system, particularly for high-speed data transfers. DMA requires careful design and configuration to ensure proper operation and avoid conflicts with other system resources.</span></li></ul></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>

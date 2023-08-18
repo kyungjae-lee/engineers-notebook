@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; </span><a href="./"><span>Embedded Linux</span></a><span> &gt; Exercise - Booting U-boot Image on BBB</span></p><h1 id='exercise---booting-u-boot-image-on-bbb'><span>Exercise - Booting U-boot Image on BBB</span></h1><p>&nbsp;</p><h2 id='booting-u-boot-image-on-bbb'><span>Booting U-boot Image on BBB</span></h2><ul><li><span>Copy </span><code>u-boot-beaglebone-2013.04-r0.img</code><span> into the SD card. Rename the file to </span><code>u-boot.img</code><span>.</span></li></ul><p>&nbsp;</p><p><img src="./img/booting-up-to-u-boot-from-sd-card.png" alt="booting-up-to-u-boot-from-sd-card" width="700"></p><p>&nbsp;</p><ul><li><span>Ends with the error message &quot;File not found /boot/uImage&quot; because the kernel image is not found.</span></li><li><span>If you&#39;ve reached this point, you&#39;ve successfully booted up to U-boot.</span></li></ul><p>&nbsp;</p><p>&nbsp;</p><h2 id='references'><span>References</span></h2><p><span>Nayak, K. (2022). </span><em><span>Embedded Linux Step by Step Using Beaglebone Black</span></em><span> [Video file]. Retrieved from </span><a href='https://www.udemy.com/course/embedded-linux-step-by-step-using-beaglebone/' target='_blank' class='url'>https://www.udemy.com/course/embedded-linux-step-by-step-using-beaglebone/</a></p></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
