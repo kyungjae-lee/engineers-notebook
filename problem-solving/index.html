@@ -591,6 +591,22 @@ header, .context-menu, .megamenu-content, footer{
     max-width: 1300px;
 }
 
+/* According to MDN Web Docs,
+ * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
+ * and tablets."
+ * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
+ * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
+ * set this value to none, which disables the inflation algorithm, or to a percentage
+ */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Vertical line that sepaates line number from the code */
+.cm-s-inner .CodeMirror-gutters {
+    /* border: none; */
+}
+
 
 </style>
 </head>
@@ -598,7 +614,7 @@ header, .context-menu, .megamenu-content, footer{
 <div id='write'  class=''><p><a href="../../"><span>Home</span></a><span> &gt; </span><a href="../notebook"><span>Notebook</span></a><span> &gt; Problem Solving</span></p><h1 id='problem-solving'><span>Problem Solving</span></h1><p>&nbsp;</p><h3 id='lessons-learned'><span>Lessons Learned</span></h3><ol start='' ><li><strong><a href="./lessons-learned"><span>Lessons Learned</span></a></strong></li></ol><p>&nbsp;</p><h3 id='leet-code'><span>Leet Code</span></h3><ol start='' ><li><strong><a href="./lc-2-add-two-numbers"><span>LC - 2. Add Two Numbers</span></a></strong></li><li><strong><a href="./lc-14-longest-common-prefix"><span>LC - 14. Longest Common Prefix</span></a></strong></li><li><strong><a href="./lc-20-valid-parentheses"><span>LC - 20. Valid Parentheses (stack, map)</span></a></strong></li><li><strong><a href="./lc-141-linked-list-cycle"><span>LC - 141. Linked List Cycle (unordered_set, Floyd&#39;s Cycle Detection Algorithm - Two Pointers)</span></a></strong></li><li><strong><a href="./lc-242-valid-anagram"><span>LC - 242. Valid Anagram (unordered_map)</span></a></strong></li><li><strong><a href="./lc-257-binary-tree-paths"><span>LC - 257. Binary Tree Paths (DFS)</span></a></strong></li><li><strong><a href="./lc-258-add-digits"><span>LC - 258. Add Digits</span></a></strong></li><li><strong><a href="./lc-263-ugly-number"><span>LC - 263. Ugly Number</span></a></strong></li><li><strong><a href="./lc-268-missing-number"><span>LC - 268. Missing Number (bit manipulation)</span></a></strong></li><li><strong><a href="./lc-338-counting-bits"><span>LC - 338. Counting Bits</span></a></strong></li><li><strong><a href="./lc-344-reverse-string"><span>LC - 344. Reverse String</span></a></strong></li><li><strong><a href="./lc-383-ransom-note"><span>LC - 383. Ransom Note (map)</span></a></strong></li><li><strong><a href="./lc-762-prime-number-of-set-bits-in-binary-representation"><span>LC - 762. Prime Number of Set Bits in Binary Representation (bit manipulation)</span></a></strong></li><li><strong><a href="./lc-796-rotate-string"><span>LC - 796. Rotate String (sprintf, strstr)</span></a></strong></li><li><strong><a href="./lc-404-sum-of-left-leaves"><span>LC - 404. Sum of Left Leaves (DFS)</span></a></strong></li><li><strong><a href="./lc-1047-remove-all-adjacent-duplicates-in-string-1"><span>LC - 1047. Remove All Adjacent Duplicates In String 1 (stack)</span></a></strong></li><li><strong><a href="./lc-1122-relative-sort-array"><span>LC - 1122. Relative Sort Array (map, multiset)</span></a></strong></li><li><strong><a href="./lc-1209-remove-all-adjacent-duplicates-in-string-2"><span>LC - 1209. Remove All Adjacent Duplicates In String 2 (stack, recursion)</span></a></strong></li><li><strong><a href="./lc-1356-sort-integers-by-the-number-of-1-bits"><span>LC - 1356. Sort Integers by The Number of 1 Bits (struct, qsort, bubble sort)</span></a></strong></li><li><strong><a href="./lc-2220-minimum-bit-flips-to-convert-number"><span>LC - 2220. Minimum Bit Flips to Convert Number</span></a></strong></li><li><strong><a href="./lc-2595-number-of-even-and-odd-bits"><span>LC - 2595. Number of Even and Odd Bits</span></a></strong></li></ol><p>&nbsp;</p><h3 id='elements-of-programming-interviews'><span>Elements of Programming Interviews</span></h3><ol start='' ><li><strong><a href="./epi-5-4-find-a-closest-integer-with-the-same-weight"><span>EPI - 5.4. Find a Closest Integer with the Same Weight (bit manipulation)</span></a></strong></li></ol></div></div>
 <center>
 <hr width="400px;">
-This website contains Kyungjae's original work.
+This website contains Jack's original work.
 <hr width="400px;">
 </center></body>
 </html>
