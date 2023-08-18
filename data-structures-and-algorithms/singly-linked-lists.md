@@ -16,7 +16,7 @@
 
 ```c
 //==============================================================================
-// Filen	: singly_linked_list.h
+// File		: singly_linked_list.h
 // Brief	: Interface for Singly-Linked List
 // Author	: Kyungjae Lee
 // Date		: May 02, 2023
