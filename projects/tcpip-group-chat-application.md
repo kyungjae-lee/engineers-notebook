@@ -6,7 +6,8 @@
 
 ## Introduction
 
-Multi-threaded client/server socket application for UNIX/Linux OS implemented using C programming language and the POSIX thread libraries
+* Developed multi‐threaded client/server socket applications for Linux OS using C and the POSIX thread libraries
+* Used Vim for software development, and GDB for debugging
 
 
 

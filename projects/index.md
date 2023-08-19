@@ -36,7 +36,7 @@
 
 1. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
 
-   Multi-threaded client/server socket applications using C and the POSIX thread libraries
+   Multi‐threaded client/server socket applications for Linux OS using C and the POSIX thread libraries
 
 2. **<a href="./arm-assembly-vending-machine">ARM-Assembly Vending Machine</a>**
 
