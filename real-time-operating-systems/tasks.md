@@ -168,7 +168,7 @@
 
 ## Exercise
 
-* Task creation
+* Write an application that creates 2 tasks, Task1 and Task2, of equal priorities to print the message "hello world from TaskX".
 
   ```c
   /* main.c */
