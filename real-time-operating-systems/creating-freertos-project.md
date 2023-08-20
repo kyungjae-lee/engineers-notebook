@@ -16,9 +16,13 @@
 * Create a project (e.g., `Project`) under `Workspace/` inside the root folder.
 
   * The project name can be renamed as necessary later on. To rename the project:
-    * Rename your project from the STM32CubeIDE
+    * Rename your project from the STM32CubeIDE (In this step, the IDE will do some syncing)
 
-    * Go to `Workspace/` and rename the folder itself as well
+    * Go to `Workspace/` and rename the directory itself as well
+
+    * Come back to the IDE and refresh the project (In this step, the IDE will notify you that the project has been deleted.)
+
+    * Import the project to the IDE (Import $\to$ Existing Projects into Workspace $\to$ Select root directory $\to$ Click Browse $\to$ Select the project $\to$ Finish)
 
 * Create a project with the Targeted Project Type `STM32Cube`. Do not select `Empty` since we are not writing bare-metal program. We want to explore FreeRTOS upon working MCU. 
 
