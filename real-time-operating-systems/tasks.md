@@ -47,12 +47,12 @@
                           );
    ```
 
-2. **Implement the task**
+2. **Implement the task (i.e., Create task handler)**
 
    This is a piece of code that will run on the CPU.
 
    ```c
-   /* Task inmplementation = task handler = task function */
+   /* Task implementation = task handler = task function */
    void vATaskFunction(void *pvParameters)
    {
        /* Variables can be declared just like any regular functions. Each instance of a task created
@@ -76,7 +76,7 @@
 
    > `iVariableExample` is a local variable, which will be created in the stack space of this task. If this task handler is used by multiple tasks, then `iVariableExample` will be created in each task's own stack.
    >
-   > If `iVariableExample` were declared as a `static` variable, it would've been a shared variable among those tasks that use this task handler.
+   > If `iVariableExample` were declared as a `static` variable, it would've been a global (shared) variable among those tasks that use this task handler.
 
 ### Notes
 
@@ -94,8 +94,8 @@
   ```c
   BaseType_t xTaskCreate(TaskFunction_t pvTaskCode,	// Address of the associated task handler.
                          const char *const pcName,	// A descriptive name to identify this task
-                         unsigned short usStackDepth,	// Amount of stack memory allocated to this
-                         								// task (memory in WORDS not in bytes).
+                         configSTACK_DEPTH_TYPE usStackDepth,	// Amount of stack memory allocated to this
+                         										// task (memory in WORDS not in bytes).
                          void *pvParameters,			// Pointer to the data which needs to be passed
                          								// to the task handler once it gets scheduled.
                          UBaseType_t uxPriority,		// Task priority.
@@ -108,17 +108,17 @@
   
   > In the program's stack memory, each task's stack space will be setup according to the `usStackDepth`. Note that this is not in bytes but in **WORD**s (`push` or `pop` unit). 
   >
-  > * If the stack is 16-bit wide and `usStackDepth` is 100, then 200 bytes will be allocated use as the task's stack. 
+  > * If the stack is 16-bit wide and `usStackDepth` is 100, then 200 bytes will be allocated use as the task's stack. Also, the basic unit of push/pop operation will be 16-bit.
   >
-  > * If the stack is 32-bit wide and `usStackDepth` is 100, then 400 bytes will be allocated use as the task's stack.
+  > * If the stack is 32-bit wide and `usStackDepth` is 100, then 400 bytes will be allocated use as the task's stack. Also, the basic unit of push/pop operation will be 32-bit.
   >
-  >   e.g., STM32F407 micro controller
+  >   e.g., STM32F407 microcontroller
   >
   > [!] Note: **Word** is a maximum size of a data which can be accessed (load/store) by the processor in a single clock cycle using a single instruction. Processor design also offers native support (register width, bus width) to load/store word-sized data. Word size could be 8bit/16bit/32bit or more, depending upon the processor design. 
   >
   > For ARM Cortex-M based microcontrollers, word size is 32-bit.
   >
-  > [!] Note: `BaseType_t` is defined to be the most efficient, natural type for the architecture. e.g., On a 32-bit architecture `BaseType_t` will be defined to be a 32-bit type.
+  > [!] Note: `BaseType_t` is defined to be the most efficient, natural type for the architecture. e.g., On a 32-bit architecture `BaseType_t` will be defined to be a 32-bit type. See [https://freertos.org/FreeRTOS-Coding-Standard-and-Style-Guide.html](https://freertos.org/FreeRTOS-Coding-Standard-and-Style-Guide.html).
   >
   > In earlier versions of FreeRTOS,
   >
@@ -137,7 +137,7 @@
   > #define configSTACK_DEPTH_TYPE uint16_t	
   > ```
   >
-  > If `uint16` is too restrictive for your application, you can redefine it to a larger data type in `FreeRTOS.h`
+  > If `uint16` is too restrictive for your application, you can redefine it to a larger data type in `FreeRTOSConfig.h`
   
 * Return value of `xTaskCreate()`:
 
