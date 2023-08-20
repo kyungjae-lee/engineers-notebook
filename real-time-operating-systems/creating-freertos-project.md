@@ -13,7 +13,12 @@
 
 ## Creating FreeRTOS Project using CubeIDE
 
-* Create a project (e.g., `Project`) under `Workspace/` inside the root folder. (The project name can be renamed as necessary later on.)
+* Create a project (e.g., `Project`) under `Workspace/` inside the root folder.
+
+  * The project name can be renamed as necessary later on. To rename the project:
+    * Rename your project from the STM32CubeIDE
+
+    * Go to `Workspace/` and rename the folder itself as well
 
 * Create a project with the Targeted Project Type `STM32Cube`. Do not select `Empty` since we are not writing bare-metal program. We want to explore FreeRTOS upon working MCU. 
 
