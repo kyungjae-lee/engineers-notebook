@@ -115,7 +115,7 @@
 
   * `sysmem.c` - contains heap managment code but will NOT be used in our project since FreeRTOS provides its own heap management code (i.e., `FreeRTOS/portable/MemMang/heap_x.c`)
 
-    Feel free to exclude `sysmem.c` from build. Also, delete `heap_1.c`, `heap_2.c`, `heap_3.c`, `heap_5.c`, and just keep `heap_4.c`.
+    Feel free to exclude `sysmem.c` from build. Also, exclude or delete `heap_1.c`, `heap_2.c`, `heap_3.c`, `heap_5.c`, and just keep `heap_4.c`.
 
   * `syscalls.c` - contains standard library system calls such as `__write()`, `__read()`, etc.
 
@@ -124,7 +124,7 @@
   Add to the "Include paths" the following two paths:
 
   - `Project/ThirdParty/FreeRTOS/include/`
-  - `Project/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4H/` (Architecture specific header files)
+  - `Project/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/` (Architecture specific header files)
 
 
 
