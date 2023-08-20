@@ -128,7 +128,19 @@
 
   <img src="img/debug-configurations-1686753047516-2.png" alt="debug-configurations" width="700">
 
+
+
+* When configuring the debugger settings to use `printf()` over SWO pin, you also need to set the system clock speed.
+
+  Go to "Device Configuration Tool" $\to$ Clock Configuration, and check the following: (In the following example, system's clock runs at 25 MHz)
+
   
+
+  <img src="./img/system-clock.png" alt="system-clock" width="700">
+
+  
+
+  Then also set the system clock speed to 25 MHz in the Debug Configuration window!
 
 * Debug as target application
 
