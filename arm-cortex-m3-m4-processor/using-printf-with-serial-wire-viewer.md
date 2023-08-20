@@ -94,6 +94,8 @@
 
   > Don't forget to make this modification. I've spent hours to figure out why I couldn't see the `printf()` messages from the SWV ITM Data Consol.
 
+* Include `<stdio.h>` in your source file in which `printf()` will be used.
+
 * The way `printf()` works is as follows:
 
   ```c
