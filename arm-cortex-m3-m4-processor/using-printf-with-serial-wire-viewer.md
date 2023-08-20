@@ -46,9 +46,9 @@
   ```c
   /* syscalls.c */
   
-  // Implementation of printf like feature using ARM Cortex M3/M4/ ITM functionality
-  // This function will not work for ARM Cortex M0/M0+
-  // If you are using Cortex M0, then you can use semihosting feature of openOCD
+  // Implementation of printf like feature using ARM Cortex M3/M4/ ITM functionality.
+  // This function will not work for ARM Cortex M0/M0+.
+  // If you are using Cortex M0, then you can use semihosting feature of openOCD.
   
   //Debug Exception and Monitor Control Register base address
   #define DEMCR        			*((volatile uint32_t*) 0xE000EDFCU )
@@ -57,9 +57,9 @@
   #define ITM_STIMULUS_PORT0   	*((volatile uint32_t*) 0xE0000000 )
   #define ITM_TRACE_EN          	*((volatile uint32_t*) 0xE0000E00 )
   
+  // Sends the message to the ITM registers
   void ITM_SendChar(uint8_t ch)
   {
-  
   	//Enable TRCENA
   	DEMCR |= ( 1 << 24);
   
