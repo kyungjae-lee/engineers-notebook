@@ -270,18 +270,48 @@
 
 ## FreeRTOS Task Creation Behind the Scenes
 
+* Memory usage
+
+
+
+<img src="./img/freertos-task-creation-memory-usage.png" alt="freertos-task-creation-memory-usage" width="900">
+
+
+
 * When `xTaskCreate()` is called to create a task following things happen behind the scenes:
 
-  1. Dynamic memory allocation for TCB
-  2. Dynamic memory allocation for the task's private stack (Since it is a dynamic allocation, this stack will be created in the heap space). This stack memory will be tracked using PSP register of the ARM Cortex-M processor.
+  1. Dynamic memory allocation for TCB and the TCB variables (e.g., `pxTopOfStack`) initialization 
+  2. Dynamic memory allocation for the task's private stack (Since it is a dynamic allocation, this stack will be created in the HEAP space). This stack memory will be tracked using PSP register of the ARM Cortex-M processor.
   3. `pxTopOfStack` of TCB is set to point to the stack created in (2).
   4. TCB will be added to the Ready List.
+
+  If the task creation fails due to insufficient memory in heap, `xTaskCreate()` will return an error code.
 
 * Remember, things that are dynamically allocated using `malloc()` reside on heap section of RAM. If you need to take a look at or modify the heap size, check the following configuration in the `FreeRTOSConfig.h` file.
 
   ```c
   #define configTOTAL_HEAP_SIZE			( ( size_t ) ( 75 * 1024 ) )
   ```
+  
+  > When modifying the heap size, check the MCU reference manual for the valid range of heap size.
+  
+  Also, heap is nothing but an array defined in `Project/ThirdParty/FreeRTOS/portable/MemMang/heap_x.c`.
+  
+  ```c
+  /* heap_4.c */
+  
+  /* Allocate the memory for the heap. */
+  #if ( configAPPLICATION_ALLOCATED_HEAP == 1 )
+  
+  /* The application writer has already defined the array used for the RTOS
+  * heap - probably so it can be placed in a special segment or address. */
+      extern uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
+  #else
+      PRIVILEGED_DATA static uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
+  #endif /* configAPPLICATION_ALLOCATED_HEAP */
+  ```
+  
+  > `malloc()` is allocates memory from this array `ucHeap[]`!
 
 
 
