@@ -52,7 +52,7 @@
 
   * **Priority based preemptive scheduling**
 
-    Scheduling tasks based on their priority. A task with higher priority will be scheduled to run on the CPU forever unless the task gets deleted, blocked, suspended or leaves voluntarily to give the chance  to others.
+    Scheduling tasks based on their priority. A task with higher priority will be scheduled to run on the CPU forever unless the task gets deleted, blocked, suspended or leaves voluntarily to give the chance to others.
 
     If, at any given point in execution, scheduler finds a task that is of higher priority than the one currently running on the CPU, scheduler will preempt the running task and switch it with the task with the higher priority even if the time slice was not expired.
 
@@ -81,12 +81,14 @@
 
 
 
-## Exercise
+## Exercise: Scheduling
 
 * Before you do this exercise, make sure to go through all the necessary steps to use `print()` function over SWO pin.
 
   See [Using `printf()` with Serial Wire Viewer (SWV)](../arm-cortex-m3-m4-processor/using-printf-with-serial-wire-viewer).
   
+* While building your project, you may run into an error saying "undefined reference to `vApplicationIdleHook`". Then, just set the configuration item `configUSE_IDLE_HOOK` to 0 in the `FreeRTOSConfig.h` file.
+
 * Start the FreeRTOS scheduler:
 
   ```c
@@ -106,8 +108,8 @@
   	// start the freeRTOS scheduler
   	vTaskStartScheduler();	// never returns unless there is any problem in launching sched
   
-  	// this line will only be reached if the launch of the scheduler has failed due to insufficient
-   	// memory in heap
+  	// This line will only be reached if the kernel could not be started because there was
+  	// not enough FreeRTOS heap to create the idle task or the timer task.
   
   	/* USER CODE END 2 */
     ...
@@ -130,7 +132,7 @@
   ...
   ```
   
-  > This is because tasks are getting preempted even if they didn't finish writing `printf()` messages completely. To resolve this issue while maintaining preemptive scheduling policy "mutual exclusion" must be introduced.
+  > This is because tasks are getting preempted every 1ms when the SysTick timer interrupt invokes the scheduler even if they didn't finish writing `printf()` messages completely. To resolve this issue while maintaining preemptive scheduling policy "mutual exclusion" must be introduced to lock the shared resource. (Here, ITM unit of the ARM Cortex-M4 processor is the shared resource.)
   
   When using **Cooperative Scheduling** (`configUSE_PREEMPTION = 0`), the output will be like:
   
@@ -175,9 +177,9 @@
 
 ## Note
 
-* When configuring the debugger settings to use `printf()` over SWO pin, you also need to set the system clock.
+* When configuring the debugger settings to use `printf()` over SWO pin, you also need to set the system clock speed.
 
-  Go to "Device Configuration Tool" $\to$ Clock Configuration, and check the following: (Our system's clock is 25 MHz)
+  Go to "Device Configuration Tool" $\to$ Clock Configuration, and check the following: (Our system's clock runs at 25 MHz)
 
 
 
