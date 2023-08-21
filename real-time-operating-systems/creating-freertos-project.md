@@ -253,8 +253,9 @@
   /* A header file that defines trace macro can be included here. */
   
   #endif /* FREERTOS_CONFIG_H */
-  
   ```
+
+  > If a configuration item is set to 0, the corresponding code block will not be included when generating the FreeRTOS kernel.
 
 * At this point, you will be left with a couple of build errors. At the time wring this notes, I had to do the following modification to resolve `'SystemCoreClock' undeclared` error.
 
