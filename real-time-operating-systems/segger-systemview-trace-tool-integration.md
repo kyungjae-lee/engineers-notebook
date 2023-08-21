@@ -93,7 +93,12 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
    * Download SystemView target sources and extract it.
 
    * Create `Project/ThirdParty/SEGGER` folder and add to it `Config/`, `OS/`, `Patch/`, and `SEGGER/` folders and import the following files from the downloaded target source folder. Make sure that `Project/ThirdParty/SEGGER` is not excluded from the build.
-   * Inside `SEGGER/Syscalls/`, delete everything but GCC related file.
+     * `SEGGER_SYSVIEW_Config_FreeRTOS.c` is located in the `<Repository>/Downloads/SystemView_Src_V320/Sample/FreeRTOSV10/Config/Cortex-M/` directory.
+     * `SEGGER_SYSVIEW_FreeRTOS.c` is located in the `<Repository>/Downloads/SystemView_Src_V320/Sample/FreeRTOSV10/` directory.
+     * `FreeRTOSv202012.00_segger_cm4_v1.patch` is provided by the lecture.
+     * Copy all the contents inside the `/Download/SystemView_Src_V320/SEGGER/` directory into `Project/ThirdParty/SEGGER/SEGGER/` directory.
+
+   * Inside the `SEGGER/Syscalls/` directory, delete everything but GCC related file (`SEGGER_RTT_Syscalls_GCC.c`).
 
    
 
@@ -107,7 +112,7 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
 
    * The patch file `FreeRTOSv202012.00_segger_cm4_v1.patch` contains the SEGGER trace tool related patches to the FreeRTOS source files. Now, we have to apply this patch to the FreeRTOS source files.
 
-     `ThirdParty` $\to$ Right click $\to$ Team $\to$ Apply patch $\to$ Select the patch file $\to$ Next ... Finish
+     `ThirdParty` $\to$ Right click $\to$ Team $\to$ Apply patch $\to$ Workspace $\to$ Select the patch file $\to$ Next ... Finish
 
      
 
@@ -130,7 +135,7 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
 
 4. **MCU and project specific settings**
 
-   * Specify the processor core your MCU is using in `SEGGER_SYSVIEW_ConfDefaults.h`.
+   * Specify the processor core your MCU is using in `Project/ThirdParty/SEGGER/SEGGER/SEGGER_SYSVIEW_ConfDefaults.h`.
 
      ```c
      /* SEGGER_SYSVIEW_ConfDefaults.h */
@@ -194,9 +199,9 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
      ...
      ```
 
-     > Will make it 4 KB.
+     > 1KB by default but, we'll make it 4 KB.
 
-   * Configure the some of the application specific information in `SEGGER_SYSVIEW_Config_FreeRTOS.c` under `SEGGER/Config/`.
+   * Configure the some of the application specific information in `SEGGER_SYSVIEW_Config_FreeRTOS.c` under `/Project/ThirdParty/SEGGER/Config/`.
 
      ```c
      /* SEGGER_SYSVIEW_Config_FreeRTOS.c */
@@ -217,11 +222,13 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
 
    * DWT_CYCCNT register of ARM Cortex-M3/M4 processor stores the number of clock cycles that has passed after the processor's reset. (DWT_CYCCNT gets incremented every clock cycle.)
 
+     * DWT: Data Watchpoint Unit of the processor
+
    * By default, this register is disabled since not all processors use it.
 
    * Consult *Cortex-M4 Technical Reference Manual* to see how to enable this register. (Section "DWT Programmer Model")
 
-     To enable DWT_CYCCNT register, you need to set SYCCNTENA (bit[0]) of DWT_CTRL register.
+     To enable DWT_CYCCNT register, you need to set SYCCNTENA (bit[0]; Cycle Counter Enable) of DWT_CTRL register.
 
      ```c
      /* main.c */
@@ -234,8 +241,8 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
      {
          ...
          /* USER CODE BEGIN 2 */
-     	// Enable the CYCCNT counter
-     	DWT_CTRL |= (1 << 0);
+     	// Enable the cycle counter
+     	DWT_CTRL |= (0x1 << 0);	// Set SYCCNTENA bit of DWT_CYCCNT register
          ...
          /* USER CODE END 2 */
          ...
@@ -261,9 +268,10 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
      {
          ...
          /* USER CODE BEGIN 2 */
-     	// Enable the CYCCNT counter
-     	DWT_CTRL |= (1 << 0);
+     	// Enable the cycle counter
+     	DWT_CTRL |= (0x1 << 0);	// Set SYCCNTENA bit of DWT_CYCCNT register
          
+         // Start the SEGGER SystemView recording of events
      	SEGGER_SYSVIEW_Conf();
      	SEGGER_SYSVIEW_Start();
          ...
@@ -323,20 +331,20 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
 
    * Hit run and then pause after a couple of seconds.
 
-     At this step, there was a problem related to "Priority grouping". To solve this issue add the following code in the `stm32f4xx_hal_msp.c`:
+     At this step, there was a problem related to "Priority grouping". To solve this issue add the following code in the `Project/Core/Src/stm32f4xx_hal_msp.c`:
 
      ```c
      /* stm32f4xx_hal_msp.c */
      ...
      /* USER CODE BEGIN Includes */
-     int vInitPrioGroupValue();
+     #include "FreeRTOS.h"
      /* USER CODE END Includes */
      ...
      void HAL_MspInit(void)
      {
      	...
      	/* USER CODE BEGIN MspInit 1 */
-     	vInitPrioGroupValue(); // initializes a variable related to priority grouping!
+     	vInitPrioGroupValue(); // Initializes a variable related to priority grouping!
      	/* USER CODE END MspInit 1 */
      }
      ```
@@ -369,7 +377,7 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
 
        
 
-     * Save the file with the `.SVdat` extension.
+     * Save the file with the `.SVdat` extension and "Raw Binary" format.
 
      * Use the file to load into SystemView host software to analyze the events.
 
@@ -377,15 +385,18 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
 
        <img src="./img/systemview-file-loading.png" alt="systemview-file-loading" width="800">
 
-   
+
+
+
+
 
 ## Note
 
 * In our project, there are two `_write()` functions:
 
-  * One defined in `Src/syscalls.c` - Associated with `printf()` call
+  * One defined in `Src/syscalls.c` - Associated with `printf()` call (This is a "weak" function, so if anywhere in the project a function with the same name is defined, that function will get called.)
 
-  * The other defined in `ThirdParty/SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_GCC.c` - Associated with SEGGER SystemView flavor of `printf()` such as `SEGGER_SYSVIEW_PrintfTarget()`. Using this function, we can print the message to the host software. 
+  * The other defined in `ThirdParty/SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_GCC.c` - Associated with SEGGER SystemView-flavor `printf()` such as `SEGGER_SYSVIEW_PrintfTarget()`. Using this function, we can print the message to the host software. 
 
     Note that this function takes only FORMATTED string as an argument. To format the string, use `snprintf()`:
 
