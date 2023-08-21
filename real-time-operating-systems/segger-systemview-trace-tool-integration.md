@@ -12,6 +12,7 @@ Download the following tools from [https://www.segger.com/](https://www.segger.c
 2. SEGGER SystemView target source files (need to be integrated into our project and flashed to target) - V3.20
 3. SEGGER ST-Link Reflash untility (NOT used at this point)
 4. SEGGER J-Link software package V5.12b or later (NOT used at this point)
+   * This is required to be able to use (3).
 5. SystemView user manual
 
 
