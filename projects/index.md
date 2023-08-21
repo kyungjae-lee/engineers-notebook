@@ -16,7 +16,7 @@
 
 3. **<a href="./mcu-peripheral-drivers">MCU Peripheral Drivers</a>** 
 
-   MCU peripheral (GPIO, I2C, SPI, USART) drivers development from scratch using the STM32F407G-Discover board
+   MCU peripheral (GPIO, I2C, SPI, USART) drivers development from scratch using the STM32F407G-Discovery board
 
 4. **<a href="./bare-metal-rtos">Bare‑Metal RTOS</a>** 
 
