@@ -1,4 +1,4 @@
-<a href="../">Home</a> > <a href="./">Projects</a> > Engineer's Notebook
+<a href="../">Home</a> > <a href="./">Portfolio</a> > Engineer's Notebook
 
 # Engineer's Notebook
 

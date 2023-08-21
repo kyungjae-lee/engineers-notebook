@@ -1,6 +1,6 @@
-<a href="../">Home</a> > Projects
+<a href="../">Home</a> > Portfolio
 
-# Projects
+# Portfolio
 
 
 

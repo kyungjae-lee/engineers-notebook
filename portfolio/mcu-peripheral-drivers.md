@@ -1,4 +1,4 @@
-<a href="../">Home</a> > <a href="./">Projects</a> > MCU Peripheral Drivers
+<a href="../">Home</a> > <a href="./">Portfolio</a> > MCU Peripheral Drivers
 
 # MCU Peripheral Drivers
 

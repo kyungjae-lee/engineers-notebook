@@ -1,4 +1,4 @@
-<a href="../">Home</a> > <a href="./">Projects</a> > LCD Digital Clock
+<a href="../">Home</a> > <a href="./">Portfolio</a> > LCD Digital Clock
 
 # LCD Digital Clock
 

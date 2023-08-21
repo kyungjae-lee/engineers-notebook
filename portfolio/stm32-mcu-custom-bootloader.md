@@ -1,4 +1,4 @@
-<a href="../">Home</a> > <a href="./">Projects</a> > STM32 MCU Custom Bootloader
+<a href="../">Home</a> > <a href="./">Portfolio</a> > STM32 MCU Custom Bootloader
 
 # STM32 MCU Custom Bootloader
 

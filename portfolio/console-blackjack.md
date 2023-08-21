@@ -1,4 +1,4 @@
-<a href="../">Home</a> > <a href="./">Projects</a> > Console Blackjack
+<a href="../">Home</a> > <a href="./">Portfolio</a> > Console Blackjack
 
 # Console Blackjack
 

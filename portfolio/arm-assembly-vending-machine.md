@@ -1,4 +1,4 @@
-<a href="../">Home</a> > <a href="./">Projects</a> > ARM-Assembly Vending Machine
+<a href="../">Home</a> > <a href="./">Portfolio</a> > ARM-Assembly Vending Machine
 
 # ARM-Assembly Vending Machine
 
