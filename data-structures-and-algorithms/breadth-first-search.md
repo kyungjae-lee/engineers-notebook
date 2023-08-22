@@ -51,11 +51,79 @@ BFS(Graph, startNode)
 ## Code (C++)
 
 ```cpp
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <unordered_set>
 
+class Graph
+{
+public:
+	Graph(int numNodes);
+	void addEdge(int from, int to);
+	void BFS(int startNode);
+
+private:
+	std::vector<std::vector<int>> adjacencyList;
+};
+
+Graph::Graph(int numNodes)
+{
+	adjacencyList.resize(numNodes);
+}
+
+void Graph::addEdge(int from, int to)
+{
+	adjacencyList[from].push_back(to);
+}
+
+void Graph::BFS(int startNode)
+{
+	std::queue<int> queue;
+	std::unordered_set<int> visited;
+
+	queue.push(startNode);
+	visited.insert(startNode);
+
+	while (!queue.empty())
+	{
+		int currentNode = queue.front();
+		queue.pop();
+
+		std::cout << currentNode << " ";	// Process the node
+
+		for (int neighbor : adjacencyList[currentNode])
+		{
+			if (visited.find(neighbor) == visited.end())
+			{
+				queue.push(neighbor);
+				visited.insert(neighbor);
+			}
+		}
+	}
+
+	std::cout << std::endl;
+}
+
+int main(int argc, char *argv[])
+{
+	Graph graph(6);
+
+	graph.addEdge(0, 1);
+	graph.addEdge(0, 2);
+	graph.addEdge(1, 3);
+	graph.addEdge(2, 4);
+	graph.addEdge(3, 5);
+
+	std::cout << "BFS traversal starting from node 0: ";
+	graph.BFS(0);
+
+	return 0;
+}
 ```
 
 ```plain
-
+BFS traversal starting from node 0: 0 1 2 3 4 5 
 ```
 
 
@@ -63,10 +131,102 @@ BFS(Graph, startNode)
 ## Code (C)
 
 ```c
+#include <stdio.h>
+#include <stdlib.h>
 
+typedef struct Node_
+{
+	int data;
+	struct Node_ *next;
+} Node;
+
+typedef struct Graph_
+{
+	int numNodes;
+	Node **adjacencyList;
+} Graph;
+
+Node *createNode(int data)
+{
+	Node *newNode = (Node *)malloc(sizeof(Node));
+	newNode->data = data;
+	newNode->next = NULL;
+	return newNode;
+}
+
+Graph *createGraph(int numNodes)
+{
+	Graph *graph = (Graph *)malloc(sizeof(Graph));
+	graph->numNodes = numNodes;
+	graph->adjacencyList = (Node **)malloc(numNodes * sizeof(Node*));
+	for (int i = 0; i < numNodes; ++i)
+	{
+		graph->adjacencyList[i] = NULL;
+	}
+
+	return graph;
+}
+
+void addEdge(Graph *graph, int from, int to)
+{
+	Node *newNode = createNode(to);
+	newNode->next = graph->adjacencyList[from];
+	graph->adjacencyList[from] = newNode;
+}
+
+void BFS(Graph *graph, int startNode)
+{
+	int *visited = (int *)calloc(graph->numNodes, sizeof(int));
+	Node *queue[graph->numNodes];
+	int front = 0; int rear = 0;
+
+	queue[rear++] = createNode(startNode);
+	visited[startNode] = 1;
+
+	while (front < rear)
+	{
+		Node *currNode = queue[front++];
+		printf("%d ", currNode->data);	// Process the node
+
+		Node *neighbor = graph->adjacencyList[currNode->data];
+		while (neighbor)
+		{
+			if (!visited[neighbor->data])
+			{
+				queue[rear++] = createNode(neighbor->data);
+				visited[neighbor->data] = 1;
+			}
+			neighbor = neighbor->next;
+		}
+	}
+
+	printf("\n");
+	free(visited);
+}
+
+int main(int argc, char *argv[])
+{
+	Graph *graph = createGraph(6);
+
+	addEdge(graph, 0, 1);
+	addEdge(graph, 0, 2);
+	addEdge(graph, 1, 3);
+	addEdge(graph, 2, 4);
+	addEdge(graph, 3, 5);
+
+	printf("BFS traversal starting from 0: ");
+	BFS(graph, 0);
+
+	return 0;
+}
 ```
 
 ```plain
-
+BFS traversal starting from 0: 0 2 1 4 3 5 
 ```
 
+> The order of traversal in BFS can vary depending on the order in which neighbors are added to the queue. Both orders are correct as long as they follow the BFS traversal rules.
+>
+> In the output "0 2 1 4 3 5", the BFS algorithm is traversing the graph layer by layer, but the order of adding neighbors to the queue might be slightly different. For example, in this case, after visiting node 0, the algorithm enqueues nodes 1 and 2. Node 2 is dequeued before node 1, which is why you see node 2 being visited before node 1.
+>
+> So, the BFS algorithm is still correctly traversing the graph, but the order of neighbors' processing might differ based on implementation details such as the queue's behavior and order of enqueuing nodes. Both "0 1 2 3 4 5" and "0 2 1 4 3 5" are valid BFS traversal orders for the given graph and its edges.
