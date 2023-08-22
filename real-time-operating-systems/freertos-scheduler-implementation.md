@@ -10,25 +10,32 @@
 
   * **FreeRTOS generic code (`tasks.c`)**
 
-    * `vTaskStartScheduler()` is a generic function for all architectures  `task.c`
-    * It calls `xPortStartScheduler()` defined in `port.c` which does the architecture-specific initializations.
-
+    * `vTaskStartScheduler()` is a generic function for all architectures implemented in  `task.c` of FreeRTOS kernel and used to start the RTOS scheduler. 
+  
+      When this function is called, only the scheduler code is initialized and all the architecture specific interrupts will be activated.
+  
+      It also creates the idle task and Timer Daemon task.
+  
+      It calls `xPortStartScheduler()` defined in `port.c` which does the architecture-specific initializations including:
+  
+      * Configuration of the SysTick timer to issue interrupts at a desired rate (as configured in the config item `configTICK_RATE_HZ` in `FreeRTOSConfig.h`; 1000 means 1000 interrupts per second)
+      * Configuration of the priority for the PendSV and SysTick interrupts.
+      * Starting the first task by executing the SVC instruction.
+  
   * **Architecture specific code (`port.c`, `portmacro.h`)**
-
+  
     `xPortStartScheduler()` defined in `port.c` does the following architecture-specific initializations:
-
+  
     * Configuring the SysTick timer to issue interrupts at a desired rate.
     * Make the PendSV and SysTick the lowest priority interrupts.
     * Starting the very first task (`prvPortStartFirstTask()`) by executing the SVC instruction.
 
+### Architecture-Specific Interrupts that Implement the Scheduler
 
-
-## Architecture-Specific Interrupts that Implement the Scheduler
-
-* When FreeRTOS runs on ARM Cortex-M processor based MCU, the following kernel interrupts defined in `port.c` are used to implement the scheduler.
+* When FreeRTOS runs on ARM Cortex-Mx processor based MCU, the following kernel interrupts defined in `port.c` are used to implement the scheduler.
   * SVC Interrupt (`vPortSVCHandler()`) - Used to <u>launch the very first task</u> (only called once!). Triggered by SVC instruction of ARM Cortex-M processor.
   * PendSV Interrupt (`xPortPendSVHandler()`) - Used to achieve the <u>context switching</u> between tasks. Triggered by pending the PendSV system exception of ARM Cortex-M processor.
-  * SysTick Interrupt (`xPortSysTickHandler()`) - Used to implement the <u>RTOS tick management</u>. Triggered periodically at a desired rate by the SysTick timer of ARM Cortec-M processor.
+  * SysTick Interrupt (`xPortSysTickHandler()`) - Used to implement the <u>RTOS tick management</u>. Triggered periodically at a desired rate by the SysTick timer of ARM Cortex-M processor.
 
 * If SysTick interrupt is used for some other purpose in your application, you may use any other available timer peripheral.
 * All interrupts are configured at the lowest possible interrupt priority.
