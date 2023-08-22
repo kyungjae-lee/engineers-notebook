@@ -329,9 +329,9 @@
 
 * It is created at the lowest possible priority to ensure it does not use any CPU time if there are higher priority application tasks in the ready state.
 
-* Idle task is responsible for freeing the memory (e.g., TCB, stack) allocated by the RTOS to the tasks that have been completed or deleted.  Note that it is NOT the non-Idle task itself that cleans up the memory it was allocated.
+* Idle task is responsible for freeing the memory (e.g., TCB, stack) allocated by the RTOS to the tasks that have been completed or deleted. `prvCheckTasksWaitingTermination()` function of the idle task is responsible for it. (Note that it is NOT the non-Idle task itself that cleans up the memory it was allocated.)
 
-  You can also give an application a hook function (or callback function) in the Idle task to <u>send the CPU to low power mode</u> when there are no useful tasks are executing.
+  You can also give an application a hook function (or callback function) such as `vApplicationIdleHook()` in the Idle task to <u>send the CPU to low power mode</u> when there are no useful tasks are executing.
 
   ```c
   /* task.c */
