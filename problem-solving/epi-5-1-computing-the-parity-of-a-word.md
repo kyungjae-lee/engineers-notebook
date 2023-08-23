@@ -28,7 +28,7 @@ short Parity(unsigned long x)
         x >>= 1;
     }
 
-    //return result % 2;                                                        
+    return result % 2;                                                        
 }
 ```
 
@@ -51,7 +51,7 @@ short Parity(unsigned long x)
 
 ### Solution 2
 
-This solution improves the Solution 1 by using the technique "Erase the lowest set bit in a word in a single operation".
+This solution improves the Solution 1 by using the technique "Erase the lowest set bit in a word in a single operation" (`x = x & (x - 1)`.
 
 **Complexity Analysis:**
 
@@ -68,7 +68,7 @@ short Parity(unsigned long x)
     while (x)
     {
         result ^= 1;
-        x = x & (x - 1);
+        x = x & (x - 1);	// Drop the lowest set bit of x
     }
     
     return result;
