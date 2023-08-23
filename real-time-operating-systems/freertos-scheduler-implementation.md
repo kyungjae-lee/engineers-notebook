@@ -30,7 +30,9 @@
     * Make the PendSV and SysTick the lowest priority interrupts.
     * Starting the very first task (`prvPortStartFirstTask()`) by executing the SVC instruction.
 
-### Architecture-Specific Interrupts that Implement the Scheduler
+
+
+## FreeRTOS Kernel Interrupts that Implement the Scheduler (Architecture-specific)
 
 * When FreeRTOS runs on ARM Cortex-Mx processor based MCU, the following kernel interrupts defined in `port.c` are used to implement the scheduler.
   * SVC Interrupt (`vPortSVCHandler()`) - Used to <u>launch the very first task</u> (only called once!). Triggered by SVC instruction of ARM Cortex-M processor.
@@ -42,15 +44,17 @@
 
 
 
-## RTOS Ticking
+## RTOS Ticking (RTOS Tick ISR)
 
-* RTOS ticking is implemented using timer hardware of the MCU. e.g., SysTick timer in the case of ARM Cortex-M processor.
+* RTOS ticking is implemented using timer hardware of the MCU. e.g., SysTick timer in the case of ARM Cortex-Mx processor.
 
 * RTOS tick is necessary for the kernel to keep track of the time elapsed. (A global variable `xTickCount` which gets incremented by one every tick is used.)
 
+  * One application is to wake up a task that has been sleeping for a certain amount of time. The task keeps track of the global tick count and compares it with the preset value.
+
 * Tick interrupt is triggered at the rate of `configTICK_RATE_HZ` defined in `FreeRTOSConfig.h`.
 
-* Each timer tick interrupt triggers the scheduler to perform context switching. The context switching occurs in the following process:
+* Each RTOS tick (timer tick interrupt) triggers the scheduler to perform context switching. The context switching occurs in the following process:
 
   1. Upon the execution of the tick ISR
   2. All the tasks in the Read state are scanned
@@ -58,14 +62,15 @@
   4. If found, context switching is triggered by pending the PendSV ISR
   5. The PendSV handler takes care of the context switching
 
-* Where does the RTOS tick timer get configured?
+* Where does the RTOS tick timer get configured? $\to$ In the `xPortStartScheduler()`(`port.c`) called by `vTaskStartScheduler()`(`tasks.c`). 
 
-  `vTaskStartScheduler()`(`tasks.c`) $\to$ `xPortStartScheduler()`(`port.c`):
+  `xPortStartScheduler()` performs the following 3 important operations.
 
-  1. Make the PendSV and SysTick the lowest priority interrupts.
+  1. Makes the PendSV and SysTick the lowest priority interrupts.
 
      ```c
      /* port.c */
+     
      /* Make PendSV and SysTick the lowest priority interrupts. */
      portNVIC_SHPR3_REG |= portNVIC_PENDSV_PRI;
      portNVIC_SHPR3_REG |= portNVIC_SYSTICK_PRI;
@@ -75,6 +80,7 @@
 
      ```c
      /* FreeRTOSConfig.h */
+     
      /* The lowest interrupt priority that can be used in a call to a "set priority" function. */
      #define configLIBRARY_LOWEST_INTERRUPT_PRIORITY			0xf
      ```
@@ -103,6 +109,21 @@
      >
      > L4: Enable SysTick. This is where the down-counting gets started.
 
+### The RTOS Tick Configuration
+
+In the current project setup:
+
+* `configSYSTICK_CLOCK_HZ` is set to `configCPU_CLK_HZ`
+
+* If `configCPU_CLK_HZ = 25000000` (i.e., 25 MHz), and `configTICK_RATE_HZ = 1000` (i.e., 1000 Hz), then `portsSYSTICK_NVIC_LOAD_REG = (25000000 / 1000) - 1` (i.e., 24999)
+
+  The SysTick timer, when started, dounts down from 24999 to 0. It generates an interrupt when the count value reaches 0 and again reloads the load count value.
+
+  Therefore, 24999 is the SysTick load value required to generate interrupt for every 1 ms (1000 Hz).
+  
+* You may see the `configCPU_CLK_HZ` set to different value (e.g., 16000000) initially, but this will be updated to the project's clock rate. The clock rates can be checked using the "Device Configuration Tool".
+
+### RTOS Tick ISR Summary
 
 
 
@@ -110,17 +131,9 @@
 
 
 
+<img src="./img/rtos-tick-isr-systemview.png" alt="rtos-tick-isr-systemview" width="1000">
 
 
-## The RTOS Tick Configuration
-
-* `configSYSTICK_CLOCK_HZ = configCPU_CLK_HZ`
-
-* If `configCPU_CLK_HZ = 25000000` (i.e., 25 MHz), and `configTICK_RATE_HZ = 1000` (i.e., 1000 Hz), then `portsSYSTICK_NVIC_LOAD_REG = (25000000 / 1000) - 1` (i.e., 24999)
-
-  The SysTick timer, when started, dounts down from 24999 to 0. It generates an interrupt when the count value reaches 0 and again reloads the load count value.
-
-  Therefore, 24999 is the SysTick load value required to generate interrupt for every 1 ms (1000 Hz).
 
 
 
