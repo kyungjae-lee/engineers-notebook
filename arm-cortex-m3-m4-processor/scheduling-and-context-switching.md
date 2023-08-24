@@ -53,6 +53,7 @@
   So, our job in implementing scheduler is to make sure that the rest of the task state will get pushed onto stack as well.
 
   * R4 - R11 (we'll call it Stack Frame 2 or SF2)
+  * Note that R14(LR) needs to be pushed onto stack. Check out [Context Switching](../real-time-operating-systems/context-switching) to see why!
   
   The following "Task Switching In/Out" diagram is taken from FreeRTOS notes.
 
