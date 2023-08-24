@@ -63,9 +63,9 @@
 * Connect the board according to the pin table mentioned above, and check the Virtual COM port the serial device is connected to by using `dmesg` command or `watch tail /var/log/syslog`. 
   * In my environment $\to$ ttyUSB0
 
-* Create a `Project/ThirdParty/Rec/` folder, and import `segger_uart.c` file into the folder. This is the file is used to enable the UART-based real-time recording.
+* Create a `Project/ThirdParty/Rec/` folder, and import `segger_uart.c` file provided by the lecture into the folder. This is the file is used to enable the UART-based real-time recording.
 
-* In `SEGGER_SYSVIEW_Conf.h` file, add the following code:
+* In the `Project/ThirdParty/SEGGER/Config/SEGGER_SYSVIEW_Conf.h` file, add the following code:
 
   ```c
   /* SEGGER_SYSVIEW_Conf.h */
@@ -84,7 +84,7 @@
 
   > L7: Enabling UART-based real-time recording.
 
-* In `main.c`, insert `SEGGER_UART_init(500000);` before calling `SEGGER_SYSVIEW_Conf();`. (Also, function prototype `extern void SEGGER_UART_init(uint32_t);`)
+* In `main.c`, insert `SEGGER_UART_init(500000);` before calling `SEGGER_SYSVIEW_Conf();`. (Also, the function prototype `extern void SEGGER_UART_init(uint32_t);`)
 
   To achieve the baud rate of 500000, you need to go to the "Device Configuration Tool" $\to$ Clock Configuration, and set the `HCLK(MHz)` to its maximum value, 168.
   
