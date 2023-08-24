@@ -86,12 +86,14 @@ See [Scheduling & Context Switching](../arm-cortex-m3-m4-processor/scheduling-an
 
   2. If context switching is required, the SysTick timer will pend the PendSV exception and PendSV handler will run.
 
-  3. Processor core registers R4-R11, R14 that are not saved by (1) have to be saved manually on the task's private stack memory. (Saving the context)
+  3. Processor core registers R4-R11 that are not saved by (1) have to be saved manually on the task's private stack memory. (Saving the context) ==Also, push R14 one more time since it will be necessary to recover the R14 value that will have been corrupted by `bl vTaskSwitchContext` subroutine call inside the `xPortPendSVHandler()` when the current task is switched back in later.==
 
-  4. Save the new top of stack value (PSP) into the first member of TCB. This is so when this task is switched back in later, it can restore its context from its stack.
+     Q: Doens't R14(LR) get pushed automatically by the processor as an exception exit sequence when the `xPortPendSVHandler()`? $\to$ It does! But as you can see at the end of `xPortPendSVHandler()` there's a branch instruction `bx r14` which means that we need to make sure that R14 register retains the correct value. Note that the branch instruction `bx r14` gets called before the exception exit sequence of PendSV handler.
+
+  4. Save the new top of stack value (PSP) into the first member (`pxTopOfStack`) of TCB. This is so when this task is switched back in later, it can restore its context from its stack.
 
   5. Select the next potential task to execute on the CPU. This is done by `vTaskSwitchContext()` implmented in `tasks.c`.
-
+  
      ```c
      /* task.c */
      void vTaskSwitchContext( void )
@@ -102,7 +104,7 @@ See [Scheduling & Context Switching](../arm-cortex-m3-m4-processor/scheduling-an
          ...
      }
      ```
-
+  
      > The macro `taskSELECT_HIGHEST_PRIORITY_TASK()` fetches the pointer to the TCB of the next task to run.
 
 
@@ -115,7 +117,11 @@ See [Scheduling & Context Switching](../arm-cortex-m3-m4-processor/scheduling-an
 
 * At this time, `pxCurrentTCB` will contain the TCB of the next task to run.
   1. First, get the address of the TOS of the task to be switched in. Copy the value of `pxTopOfStack` into the PSP register. (PSP initialization for the new task.)
-  2. Pop the registers R4-R11, R14 (from the stack to the processor core registers). (Restoring the context)
+  
+  2. Pop the registers R4-R11, R14(LR) (from the stack to the processor core registers). (Restoring the context)
+  
+     Note that the R14(LR) gets popped here again! Check out the corresponding part in the *Task Switching-Out Procedure* section above!
+  
   3. Exception exit - Now PSP is pointing to the start address of the stack frame (R0-R3, R12, LR, PC, xPSR) which will be popped (from the stack to the processor core registers) automatically by the processor during the exception exit sequence.
 
 
@@ -232,6 +238,8 @@ See [Scheduling & Context Switching](../arm-cortex-m3-m4-processor/scheduling-an
   >   > L7: Previous task is moved to the Ready list.
   >   >
   >   > L15: `pxCurrentTCB` gets updated.
+  >
+  > * L32: Start of the new task switching in
   >
   > * L54: `pxCurrentTCB` is a global variable that points to the currently running task's TCB. To check which task is curretnly running, copy this variable's name and add it to the "Expressions" window in the CubeIDE.
 
