@@ -130,6 +130,14 @@ See [Scheduling & Context Switching](../arm-cortex-m3-m4-processor/scheduling-an
 
 
 
+### Context Switching on SEGGER SystemView
+
+
+
+<img src="./img/context-switching-segger-system-view.png" alt="context-switching-segger-system-view" width="900">
+
+
+
 
 
 ## Context Switching in Code
