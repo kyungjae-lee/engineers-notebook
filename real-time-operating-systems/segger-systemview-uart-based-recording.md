@@ -89,6 +89,18 @@
   To achieve the baud rate of 500000, you need to go to the "Device Configuration Tool" $\to$ Clock Configuration, and set the `HCLK(MHz)` to its maximum value, 168.
   
   [!] Note: Configuring clock and baud rate requires some calculations. Consult the MCU Reference Manual $\to$ USART functional description $\to$ Fractional baud rate generation
+  
+  > If you are to use a different HCLK(MHz), you'll have to modify the following configurations accordingly. For example if you want the HCLK to be 50 MHz and APB1 Prescalar to be 2, then update the code as follows:
+  >
+  > ```c
+  > /* Project/ThirdParty/SEGGER/Rec/segger_uart.c */
+  > 
+  > ...
+  > #define OS_FSYS 50000000L   // MCU core frequency of Flasher ARM Pro V4
+  > ...
+  > #define UART_BASECLK        OS_FSYS / 2       // USART2 runs on APB1 clock
+  > ...
+  > ```
 
 
 
