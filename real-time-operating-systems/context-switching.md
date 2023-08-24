@@ -6,7 +6,7 @@
 
 ## State of a Task
 
-See [Scheduling & Context Switching](https://jackklee.com/arm-cortex-m3-m4-processor/scheduling-and-context-switching) for processor level details.
+See [Scheduling & Context Switching](./arm-cortex-m3-m4-processor/scheduling-and-context-switching) for processor level details.
 
 * When a task executes on the processor it utilizes
 
