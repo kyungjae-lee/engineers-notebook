@@ -123,6 +123,14 @@
 
 
 
+## Note
+
+* SEGGER SystemView UART-based Recording may not work on the SEGGER SystemView software end at times. This is a known issue. If you have done everything correctly up to this point, don't worry and try the followings:
+  1. Check the wiring
+  2. Check the COM port or serial port to which the USB-to-Serial cable is connected
+  3. Close the SEGGER SystemView software $\to$ Reflash the program on the target $\to$ Run the SEGGER SystemView software again $\to$ Select the correct COM port and baudrate $\to$ Run $\to$ Stop $\to$ Run a couple of times
+  4. If none of these works at this point, move on to the next section. In my case, the following projects had no issue with the SEGGER SystemView UART-based Recording.
+
 
 
 
