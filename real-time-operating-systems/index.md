@@ -17,9 +17,10 @@
 1. **<a href="./freertos-scheduler-implementation">FreeRTOS Scheduler Implementation</a>**
 1. **<a href="./context-switching">Context Switching</a>**
 1. **<a href="./segger-systemview-uart-based-recording">SEGGER SystemView UART-Based Recording</a>**
-1. **<a href="./exercise-toggle-leds">Exercise: Toggle LEDs</a>**
+1. **<a href="./exercise-toggle-leds">Exercise: Toggle LEDs (`02_LED_Tasks`)</a>**
 1. **<a href="./task-states">Task States</a>**
 1. **<a href="./freertos-task-delay-apis">FreeRTOS Task Delay APIs</a>**
+1. **<a href="./exercise-task-delay">Exercise: Task Delay (`03_LED_Tasks_Delay`, `04_LED_Tasks_Periodic`)</a>**
 1. **<a href="./freertos-task-notification">FreeRTOS Task Notification</a>**
 1. **<a href="./overview-of-freertos-memory-management">Overview of FreeRTOS Memory Management</a>**
 1. **<a href="./overview-of-freertos-synchronization-and-mutual-exclusion-services">Overview of FreeRTOS Synchronization and Mutual Exclusion Services</a>**
