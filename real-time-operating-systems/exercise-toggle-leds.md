@@ -16,7 +16,7 @@
 
 * Create 3 FreeRTOS tasks of the same priority to handle three different LEDs.
 
-* Each task will not interfere with one another. (No shared resources)
+* Each task will NOT interfere with one another. (No shared resources)
 
 * Since this is a single-core system, "parallel" processing will be impossible to achieve. Just implement it in a time-sharing fashion!
 
@@ -39,7 +39,7 @@
 * Instead of integrating the third party tools every time you create a project, you can create a common folder to all projects.
 
   * Create a `Workspace/Common/` folder, and copy the `Project/ThirdParty/` folder (which we created in the previous section when creating the first project) into the `Workspace/Common/` folder.
-  * Link it to the project.
+  * Link it to the project. (Not copy, but link!)
   * Common $\to$ Properties $\to$ C/C++ Build $\to$ Uncheck "Exclude resource from build". (Must be included.)
 
 
@@ -96,47 +96,58 @@
   /* USER CODE END Includes */
   ...
   /* USER CODE BEGIN PV */
-  #define DWT_CTRL (*(volatile uint32_t *)0xE0001000)
+  #define DWT_CTRL	(*(uint32_t volatile *)0xE0001000)
   /* USER CODE END PV */
   ...
   /* USER CODE BEGIN PFP */
-  static void led_green_handler(void *parameters);
-  static void led_orange_handler(void *parameters);
-  static void led_red_handler(void *parameters);
+  static void led_green_task_handler(void *parameters);
+  static void led_orange_task_handler(void *parameters);
+  static void led_red_task_handler(void *parameters);
   /* USER CODE END PFP */
   ...
       
   int main(void)
   {
     /* USER CODE BEGIN 1 */
-    TaskHandle_t task1_handle;
-    TaskHandle_t task2_handle;
-    TaskHandle_t task3_handle;
+    TaskHandle_t led_green_task_handle;
+    TaskHandle_t led_orange_task_handle;
+    TaskHandle_t led_red_task_handle;
   
-    BaseType_t status;	// stores return value of xTaskCreate()
+    BaseType_t status;	// Stores return value of xTaskCreate()
     /* USER CODE END 1 */
       
     ...
         
     /* USER CODE BEGIN 2 */
-    // Enable the CYCCNT counter
-    DWT_CTRL |= (1 << 0);
-        
-    // Taask 1
-    status = xTaskCreate(led_green_handler, "LED_green_task", 200, NULL, 2, &task1_handle);
+  
+    // Enable the cycle counter
+    DWT_CTRL |= (0x1 << 0);	// Set SYCCNTENA bit of DWT_CYCCNT register
+  
+    // Initialize UART with desired baudrate for SEGGER SystemView with UART-based recording
+    //SEGGER_UART_init(500000);	// Uncomment this line to use SEGGER SystemView
+  
+    // Start the SEGGER SystemView recording of events
+    //SEGGER_SYSVIEW_Conf();		// Uncomment this line to use SEGGER SystemView
+    //SEGGER_SYSVIEW_Start(); // This function will be called from ThirdParty/Rec/segger_uart.c
+  
+    // Create LED_Green_Task and make sure that the task creation was successful
+    status = xTaskCreate(led_green_task_handler, "LED_Green_Task", 200, NULL, 2, &led_green_task_handle);
     configASSERT(status == pdPASS);
   
-    // Taask 2
-    status = xTaskCreate(led_red_handler, "LED_red_task", 200, NULL, 2, &task2_handle);
+    // Create LED_Orange_Task and make sure that the task creation was successful
+    status = xTaskCreate(led_orange_task_handler, "LED_Orange_Task", 200, NULL, 2, &led_orange_task_handle);
     configASSERT(status == pdPASS);
   
-    // Taask 3
-    status = xTaskCreate(led_orange_handler, "LED_orange_task", 200, NULL, 2, &task3_handle);
+    // Create LED_Red_Task and make sure that the task creation was successful
+    status = xTaskCreate(led_red_task_handler, "LED_red_Task", 200, NULL, 2, &led_red_task_handle);
     configASSERT(status == pdPASS);
   
-  
-    // start the freeRTOS scheduler
+    // Start FreeRTOS scheduler
+    // vTaskStartScheduler() never returns unless there's a problem launching scheduler
     vTaskStartScheduler();
+  
+    // This line will only be reached if the kernel could not be started because there was
+    // not enough FreeRTOS heap to create the idle task or the timer task.
   
     /* USER CODE END 2 */
     ...
@@ -146,7 +157,7 @@
       
   /* USER CODE BEGIN 4 */
   
-  static void led_green_handler(void *parameters)
+  static void led_green_task_handler(void *parameters)
   {
   	while (1)
   	{
@@ -157,7 +168,7 @@
   	}
   }
   
-  static void led_orange_handler(void *parameters)
+  static void led_orange_task_handler(void *parameters)
   {
   	while (1)
   	{
@@ -168,7 +179,7 @@
   	}
   }
   
-  static void led_red_handler(void *parameters)
+  static void led_red_task_handler(void *parameters)
   {
   	while (1)
   	{
