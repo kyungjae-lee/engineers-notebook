@@ -124,10 +124,10 @@
     DWT_CTRL |= (0x1 << 0);	// Set SYCCNTENA bit of DWT_CYCCNT register
   
     // Initialize UART with desired baudrate for SEGGER SystemView with UART-based recording
-    //SEGGER_UART_init(500000);	// Uncomment this line to use SEGGER SystemView
+    SEGGER_UART_init(500000);	// Comment this line out if you are not using SEGGER SystemView
   
     // Start the SEGGER SystemView recording of events
-    //SEGGER_SYSVIEW_Conf();		// Uncomment this line to use SEGGER SystemView
+    SEGGER_SYSVIEW_Conf();	// Comment this line out if you are not using SEGGER SystemView
     //SEGGER_SYSVIEW_Start(); // This function will be called from ThirdParty/Rec/segger_uart.c
   
     // Create LED_Green_Task and make sure that the task creation was successful
@@ -161,7 +161,7 @@
   {
   	while (1)
   	{
-  		//  SEGGER_SYSVIEW_PrintfTarget("Toggling green LED");
+  		SEGGER_SYSVIEW_PrintfTarget("Toggling green LED");
   		HAL_GPIO_TogglePin(GPIOD, LED_GREEN_PIN);
   		HAL_DELAY(1000);	// Blocking delay (Keeps the processor engaged in a while loop)
   							// Later will be replaced by the non-blocking delay.
@@ -172,7 +172,7 @@
   {
   	while (1)
   	{
-  		//  SEGGER_SYSVIEW_PrintfTarget("Toggling orange LED");
+  		SEGGER_SYSVIEW_PrintfTarget("Toggling orange LED");
   		HAL_GPIO_TogglePin(GPIOD, LED_ORANGE_PIN);
   		HAL_DELAY(800);		// Blocking delay (Keeps the processor engaged in a while loop)
   							// Later will be replaced by the non-blocking delay.
@@ -183,7 +183,7 @@
   {
   	while (1)
   	{
-  		//  SEGGER_SYSVIEW_PrintfTarget("Toggling red LED");
+  		SEGGER_SYSVIEW_PrintfTarget("Toggling red LED");
   		HAL_GPIO_TogglePin(GPIOD, LED_RED_PIN);
   		HAL_DELAY(400);		// Blocking delay (Keeps the processor engaged in a while loop)
   							// Later will be replaced by the non-blocking delay.
@@ -193,14 +193,14 @@
   /* USER CODE END 4 */
   ```
 
-* GPIO settings are automatically done by the CubeIDE. These settings can be found in the `MX_GPIO_Init()` function.
+* GPIO settings are automatically done by the CubeIDE. These settings can be found in the `MX_GPIO_Init()` function. (Also, you can check the "Device Configuartion Tool $\to$ Categories $\to$ GPIO")
 
   To see their implementations, see `Project/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c`. (Ctrl + O will show you the list of public APIs defined in the file.)
 
-* Before building the project, make sure to do the following settings:
+* ==Before building the project, make sure to do the following settings:==
 
-  * Select the time base for STM32 HAL something other than the SysTick.
-  * Do the priority group setting.
+  * ==Select the time base for STM32 HAL something other than the SysTick. (SysTick timer will be used for the FreeRTOS tick)==
+  * ==Do the priority group setting.==
   
   See, *Timebase Source Selection* section in the [Creating FreeRTOS Project](./creating-freertos-project) notes for the detailed steps for above 2 settings.
   
@@ -250,7 +250,7 @@
 
   * In the `Project/Src/main.c` add the following lines in the main function:
 
-    `SEGGER_UART_init(5000000);` , `SEGGER_SYSVIEW_Conf();` (Also, declare these function as `extern`.)
+    `SEGGER_UART_init(500000);` , `SEGGER_SYSVIEW_Conf();` (Also, declare these function as `extern`.)
 
     ```c
     /* main.c */
@@ -258,7 +258,7 @@
     int main(void)
     {
       ...
-      SEGGER_UART_init(5000000);
+      SEGGER_UART_init(500000);
       
       // Enable the CYCCNT counter
       DWT_CTRL |= (1 << 0);
@@ -280,8 +280,10 @@
 
 ### Notes
 
-* These three tasks are **continuous tasks**, meaning that even if the task has nothing to do, it still consumes the CPU until it gets preempted. (You can see also from the CPU load window that the CPU has never been idle.) Not very efficient!
+* These three tasks are **continuous tasks**, meaning that even if the task has nothing to do, it still consumes the CPU clocks (in a loop) until it gets preempted. (You can see also from the CPU load window that the CPU has never been idle.) Very inefficient!
 * We'll improve it in the following sections by making CPU sleep when it's not needed thus minimizing the power consumption.
+
+
 
 
 
