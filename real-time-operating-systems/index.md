@@ -26,6 +26,7 @@
 1. **<a href="./overview-of-freertos-memory-management">Overview of FreeRTOS Memory Management</a>**
 1. **<a href="./overview-of-freertos-synchronization-and-mutual-exclusion-services">Overview of FreeRTOS Synchronization and Mutual Exclusion Services</a>**
 1. **<a href="./deleting-a-task">Deleting a Task</a>**
+1. **<a href="./exercise-task-notification-and-deletion">Exercise: Task Notification and Deletion (`05_LED_Tasks_Notification_Deletion`)</a>**
 1. **<a href="./arm-cortex-m-interrupt-priority-and-freertos-task-priority">ARM Cortex M Interrupt Priority & FreeRTOS Task Priority</a>**
 1. **<a href="./freertos-fromisr-apis">FreeRTOS `FromISR` APIs</a>**
 1. **<a href="./freertos-hook-functions">FreeRTOS Hook Functions</a>**
