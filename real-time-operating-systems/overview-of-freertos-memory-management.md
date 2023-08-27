@@ -8,16 +8,18 @@
 
 * In general, MCUs contain RAM and Flash. And, Flash is usually bigger in size than RAM.
 
+* See [Different Section of a Program](../arm-cortex-m3-m4-processor/different-sections-of-a-program) to see which section of a program goes to which memory.
+
 ### RAM
 
-* Used to store the application **data**. (e.g., Global arrays, global variables, etc.)
-* The **code** (i.e., instructions) can be downloaded and run on RAM. (e.g., Patches)
-* A part of RAM is used as **stack** to store local variables, function arguments, return address, etc.
-* A part of RAM is used as **heap** for dynamic memory allocations.
+* Used to store the application **DATA**. (e.g., Global arrays, global variables, etc.)
+* The **CODE** (i.e., instructions) can be downloaded and run on RAM. (e.g., Patches)
+* A part of RAM is used as **STACK** to store local variables, function arguments, return address, etc.
+* A part of RAM is used as **HEAP** for dynamic memory allocations.
 
 ### Flash
 
-* Mainly used to store the application **code** (i.e., the instructions generated after compilation of the program).
+* Mainly used to store the application **CODE** (i.e., the instructions generated after compilation of the program).
 
 * Also holds constants:
 
@@ -26,7 +28,7 @@
   const int var = 10;
   ```
 
-* Holds the **vector table** for interrupts and exceptions of the MCU. (e.g., For any ARM Cortex-M based MCUs, the initial address of the code memory, which is typically Flash, is occupied by the vector table.)
+* Holds the **VECTOR TABLE** for interrupts and exceptions of the MCU. (e.g., For any ARM Cortex-M based MCUs, the initial address of the code memory, which is typically Flash, is occupied by the vector table.)
 
 
 
@@ -38,7 +40,7 @@
 
 * Stack pointer (SP) of an MCU is usually initialized to the highest memory address of RAM (i.e., beginning of stack). However, this depends multiple factors such as which stack model (e.g., full-ascending, full-descending, empty-ascending, empty-descending) is used.
 
-  Stack pointer initialization is done in the "Startup code" of a project, so if you are writing the startup code yourself you need to take care of it.
+  Stack pointer initialization is done in the "Startup code" of a project, so if you are writing the **startup code** yourself you need to take care of it.
 
 * The following diagram shows, how information gets pushed onto stack upon a function call.
 
@@ -70,19 +72,22 @@
 
   C provides `malloc`/`free` and C++ provides `new`/`free` standard library functions and how the heap is managed is completely dependent on the application programmers who utilizes these library functions.
 
-* For, embedded system, `malloc` and `free` APIs are not recommended/suitable because they eat up large amount of code space, lack deterministic nature and incur fragmentation over time as blocks of memory are allocated/deallocated.
+* For, embedded system, `malloc`/`free` APIs are not recommended/suitable because they eat up large amount of code space, lack deterministic nature and incur fragmentation over time as blocks of memory are allocated/deallocated.
 
   Therefore, embedded systems programmers need to be careful when using the heap management algorithms.
   
-* By default, the FreeRTOS heap (size and starting address) is declared by the FreeRTOS kernel.
+* By default, the FreeRTOS heap (size and starting address) is declared by the FreeRTOS kernel. If you don't want the kernel to determine, setting the `configAPPLICATION_ALLOCATED_HEAP` to 1 allows the heap to be declared (i.e., starting address and size) by the application instead.
 
-  Setting `configAPPLICATION_ALLOCATED_HEAP` to 1 allows the heap to be declared by the application instead.
 
 
 
 ## FreeRTOS Stack & Heap
 
-* In FreeRTOS, each task's private stack is actually dynamically allocated on heap.
+* Depending on the implementation, user task's TCB and its associated stack can be created in:
+  * Heap memory of RAM (If created dynamically)
+  * Somewhere in RAM other than the heap and the stack (If created statically)
+
+* In FreeRTOS, each task's **TCB** and the private **STACK** is dynamically allocated on heap.
 
 
 
