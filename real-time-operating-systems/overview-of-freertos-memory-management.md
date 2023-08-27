@@ -78,6 +78,10 @@
   
 * By default, the FreeRTOS heap (size and starting address) is declared by the FreeRTOS kernel. If you don't want the kernel to determine, setting the `configAPPLICATION_ALLOCATED_HEAP` to 1 allows the heap to be declared (i.e., starting address and size) by the application instead.
 
+### Heap vs. Stack Memory Allocation Speed
+
+* In general, the stack memory allocation is faster than that of the heap. This is because of the way that memory is allocated on the stack.  Allocating memory on the stack is as simple as moving the stack pointer  up. But in Heap, to allocate the memory a recommended algorithm will be  used.
+
 
 
 
