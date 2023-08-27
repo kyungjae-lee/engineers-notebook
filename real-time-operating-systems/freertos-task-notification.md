@@ -6,7 +6,20 @@
 
 ## FreeRTOS Task Notification
 
-* Each RTOS task has a **32-bit notification value** which is initialized to 0 when the RTOS task is created.
+* Each RTOS task has a **32-bit notification value** (`ulNotifiedValue`) which is initialized to 0 when the RTOS task is created.
+
+  ```c
+  /* Project/Common/ThirdParty/FreeRTOS/task. c */
+  
+  typedef struct tskTaskControlBlock       /* The old naming convention is used to prevent breaking kernel aware debuggers. */
+  {
+  	...
+      #if ( configUSE_TASK_NOTIFICATIONS == 1 )
+      	volatile uint32_t ulNotifiedValue[ configTASK_NOTIFICATION_ARRAY_ENTRIES ];
+      	volatile uint8_t ucNotifyState[ configTASK_NOTIFICATION_ARRAY_ENTRIES ];
+      #endi
+  } tskTCB;
+  ```
 
 * An RTOS task notification is an event sent directly to a task that can unblock the receiving task, and optionally update the receving task's notification value in a number of different ways. 
 
@@ -32,11 +45,15 @@
 
   > * `ulBitsToClearOnEntry`
   >
-  >   Any bits set in `ulBitsToClearOnEntry` will be cleared in the calling RTOS task's notification value on entry to the `xTaskNotifyWait()` function (before the task waits for a new notification) provided a notification is not already pending when `xTaskNotifyWait()` is called. For example, if `ulBitsToClearOnEntry` is 0x01, then bit 0 of the task's notification value will be cleared on entry to the function. Setting `ulBitsToClearOnEntry` to 0xffffffff (ULONG_MAX) will clear all the bits in the task's notification value, effectively clearing the value to 0. 
+  >   Any bits set in `ulBitsToClearOnEntry` will be cleared in the calling RTOS task's notification value on entry to the `xTaskNotifyWait()` function (before the task waits for a new notification) provided a notification is not already pending when `xTaskNotifyWait()` is called. For example, if `ulBitsToClearOnEntry` is 0x01, then bit 0 of the task's notification value will be cleared on entry to the function. Setting `ulBitsToClearOnEntry` to 0xffffffff (ULONG_MAX) will clear all the bits in the task's notification value, effectively clearing the value to 0.
+  >
+  >   > `xTaskNotifyWait()` entry 순간에 clear 할 bits.
   >
   > * `ulBitsToClearOnExit`
   >
   >   Any bits set in ulBitsToClearOnExit will be cleared in the calling RTOS task's notification value before `xTaskNotifyWait()` function exits if a notification was received. The bits are cleared after the RTOS task's notification value has been saved in `*pulNotificationValue` (see the description of `pulNotificationValue` below). For example, if `ulBitsToClearOnExit` is 0x03, then bit 0 and bit 1 of the task's notification value will be cleared before the function exits. Setting `ulBitsToClearOnExit` to 0xffffffff (ULONG_MAX) will clear all the bits in the task's notification value, effectively clearing the value to 0.
+  >
+  >   > `xTaskNotifyWait()` notification 받고 exit 순간에 clear 할 bits.
   >
   > * `pulNotificationValue`
   >
@@ -44,7 +61,7 @@
   >
   > * `xTicksToWait`
   >
-  >   The maximum time to wait in the Blocked state for a notification to be received if a notification is not already pending when `xTaskNotifyWait()` is called. The RTOS task does not consume any CPU time when it is in the Blocked state. The time is specified in RTOS tick periods. The `pdMS_TO_TICKS()` macro can be used to convert a time specified in milliseconds into a time specified in **ticks**.
+  >   The maximum time to wait in the Blocked state for a notification to be received if a notification is not already pending when `xTaskNotifyWait()` is called. (Basically, how many ticks it has to wait in the Blocked queue until the timeout.) The RTOS task does not consume any CPU time when it is in the Blocked state. The time is specified in RTOS tick periods. The `pdMS_TO_TICKS()` macro can be used to convert a time specified in milliseconds into a time specified in **ticks**.
   >
   > [!] Note: Notice that FreeRTOS APIs always take **ticks** as an argument instead of **milliseconds**.
 
@@ -61,7 +78,7 @@
     * e.g., To keep track of how many times a user has pressed the button.
   * Set one or more bits in the notification value
   * Leave the notification value unchanged
-* This function must not be called from an interrupt service routine (ISR).  Use [xTaskNotifyFromISR()](https://www.freertos.org/xTaskNotifyFromISR.html) instead.
+* This function MUST NOT be called from an interrupt service routine (ISR).  Use [xTaskNotifyFromISR()](https://www.freertos.org/xTaskNotifyFromISR.html) instead.
 
 * Prototype
 
