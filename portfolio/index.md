@@ -6,29 +6,29 @@
 
 ### Personal Projects
 
-1. **<a href="./stm32-mcu-custom-bootloader">STM32 MCU Custom Bootloader</a>**
+1. **<a href="./automated-sprinkler-system">Automated Sprinkler System</a>** 
+
+   Designing and implementing an embedded system that transforms a manual sprinkler systems into automated controllers by integrating rain sensor data and web-based weather information to optimize watering schedules  and enhance overall efficiency     
+
+2. **<a href="./stm32-mcu-custom-bootloader">STM32 MCU Custom Bootloader</a>**
 
    A custom bootloader for the STM32F407xx MCU family that allows the host to communicate with the bootloader over the USART interface and perform MCU‐specific operations through an interactive application    
 
-2. **<a href="./lcd-digital-clock">LCD Digital Clock</a>** 
+3. **<a href="./lcd-digital-clock">LCD Digital Clock</a>** 
 
    LCD digital clock development using the Tiny RTC Module (DS1307) and  the 16x2 Character LCD (HD44780U) interfacing with the STM32F407G-Discovery board
 
-3. **<a href="./mcu-peripheral-drivers">MCU Peripheral Drivers</a>** 
+4. **<a href="./mcu-peripheral-drivers">MCU Peripheral Drivers</a>** 
 
    MCU peripheral (GPIO, I2C, SPI, USART) drivers development from scratch using the STM32F407G-Discovery board
 
-4. **<a href="./bare-metal-rtos">Bare‑Metal RTOS</a>** 
+5. **<a href="./bare-metal-rtos">Bare‑Metal RTOS</a>** 
 
    Real‐time operating system development on the bare‐metal STM32F407G‐Discovery board
 
-5. **<a href="./freertos-projects">FreeRTOS Projects</a>** 
+6. **<a href="./freertos-projects">FreeRTOS Projects</a>** 
 
-   A collection of projects designed to practice the FreeRTOS kernel  integration, porting, and application development for STM32 target board
-
-6. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
-
-   An embedded C program to control 7‐segment display with keypad and STM32F407G-Discovery board
+   A collection of projects designed to practice the FreeRTOS kernel integration, porting, and application development for STM32 target board
 
 7. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
 
@@ -46,11 +46,15 @@
 
    An assembly program that simulates an interactive vending machine using Raspberry Pi board, buttons and LEDs
 
-2. **<a href="./console-blackjack">Console Blackjack</a>**
+2. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
+
+   An embedded C program to control 7‐segment display with keypad and STM32F407G-Discovery board
+
+3. **<a href="./console-blackjack">Console Blackjack</a>**
 
    An interactive console Blackjack game implemented using object-oriented design (OOD) and programming (OOP) in C++
 
-3. **<a href="./my-unix-shell">My UNIX Shell</a>**
+4. **<a href="./my-unix-shell">My UNIX Shell</a>**
 
    A UNIX shell which is capable of running both the built-in commands and the external commands
 
