@@ -22,15 +22,19 @@
 
    Real‐time operating system development on the bare‐metal STM32F407G‐Discovery board
 
-5. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
+5. **<a href="./freertos-projects">FreeRTOS Projects</a>** 
+
+   A collection of projects designed to practice the FreeRTOS kernel  integration, porting, and application development for STM32 target board
+
+6. **<a href="./7-segment-display-control-with-keypad">7-Segment Display Control with Keypad</a>**
 
    An embedded C program to control 7‐segment display with keypad and STM32F407G-Discovery board
 
-6. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
+7. **<a href="./tcpip-group-chat-application">TCP/IP Group Chat Application</a>**
 
    Multi‐threaded client/server socket applications for Linux OS using C and the POSIX thread libraries
 
-7. **<a href="./engineers-notebook">Engineer's Notebook</a>**
+8. **<a href="./engineers-notebook">Engineer's Notebook</a>**
 
    A documentation website for publishing reusable technical information gained from personal studies and projects
 
