@@ -42,3 +42,4 @@
 1. **<a href="./epi-5-1-computing-the-parity-of-a-word">EPI - 5.1. Computing the Parity of a Word (bit manipulation)</a>**
 1. **<a href="./epi-5-4-find-a-closest-integer-with-the-same-weight">EPI - 5.4. Find a Closest Integer with the Same Weight (bit manipulation)</a>**
 1. **<a href="./epi-6-7-buy-and-sell-a-stock-once">EPI - 6.7. Buy and Sell a Stock Once</a>**
+1. **<a href="./epi-7-1-interconvert-strings-and-integers">EPI - 7.1. Interconvert Strings and Integers</a>**
