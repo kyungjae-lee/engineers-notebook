@@ -186,7 +186,9 @@ Don't be confused! This is by DESIGN!
   }
   ```
 
-  
+* See [FreeRTOS `FromISR` APIs](./freertos-fromisr-apis) for more details.
+
+
 
 
 
