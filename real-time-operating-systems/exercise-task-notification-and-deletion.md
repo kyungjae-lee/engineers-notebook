@@ -50,6 +50,18 @@
 
 
 
+## Realtime Recording
+
+
+
+<img src="./img/exercise-05-task-notification.png" alt="exercise-05-task-notification" width="900">
+
+
+
+<img src="./img/exercise-05-task-deletion.png" alt="exercise-05-task-deletion" width="900">
+
+
+
 
 
 ## References
