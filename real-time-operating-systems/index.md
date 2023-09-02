@@ -29,5 +29,6 @@
 1. **<a href="./exercise-task-notification-and-deletion">Exercise: Task Notification and Deletion (`05_LED_Tasks_Notification_Deletion`)</a>**
 1. **<a href="./arm-cortex-m-interrupt-priority-and-freertos-task-priority">ARM Cortex M Interrupt Priority & FreeRTOS Task Priority</a>**
 1. **<a href="./freertos-fromisr-apis">FreeRTOS `FromISR` APIs</a>**
+1. **<a href="./exercise-freertos-fromisr-and-task-priority">Exercise: FreeRTOS `FromISR` & Task Priority (`06_LED_Button_ISR`, `07_Task_Priority`)</a>**
 1. **<a href="./freertos-hook-functions">FreeRTOS Hook Functions</a>**
 
