@@ -12,7 +12,7 @@
 
   * Create a button task that polls for the button press for every 10 ms. (Task-4)
 
-    If the button press did not last longer than this time period, it will not be recognized.
+    If the button press did not last longer than this time period (i.e., 10 ms), it will not be recognized.
 
     Task-4 is of the highest priority.
 
@@ -26,10 +26,27 @@
 
 
 
-* Use `USER & WAKE-UP Button`. See the schematics of the board.
+* Use `USER & WAKE-UP Button`. See the schematics of the board. The action differs from board to board.
+
+  In the case of STM32F407G-Discovery board:
+
+  * User button NOT pressed: LOW
+  * User button pressed: HIGH 
+
+
+
+<img src="./img/stm32f407xx-user-button-state.png" alt="stm32f407xx-user-button-state" width="500">
+
+
+
 * In this program, threads access to the shared variable `next_task_handle`. To synchronize this access, we'll use the following APIs around the critical section.
   * `vTaskSuspendAll()` to suspend the scheduler (i.e., preventing context switch temporarily)
+  
+    This does not disable interrupts. If an interrupt requests a context switch while the scheduler is suspended, then the request is held pending and is performed only when the scheduler is resumed.
+  
   * `xTaskResumeAll()` to resume the scheduler
+  
+    > Difference between the `vTaskResumeAll()` and `xTaskResumeAll()`?
 
 
 
