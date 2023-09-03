@@ -119,12 +119,6 @@
 
 
 
-## Exercise
-
-* Write a program to send MCU to go to sleep mode when the idle task is scheduled to run on the CPU, and measure the current.
-
-
-
 
 
 ## References
