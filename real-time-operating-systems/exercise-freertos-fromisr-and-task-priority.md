@@ -15,6 +15,8 @@
   Upon the button press, the button interrupt handler must run, and it should send the notification to the current LED toggling task.
 
   When LED toggling task receives the notification, it should delete itself.
+  
+* Since we are using the interrupt handler which runs in the Handler Mode (interrupt context) unlike in the previous exercise where the button task ran in the Thread Mode (process context), we need to use the different version of task notification API. That is, the `xTaskNotifyFromISR()`.
 
 
 
@@ -68,6 +70,8 @@
   }
   ```
 
+  > In my case, `HAL_GPIO_EXTI_IRQHandler(B1_Pin)` was already there generated in the code as shown in the snapshot above. (`B1_Pin` is defined as `GPIO_PIN_0`)
+
 * Implement `button_interrupt_handler()`.
 
   ```c
@@ -88,48 +92,114 @@
 
 * Update `led_green_handler()`. Here, the shared variable `next_task_handle` is also shared with the ISR which is not a user task, so synchronizing the access to this variable using `vTaskSuspendAll()`/`vTaskResumeAll()` will not work!
 
-  Use `portENTER_CRITICAL()`/`portEXIT_CRITICAL()` which is implemented in `port.c` instead. This will disable interrupts. However, in general, disabling interrupts is not recommended. If this is the case, use **mutex** or **semaphore** instead.
+  Use `portENTER_CRITICAL()`/`portEXIT_CRITICAL()` which is implemented as `vPortEnterCritical()` in `port.c` instead. This will disable interrupts. However, in general, disabling interrupts is not recommended. If this is the case, use **mutex** or **semaphore** instead.
 
   ```c
   /* main.c */
   ...
-  static void led_green_handler(void *parameters)
+  static void led_green_task_handler(void *parameters)
   {
   	BaseType_t status;
+  
   	while (1)
   	{
   		SEGGER_SYSVIEW_PrintfTarget("Toggling green LED");
   		HAL_GPIO_TogglePin(GPIOD, LED_GREEN_PIN);
+  
+  		// If there's no notifications pending, go to the BLOCKED state for 1 sec
+  		// until it receives a notification.
   		status = xTaskNotifyWait(0, 0, NULL, pdMS_TO_TICKS(1000));
   
-  		// if notification was received
   		if (status == pdTRUE)
   		{
-  			// synchronization using 'portENTER_CRITICAL()' and 'portEXIT_CRITICAL()'
-  			portENTER_CRITICAL();	
-  			next_task_handle = ledo_task_handle;
-  
+  			// If there was a notification (i.e., User has pressed the button),
+  			// update the 'next_task_handle', turn the LED on, and delete itself.
+  			portENTER_CRITICAL();		// Synchronization begins
+  			next_task_handle = led_orange_task_handle;
   			HAL_GPIO_WritePin(GPIOD, LED_GREEN_PIN, GPIO_PIN_SET);
-  
-  			// self delete by passing NULL
-  			SEGGER_SYSVIEW_PrintfTarget("Delete green LED task");
-  			portEXIT_CRITICAL();
-  			
+  			SEGGER_SYSVIEW_PrintfTarget("Delete Green LED Task");
+  			portEXIT_CRITICAL();		// Synchronization ends
   			vTaskDelete(NULL);
   		}
   	}
   }
   ```
 
+  > `vPortEnterCritical()` calls `portDISABLE_INTERRUPTS()` which disables all the interrupts with priority values [`configMAX_SYSCALL_INTERRUPT_PRIORITY`, 0xF], [0x5, 0xF] in our case. Interrupts with the priority values within range [0x0, 0x4] are not affected. Note that any interrupt handler that is of higher priority (i.e., lower priority value) than `configMAX_SYSCALL_INTERRUPT_PRIORITY` cannot use the FreeRTOS API within it.
+  >
+  > ```c
+  > /* Project/Common/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h */
+  > ...
+  > #define portDISABLE_INTERRUPTS()                  vPortRaiseBASEPRI()
+  > ...
+  > 
+  > portFORCE_INLINE static void vPortRaiseBASEPRI( void )
+  > {
+  >     uint32_t ulNewBASEPRI;
+  > 
+  >     __asm volatile
+  >         (
+  >         "	mov %0, %1												\n"\
+  >         "	msr basepri, %0											\n"\
+  >         "	isb														\n"\
+  >         "	dsb														\n"\
+  >         : "=r" ( ulNewBASEPRI ) : "i" ( configMAX_SYSCALL_INTERRUPT_PRIORITY ) : "memory"
+  >     );
+  > }
+  > ```
+  >
+  > Since the interrupt handlers used for the context switching (e.g., `PendSVHandler()`) has the lowest priority (i.e., highest priority value), it will also be disabled by the call `portDISABLE_INTERRUPTS`.
+
 * If you are copying the `main.c` from the previous exercise, make sure to remove everything related to `button_handler` since we are no longer using that task to send notification upon button press. We are using ISR in this exercise.
 
 * Analyze using SEGGER SystemView.
 
   I faced a problem with this exercise. Left the question on the Q&A board.
+  
+  > Strange! This issue did not appear on the 2nd implementation.
 
 
 
 <img src="./img/exercise-006-question.png" alt="exercise-006-question" width="900">
+
+
+
+<img src="./img/exercise-06-led-button-isr-segger-systemview-1.png" alt="exercise-06-led-button-isr-segger-systemview-1" width="900">
+
+> In `ISR 22` 22 means the ISR number.
+
+
+
+<img src="./img/exercise-06-led-button-isr-segger-systemview-2.png" alt="exercise-06-led-button-isr-segger-systemview-2" width="900">
+
+> Solution:
+>
+> ```c
+> /* main.c */
+> ...
+> void button_interrupt_handler(void)
+> {
+> 	BaseType_t pxHigherPriorityTaskWoken = pdFALSE; // Must be initialized to 0
+> 	
+> 	traceISR_ENTER(); // To monitor the entry of the ISR from the SEGGER SystemView
+> 	xTaskNotifyFromISR(next_task_handle, 0, eNoAction, &pxHigherPriorityTaskWoken);
+> 		// xTaskNotifyFromISR() will set *pxHigherPriorityTaskWoken to pdTRUE 
+> 		// if sending the notification caused a task to unblock, and the unblocked
+> 		// task has a priority higher than the currently running task.
+> 		//
+> 		// If xTaskNotifyFromISR() sets this value to pdTRUE then a context switch 
+> 		// should be requested before the interrupt is exited.
+> 		// 
+> 		// pxHigherPriorityTaskWoken is an optional parameter and can be set to NULL. 
+>     
+> 	// Once the ISR exits, the macro below makes the higher priority task unblocked
+> 	// to resume on the CPU.
+> 	portYIELD_FROM_ISR(pxHigherPriorityTaskWoken);
+> 	traceISR_EXIT();
+> }
+> ```
+>
+> <img src="./img/exercise-06-led-button-isr-segger-systemview-3.png" alt="exercise-06-led-button-isr-segger-systemview-3" width="900">
 
 
 
