@@ -21,8 +21,9 @@
   * Stack Overflow Hook Function
 
   * Daemon Task Startup Hook
+* To use these hook functions, enable the corresponding configuration items in the `FreeRTOSConfig.h` file and implement them in the application.
 
-### Idle Hook Function
+### Idle Task Hook Function
 
 * Idle task hook function implements a callback from idle task to your application.
 
@@ -37,14 +38,18 @@
 
   ```c
   /* main.c */
-  void vApplicationIdleHook(void);
+  void vApplicationIdleHook(void) { /* code */ }
   ```
 
   In `main.c` ,`vTaskStartScheduler()` $\to$ `xTaskCreateStatic()` $\to$ `prvIdleTask` (task handle of the idle task), and you will see that `vApplicationIdleHook()` is getting called there.
 
-* That's it! Whenever the idle task runs, the hook function will get called and you can utilize this function to do some useful things such as sending the MCU to the low-power mode to save power consumption.
+* That's it! Whenever the idle task runs, the hook function will get called and you can utilize this function to do some useful things such as sending the MCU to the low-power mode to save power consumption. This allows the application designer to add background functionality without the overhead of a separate task.
 
-### Tick Hook Function
+* `vApplicationIdleHook()` must not, under any circumstances, call a function that might block!
+
+### RTOS Tick Hook Function
+
+* RTOS tick hook function is called whenever the SysTick exception is triggered.
 
 * Tick hook function configuration must be enabled before it can be used.
 
@@ -57,12 +62,14 @@
 
   ```c
   /* main.c */
-  void vApplicationTickHook(void);
+  void vApplicationTickHook(void) { /* code */ }
   ```
 
   In `port.c`, `xPortSysTickHandler()` $\to$ `xTaskIncrementTick()` $\to$ `vApplicationTickHook()` is getting called here.
 
 ### Malloc Failed Hook Function
+
+* When you use `malloc()` in your FreeRTOS application, and if there's no sufficient memory to allocate from the heap section of the RAM, then the allocation will fail and the kernel will notify you by calling this malloc failed hook function. 
 
 * Malloc hook function configuration must be enabled before it can be used.
 
@@ -77,14 +84,14 @@
 
   ```c
   /* main.c */
-  void vApplicationMallocFailedHook(void);
+  void vApplicationMallocFailedHook(void) { /* code */ }
   ```
 
   Track down the `xTaskCreate()` function in `main.c` and see where this is getting called!
 
-
-
 ### Stack Overflow Hook Function
+
+* If, during the run-time, more stack memory is consumed than a task is allocated, then the kernel will notify you by calling this stack overflow hook function.
 
 * Stack overflow hook function configuration must be enabled before it can be used.
 
@@ -97,7 +104,7 @@
 
   ```c
   /* main.c */
-  void vApplicationStackOverflowHook(TaskHandle_t xTask, signed char *pcTaskName);
+  void vApplicationStackOverflowHook(TaskHandle_t xTask, signed char *pcTaskName) { /* code */ }
   ```
 
 * When a task consumes more stack memory than it is allocated, this hook function will be called.
