@@ -164,6 +164,10 @@
 
 
 
+### SEGGER SystemView Analysis
+
+
+
 <img src="./img/exercise-06-led-button-isr-segger-systemview-1.png" alt="exercise-06-led-button-isr-segger-systemview-1" width="900">
 
 > In `ISR 22` 22 means the ISR number.
@@ -235,6 +239,42 @@
 <img src="./img/exercise-007-nvic-setprioritygrouping.png" alt="exercise-007-nvic-setprioritygrouping" width="700">
 
 
+
+### SEGGER SystemView Analysis
+
+
+
+<img src="./img/exercise-07-led-task-priority-segger-systemview.png" alt="exercise-07-led-task-priority-segger-systemview" width="900">
+
+
+
+
+
+## Review Questions
+
+1. Lets say the Task-1 is executing on the CPU whose Priority is 3 . Now processor hits with an interrupt of the USART Tx whose priority is 2 , will Task1 be preempted? (Assume lower priority value = lower priority)
+
+   $\to$ Yes ! Thread mode executions can always be preempted irrespective of their priorities by the hardware interrupts which execute in the handler mode.
+
+2. Lets say USART TX interrupt is being serviced by the processor whose priority is 2 , now another interrupt is pended whose priority is 5, Do you think processor will preempt the USART TX ISR to attend the ISR of  newly pended interrupt ? in other words do you think interrupt nesting  will happen? (Assume lower priority value = lower priority)
+
+   $\to$ Yes ! Interrupt nesting should happen, because priority of the second interrupt is higher than the 1st interrupt.
+
+3. Lets say in freeRTOS , Task1( priority )= 5 is currently executing on the CPU, if Task2(priority)= 6 unblocks due to some reason, will context switch take place to task 2 immediately or task 2 should wait until the next tick interrupt?
+
+   $\to$ Yes, in FreeRTOS whoever unblocks the blocked task should also check whether the unblocked task has got the higher priority than the currently running task. If true, then task yield function has to be called to make sure that, the newly unblocked higher priority task immediately takes  over the CPU. 
+
+4. In which processor mode FreeRTOS tasks will be executing in the ARM Cortex-Mx processor?
+
+   $\to$ Thread mode of the Processor
+
+5. If 6 bits are implemented in the priority register of the MCU, then how many interrupts levels are available? What is the highest priority level and lowest priority level?
+
+   $\to$ 64, 0x00, 0xFC
+
+6. Does having more priority levels affect RAM usage of the MCU?
+
+   $\to$ Yes ! Let’s say in a MCU there are 8 priority levels from 0 to 7, that  means at the worst case 8 interrupts can nest isn’t it ? That means at  the worst case 7 stack frames are moved to the stack memory . So, 7 *  sizeof(each stack frame) number of bytes will be consumed. So, more nesting means more stack consumption.
 
 
 
