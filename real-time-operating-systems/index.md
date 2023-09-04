@@ -33,4 +33,5 @@
 1. **<a href="./freertos-hook-functions">FreeRTOS Hook Functions</a>**
 1. **<a href="./exercise-freertos-hook-functions">Exercise: FreeRTOS Hook Functions</a>**
 1. **<a href="./freertos-queue-management">FreeRTOS Queue Management</a>**
+1. **<a href="./exercise-queues-and-timers">Exercise: Queues and Timers (`09_Queues_and_Timers`)</a>**
 
