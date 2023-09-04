@@ -31,4 +31,5 @@
 1. **<a href="./freertos-fromisr-apis">FreeRTOS `FromISR` APIs</a>**
 1. **<a href="./exercise-freertos-fromisr-and-task-priority">Exercise: FreeRTOS `FromISR` & Task Priority (`06_LED_Button_ISR`, `07_Task_Priority`)</a>**
 1. **<a href="./freertos-hook-functions">FreeRTOS Hook Functions</a>**
+1. **<a href="./exercise-freertos-hook-functions">Exercise: FreeRTOS Hook Functions</a>**
 
