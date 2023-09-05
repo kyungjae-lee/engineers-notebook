@@ -6,19 +6,19 @@
 
 ## Problem Statement
 
-* Write a FreeRTOS application that takes input (commands) from the user over UART and handles LED and real-time clock (RTC) peripheral of the microcontroller.
+* Write a FreeRTOS application that takes input (commands) from the user over USART and handles LED and real-time clock (RTC) peripheral of the microcontroller.
 * This application implements:
-  1. Processing user sent commands over UART
+  1. Processing user sent commands over USART
   2. Handling of FreeRTOS queues
      * Print queue
      * Input data queue
   3. FreeRTOS software timers
 
-### FreeRTOS tasks to implement and the Application Flow
+### 5 FreeRTOS tasks to implement and the Application Flow
 
 * **Menu task**
   * Sends the pointer to the message to be printed on the console to the "print queue".
-  * It does not directly control the UART peripheral.
+  * It does not directly control the USART peripheral.
 * **LED task**
 * **RTC task**
 
@@ -30,7 +30,7 @@
 
 * **Print task**
   * Receives from the "print queue" the pointer to the message to be printed.
-  * The only task to control the UART peripheral to handle writing data to the console
+  * The only task to control the USART peripheral to handle writing data to the console
 
 
 
@@ -46,6 +46,14 @@
 <img src="./img/exercise-09-queues-and-timers-application-flow-3.png" alt="exercise-09-queues-and-timers-application-flow-3" width="850">
 
 
+
+### Receiving Data from User
+
+* Enable USART data reception (byte-by-byte) in IT mode (`HAL_UART_Receive_IT()`)
+  * Byte-by-byte reception since the length of the data to be received is not known.
+* Implement USART receive complete callback (`HAL_UART_RxCpltCallback()` which is defined as a `__weak` function in `stm32f4xx_hal_uart.c`) in `main.c`.  (Since this callback is called from the USART interrupt handler, it will run in the handler mode of the processor.)
+  * Store the data byte into input data queue
+  * When `\n` is detected, notify the command handling task (`cmd_task`)
 
 ### Guideline
 
@@ -64,6 +72,205 @@
      ```
 
    * 2 queues
+
+
+
+## Project Setup
+
+* Go to the "Device Configuration Tool" and check the followings:
+
+  * In the "GPIO" section, check if `PD12`, `PD13`, `PD14`, and `PD15`, are configured as:
+
+    * "Output Push Pull" mode
+    * "No pull-up and pull-down"
+
+  * In the "USART2" section,
+
+    * Change mode to "Asynchronous"
+    * "NVIC Settings" tab $\to$ Enable USART2 global interrupt  (Whenever the data is received from the user, this interrupt will get triggered.)
+
+  * In the "SYS" section, change the timebase to anything other than the SysTick timer. (e.g., TIM6)
+
+  * In the "NVIC" section,
+
+    * Enable the USART2 global interrupt and give it a preemption priority of 5. (Any value >= 5)
+
+      <img src="./img/exercise-09-queues-and-timers-nvic-settings-1.png" alt="exercise-09-queues-and-timers-nvic-settings-1" width="850">
+
+    * Make sure that the "SysTick interrupt", "PendSV interrupt" and "SVC interrupt" generations are disabled, and the "USART2 global interrupt" generation is enabled.
+
+      <img src="./img/exercise-09-queues-and-timers-nvic-settings-2.png" alt="exercise-09-queues-and-timers-nvic-settings-2" width="850">
+
+  * In the "RTC" section,
+
+    * Activate the clock source and change the "Hour Format" to "Hourformat 12"
+
+      <img src="./img/exercise-09-queues-and-timers-rtc-settings.png" alt="exercise-09-queues-and-timers-rtc-settings" width="850">
+
+  * Now, save the configuration and generate the code.
+
+* In this project, we are using USART2 for communication. Therefore, we are not going to be using the SEGGER SystemView for this project. Go ahead and exclude the `Project/Common/ThirdParty/SEGGER/` folder from build.
+
+  > Make sure to remove or comment out `#include "SEGGER_SYSVIEW_FreeRTOS.h` from the `FreeRTOSConfig.h` file to remove the compilation errors.
+
+* Create (or import `FreeRTOSConfig.h`) file into the project. And, make sure the following items are enabled:
+
+  ```c
+  /* Project/Core/Inc/FreeRTOSConfig.h */
+  
+  ...
+  #define configUSE_PREEMPTION			1
+  ...
+  #define configUSE_TIMERS				1	// Since we are using the software timer
+  
+  ```
+
+* Import the include paths settings.
+
+
+
+## Implementation
+
+* Create `Project/Core/Src/task_handler.c` and implement the task handlers:
+
+  ```c
+  /* Project/Core/Src/task_handler.c */
+  
+  #include <main.h>
+  ```
+
+* In the `main.h` add the followings:
+
+  ```c
+  /* main.h */
+  ...
+  /* USER CODE BEGIN Includes */
+  #include "FreeRTOS.h"
+  #include "task.h"
+  #include "queue.h"
+  /* USER CODE END Includes */
+  ...
+  ```
+
+* In the `main.c`, implement the following:
+
+  ```c
+  /* main.c */
+  
+  ...
+      
+  /* USER CODE BEGIN PV */
+  xTaskHandle cmd_task_handle;
+  xTaskHandle menu_task_handle;
+  xTaskHandle print_task_handle;
+  xTaskHandle led_task_handle;
+  xTaskHandle rtc_task_handle;
+  
+  QueueHandle_t q_data;
+  QueueHandle_t q_print;
+  
+  uint8_t volatile data_byte;
+  /* USER CODE END PV */
+  
+  ...
+      
+  int main(void)
+  {
+      ...
+  	/* USER CODE BEGIN 1 */
+  	BaseType_t status;	// Stores the return value of xTaskCreate()
+  	/* USER CODE END 1 */
+      ...
+  	/* USER CODE BEGIN 2 */
+      //-------------------------------- Create tasks ---------------------------------------
+      status = xTaskCreate(menu_task_handler, "menu_task", 250, NULL, 2, &menu_task_handle);
+      configASSERT(status == pdPASS);
+  
+      status = xTaskCreate(cmd_task_handler, "cmd_task", 250, NULL, 2, &cmd_task_handle);
+      configASSERT(status == pdPASS);
+  
+      status = xTaskCreate(print_task_handler, "print_task", 250, NULL, 2, &print_task_handle);
+      configASSERT(status == pdPASS);
+  
+      status = xTaskCreate(led_task_handler, "led_task", 250, NULL, 2, &led_task_handle);
+      configASSERT(status == pdPASS);
+  
+      status = xTaskCreate(rtc_task_handler, "rtc_task", 250, NULL, 2, &rtc_task_handle);
+      configASSERT(status == pdPASS);
+  
+      //-------------------------------- Create queues --------------------------------------
+  
+      // Create input data queue
+      q_data = xQueueCreate(10, sizeof(char));
+      configASSERT(q_data != NULL);		// If the queue creation fails, program will hand here
+  
+  	// Create input data queue
+      q_print = xQueueCreate(10, sizeof(size_t));	// pointer-size
+      configASSERT(q_print != NULL);	// If the queue creation fails, program will hand here
+  
+      // Prepare the USART peripheral so that it can receive data bytes in the interrupt mode.
+      // Whenever the data is received, the callback function 'HAL_UART_RxCpltCallback()' will
+      // be called.
+      HAL_UART_Receive_IT(&huart2, &data_byte, 1);
+  
+      // Start FreeRTOS scheduler
+      // vTaskStartScheduler() never returns unless there's a problem launching scheduler
+      vTaskStartScheduler();
+  
+      // This line will only be reached if the kernel could not be started because there was
+      // not enough FreeRTOS heap to create the idle task or the timer task.
+  
+      /* USER CODE END 2 */
+      ...
+  }
+  
+  ...
+  
+  /* USER CODE BEGIN 4 */
+  
+  // This function is called from the UART interrupt handler, hence executes in the
+  // interrupt context.
+  void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+  {
+  	uint8_t dummy_byte;
+  	if (!xQueueIsQueueFullFromISR(q_data))
+  	{
+  		// Queue is not full!
+  
+  		// Enqueue a data byte
+  		xQueueSendFromISR(q_data, (void *)&data_byte, NULL);
+  	}
+  	else
+  	{
+  		// Queue is full!
+  		// Disregard all the leftover data bytes to be sent but '\n' to make sure
+  		// that the last data byte of the queue is '\n'.
+  
+  		if (data_byte == '\n')
+  		{
+  			// Overwrite the last data byte of the queue with '\n'
+  			xQueueOverwriteFromISR(q_data, (void *)&dummy_byte, NULL);
+  			xQueueSendFromISR(q_data, (void *)&data_byte, NULL);
+  		}
+  	}
+  
+  	// Send notification to the command handling task 'cmd_task' if the data byte
+  	// is '\n'.
+  	if (data_byte == '\n')
+  	{
+  		// Send notification to command handling task
+  		xTaskNotifyFromISR(cmd_handle_task, 0, eNoAction, NULL);
+  	}
+  
+  	// Enable USART data byte reception again in IT mode
+  	HAL_UART_Receive_IT(&huart2, (uint8_t *)&data_byte, 1);
+  }
+  /* USER CODE END 4 */
+  ```
+
+
+
+
 
 
 
