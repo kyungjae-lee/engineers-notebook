@@ -8,7 +8,7 @@ Source code: [https://github.com/kyungjae-lee/bare-metal-rtos](https://github.co
 
 ## Introduction
 
-Developing a real‐time operating system on the bare‐metal STM32F407‐Discovery board without using libraries
+Developed a real‐time operating system on the bare‐metal STM32F407‐Discovery board without using libraries
 
 This project is designed to be completed in the following 3 steps:
 
