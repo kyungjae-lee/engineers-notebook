@@ -52,3 +52,37 @@ Following is the demonstration of the test application for the 'Bare-Metal RTOS'
 * Tool Chain - GNU Arm Embedded Toolchain
 * Debugger - OpenOCD, GDB client
 
+
+
+## Important Concepts
+
+### Scheduling
+
+* An algorithm which makes the decision of preempting a running task from the CPU and makes the decision about which task to dispatch (i.e., allocate CPU) next
+* The decision could be based on many factors such as system load, the priority of tasks, share resource access, or a simple Round-Robin method.
+
+### Context (Status) of a Task
+
+* The following diagram shows the core registers of the ARM Cortex-M4 processor.
+* Context (Status) of a Task = [General purpose registers] + [Some special purpose registers] + [Status register]
+  * These are the important information that need to be stored and retrieved during the "context switching".
+
+
+
+<img src="./img/state-of-a-user-task.png" alt="state-of-a-user-task" width="700">
+
+
+
+### Context Switching
+
+* The procedure of switching out the currently running task from the CPU after saving the task's execution context or state and switching in the next task's to run on the CPU by retrieving the past execution context or state of the task.
+
+
+
+<img src="./img/task-switching-out.png" alt="task-switching-out" width="1000">
+
+
+
+
+
+<img src="./img/task-switching-in.png" alt="task-switching-in" width="1000">
