@@ -79,10 +79,10 @@ Following is the demonstration of the test application for the 'Bare-Metal RTOS'
 
 
 
-<img src="./img/task-switching-out.png" alt="task-switching-out" width="1000">
+<img src="./img/task-switching-out.png" alt="task-switching-out" width="800">
 
 
 
 
 
-<img src="./img/task-switching-in.png" alt="task-switching-in" width="1000">
+<img src="./img/task-switching-in.png" alt="task-switching-in" width="800">
