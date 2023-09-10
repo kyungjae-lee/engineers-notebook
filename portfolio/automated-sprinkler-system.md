@@ -1,6 +1,6 @@
 <a href="../">Home</a> > <a href="./">Portfolio</a> > Automated Sprinkler System
 
-# Automated Sprinkler System
+# Automated Sprinkler System (In Progress)
 
 Source code: [https://github.com/kyungjae-lee/automated-sprinkler-system](https://github.com/kyungjae-lee/automated-sprinkler-system).
 
