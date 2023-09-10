@@ -8,7 +8,7 @@ Source code: [https://github.com/kyungjae-lee/stm32-mcu-custom-bootloader](https
 
 ## Introduction
 
-* Developing a custom bootloader for the STM32F407xx MCU family that allows the host to communicate with the bootloader over the USART interface and perform MCU‐specific operations through an interactive application
+* Developed a custom bootloader for the STM32F407xx MCU family that allows the host to communicate with the bootloader over the USART interface and perform MCU‐specific operations through an interactive application
 * Used ARM Keil MDK for software development, testing, and debugging
 
 
