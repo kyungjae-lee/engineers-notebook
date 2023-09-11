@@ -135,6 +135,44 @@ See the source code: [https://github.com/kyungjae-lee/freertos-projects/tree/mai
 
 
 
+## Review Questions
+
+1. What can be used for inter task communication?
+
+   $\to$ Semaphore, Queues, Pipes, Message Queues, etc.
+
+2. Let's say a queue is full, and a task1 of priority 5 was blocked on a queue while its attempt to write on that queue, now lets say task2 of  priority 3 removes a data item from that queue. Do you think the moment task 2 removes a data item, it will be preempted by task 1?
+
+   $\to$ Yes, Task2 will be preempted by Task1 the moment it removes the data item from the queue. (It does not wait till the next kernel tick.)
+
+3. Can the Queue APIs be called from ISR in FreeRTOS?
+
+   $\to$ Yes, but its ISR versions must be used
+
+4. Are the Queue APIs ending with "FromISR" allowed to do task yielding?
+
+   $\to$ No
+
+5. Can a task block on a queue indefinitely?
+
+   $\to$ Yes, use "portMAX_DELAY" for the delay parameter of the queue read/write APIs
+
+6. Can a task choose not to block on a queue?
+
+   $\to$ Yes, use "0" for the delay parameter of the queue read/write APIs
+
+7. Describe what will happen when the following code gets executed (Assume : 32bit Processor):
+
+   `xQueueCreate( 5, sizeof(uint32_t) )`
+
+   $\to$ 20 bytes + sizeof(QCB) will be consumed in the heap space of the RAM.
+
+8. Can we use Queue for synchronization between tasks or between task and an interrupt?
+
+   $\to$ Yes
+
+
+
 
 
 ## References
