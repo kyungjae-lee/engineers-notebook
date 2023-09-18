@@ -12,9 +12,10 @@
 
 ### Object Oriented Programming
 
-1. **<a href="./object-oriented-design">Object-Oriented Design</a>**
-2. **<a href="./polymorphism">Polymorphism</a>**
-3. **<a href="./operator-overloading">Operator Overloading</a>**
+1. **<a href="./characters-and-strings">Characters & Strings</a>**
+2. **<a href="./object-oriented-design">Object-Oriented Design</a>**
+3. **<a href="./polymorphism">Polymorphism</a>**
+4. **<a href="./operator-overloading">Operator Overloading</a>**
 
 
 
