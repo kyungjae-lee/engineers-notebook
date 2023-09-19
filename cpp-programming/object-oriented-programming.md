@@ -94,8 +94,8 @@
 
 * Blueprint from which objects are created
 * A user-defined data-type
-* Has attributes (data)
-* Has methods (functions)
+* Has attributes (data; attributes)
+* Has methods (functions; behaviors)
 * Can hide data and methods
 * Provides a public interface
 
@@ -120,3 +120,98 @@
   * Sunny's account is an instance of an `Account`.
 
   Each has its own balance, can make deposits, withdrawals, etc.
+
+### Examples
+
+* `Player` class and objects
+
+  ```cpp
+  // Class declaration
+  
+  class Player
+  {
+      // Attributes
+      std::string name;
+      int health;
+      int xp;
+      
+      // Methods
+      void talk(std::string text_to_say);
+      bool is_dead();
+  }
+  ```
+
+  ```cpp
+  // Object instantiataion
+  
+  Player jack;
+  Player hero;
+  
+  Player *enemy = new Player();
+  delete enemy;
+  ```
+
+* `Account` class and objects
+
+  ```cpp
+  // Class declaration
+  
+  class Account
+  {
+      // Attributes
+      std::string name;
+      double balance;
+      
+      // Method
+      bool withdraw(double amount);
+      bool deposit(double amount);
+  }
+  ```
+
+  ```cpp
+  Account jack_account;
+  Account sunny_account;
+  
+  Account *yena_account = new Account();
+  delete yena_account;
+  
+  Account accounts[] {jack_account, sunny_account};
+  
+  std::vector<Account> accounts1 {jack_account};
+  accounts1.push_back(sunny_account);
+  ```
+
+  
+
+## Accessing Class Members
+
+* You can access **class attributes** and **class methods**.
+
+* Some class members will not be accessible
+
+* Need an object to access instance variables
+
+* If you have an **object**, you can access the class members by using the **dot operator**.
+
+  ```cpp
+  Account jack_account;
+  
+  jack_account.balance;
+  jack_account.deposit(1000.00);
+  ```
+
+* If you have a **pointer to an object**, you can access the class members by using the **arrow operator (member of pointer operator)**.
+
+  ```cpp
+  Account jack_account = new Account();
+  
+  // 1. Dereference the poiner, then use the dot operator.
+  (*jack_account).balance;
+  (*jack_account).deposit(1000.00);
+  
+  // 2. Use the arrow operator (member of pointer operator)
+  jack_account->balance;
+  jack_account->deposit(1000.00);
+  ```
+
+  
