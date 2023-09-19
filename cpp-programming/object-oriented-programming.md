@@ -85,3 +85,38 @@
   * Larger in size
   * Slower
   * More complex
+
+
+
+## Classes and Objects
+
+### Classes
+
+* Blueprint from which objects are created
+* A user-defined data-type
+* Has attributes (data)
+* Has methods (functions)
+* Can hide data and methods
+* Provides a public interface
+
+* Examples:
+  * `Account`
+  * `Employee`
+  * `Image`
+  * `std::vector`
+  * `std::string`
+
+### Objects
+
+* Created from a class
+* Represents a specific instance of a class
+* Can create many, many objects
+* Each has its own identity
+* Each can use the defined class methods
+
+* Examples:
+
+  * Jack's account is an instance of an `Account`.
+  * Sunny's account is an instance of an `Account`.
+
+  Each has its own balance, can make deposits, withdrawals, etc.

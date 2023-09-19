@@ -9,10 +9,6 @@
 1. **<a href="./characters-and-strings">Characters & Strings</a>**
 1. **<a href="./string-manipulation">String Manipulation</a>**
 
-
-
-### Object Oriented Programming
-
 1. **<a href="./object-oriented-programming">Object-Oriented Programming</a>**
 2. **<a href="./object-oriented-design">Object-Oriented Design</a>**
 3. **<a href="./polymorphism">Polymorphism</a>**
