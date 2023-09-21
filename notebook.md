@@ -22,6 +22,7 @@
 * **<a href="./direct-memory-access/">Direct Memory Access (DMA)</a>**
 * **<a href="./mcu-peripheral-drivers/">MCU Peripheral Drivers</a>**
 * **<a href="./real-time-operating-systems/">Real-Time Operating Systems (RTOS)</a>**
+* **<a href="./embedded-systems-design-using-uml-state-machines/">Embedded Systems Design using UML State Machines</a>**
 
 ### Linux
 
