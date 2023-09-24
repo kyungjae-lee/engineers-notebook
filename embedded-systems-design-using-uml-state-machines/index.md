@@ -4,7 +4,9 @@
 
 
 
-1. **<a href="./tbd">TBD</a>**
+1. **<a href="./finite-state-machine">Finite State Machine (FSM)</a>**
+
+1. **<a href="./exercise-1-chainging-intensity-of-an-led">Exercise 1: Changing Intensity of an LED</a>**
 
    
 
