@@ -612,32 +612,34 @@
 
 ### Examples
 
-```cpp
-class player
-{
-private:
-	std::string name;
-    int health;
-    int xp;
-public:
-    // Overloaded constructors
-    Player();
-    Player(std::string name_val);
-    Player(std::string name_val, int health_val, int xp_val);
-};
+* `Player` class
 
-Player::Player()
-    : name{"None"}, health{0}, sp{0}					// Initialization list
-{ }
-
-Player::Player::Player(std::string name_val)()
-    : name{name_val}, health{0}, sp{0}					// Initialization list
-{ }
-
-Player::Player(std::string name_val, int health_val, int xp_val)
-    : name{name_val}, health{health_val}, xp{xp_val};	// Initialization list
-{ }
-```
+  ```cpp
+  class player
+  {
+  private:
+  	std::string name;
+      int health;
+      int xp;
+  public:
+      // Overloaded constructors
+      Player();
+      Player(std::string name_val);
+      Player(std::string name_val, int health_val, int xp_val);
+  };
+  
+  Player::Player()
+      : name{"None"}, health{0}, sp{0}					// Initialization list
+  { }
+  
+  Player::Player::Player(std::string name_val)()
+      : name{name_val}, health{0}, sp{0}					// Initialization list
+  { }
+  
+  Player::Player(std::string name_val, int health_val, int xp_val)
+      : name{name_val}, health{health_val}, xp{xp_val};	// Initialization list
+  { }
+  ```
 
 
 
@@ -649,30 +651,146 @@ Player::Player(std::string name_val, int health_val, int xp_val)
   * Code for one constructor can call another in the initialization list
   * Avoids duplicating code
 
-```cpp
-class player
-{
-private:
-	std::string name;
-    int health;
-    int xp;
-public:
-    // Overloaded constructors
-    Player();
-    Player(std::string name_val);
-    Player(std::string name_val, int health_val, int xp_val);
-};
+### Examples
 
-Player::Player(std::string name_val, int health_val, int xp_val)
-    : name{name_val}, health{health_val}, xp{xp_val};	// Initialization list
-{ }
+* `Player` class
 
-Player::Player()
-    : Player{"None", 0, 0}		// Delegating constructor
-{ }
+  ```cpp
+  class player
+  {
+  private:
+  	std::string name;
+      int health;
+      int xp;
+  public:
+      // Overloaded constructors
+      Player();
+      Player(std::string name_val);
+      Player(std::string name_val, int health_val, int xp_val);
+  };
+  
+  Player::Player(std::string name_val, int health_val, int xp_val)
+      : name{name_val}, health{health_val}, xp{xp_val};	// Initialization list
+  { }
+  
+  Player::Player()
+      : Player{"None", 0, 0}		// Delegating constructor
+  { }
+  
+  Player::Player::Player(std::string name_val)()
+      : Player{name_val, 0, 0}	// Delegating constructor
+  { }
+  ```
 
-Player::Player::Player(std::string name_val)()
-    : Player{name_val, 0, 0}	// Delegating constructor
-{ }
-```
 
+
+## Default Constructor Parameters
+
+* Can often simplify our code and reduce the number of overloaded constructors
+* Same rules apply as we learned with non-member functions
+
+### Examples
+
+* `Player` class
+
+  ```cpp
+  class player
+  {
+  private:
+  	std::string name;
+      int health;
+      int xp;
+  public:
+      // Constructor with default parameter values
+      Player(std::string name_val = "None",
+             int health_val = 0,
+             int xp_val = 0);
+  };
+  
+  Player::Player(std::string name_val, int health_val, int xp_val)
+      : name{name_val}, health{health_val}, xp{xp_val}
+  { }
+  
+  Player empty;					// None, 0, 0
+  Player jack{"Jack"};			// Jack, 0, 0
+  Player yena{"Yena", 100, 55};	// Yena, 100, 55
+  Player hero{"Hero", 100};		// Hero, 100, 0
+  ```
+
+  > Note what happens if you declare a no-args constructor
+
+
+
+## Copy Constructor
+
+* When objects are copied C++ must create a new object from an existing object
+* When is a copy of an object made?
+  * Passing object by value as a parameter
+  * Returning an object from a function by value
+  * Constructing one object based on another of the same class
+* C++ must have a way of accomplishing this so it provides a compiler-defined copy constructor if you don't. (If you don't provide your own way of copying objects by value then the compiler provides a default way of copying objects.)
+* Copies the values of each data member to the new object
+  * Default member-wise copy
+* Perfectly fine in many cases, but beware if you have a pointer data member
+  * Pointer will be copied
+  * Not what it is pointing to
+  * Shallow copy vs. Deep copy
+* Best practices
+  * Provide a copy constructor when your class has raw pointer members
+  * Provide the copy constructor with a **const reference** parameter
+  * Use STL classes as they already provide copy constructors
+  * Avoid using raw pointer data members if possible
+
+### Examples
+
+* Pass object by value
+
+  ```cpp
+  Player hero{"Hero", 100, 20};
+  
+  void display_player(Player p)
+  {
+      // p is a COPY of hero in this example
+      // Use p
+      // Destructor for p will be called
+  }
+  
+  display_player(hero);
+  ```
+
+* Construct one object based on another
+
+  ```cpp
+  Player hero{"Hero", 100, 100};
+  Player another_hero{hero};			// A COPY of hero is made
+  ```
+
+* Declaring and implementing a copy constructor
+
+  ```cpp
+  // Declaration
+  Type::Type(const Type &source);
+  
+  // Implementation
+  Type::Type(const Type &source)
+  {
+      // Code or initialization list to copy the object
+  }
+  ```
+
+  ```cpp
+  // Declaration
+  Player::Player(const Player &source);
+  Account::Account(const Account &source);
+  
+  // Implementation
+  Player::Player(const Player &source)
+      : name{source.name}, health{source.health}, xp{source.xp}
+  { }
+  
+  Account::Account(const Account &source)
+      : name{source.name}, balance{source.balance}
+  { }
+  ```
+
+  
