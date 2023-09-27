@@ -162,3 +162,12 @@
 * QM Model-based design tool by Quantum Leaps, LLC
 * Visual State by IAR
 * Yakindu state chart tools by Itemis AG
+
+
+
+## Implementation of State Machine Handler
+
+* Nested switch-case approach
+* State table approach
+* State handler approach
+  * Most efficient, less redundant
