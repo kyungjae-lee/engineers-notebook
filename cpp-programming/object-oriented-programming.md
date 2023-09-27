@@ -794,3 +794,380 @@
   ```
 
   
+
+## Shallow Copy vs. Deep Copy
+
+* Consider a class that contains a pointer as a data member. Constructor allocates storage dynamically and initializes the pointer. Destructor releases the memory allocated by the constructor. What happens in the default copy constructor?
+
+### Default Copy Constructor (Shallow Copy)
+
+* Member-wise copy
+* Each data member is copied from the source object.
+* The pointer is copied, NOT what it points to (shallow copy)
+* **Problem**
+  * The source and the newly created object BOTH point to the SAME data area!
+  * When we release the storage in the destructor, the other object still refers to the released storage!
+
+### User-Defined Copy Constructor (Deep Copy)
+
+* Create a copy of the pointed-to-data, NOT just the pointer itself.
+* Each copy will have a pointer to UNIQUE storage in the heap.
+* Deep copy when you have a raw pointer as a class data member.
+
+### Example
+
+* Shallow copy
+
+  ```cpp
+  class Shallow
+  {
+  private:
+      int *data;
+  public:
+      Shallow(int d);					// Constructor
+      Shallow(const Shallow &source);	// Copy constructor (shallow copy)
+      ~Shallow();						// Destructor
+  };
+  
+  // Constructor
+  Shallow::Shallow(int d)
+  {
+      data = new int;		// Dynamically allocate storage
+      *data = d;
+  }
+  
+  // Destructor
+  Shallow::~Shallow()
+  {
+      delete data;		// Free storage
+      cout << "Destructor freeing data" << endl;
+  }
+  
+  // Copy constructor (shallow copy)
+  Shallow::Shallow(const Shallow &source)
+      : data(source.data)
+  {
+  	cout << "Copy constructor (shallow)" << endl;        
+  }
+  ```
+
+  The following sample main will likely to crash.
+
+  ```cpp
+  int main()
+  {
+      Shallow obj1{100};
+      display_shallow(obj1);
+      // obj1's data has been released!
+      
+      obj1.set_data_value(1000);
+      Shallow obj2{obj1};
+      cout << "Hello world" << endl;
+      
+      return 0;
+  }
+  ```
+
+* Deep copy
+
+  ```cpp
+  class Deep
+  {
+  private:
+      int *data;
+  public:
+      Deep(int d);				// Constructor
+      Deep(const Deep &source);	// Copy constructor (deep copy);
+      ~Deep();					// Destructor
+  };
+  
+  // Constructor
+  Deep::Deep(int d)
+  {
+      data = new int;		// Dynamically allocate storage
+      *data = d;
+  }
+  
+  // Destructor
+  Deep::~Deep()
+  {
+      delete data;		// Free storage
+      cout << "Destructor freeing data" << endl;
+  }
+  
+  // Copy constructor (deep copy)
+  Deep::Deep(const Deep &source)
+  {
+      data = new int;		// Dynamically allocate storage
+      *data = *source.data;
+  	cout << "Copy constructor (deep)" << endl;        
+  }
+  ```
+
+  ```cpp
+  // Copy constructor (deep copy) - Delegating constructor
+  Deep::Deep(const Deep &source)
+      : Deep{*source.data}	// Delegating to Deep(int)
+  {
+  	cout << "Copy constructor (deep)" << endl;        
+  }
+  ```
+
+  The following method causes no issue.
+
+  ```cpp
+  void display_deep(Deep s)
+  {
+      cout << s.get_data_value() << endl;
+  }
+  ```
+
+  > When `s` goes out of scope, the destructor is called and releases `data`.
+  > No problem since the storage being released is unique to `s`
+
+  Also, the following sample main will not crash.
+
+  ```cpp
+  int main()
+  {
+      Deep obj1{100};
+      display_deep(obj1);
+      
+      obj1.set_data_value(1000);
+      Deep obj2{obj1};
+      
+      return 0;
+  }
+  ```
+
+  
+
+## Move Constructor
+
+* Sometimes when we execute code the compiler creates unnamed temporary values:
+
+  ```cpp
+  int total{0};
+  total = 100 + 200;
+  ```
+
+  > 1. `100 + 200` is evaluated and `300` stored in an unnamed `temp` value
+  >
+  > 2. The `300` is then stored in the variable `total`
+  >
+  > 3. Then the `temp` value is discarded
+  >
+  > The same happens with objects as well.
+
+* Sometimes copy constructors are called many times automatically due to the copy semantics of C++.
+* Copy constructors doing deep copying can have a significant performance bottleneck.
+* C++11 introduced move semantics and the move constructor.
+* Move constructor moves an object rather than copy it.
+* Optional but recommended when you have a raw pointer.
+* Copy elision - C++ may optimize copying away completely (RVO - Return Value Optimization)
+
+### What Does Move Constructor Do?
+
+* Instead of making a deep copy of the resource
+  * It **moves** the resource
+  * Simply copies the address of the resource from source to the current object
+  * And, nulls out the pointer in the source pointer.
+* Very efficient
+
+### R-Value References
+
+* Used in moving semantics and perfect forwarding
+* Move semantics is a ll about r-value references
+* Used by move constructor and move assignment operator to efficiently move an object rather than copy it.
+* R-value reference operator (`&&`)
+
+### Examples
+
+* R-value references
+
+  ```cpp
+  // Syntax
+  Type::Type(Type &&source);
+  
+  Player::Player(Player &&source);
+  Move::Move(Move &&source);
+  ```
+
+  ```cpp
+  int x{100};
+  
+  int &l_ref = x;		// L-value reference
+  l_ref = 10;			// Change x to 10
+  
+  int &&r_ref = 200;	// R-value reference
+  r_ref = 300;		// Change r_ref to 300
+  
+  int && x_ref = x;	// Compiler error
+  ```
+
+* R-value reference parameters
+
+  ```cpp
+  int x{100};				// x is an l-value
+  
+  void func(int &&num);	// B
+  
+  func(200);				// Calls B (200 is an r-value)
+  func(x);				// Error (x is an l-value)
+  						// - Cannot bind r-value reference of type 'int&&' to 
+  						//   an l-value of type 'int'
+  ```
+
+* L-value reference parameters
+
+  ```cpp
+  int x{100};				// x is an l-value
+  
+  void func(int &num);	// A
+  
+  func(x);				// Calls A (x is an l-value)
+  func(200);				// Error (200 is an r-value)
+  						// - Cannot bind non-const l-value reference of type 'int&' to 
+  						//   an r-value of type 'int'
+  ```
+
+* L-value and r-value reference parameters
+
+  ```cpp
+  int x{100};				// x is an l-value
+  
+  void func(int &num);	// A
+  void func(int &&num);	// B
+  
+  func(x);				// Calls A (x is an l-value)
+  func(200);				// Calls B (200 is an r-value)
+  ```
+
+* `Move` class
+
+  ```cpp
+  class Move
+  {
+  private:
+      int *data;
+  public:
+      void set_data_value(int d)	{ *data = d; }
+      int get_data_value()		{ return *data }
+      Move(int d);				// Constructor
+      Move(const Move &source);	// Copy constructor
+      ~Move();					// Destructor
+  };
+  
+  // Copy constructor
+  Move::Move(const Move &source)
+  {
+      data = new int;
+      *data = *source.data;
+  }
+  
+  // Move constructor
+  Move::Move(Move &&source)
+      : data{source.data}
+  {
+      source.data = nullptr;
+  }
+  ```
+
+  > The move constructor 'steals' the data and nulls out the source pointer.
+
+  Inefficient copying (Copy constructors will be called to copy the temps)
+
+  ```cpp
+  vector<Move> vec;
+  
+  vec.push_back(Move{10});
+  vec.push_back(Move{20});
+  ```
+
+  ```plain
+  Constructor for: 10
+  Constructor for: 10
+  Copy constructor (deep copy) for: 10
+  Destructor freeing data for: 10
+  Constructor for: 20
+  Constructor for: 20
+  Copy constructor (deep copy) for: 20
+  Constructor for: 10
+  Copy constructor (deep copy) for: 10
+  Destructor freeing data for: 10
+  Destructor freeing data for: 20
+  ```
+
+  Efficient copying (Move constructors will be called for the temp r-values)
+
+  ```cpp
+  vector<Move> vec;
+  
+  vec.push_back(Move{10});
+  vec.push_back(Move{20});
+  ```
+
+  ```plain
+  Constructor for: 10
+  Move constructor (moving resource): 10
+  Destructor freeing data for nullptr
+  Constructor for: 20
+  Move constructor (moving resource): 20
+  Move constructor (moving resource): 10
+  Destructor freeing data for nullptr
+  Destructor freeing data for nullptr
+  Destructor freeing data for: 10
+  Destructor freeing data for: 20
+  ```
+
+  
+
+## `this` Pointer
+
+* `this` is a reserved keyword
+* Contains the address of the object, so it's a pointer to the object
+* Can only be used in class scope
+* All member access is done via the `this` pointer
+* Can be used by the programmer
+  * To access data member and methods
+  * To determine if two objects are the same
+  * Can be dereferenced (`*this`) to yield the current object
+  * When overloading the assignment operator
+
+### Examples
+
+* `Account` class
+
+  ```cpp
+  void Account::set_balance(double bal)
+  {
+      balance = bal;	// 'this->balance' is implied
+  }
+  ```
+
+  Can be used to disambiguate identifier
+
+  ```cpp
+  void Account::set_balance(double balance)
+  {
+      // balance = balance		// Ambiguous
+      this->balance = balance;	// Unambiguous
+  }
+  ```
+
+* To determine object identity
+
+  Sometimes it is useful to know if two objects are the same object
+
+  ```cpp
+  int Account::compare_balance(const Account &other)
+  {
+      if (this == &other)
+          std::cout << "The same objects" << std::endl;
+      ...
+  }
+  
+  jack_account.compare_balance(jack_account);
+  ```
+
+  
