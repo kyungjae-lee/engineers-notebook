@@ -13,7 +13,7 @@
 
 ### Object-Oriented Programming (OOP)
 
-1. **<a href="./introduction-to-oop">Introduction to Object-Oriented Programming</a>**
+1. **<a href="./introduction-to-object-oriented-programming">Introduction to Object-Oriented Programming</a>**
 1. **<a href="./classes-and-objects">Classes & Objects</a>**
 1. **<a href="./constructors-and-destructors">Constructors & Destructors</a>**
 1. **<a href="./shallow-copy-vs-deep-copy">Shallow Copy vs. Deep Copy</a>**
