@@ -24,6 +24,7 @@
 1. **<a href="./inheritance">Inheritance</a>**
 1. **<a href="./polymorphism">Polymorphism</a>**
 1. **<a href="./operator-overloading">Operator Overloading</a>**
+1. **<a href="./smart-pointers">Smart Pointers</a>**
 1. **<a href="./object-oriented-design">Object-Oriented Design</a>**
 
 
