@@ -7,12 +7,7 @@
 ### C++ Programming Language
 
 1. **<a href="./characters-and-strings">Characters & Strings</a>**
-1. **<a href="./string-manipulation">String Manipulation</a>**
-
-1. **<a href="./object-oriented-programming">Object-Oriented Programming</a>**
-2. **<a href="./object-oriented-design">Object-Oriented Design</a>**
-3. **<a href="./polymorphism">Polymorphism</a>**
-4. **<a href="./operator-overloading">Operator Overloading</a>**
+2. **<a href="./string-manipulation">String Manipulation</a>**
 
 
 
@@ -26,6 +21,9 @@
 1. **<a href="./using-const-and-static-with-classes">Using `const` & `static` with  Classes</a>**
 1. **<a href="./structs-vs-classes">Structs vs. Classes</a>**
 1. **<a href="./friends-of-a-class">Friends of a Class</a>**
+1. **<a href="./polymorphism">Polymorphism</a>**
+1. **<a href="./operator-overloading">Operator Overloading</a>**
+1. **<a href="./object-oriented-design">Object-Oriented Design</a>**
 
 
 
