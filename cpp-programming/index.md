@@ -21,6 +21,7 @@
 1. **<a href="./using-const-and-static-with-classes">Using `const` & `static` with  Classes</a>**
 1. **<a href="./structs-vs-classes">Structs vs. Classes</a>**
 1. **<a href="./friends-of-a-class">Friends of a Class</a>**
+1. **<a href="./inheritance">Inheritance</a>**
 1. **<a href="./polymorphism">Polymorphism</a>**
 1. **<a href="./operator-overloading">Operator Overloading</a>**
 1. **<a href="./object-oriented-design">Object-Oriented Design</a>**
