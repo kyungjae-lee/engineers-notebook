@@ -8,7 +8,8 @@
 
 1. **<a href="./characters-and-strings">Characters & Strings</a>**
 2. **<a href="./string-manipulation">String Manipulation</a>**
-3. **<a href="./lambda-expressions">Lambda Expressions</a>**
+3. **<a href="./pointers-and-references">Pointers & References</a>**
+4. **<a href="./lambda-expressions">Lambda Expressions</a>**
 
 
 
