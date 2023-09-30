@@ -35,7 +35,8 @@
 
 ### Standard Template Library (STL)
 
-1. **<a href="./vectors">Vectors</a>**
-2. **<a href="./stacks">Stacks</a>**
-3. **<a href="./queues">Queues</a>**
+1. **<a href="./introduction-to-standard-template-library">Introduction to Standard Template Library</a>**
+2. **<a href="./vectors">Vectors</a>**
+3. **<a href="./stacks">Stacks</a>**
+4. **<a href="./queues">Queues</a>**
 
