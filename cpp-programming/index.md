@@ -11,6 +11,7 @@
 3. **<a href="./pointers">Pointers</a>**
 4. **<a href="./references">References</a>**
 5. **<a href="./lambda-expressions">Lambda Expressions</a>**
+6. **<a href="./enumerations">Enumerations</a>**
 
 
 
