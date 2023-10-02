@@ -8,12 +8,13 @@
 
 ### Classes
 
+* Model real-world entities
 * Blueprint from which objects are created
 * A user-defined data-type
-* Has attributes (data; attributes)
-* Has methods (functions; behaviors)
-* Can hide data and methods
-* Provides a public interface
+* Has attributes (data; instance variables)
+* Has methods (functions)
+* Can hide data and methods that are only used internally by the class (By using access modifiers)
+* The goal of a class is to provide a well-defined public interface that the user of the class can easily use to solve their problem.
 
 * Examples:
   * `Account`
@@ -26,7 +27,7 @@
 
 * Created from a class
 * Represents a specific instance of a class
-* Can create many, many objects
+* Can create many objects out of a class
 * Each has its own identity
 * Each can use the defined class methods
 
@@ -46,7 +47,7 @@
   
   class Player
   {
-      // Attributes
+      // Attributes (or instance variables)
       std::string name;
       int health;
       int xp;
@@ -63,7 +64,7 @@
   Player jack;
   Player hero;
   
-  Player *enemy = new Player();
+  Player *enemy = new Player();	// Allocated dynamically on the heap
   delete enemy;
   ```
 
@@ -74,7 +75,7 @@
   
   class Account
   {
-      // Attributes
+      // Attributes (or instance variables) 
       std::string name;
       double balance;
       
@@ -88,7 +89,7 @@
   Account jack_account;
   Account sunny_account;
   
-  Account *yena_account = new Account();
+  Account *yena_account = new Account();	// Allocated dynamically on the heap
   delete yena_account;
   
   Account accounts[] {jack_account, sunny_account};
@@ -97,17 +98,19 @@
   accounts1.push_back(sunny_account);
   ```
 
-  
+  > Once declared, a class can be used just like any other C++ primitive data types.
+
+
 
 ## Accessing Class Members
 
-* You can access **class attributes** and **class methods**.
+* You can access  class **attributes** and class **methods**.
 
-* Some class members will not be accessible
+* Some class members will not be accessible (i.e., hidden members)
 
 * Need an object to access instance variables
 
-* If you have an **object**, you can access the class members by using the **dot operator**.
+* If you have an **object**, you can access the class members by using the **dot operator (`.`**).
 
   ```cpp
   Account jack_account;
@@ -116,12 +119,12 @@
   jack_account.deposit(1000.00);
   ```
 
-* If you have a **pointer to an object**, you can access the class members by using the **arrow operator (member of pointer operator)**.
+* If you have a **pointer to an object**, you can access the class members by using the **arrow operator or member of pointer operator (`->`)**.
 
   ```cpp
   Account jack_account = new Account();
   
-  // 1. Dereference the poiner, then use the dot operator.
+  // 1. Dereference the poiner, then use the dot operator
   (*jack_account).balance;
   (*jack_account).deposit(1000.00);
   
@@ -135,7 +138,7 @@
 ## Class Member Access Modifiers (`public`, `private`, `protected`)
 
 * `public` - Accessible everywhere
-* `private` - Accessible only by members or friends of the class
+* `private` - Accessible only by other members of the same class or by friends of the class
 * `protected` - Used with inheritance
 
 ### Examples
@@ -168,6 +171,8 @@
   delete enemy;
   ```
 
+  > If you try to directly access a private class member from outside of the class, you will get a compiler error.
+
 * `Account` class
 
   ```cpp
@@ -185,7 +190,7 @@
   ```cpp
   Account jack_account;
   jack_ccount.balance = 1000.00;			// Compiler error
-  jack_account.deposit(1000.00);			// OK
+  jack_account.deposit(1000.00);			// OK (Accessing a private member through another member of the class)
   jack_account.name = "Jack's Account";	// Compiler error
   
   Account *sunny_account = new Account();
@@ -196,16 +201,26 @@
   delete sunny_account;
   ```
 
-  
+  > This is very powerful, because, for example, if we have an object whose balance is 20 million dollars and we know that that must have been an error, then the only place where that error could have happened in this example is in the deposit method. There's no way that any other part of the program could have changed that value since the value is private. 
+  >
+  > This makes testing and debugging code much easier.
+
+
 
 ## Implementing Member Methods
 
 * Very similar to how we implemented functions
-* Member methods have access to member attributes (Don't need to pass them as arguments!)
-* Can be implemented inside the class declaration (Implicitly inline)
-* Can be implemented outside the class declaration (Need to use `Class_name::method_name`)
-* Can be separate specification from implementation
-  * `.h` file for the class declaration
+* Member methods have access to member attributes (Don't need to pass them as arguments as we do with regular functions!)
+* Can be implemented inside the class declaration
+  * If you do this, the method becomes implicitly inline.
+  * While this is okay for small and relatively simple methods, it is a good practice to implement larger, more complex methods outside of the class declaration.
+
+* Can be implemented outside the class declaration
+  * To do this you need to use `Class_name::method_name` to tell the compiler that you are implementing a method for a specific class.
+  * The compiler can then type check the method implementation when it sees them.
+
+* Can separate specification from implementation. This makes the class much easier to manage.
+  * `.h`/`.hpp` file for the class declaration
   * `cpp` file for the class implementation
 
 ### Examples
@@ -239,13 +254,14 @@
   double Account::get_balance() { return balance; }
   ```
 
+  > Need to tell the compiler that you are implementing a method for a specific class. The compiler can then type check the method implementation when it sees them.
+
 * Separating specification from implementation
 
   ```cpp
-  /* Account.h */
+  /* Account.h (Specification) */
   
-  #pragma once
-  
+  /* Include guard */
   #ifndef ACCOUNT_H
   #define ACCOUNT_H
   
@@ -261,13 +277,41 @@
   
   #endif
   ```
-
+  
+  > The include guard can be replaced by `#pragma once`. But, do check first if your compiler support this directive, because some don't!
+  
   ```cpp
-  /* Account.cpp */
+  /* Account.cpp (Implementation) */
   
   #include "Account.h"
   
   void Account::set_balance(double bal) { balance = bal; }
   double Account::get_balance() { return balance; }
   ```
-
+  
+  > Notice that we included `accoun.h` and it's in double quotes. Includes with double quotes tell the compiler to include header files that are local to this project. The compiler knows where those are.
+  >
+  > Includes with angled brackets with no extensions (e.g., `#include <iostream>`) are used to include system header files and the compiler knows where these are located.
+  
+  Main file
+  
+  ```cpp
+  /* main.cpp */
+  
+  #include <iostream>
+  #include "Account.h"
+  
+  int main()
+  {
+      Account jack_account;
+      jack_account.set_balance(1000.00);
+      double bal = jack_account.get_balance();
+      
+      std::cout << bal << std::endl;	// 1000
+      return 0;
+  }
+  ```
+  
+  > Include `.h` files and never include `.cpp` files!
+  >
+  > When the program is compiled, both the `main.cpp` and the `account.cpp` files are compiled and then linked to produce the executable.
