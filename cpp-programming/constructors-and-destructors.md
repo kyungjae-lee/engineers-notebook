@@ -398,7 +398,7 @@
 
 ## Copy Constructor
 
-* When objects are copied C++ must create a new object from an existing object, and it uses "copy constructor" to do this.
+* When objects are copied C++ must create a new object from an existing object, and it uses "copy constructor" to do this. (Copy constructors are called whenever the compiler needs to make a copy of an object.)
 
 * When is a copy of an object made?
   * Passing object by value as a parameter
@@ -506,6 +506,20 @@
 
 ## Move Constructor
 
+* One of C++11's most pervasive features was probably move semantics. And, to really understand move semantics, it's important to be able to tell whether an expression is an l-value or an r-value.
+
+  Rule of thumb:
+
+  * L-value
+
+    When you can refer to an object by name or you can follow a pointer to get to an object, then that object is addressable and it's an l-value.
+
+  * R-value
+
+    Everything else
+
+* In context of move semantics r-values refer to temporary objects that are created by the compiler, and objects returned from methods.
+
 * Sometimes when we execute code the compiler creates unnamed temporary values:
 
   ```cpp
@@ -513,35 +527,52 @@
   total = 100 + 200;
   ```
 
-  > 1. `100 + 200` is evaluated and `300` stored in an unnamed `temp` value
+  > 1. `100 + 200` is evaluated and `300` stored in an unnamed `temp` value (This value is not addressable so it's an r-value.)
   >
-  > 2. The `300` is then stored in the variable `total`
+  > 2. The `300` (r-value) is then stored in the variable `total` (l-value).
   >
   > 3. Then the `temp` value is discarded
   >
-  > The same happens with objects as well.
+
+  The same happens with objects as well. However, with objects there can be a great amount of overhead if copy constructors are called over and over again making copies of these temporary objects. And, when we have raw pointers and we have to do deep copies then the overhead is even greater. 
+
+  This is where move semantics and the move constructor comes into picture.
 
 * Sometimes copy constructors are called many times automatically due to the copy semantics of C++.
 * Copy constructors doing deep copying can have a significant performance bottleneck.
-* C++11 introduced move semantics and the move constructor.
+
+  * Deep copy must be implemented if a class contains a raw poiner.
+  * This is computationally expensive since we have to allocate space for the copy and then copy the data over.
+
+* C++11 introduced move semantics and the move constructor (Extremely efficient!)
 * Move constructor moves an object rather than copy it.
-* Optional but recommended when you have a raw pointer.
+* Move constructors are optional but recommended when you have a raw pointer.
+
+  * If you don't provide them, then the copy constructors will be called.
+
 * Copy elision - C++ may optimize copying away completely (RVO - Return Value Optimization)
+
+  * You may not even see the copy constructors being called. If you experience this, it's probably due to something called copy elision.
+  * Copy elision is a compiler optimization technique that eliminates unnecessary copying. Compilers are really smart with their optimizations now. And one of the common techniques is called "Return Value Optimization". That's when the compiler generates code that doesn't create a copy every return value from a function making the code much more efficient.
+
 
 ### What Does Move Constructor Do?
 
 * Instead of making a deep copy of the resource
-  * It **moves** the resource
+  * It simply **moves** the resource on the heap
   * Simply copies the address of the resource from source to the current object
   * And, nulls out the pointer in the source pointer.
-* Very efficient
+* Very efficient since not doing a copy at all.
 
-### R-Value References
+### R-value References (References to R-values)
 
+* In the context of move semantics, think of r-value references as references to temporary objects.
 * Used in moving semantics and perfect forwarding
-* Move semantics is a ll about r-value references
+* Move semantics is all about r-value references
 * Used by move constructor and move assignment operator to efficiently move an object rather than copy it.
 * R-value reference operator (`&&`)
+  * This is unlike the l-value reference operator (`&`)
+
 
 ### Examples
 
@@ -555,16 +586,21 @@
   Move::Move(Move &&source);
   ```
 
+  > Difference from copy constructors?
+  >
+  > * There's no `const ` qualifier for the parameter source because we need to modify it in order to null out its pointer.
+  > * Parameter is an r-value reference  
+
   ```cpp
   int x{100};
   
-  int &l_ref = x;		// L-value reference
+  int &l_ref = x;		// L-value reference (since 'x' is an l-value, addressable, got a name)
   l_ref = 10;			// Change x to 10
   
   int &&r_ref = 200;	// R-value reference
-  r_ref = 300;		// Change r_ref to 300
+  r_ref = 300;		// Change r_ref to 300 (just changed the temporary variable value!)
   
-  int && x_ref = x;	// Compiler error
+  int &&x_ref = x;	// Compiler error (Cannot assign an l-value to an r-value reference)
   ```
 
 * R-value reference parameters
@@ -605,7 +641,7 @@
   func(200);				// Calls B (200 is an r-value)
   ```
 
-* `Move` class
+* `Move` class WITHOUT move constructor
 
   ```cpp
   class Move
@@ -620,18 +656,11 @@
       ~Move();					// Destructor
   };
   
-  // Copy constructor
+  // Copy constructor (Deep copy)
   Move::Move(const Move &source)
   {
       data = new int;
       *data = *source.data;
-  }
-  
-  // Move constructor
-  Move::Move(Move &&source)
-      : data{source.data}
-  {
-      source.data = nullptr;
   }
   ```
 
@@ -646,18 +675,55 @@
   vec.push_back(Move{20});
   ```
 
-  ```plain
-  Constructor for: 10
-  Constructor for: 10
-  Copy constructor (deep copy) for: 10
-  Destructor freeing data for: 10
-  Constructor for: 20
-  Constructor for: 20
-  Copy constructor (deep copy) for: 20
-  Constructor for: 10
-  Copy constructor (deep copy) for: 10
-  Destructor freeing data for: 10
-  Destructor freeing data for: 20
+  > `Move{10}` and `Move{20}` create temporary objects which are unnamed and r-values. The compiler is going to use the copy constructor to make copies of these.
+  >
+  > Sample output:
+  >
+  > ```plain
+  > Constructor for: 10
+  > Constructor for: 10
+  > Copy constructor (deep copy) for: 10
+  > Destructor freeing data for: 10
+  > Constructor for: 20
+  > Constructor for: 20
+  > Copy constructor (deep copy) for: 20
+  > Constructor for: 10
+  > Copy constructor (deep copy) for: 10
+  > Destructor freeing data for: 10
+  > Destructor freeing data for: 20
+  > ```
+  >
+  > Copy constructor does several deep copies, which is very inefficient.
+
+* `Move` class WITH move constructor
+
+  ```cpp
+  class Move
+  {
+  private:
+      int *data;
+  public:
+      void set_data_value(int d)	{ *data = d; }
+      int get_data_value()		{ return *data }
+      Move(int d);				// Constructor
+      Move(const Move &source);	// Copy constructor
+      Move(Move &&source);		// Move constructor
+      ~Move();					// Destructor
+  };
+  
+  // Copy constructor (Deep copy)
+  Move::Move(const Move &source)
+  {
+      data = new int;
+      *data = *source.data;
+  }
+  
+  // Move constructor
+  Move::Move(Move &&source)
+      : data{source.data}
+  {
+      source.data = nullptr;	// Null out source's pointer
+  }
   ```
 
   Efficient copying (Move constructors will be called for the temp r-values)
@@ -682,3 +748,6 @@
   Destructor freeing data for: 20
   ```
 
+  > No copy constructor is called at all. Instead, move constructor is being called.
+  >
+  > Also, note that the destructors are called for `nullptr`. That's destroying the object that we just moved and set its data pointer to `nullptr`.
