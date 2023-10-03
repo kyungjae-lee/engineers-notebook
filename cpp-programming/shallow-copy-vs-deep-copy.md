@@ -6,15 +6,17 @@
 
 ## Introduction
 
-* Consider a class that contains a pointer as a data member. Constructor allocates storage dynamically and initializes the pointer. Destructor releases the memory allocated by the constructor. What happens in the default copy constructor?
+Consider a class that contains a pointer as a data member. Constructor allocates storage dynamically and initializes the pointer. Destructor releases the memory allocated by the constructor. What happens in the default copy constructor?
 
 
 
 ## Default Copy Constructor (Shallow Copy)
 
-* Member-wise copy
+* Member-wise copy of all the member attributes
 * Each data member is copied from the source object.
 * The pointer is copied, NOT what it points to (shallow copy)
+  * You end up with a newly created object, and the object being copied both pointing to the same area of storage in the heap.
+
 * **Problem**
   * The source and the newly created object BOTH point to the SAME data area!
   * When we release the storage in the destructor, the other object still refers to the released storage!
@@ -23,9 +25,11 @@
 
 ## User-Defined Copy Constructor (Deep Copy)
 
-* Create a copy of the pointed-to-data, NOT just the pointer itself.
-* Each copy will have a pointer to UNIQUE storage in the heap.
-* Deep copy when you have a raw pointer as a class data member.
+* Creates a copy of the data pointed to by the pointer, NOT just the pointer itself.
+  * This usually means that we have to allocate storage for the data to be copied and then perform the copy.
+
+* Each copy will have a pointer to UNIQUE storage in the heap and both areas will contain the same data.
+* ALWAYS use a copy constructor that does a deep copy when you have a raw pointer as a class data member.
 
 
 
@@ -82,6 +86,8 @@
       return 0;
   }
   ```
+
+  > L4: `obj1` is passed to this function by value, so a copy of `obj1` will get created upon entering the function body. And when the function returns, the copy of `obj1` will get destroyed. Since `obj1` and the copy that was just destroyed pointed to the same memory space, `obj1` now points to invalid storage. If we try to access that storage from `obj1`, our program could crash. Also, when the destructor for `obj1` eventually gets called, it will try to release memory that's no longer valid and will probably crash.
 
 * Deep copy
 
