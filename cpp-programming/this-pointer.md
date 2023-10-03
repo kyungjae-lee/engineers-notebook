@@ -6,12 +6,15 @@
 
 ## Introduction
 
-* `this` is a reserved keyword
-* Contains the address of the object, so it's a pointer to the object
-* Can only be used in class scope
-* All member access is done via the `this` pointer
+* `this` is a reserved keyword that contains the address of the current object. 
+  * It's a pointer to the object that's currently being used by the class member methods.
+
+* Can only be used within the class scope
+* All member access is done via the `this` pointer.
+  * C++ allows you to use member names directly. And, behind the scenes, it's actually using `this` pointer.
+
 * Can be used by the programmer
-  * To access data member and methods
+  * To explicitly access data member and methods
   * To determine if two objects are the same
   * Can be dereferenced (`*this`) to yield the current object
   * When overloading the assignment operator
@@ -29,12 +32,12 @@
   }
   ```
 
-  Can be used to disambiguate identifier
+  `this` pointer can be used to disambiguate identifier
 
   ```cpp
   void Account::set_balance(double balance)
   {
-      // balance = balance		// Ambiguous
+      // balance = balance		// Ambiguous (which balance?)
       this->balance = balance;	// Unambiguous
   }
   ```
@@ -53,4 +56,5 @@
   
   jack_account.compare_balance(jack_account);
   ```
-
+  
+  > L3: When the compare logic is involved or computationally expensive, then a quick check to see if the objects are the same could help performance.
