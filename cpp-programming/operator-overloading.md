@@ -4,9 +4,17 @@
 
 
 
-## Introduction
+## Overview
 
 C++ allows the programmer to overload most operators to work with user-defined classes. This is intended to make code more readable and writable by allowing the use of familiar operators in a familiar manner, but with our own classes and objects.
+
+* What is operator overloading?
+* Overloading the assignment operator (`=`)
+  * Copy semantics
+  * Move semantics
+* Overloading operators as member functions
+* Overloading operators as global functions
+* Overloading stream insertion (`<<`) and extraction operators (`>>`)
 
 
 
@@ -61,12 +69,10 @@ C++ allows the programmer to overload most operators to work with user-defined c
     `.` (dot operator)
     
     `sizeof`
-* Remember, just because an operator can be overloaded doesn't mean you should.
+* Remember, just because an operator can be overloaded doesn't mean you should. Don't overload it unless it makes sense and makes your code more usable, more readable and more writable.
   
-    Don't overload it unless it makes sense and makes your code more usable, more readable and more writable.
-* We can make the operator mean anything we want.
+* We can make the operator mean anything we want. We want to make sure that when we do overload operators it makes sense and the users of the class know about it.
   
-    We want to make sure that when we do overload operators it makes sense and the users of the class know about it.
 
 
 
@@ -127,8 +133,10 @@ C++ allows the programmer to overload most operators to work with user-defined c
   s1 == s2
   std::cout << s1
   ```
-  `Mystring` class declaration: (Incomplete)    
-  See *Complete `Mystring` Class* secction for the complete class implementation. 
+  `Mystring` class declaration: (Incomplete)
+  
+  See *Complete `Mystring` Class* section for the complete class implementation. 
+  
   ```cpp
   #ifndef MYSTRING_H
   #define MYSTRING_H
@@ -150,8 +158,10 @@ C++ allows the programmer to overload most operators to work with user-defined c
   
   #endif // MYSTRING_H
   ```
-  `Mystring` class implementation: (Incomplete)    
-  See *Complete `Mystring` Class* secction for the complete class implementation. 
+  `Mystring` class implementation: (Incomplete)
+  
+  See *Complete `Mystring` Class* section for the complete class implementation. 
+  
   ```cpp
   #include <cstring>    // behind the scenes, Mystring class uses c-string library
   #include <iostream>
@@ -214,8 +224,10 @@ C++ allows the programmer to overload most operators to work with user-defined c
       return str;
   }
   ```
-  Test driver:    
-  See *Complete `Mystring` Class* secction for the complete class implementation. 
+  Test driver: 
+  
+  See *Complete `Mystring` Class* section for the complete class implementation. 
+  
   ```cpp
   #include <iostream>
   #include "Mystring.h"
@@ -244,7 +256,7 @@ C++ allows the programmer to overload most operators to work with user-defined c
 
 ## Copy Assignment Operator Overloading
 
-* C++ provides a default assignment operator used for assigning one object to another.
+* When you don't provide a user-defined copy assignment operator, C++ will generate a default assignment operator used for assigning one object to another.
   ```plain
   Mystring s1("Frank");
   Mystring s2 = s1;    // NOT assignment because s2 hasn't been created yet!
@@ -256,7 +268,7 @@ C++ allows the programmer to overload most operators to work with user-defined c
   
 * Default behavior is memberwise assignment (**shallow copy**).
 
-* If we have raw pointer data member we must **deep copy**.
+* If we have raw pointer data member, we must **deep copy**.
 
 * Copy assignment operator works with **L-value references**.
 
@@ -273,7 +285,7 @@ C++ allows the programmer to overload most operators to work with user-defined c
   s2.operator=(s1);     // compiler will convert 's2 = s1' into this
                         // 'operator=' method is called
   ```
-  Returning the reference is important because we don't want to make an extra copy of what we are returning and we want to allow chain assignments such as `s1 = s2 = s3`.
+  > Returning the reference is important because we don't want to make an extra copy of what we are returning and we want to allow chain assignments such as `s1 = s2 = s3`.
 
 * The object on the left-hand side of an assignment statement is referred to by the `this` pointer. The object on the right-hand side is being passed into the method. The semantics is that the object on the LHS is going to be overwritten by the object on the RHS. 
   
@@ -333,8 +345,11 @@ C++ allows the programmer to overload most operators to work with user-defined c
            -----------------                                                             -----------------
            temporary object is created                                                        "Frank"
       ```
+    
 * If we have raw pointer we should overload the move assignment operator for efficiency.
+
 * Move assignment operator works with **R-value references**. (Think temporary unnamed objects!)
+
 * **Overloading the move assignment operator**:
 
   ```plain
@@ -364,10 +379,12 @@ C++ allows the programmer to overload most operators to work with user-defined c
       return *this;         // return current object
   }
   ```
-  Very similar to the copy assignment operator except that with move assignment operator we are NOT doing the deep copy. Much more efficient (less overhead) than copy assignment operator.
+  Very similar to the copy assignment operator except that with move assignment operator we are NOT doing the deep copy. Instead, we're simply stealing the pointer and then nulling out the RHS pointer. Much more efficient (less overhead) than copy assignment.
+  
 * **Test driver:**
+  
   See *Complete `Mystring` Class* secction for the complete class implementation. 
-
+  
   ```cpp
   #include <iostream>
   #include "Mystring.h"
@@ -385,7 +402,7 @@ C++ allows the programmer to overload most operators to work with user-defined c
       return 0;
   }
   ```
-
+  
 * If the move constructor, move assignment operator are not defined, this code will invoke copy constructor (or the copy assignment operator) instead.
 
 
