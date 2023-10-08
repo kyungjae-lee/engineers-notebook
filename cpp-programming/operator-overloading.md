@@ -418,12 +418,17 @@ C++ allows the programmer to overload most operators to work with user-defined c
   
 * **Overloading unary operators as member functions (`++`, `--`, `-`, `!`):**
   
+  Unary operators work on one operand.
+  
   ```plain
   ReturnType Type::operatorOp();
                            --
                            operator goes here!
   ```
+  > In the case the we have to return a new object from the method, we'll return the new object by value.
+  
   Example:
+  
   ```cpp
   Number Number::operator-() const;     
   Number Number::operator++();          // pre-increment
@@ -435,8 +440,22 @@ C++ allows the programmer to overload most operators to work with user-defined c
   n2 = ++n1;            // n1.operator++()
   n2 = n1++;            // n1.operator++(int)
   ```
-  > Notice that unary member functions have an empty parameter list. This is because the object we're working with is referred to by the `this` pointer. Also, C++ simply provides an `int` that isn't used in the parameters for the post
-  > increment.
+  > Notice that unary member functions have an empty parameter list. This is because the object we're working with is referred to by the `this` pointer. Also, the keyword `int` is used in the parameters for the post-increment to differentiate it from the pre-increment.
+  
+  Example:
+  
+  ```cpp
+  Mystring jack1{"JACK"};
+  Mystring jack2;
+  
+  jack1.display();	// JACK
+  jack2 = -jack1;		// jack1.operator-()
+  
+  jack1.display();	// JACK
+  jack2.display();	// jack
+  ```
+  
+  > Note what the negation operator `-` does when used with a string object.
   
 * **Overloading binary operators as member functions (`+`, `-`, `==`, `!=`, `<`, `>`, etc.):**
   
@@ -475,13 +494,13 @@ C++ allows the programmer to overload most operators to work with user-defined c
   ```cpp
   Mystring Mystring::operator-() const
   {
-      char *buff = new char[std::strlen(str) + 1];
-      std::strcpy(buff, str);
-      for (size_t i = 0; std::strlen(buff); i++)
-          buff[i] = std::tolower(buff[i]);
-      Mystring temp(buff);
-      delete[] buff;
-      return temp;
+      char *buff = new char[std::strlen(str) + 1];	// Allocate memory space
+      std::strcpy(buff, str);							// Copy the string
+      for (size_t i = 0; std::strlen(buff); i++)		// Make each character lowercase
+          buff[i] = std::tolower(buff[i]);			// tolower() is in <ccpyte> header file
+      Mystring temp(buff);	// Create a Mystring obj using lowercase string as the initializer
+      delete[] buff;			// Delete the buffer created to prevent leak memory
+      return temp;			// Return the newly created Mystring object
   }
   ```
   Implementation of `operator+`: (concatenation)
@@ -489,7 +508,7 @@ C++ allows the programmer to overload most operators to work with user-defined c
   Mystring Mystring::operator+(const Mystring &rhs) const
   {
       size_t buff_size = std::strlen(str) + std::strlen(rhs.str) + 1;
-      char *buff = new char[buff_size];
+      char *buff = new char[buff_size];	// Allocate large enough memory space for two strings
       std::strcpy(buff, str);
       std::strcat(buff, rhs.str);
       Mystring temp(buff);
@@ -589,9 +608,11 @@ C++ allows the programmer to overload most operators to work with user-defined c
           return false;
   }
   ```
-  If declared as a friend of `Mystring`, can access private `str` attribute. Otherwise getter function must be used.
+  > If declared as a friend of `Mystring`, it can access a private attribute `str`. Otherwise a getter function must be used.
+  >
+  > The code is almost the same as it was for the member version except that now it has an LHS object instead of the `this` pointer.
   
-  Implementation of `operator+`:
+  Implementation of `operator+` (concatenation):
   
   ```cpp
   Mystring operator+(const Mystring &lhs, const Mystring &rhs)
@@ -611,7 +632,7 @@ C++ allows the programmer to overload most operators to work with user-defined c
   Mystring result = larry + stooges;    // larry.operator+(stooges);
   result = moe + " is also a stooge";   // moe.operator+("is also a stooge");
   
-  result = "Moe" + stooges;             // Legal!
+  result = "Moe" + stooges;             // OK with non-member functions
   ```
 
 ​		Notice that now the very last line of code is legal with the global (non-member)   overloading function.
@@ -658,22 +679,35 @@ C++ allows the programmer to overload most operators to work with user-defined c
 
 ## Overloading Stream Insertion and Extraction Operators (`<<`, `>>`)
 
-* This will alow us to insert/extract our `Mystring` objects to/from streams.
+* This will allow us to insert/extract our `Mystring` objects to/from streams. (This makes our classes feel and behave more like a built-in C++ type.)
+
 * Doesn't make sense to implement as member functions.
   
     Overloading operators as member functions requires left operand to be a user-defined class but this is not the way insertion/extraction operators are normally used.
-* Makes more sense to overload these operators as global functions.
+    
+    ```cpp
+    Mystring jack;
+    jack << cout;		// Hun? Not consistent with how << is used with C++ built-in types
+    ```
+    
+    ```cpp
+    Mystring jack;
+    cout << jack;		// This is the way << is used with C++ built-in types
+    ```
+    
+* Makes more sense to overload these operators as global functions!
+
 * **Overloading stream insertion operator:**
   
   ```cpp
   std::stream& operator<<(std::ostream &os, const Mystring &obj)
   {
       os << obj.str;        // if friend function
-      //os << obj.get_str();  // if not friend function
+      //os << obj.get_str();  // if not friend function, then must use the public getter function
       return os;
   }
   ```
-  > Return a reference to the `ostream` so we can keep inserting. Don't return `ostream` by value! (This will incur unnecessary copying of the stream.)
+  > Return a reference to the `ostream` (i.e., output stream reference) so we can keep inserting. Don't return `ostream` by value! (This will incur unnecessary copying of the stream.)
 
 * **Overloading stream insertion operator:**
   
@@ -687,11 +721,13 @@ C++ allows the programmer to overload most operators to work with user-defined c
       return is;
   }
   ```
-  > We want to modify the passed object so this function should NOT be `const`.   
-  > Return a reference to the `istream` so we can keep inserting.    
-  > Update the object passed in.    
-  > Depending on the data we want to read, we can get the data from the input stream and
-  > either store it locally or store it directly in the object.
+  > We want to modify the passed object so this function should NOT be `const`.
+  >
+  > Update the object passed in.
+  >
+  > Return a reference to the `istream` so we can do chain insert. 
+  >
+  > Depending on the data we want to read, we can get the data from the input stream and either store it locally or store it directly in the object.
   
 * **Test driver:**
   
