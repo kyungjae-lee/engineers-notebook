@@ -4,18 +4,44 @@
 
 
 
+## Overview
+
+* What is polymorphism?
+* Using base class pointers
+  * Takes class hierarchies to a new level and enables us to think more abstractly and not have to worry about details 
+* Static vs. dynamic binding of function calls (pros vs. cons)
+* Virtual functions
+  * To achieve polymorphic functions (i.e., functions that are bound at run-time)
+* Virtual destructors
+* The `override` and `final` specifiers
+* Using base class references
+  * To achieve dynamic polymorphism.
+* Pure virtual functions and abstract classes
+  * Why we would want to use them as is and in interfaces.
+* Abstract classes as interfaces
+
+
+
 ## What is Polymorphism?
 
-* Fundamental to Object-Oriented Programming
+* Polymorphism is fundamental part of Object-Oriented Programming, and it allows us to think more abstractly when we write programs.
+    * We can think deposit or print or draw, instead of thinking in specific versions of deposit, print and draw.
+    * e.g., I can simply think 'deposit a $1000 to this account' not having to worry about what kind of account it is. I'll be sure that the correct `deposit()` function will be called depending on what type of account I have. And this is all determined at run-time.
+
 * **Polymorphism**
-    - Compile-time / early binding / static binding
-        - Means binding happens before the run-time (something that compiler takes care of before the program runs)
+    - **Compile-time polymorphism** / early binding / static binding
+        - Binding happens at compile time
         - e.g., Function overloading, operator overloading
-    - Run-time / late binding / dynamic binding
-        - Means binding happens at run-time
+    - **Run-time polymorphism** / late binding / dynamic binding
+        - Binding happens at run-time
+        - Requires:
+          - Inheritance
+          - Base class pointer or base class reference
+          - Virtual functions
 * Run-time polymorphism
     - Being able to assign different meanings to the same function at run-time
     - Although static binding helps fast execution of the program, sometimes we want things to be decided when program is running.
+    - In C++ we can achieve this behavior by using base class pointers or references and declaring our functions as virtual functions.
 * Allows us to program more abstractly
     - Think general vs. specific
     - Let C++ figure out which function to call at run-time
@@ -36,6 +62,8 @@
 
 
 
+
+
 ## Static Binding vs. Dynamic Binding
 
 ### Example 1
@@ -49,6 +77,8 @@
   
   
   ```cpp
+  // Assume that each type of account has its own 'withdraw()' function
+  
   Account a;
   a.withdraw(1000);     // calls Account::withdraw()
   
@@ -66,7 +96,7 @@
                         // but, we want the Trust object on the heap uses its own version
                         // of withdraw (Trust::withdraw())
   ```
-  For the functions that are not delared as `virtual`, the compiler will, by default, perform **static binding** at compile time. At compile time, the compiler does not know what type of object the pointer `p` will be pointing to at run-time. All it knows at compile time is that `p` points to an `Account` type object. So, the compiler will go ahead and bind `Account`'s `withdraw()` function when it sees `p->withdraw(1000);`. 
+  > For the functions that are not delared as `virtual`, the compiler will, by default, perform **static binding** at compile time. At compile time, the compiler does not know what type of object the pointer `p` will be pointing to at run-time. All it knows at compile time is that `p` points to an `Account` type object. So, the compiler will go ahead and bind `Account`'s `withdraw()` function when it sees `p->withdraw(1000);`. 
   
   Let's see the following example:
   ```cpp
@@ -89,11 +119,17 @@
   Trust t;
   display_account(t);
   ```
-  Whatever the object passed into the function `display_account()` is, the function will display only the `Account` part of the passed object.
-  
-  This is where the **run-time polymorphism** comes into play!
+  > Whatever the object passed into the function `display_account()` is, the function will display only the `Account` part of the passed object. 
+  >
+  > There is a way for C++ to ask the `Account` object being passed in what kind of account they are, and then depending on that, we can have `if...else` statements that call the appropriate display methods. That's a bad coding practice, and it also makes us program less abstractly since then we have to figure out what kind of object we have and then call its functions.
+  >
+  > $\to$ This is where the **run-time polymorphism** comes into play!
   
 * **A polymorphic example - dynamic binding**
+  
+  Using `virtual` functions allow us to use run-time polymorphism when using base class pointers or references.
+  
+  
   
   
   
@@ -102,6 +138,8 @@
   
   
   ```cpp
+  // Assume that each type of account has its own 'withdraw()' function
+  
   Account a;
   a.withdraw(1000);     // calls Account::withdraw()
   
@@ -118,7 +156,8 @@
   p->withdraw(1000);    // calls Trust::withdraw() 
                                  -----
   ```
-  The idea of using `virtual` functions tells the compiler not to bind it at compile-time, but instead, defer the binding to run-time. And at run-time, a check will occur to see exactly what `p` is pointing to and then that object's function will be called.
+  > The idea of using `virtual` functions tells the compiler not to bind it at compile-time, but instead, defer the binding to run-time. And at run-time, a check will occur to see exactly what `p` is pointing to and then that object's function will be called.
+  
   ```cpp
   void display_account(const Account &acc)
   {
@@ -138,7 +177,7 @@
   Trust t;
   display_account(t);
   ```
-  The binding of `acc.display()` will take place at run-time and call the `display()` function based on the type of object being passed in.
+  > The binding of `acc.display()` will take place at run-time and call the `display()` function based on the type of object being passed in.
   
 * This is very powerful!!!
 
@@ -231,6 +270,8 @@
 * Let's assume that the following example uses the **dynamic polymorphism**:
   
   
+  
+  
   <img src="./img/dynamic-binding.png" alt="dynamic-binding" width="350">
   
   
@@ -248,7 +289,7 @@
   
   // delete pointers
   ```
-  Now, we can call the `withdraw()` function using the base class pointers and C++ will figure out which function to bind at run-time based on the type of the object being pointed to by each pointer.
+  > Now, we can call the `withdraw()` function using the base class pointers and C++ will figure out which function to bind at run-time based on the type of the object being pointed to by each pointer.
   
   Using this feature, above code can be rewritten more concisely as follows:
   ```cpp
@@ -264,7 +305,7 @@
   
   // delete pointers
   ```
-  This example shows what "**Programming more abstractly or generally**" means! Here, you are simply thinking 'call the `withdraw()` function for each account in the array.' That's it!  No more details required!
+  > This example shows what "**Programming more abstractly or generally**" means! Here, you are simply thinking 'call the `withdraw()` function for each account in the array.' That's it!  No more details required! $\to$ Programming more abstractly!
   
   Similarly, this code can be rewritten using `vector` and range based `for` loop as follows:
   ```cpp
@@ -290,18 +331,23 @@
 ## `virtual` Functions
 
 * `virtual` functions in a base class MUST be "defined" unless they are declared using the `pure` specifier.
+
 * Redefined functions are bound statically
     - When we derive a class from base class, we can redefine the base class' functions behaviors in the derived class. This creates a specialized version of the function specific to the derived class.
     - If we don't use the `virtual` keyword with these functions, then they're statically bound at compile-time.
-* Overridden functions are bound dynamically
+    
+* Overridden functions are bound dynamically.
     - We do this by declaring the function to be `virtual`.
-* `virtual` functions are overriden
-* Allow us to treat all objects in the hierarchy generally as objects of the base class
+    
+* `virtual` functions are overridden functions.
+
+    * Allows us to think abstractly by treating all objects in the hierarchy as objects of the base class.
+    * Once we declare a function as virtual, then that function is virtual all the way down the class hierarchy from this point forward.
+
 * Declaring `virtual` functions in the **base class**:
     - Declare the function you want to override as virtual in the base class
     - Virtual functions are virtual all the way down the hierarchy from this point
-    - Dynamic polymorphism only via the base class pointer or reference    
-      e.g., 
+    - Dynamic polymorphism only via the base class pointer or reference 
       ```cpp
       // base class
       class Account 
@@ -311,12 +357,13 @@
           . . .
       };
       ```
-      This makes `withdraw()` a `virtual` function which means it can be overridden in derived classes and will be bound dynamically at run-time when we use a base class pointer or reference.
+      > This makes `withdraw()` a `virtual` function which means it can be overridden in derived classes and will be bound dynamically at run-time when we use a base class pointer or reference.
+
 * Declaring `virtual` functions in the **derived class**:
     - Override the function in the derived classes
     - Function signature and return type must match EXACTLY
         - If does not match, the compiler will regard it as redefinition and statically bind it.
-    - `virtual` keyword NOT required but is best practice
+    - Once declared as a virtual function, the `virtual` keyword is no longer required but is best practice to specify it down the class hierarchy.
     - If you don't provide an overridden version it is inherited from it's base class
       ```cpp
       // derived class
@@ -327,9 +374,9 @@
           . . .
       };
       ```
-    
+
 * Remember! `virtual` functions are **dynamically** bound ONLY when they are called via a base class pointer or reference.  Otherwise, they are **statically** bound.
-  
+
 * Whenever you have `virtual` functions, you need to have `virtual` destructors.
 
 
@@ -338,9 +385,12 @@
 ## `virtual` Destructors
 
 * Problems can happen when we destroy polymorphic objects.
+
+    * e.g., Deleting a polymorphic object that doesn't have a virtual destructor could lead to unexpected behavior.
+
 * If a derived class is destroyed by deleting its storage via the base class pointer and the class does not have a `virtual` destructor, then the behavior is undefined by the C++ standard.
-    - If this is the case, only the destructor of the pointer type class (i.e., base class) will be called and it is possible that the derived class' specific operations will not go through the proper termination process (e.g., writing buffers out, closing files, deleting pointers to the dynamically allocated memory space, etc.)
-      which could potentially lead to a serious situation such as memory leak.
+
+    * If this is the case, only the destructor of the pointer type class (i.e., base class) will be called and it is possible that the derived class' specific operations will not go through the proper termination process (e.g., writing buffers out, closing files, deleting pointers to the dynamically allocated memory space, etc.) which could potentially lead to a serious situation such as memory leak.
 * Derived objects must be destroyed in the correct order starting at the correct
 * If a class has a `virtual` functions, ALWAYS provide a public `virtual` destructor. If base class destructor is `virtual` then all derived destructors are also `virtual`.   (No need to provide the `virtual` keyword again, but it's best practice to do so.)
   ```cpp
@@ -376,7 +426,7 @@
 
 
 
-## The Override Specifier
+## The `override` Specifier
 
 * We can override base class virtual functions.
 * The function signature and return type must be EXACTLY the same.
@@ -384,19 +434,138 @@
     - This small mistake is really difficult to spot. So, be careful!
 * Redefinition is statically bound.
 * Overriding is dynamically bound.
-* C++11 provides an override specifier to have the compiler ensure overrinding.
+* C++11 provides the `override` specifier to have the compiler ensure overriding.
     - You can add this specifier to the functions you're writing in your derived class, and the C++ compiler will ensure that you're indeed overriding and not redefining.
+    - This is a simple addition to the language but a very useful one.
+
+* Example:
+
+  ```cpp
+  class Base
+  {
+  public:
+      virtual void say_hello const
+      {
+          std::cout << "Hello - I'm a Base class object" << std::endl;
+      }
+      virtual ~Base() {}
+  };
+  
+  class Derived : public Base
+  {
+  public:
+      virtual void say_hello()
+      {
+          // Notice I forgot the const - NOT OVERRIDING!
+          std::cout << "Hello - I'm a Derived class object" << std::endl;
+      }
+      virtual ~Derived();
+  };
+  ```
+
+  > L14: Since the function signatures are not exactly the same, the C++ compiler considers this function redefinition and NOT overriding. It will compiler just fine since this is perfectly legal.
+
+  ```cpp
+  Base *p1 = new Base();
+  p1->say_hello();		// "Hello - I'm a Base class object" (Bound dynamically)
+  
+  Base *p2 = new Derived();
+  p2->say_hello();		// "Hello - I'm a Base class object" (Bound statically to base class' method)
+  ```
+
+  > Not what we expected!
+  >
+  > `say_hello()` function signatures are different, so `Derived` redefines `say_hello` instead of overriding it!
+
+  We can easily prevent this error by using the C++11 `override` specifier.
+
+  ```cpp
+  class Base
+  {
+  public:
+      virtual void say_hello const
+      {
+          std::cout << "Hello - I'm a Base class object" << std::endl;
+      }
+      virtual ~Base() {}
+  };
+  
+  class Derived : public Base
+  {
+  public:
+      virtual void say_hello() override	// Produces compiler error (Error: marked override but does not override)
+      {
+          std::cout << "Hello - I'm a Derived class object" << std::endl;
+      }
+      virtual ~Derived();
+  };
+  ```
+
+  > L14: Now with the `oeverride` keyword, the compiler will generate an error that will help us fix the hard-to-spot issue.
+
+
+
+## `final` Specifier
+
+* C++11 provides the `final` specifier which can be used in two contexts.
+
+  * When used at the class level, it prevents a class from being derived from or subclassed.
+    * In some cases, this is done for better compiler optimization.
+    * Other times, it may be done to ensure that objects are copied safely without slicing.
+    * This is done for better compiler optimization.
+  * When used at the method level, it prevents virtual method from being overridden in derived classes.
+    * This can also be done for better compiler optimization.
+
+* Example - `final` keyword used at the class level
+
+  ```cpp
+  class My_Class final				// My_Class cannot be derived from
+  {
+      ...
+  };
+  
+  class Derived final : public Base	// Derived cannot be derived from
+  {
+      ...
+  };
+  ```
+
+  > If you try to derive a class from these classes, the compiler will generate a compiler error.
+
+* Example - `final` keyword used at the method level
+
+  ```cpp
+  class A
+  {
+  public:
+      virtual void do_something();
+  };
+  
+  class B : public A
+  {
+      virtual void do_something() final;	// prevent further overriding
+  };
+  
+  class C: public B
+  {
+  	virtual void do_something();		// COMPILER ERROR - Can't override  
+  };
+  ```
+
+  
 
 
 
 
 ## Using Base Class Reference
 
-* We can also use base class references and have polymorphic function calls
+* We can also use base class references and have polymorphic function calls as we could by using the base class pointers.
 
 * Useful when we pass objects to functions that expect a base class reference
 
 * Example of using references to achieve dynamic binding of `virtual` functions:
+  
+  
   
   
   <img src="./img/dynamic-binding.png" alt="dynamic-binding" width="350">
@@ -423,7 +592,7 @@
   do_withdraw(a, 1000); // Account::withdraw()
   
   Trust t;
-  do_withdraw(a, 1000); // Trust::withdraw()
+  do_withdraw(t, 1000); // Trust::withdraw()
   ```
 
 
@@ -446,7 +615,7 @@
         - e.g., `Faculty`, `Staff` in an employee hierarchy
         - e.g., `Enemy`, `Level Boss` in a player hierarchy
 
-  [!] Note: If there is an intermediary class that inherits the base class but does not implement (define) the pure virtual function(s) that it inherited inherited, then that intermediary class is also **abstract base class**.
+  [!] Note: If there is an intermediary class that inherits the base class but does not implement (define) the pure virtual function(s) that it inherited, then that intermediary class is also **abstract base class**.
 
 ### Pure Virtual Function
 
@@ -456,6 +625,8 @@
   virtual void function() = 0;  // pure virtual function
   ```
 * Typically do not provide implementations since it's really up to the derived concrete classes to define this behavior  (But, it is possible to give them an implementation)
+
+  * This is very useful when it doesn't make sense for a base class to have an implementation, but it does make sense in concrete classes.	
 * Derived classes MUST override the pure virtual functions in the base class in order for it to be a concrete class.
 * If the derived class does not override then the derived class is also abstract 
 * Used when it doesn't make sense for a base class to have an implementation  (But, concrete classes must implement it)
@@ -463,7 +634,7 @@
   virtual void draw() = 0;      // in the Shape class
   ```
   The concept of a shape is too general or too abstract to have shape objects in our system. So, we can define the `draw()` function as a pure virtual function in the shape class, and that not only makes it an abstract class, but it also forces all derived classes to implement the draw function if they want to be concrete classes.
-  
+
   Same thing can be said about the `Player` class:
   ```cpp
   virtual void defend() = 0;    // in the Player class
@@ -488,7 +659,7 @@
   Shape shape;              // Compiler ERROR: Can't instantiate an abstract class
   Shape *p = new Shape();   // Compiler ERROR: Can't instantiate an abstract class
   ```
-  Following `Open_Shape` class is still an abstract class because it does not overrides the virtual functions declared in its base (`Shape`) class.
+  Following `Open_Shape` class is still an abstract class because it does not override the virtual functions declared in its base (`Shape`) class.
   ```cpp
   class Open_Shape : public Shape   // abstract class
   {
@@ -497,7 +668,7 @@
   };
   ```
   Following `Circle` class has no pure virtual functions so it is *concrete class* and therefore can instantiate objects.  (All virtual functions of the base class are overridden.)
-  
+
   ```cpp
   class Circle : public Shape   // concrete class
   {
