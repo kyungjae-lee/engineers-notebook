@@ -4,15 +4,15 @@
 
 
 
-## Introduction
+## Overview
 
-* What is inheritance? Why is it useful?
+* What is inheritance? Why is it useful? $\to$ Re-usability!
 * Terminology and notation
 * Inheritance vs. Composition
 * Deriving classes from existing classes
   * Types of inheritance
 
-* Protected members and class access
+* `protected` members and class access
 * Constructors and destructors
   * Passing arguments to base class constructors
   * Order of constructor and destructors calls
@@ -25,15 +25,19 @@
 
 ## What is Inheritance and Why is it Used?
 
+* Inheritance allows for creating new classes that modify the behavior of their parent classes.
+
 * Provides a method for creating new classes from existing classes
 
 * The new class contains the data and behaviors of the existing class
 
-* Allow for reuse of existing classes
+* Allows for reuse of existing classes
 
 * Allows us to focus on the common attributes among a set of classes
 
 * Allows new classes to modify behaviors or existing classes to make it unique without actually modifying the original class
+  * This is important since the existing class has already been tested and it's probably being reused by other applications. So, we really don't want to modify it at all.
+
 
 ### Examples of Related Classes
 
@@ -79,7 +83,9 @@ class Trust_Account {
 };
 ```
 
-With inheritance (Code reuse)
+> Here, each class is independent of each other.
+
+With inheritance (Code reuse!)
 
 ```cpp
 class Account {
@@ -105,6 +111,8 @@ class Trust_Account : public Account {
 };
 ```
 
+> Here, these classes are now interrelated. `Savings_Account`, `Checking_Account`, `Trust_Account` classes depend on the `Account` class, and there is an inheritance hierarchy.
+
 
 
 ## Terminology
@@ -112,13 +120,17 @@ class Trust_Account : public Account {
 * Inheritance
   * Process of creating new classes from existing classes
   * Reuse mechanism
+  
 * Single inheritance
   * A new class is created from another 'single' class
+  
 * Multiple inheritance
   * A new class is created from two (or more) other classes
 
 * Base class (parent class, super class)
   * The class being extended or inherited from
+  
+    (The following is the UML Class Diagram.)
 
 
 
@@ -129,7 +141,6 @@ class Trust_Account : public Account {
 * Derived class (child class, sub class)
   * The class being created from the base class
   * Will inherit attributes and operations from base class
-
 * "Is-A" relationship
   * Public inheritance
   * Derived classes are sub-types of their base classes
@@ -137,7 +148,7 @@ class Trust_Account : public Account {
   * e.g., A savigns account "Is-A" account
 * Generalization
   * Combining similar classes into a single, more general class based on common attributes
-  * The more general class is more abstract, and therefore can be potentially be reused more easily
+  * The more general class is more abstract, and therefore can be potentially be reused more easily.
 * Specialization
   * Creating new classes from existing classes proving more specialized attributes or operations
 * Inheritance or Class Hierarchies
@@ -154,7 +165,8 @@ class Trust_Account : public Account {
 
     - A (root class)
     - B is derived from A
-      - B is not a C
+      - B is an A
+      - B is not a C - There is no inheritance relationship directly between B and C.
     - C is derived from A
     - D is derived from C
     - E is derived from D
@@ -171,10 +183,10 @@ class Trust_Account : public Account {
 
   Classes:
 
-    - Person (root class)
+    - Person (root class) - The most general/abstract class in this class hierarchy.
     - Employee is derived from Person
     - Student is derived from Person
-      - Student is a person (Student class inherits the attributes and operations of the Person class.
+      - Student is a person - Student class inherits the attributes and operations of the Person class.
       - Student is NOT an Employee
     - Faculty is derived from Employee
     - Staff is derived from Employee
@@ -191,9 +203,10 @@ class Trust_Account : public Account {
 
 
 
-## Public Inheritance vs. Composition
+## Public Inheritance ("Is - A") vs. Composition ("Has - A")
 
-* Both allow reuse of existing classes
+* Both allow reuse of existing classes.
+* Composition is a common design pattern for reuse, and you'll see it used much more frequently than inheritance. But, we can use both inheritance and composition together to create powerful frameworks that allow us to reuse existing code.
 
 ### Public Inheritance
 
@@ -207,7 +220,7 @@ class Trust_Account : public Account {
 ### Composition
 
 - "has-a" relationship
-  - Person "has a" Account
+  - Person "has a" Account (But a Person is not an Account)
   - Player "has-a" Special Attack
   - Circle "has-a" Location
 
@@ -233,8 +246,9 @@ class Trust_Account : public Account {
 ## When to Choose Inheritance over Composition?
 
 * If the "is-a" relationship dosn't make sense, then don't use public inheritance.
-* A rule of thumb when using inheritance is to step back, look at your design and be sure that the inheritance is appropriate.
+* Other times it's not so clear. A rule of thumb when using inheritance is to step back, look at your design and be sure that the inheritance is appropriate.
     - If you can model a relationship with composition, then you should consider doing that first since inheritance adds more complexity to your design.
+    - In this case, an inheritance relationship between student and account simply doesn't make sense, so we use composition.
 
 
 
@@ -280,13 +294,13 @@ class Trust_Account : public Account {
       // Base class members . . .
   };
   
-  class Derived: access-specifier Base
+  class Derived: <access_specifier> Base
   {
       // Derived class members . . .
   };
   ```
 
-  > Note: Access-specifier can be: `public`, `private`, or `protected` (if not provided, `private` inheritance by default)
+  > Note: `<access_specifier>` can be: `public`, `private`, or `protected` (if not provided, `private` inheritance by default)
 
   ```cpp
   class Account
@@ -342,7 +356,7 @@ class Trust_Account : public Account {
 
   > * Accessible from the `Base` class itself
   > * Accessible from classes derived from `Base`
-  > * Not accessible directly from objects of either the `Base` or its derived class. 
+  > * Not accessible directly from objects of either the `Base` class or of the derived class (`protected` class members act like `private` members unless there is inheritance involved.)
 
 
 
