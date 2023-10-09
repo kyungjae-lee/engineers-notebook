@@ -375,8 +375,9 @@ class Trust_Account : public Account {
 * A derived class inherits from its base class.
 
 * The base part of the derived class MUST be initialized BEFORE the derived class initialized.
+  * This makes sense since the derived class might use base class information during its own initialization.
 
-* When a derived object is created
+* When a derived object is created, constructors are invoked in the following order:
 
   1. Base class constructor executes
 
@@ -386,7 +387,7 @@ class Trust_Account : public Account {
 
 * Class destructors are invoked in the reverse order as constructors
 * The derived part of the derived class MUST be destroyed BEFORE the base class destructor is invoked
-* When a derived object is destroyed
+* When a derived object is destroyed, destructors are invoked in the following order:
   1. Derived class destructor executes
   2. Base class destructor executes
   3. Each destructor should free resources allocated in it's own constructors
@@ -398,14 +399,28 @@ class Trust_Account : public Account {
   * Base class destructor
   * Base class overloaded assignment operators
   * Base class friend functions
-* However, the derived class constructors, destructors, and overloaded assignment operators can invoke the base-class versions.
-* C++11 allows explicit inheritance of base 'non-special' constructors with
+  
+* However, we can invoke the base class constructors, destructors, and overloaded assignment operators from the derived classes. C++11 allows explicit inheritance of base 'non-special' constructors with:
+
   * `using Base::Base;` anywhere in the derived class declaration
-  * Lots of rules involved, often better to define constructors yourself
-* Passing arguments to base class constructors
+
+  * Lots of rules involved, often better to define constructors yourself.
+
+    Lots of rules include:
+
+    * Default copy and move constructors are not included.
+    * Each inherited constructor has the same access specifier as its corresponding base class constructor.
+    * If you provide an overloaded constructor in the derived class, then the base class overloaded constructor is not inherited.
+    * A base class' constructor default arguments are not inherited.
+    * And many more ...
+
+  * The `using` statement can be useful and save a bit of typing, but it is often preferred not to use this feature and write out the constructors necessary in the derived classes and invoke the base class constructors as needed. It isn't that much more typing and it's very clear to programmers that come after you to modify your code exactly what you're doing
+
+* Passing arguments to base class constructors (See the example below!)
   * The base part of a derived class must be initialized first
   * How can we control exactly which base class constructor is used during initialization?
   * We can invoke whichever base class constructor we wish in the initialization list of the derived class.
+  * If you don't explicitly invoke the base overloaded constructor, then the no-args constructor will be invoked automatically since remember since the base part must be initialized anyways.
 
 ### Example
 
@@ -428,13 +443,15 @@ class Trust_Account : public Account {
   ```
 
   ```cpp
-  Base base;			// Base constructor
-  					// Base destructor
+  {
+  	Base base;			// Base constructor
+  }						// Base destructor
   
-  Derived derived;	// Base constructor
-  					// Derived constructor
-  					// Derived destructor
-  					// Base destructor
+  {
+  	Derived derived;	// Base constructor
+  						// Derived constructor
+  }						// Derived destructor
+  						// Base destructor
   ```
 
 * Passing arguments to base class constructors
@@ -477,6 +494,8 @@ class Trust_Account : public Account {
   };
   ```
 
+  > Notice that we could have implemented the overloaded constructors as delegating constructors. But, here I wanted to keep the display messages clear so that we would follow the calls.
+  
   ```cpp
   Base base;				// Base no-args constructor
   
@@ -487,13 +506,15 @@ class Trust_Account : public Account {
   Derived derived{100};	// int Base constructor
   						// int Derived constructor
   ```
-
   
+  > As you can see from this example, you have complete control as to which base class constructors to invoke from your derived class constructors.
+
+
 
 ## Copy/Move Constructors and Operator `=` with Derived Classes
 
-* Copy/move constructors and overloaded operator `=`
-  * Not inherited from the base class
+* Copy/move constructors and overloaded operator `=` (i.e., copy assignment operator):
+  * Not automtically inherited from the base class
   * You may not need to provide your own
     * Compiler-provided versions may be just fine
   * We can explicitly invoke the base class versions from the derived class
@@ -517,6 +538,12 @@ class Trust_Account : public Account {
       // code
   }
   ```
+
+  > Since `Derive` "is-a" `Base`, we can pass in a `Drive` to a method that expects a `Base`.
+  >
+  > In this case, the compiler uses "slicing" and slices out the base part of the derived object. Slicing sometimes cause issues, but in this case, it's fine since what we want to do is copy the base part of the derived object.
+
+  The following example shows slicing in action:
 
   ```cpp
   class Base
@@ -543,7 +570,11 @@ class Trust_Account : public Account {
   };
   ```
 
-* Operator `=`
+  > In this case, we're explicitly copying the base part of `other` by invoking the base class copy constructor in the derived copy constructor's initialization list. 
+  >
+  > Notice that we pass the `other` object, which will be **sliced** to yield its base part. Once the base part is copied, we can take care of copying double value and then display a message to the console. The move constructor works the same way!
+
+* Operator `=` (Overloaded copy assignment operator)
 
   ```cpp
   class Base
@@ -589,14 +620,17 @@ class Trust_Account : public Account {
 * Derived class can directly invoke base class methods
 * Derived class can **override** or **redefine** base class methods
 * Very powerful in the context of polymorphism
+* In order to redefine or override a method, you simply provide a method in the derived class with the "same name and signature" as a method in the base class.
 
 ### Static Binding of Method Calls
 
 * Binding of which method to use is done at compiler time
-  * Default binding for C++ is **static**.
+  * By default, C++ does **static binding** of method calls.
+    * Meaning that the compiler determines which methods are called based on what it sees at compile time.
+    * Static binding is very efficient and that's why it's the default in C++.
   * Derived class objects will use `Derived::deposit`.
   * But, we can explicitly invoke `Base::deposit` from `Derived::deposit`.
-  * OK, but limited - much more powerful approach is **dynamic binding**.
+  * OK, but limited - much more powerful approach is **dynamic binding** (i.e., binding that takes place at run-time).
 
 ### Example
 
@@ -617,24 +651,30 @@ class Trust_Account : public Account {
       {
           amount += some_interest;
           Account::deposit(amount);	// Invoke base class method
+          							// Must prefix the method call with the 'Account' class so the compiler knows that 
+          							// we're calling the deposit method in the 'Account' class!
       }
   }
   ```
+
+  > It's important that we don't try to do the actual deposit in the savings account method. Instead, let the `Account` class do what it knows how to do. If the base functionality for `deposit()` ever changes, it won't affect our `Savings_Acount` deposit method since all it's doing is delegating this to the account class.
 
 * Static binding of method calls
 
   ```cpp
   Base b;
-  b.deposit(1000.0);			// Base::deposit
+  b.deposit(1000.0);			// Base::deposit (because 'b' is a 'Base' class object)
   
   Derived d;
-  d.deposit(1000.0);			// Derived::deposit
+  d.deposit(1000.0);			// Derived::deposit (because 'd' is a 'Derived' class object)
   
   Base *ptr = new Derived();
-  ptr->deposit(1000.0);		// Base::deposit ???
+  ptr->deposit(1000.0);		// (Valid since 'Derived' is a 'Base') Base::deposit ???
   ```
 
-  > Due to the type of `ptr`, `ptr->deposit()` is statically bound to `Base::deposit` at compile time.
+  > L7, L8: Due to the type of `ptr`, `ptr->deposit()` is statically bound to `Base::deposit` at compile time. So, the compiler will call the `Base::deposit` method because it sees that pointer is a pointer to a `Base` class. However, in this case, it would make much more sense for the compiler to call the `Derived::deposit` since we have created a `Derived` object. 
+  >
+  > $\to$ This can be achieved by **dynamic binding**!
 
 
 
@@ -644,9 +684,8 @@ class Trust_Account : public Account {
 * The base classes may belong to unrelated class hierarchies.
 * Note:
   * Beyond the scope of this course
-  * Some compelling use-cases
-  * Easily misused
-  * Can be very complex
+  * Some compelling use-cases, but in many cases design can be refactored so that the multiple inheritance an be avoided which results in a better design
+  * Can be very complex any many developers don't fully understand it, therefore it can be easily misused.
 
 ### Example
 
@@ -664,3 +703,6 @@ class Trust_Account : public Account {
       . . .
   };
   ```
+  
+  > `Department_Chair` is a `Faculty` and is a `Administrator`.
+
