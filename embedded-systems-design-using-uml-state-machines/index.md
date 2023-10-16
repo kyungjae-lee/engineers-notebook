@@ -12,4 +12,6 @@
 
 1. **<a href="./transitions">Transitions</a>**
 
+1. **<a href="./events">Events (Triggers)</a>**
+
 1. **<a href="./exercise-2-productivity-timer">Exercise 2: Productivity Timer (ProTimer)</a>**
