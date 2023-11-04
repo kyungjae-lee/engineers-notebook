@@ -17,8 +17,8 @@
 ## Example
 
 * Incidents in the operation of a microwave oven:
-  1. Opening door; Heater off, lights on
-  2. Closing door; lights off
-  3. Set timer; manage time
-  4. Start; heater ON
+  1. Opening door (event) $\to$ Heater off, lights on
+  2. Closing door (event) $\to$ lights off
+  3. Set timer (event) $\to$ manage time
+  4. Start (event) $\to$ heater ON
 
