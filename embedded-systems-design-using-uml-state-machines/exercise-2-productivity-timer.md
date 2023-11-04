@@ -6,6 +6,8 @@
 
 ## Overview
 
+The application that tracks your productive working time.
+
 ### Requirements
 
 1. `+` button increments time (minute-level increment).
@@ -22,75 +24,55 @@
 * 1, 5mm LED
 * Jumper wires
 
-### Hardware
+### States
 
+* IDLE
+* TIME_SET
+* PAUSE
+* COUNTDOWN
+* STAT
 
+### Events
 
-<img src="./img/arduino-uno-board.png" alt="arduino-uno-board" width="500">
+| User Activity                      | Event Generated (SIGNAL) | Parameters            | Note                                                         |
+| ---------------------------------- | ------------------------ | --------------------- | ------------------------------------------------------------ |
+| Press `+` button                   | INC_TIME                 | none                  | This event gets posted to the state machine whenever the user presses the `+` button. |
+| Press `-` button                   | DEC_TIME                 | none                  | This event gets posted to the state machine whenever the user presses the `-` button. |
+| Press `S/P` button                 | START_PAUSE              |                       | This event gets posted to the state machine whenever the user presses the `S/P` button. |
+| Press `+` and  `-` button together | ABRT                     |                       | This event gets posted to the state machine whenever the user presses the `+` and `-` buttons together. |
+|                                    | TIME_TICK                | ss <br />(sub second) | This event is system generated for every 100ms.<br />ss parameter value can vary between 1 to 10. |
 
+### Extended State Variables
 
+* curr_time : uint32_t
+* elapsed_time : uint32_t
+* pro_time : uint32_t
 
-* Arduino Uno board PWM pins
-  * Pin 3, 5, 6, 9, 10, 11 are PWM pins
-  * On these pins Arudino Uno can generate PWM signals
-  * PWM signal frequency:
-    * 490Hz on 3, 9, 10, 11
-    * 980Hz on 5 and 6
-
-### PWM Duty Cycle
-
-
-
-<img src="./img/pwm-duty-cycle.png" alt="pwm-duty-cycle" width="900">
-
-
-
-### Arduino Serial (UART) Communication with Host
-
-
-
-<img src="./img/arduino-serial-communication-with-host.png" alt="arduino-serial-communication-with-host" width="900">
-
-
-
-* Arduino Uno board's secondary MCU acts as a USB-to-Serial converter which has a firmware that converts USB signal to UART signal and vice versa.
-
-  Thanks to this firmware, the Arduino Uno board can be enumerated as a Virtual COM Port on the host.
-
-* When uploading the program from the host to the Arduino board, the program is transferred via the USB cable, converted into UART signals, and then sent to the main MCU. The bootloader, located in the main MCU, writes the received program into the Flash memory.
-
-
-
-## Implementation - Mealy State Machine
-
-### Mealy State Machine
-
-
-
-<img src="./img/mealy-machine-example.png" alt="mealy-machine-example" width="900">
-
-
-
-### Implementation
-
-```cpp
-
+```c
+/* The main application structure */
+typedef struct protimer_tag
+{
+    uint32_t curr_time;		// Stores the time user has set
+    uint32_t elapsed_time;	// Number of seconds that has elapsed
+    uint32_t pro_time;		// Productive time spent by the user
+    ...
+} protimer_t;
 ```
 
 
 
-## Implementation - Moore Machine
+## State Machine
 
-### Moore State Machine
-
-
-
-<img src="./img/moore-machine-example.png" alt="moore-machine-example" width="900">
+### Flat State Machine
 
 
 
-### Implementation
+<img src="./img/exercise-2-flat-state-machine.png" alt="exercise-2-flat-state-machine" width="1200">
 
-```cpp
 
-```
+
+
+
+## Implementation
+
+
