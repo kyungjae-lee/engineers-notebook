@@ -84,6 +84,18 @@
 
 
 
+## Pseudo States
+
+* Initial - Starting point for a region
+* Choice - Diamond-shaped symbol with a single incoming transition and two or more outgoing transitions
+* Join
+* Deep history
+* Shallow history
+
+See [OMG$\circledR$ UML 2.5.1] for the complete list of pseudo states.
+
+
+
 ## Compartments of a State
 
 
