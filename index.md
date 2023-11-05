@@ -6,13 +6,13 @@ Home <a href="./notebook">Notebook</a> <a href="./portfolio">Portfolio</a>
 
 Welcome!
 
-My name is Kyungjae Lee. I'm an embedded software enthusiast, passionate about demystifying the inner workings of *low-level software* and *system software*. On this website, I share what I've learned through my studies, and showcase a variety of related projects aimed at further exploring these software domains.
+I am Kyungjae Lee, an embedded software enthusiast. On this website, I share my learning experiences, and showcase a variety of embedded systems projects.
 
 Feel free to
 
 * Explore my **<a href="./notebook">Notebook</a>**.
 * View my **<a href="./portfolio">Portfolio</a>**.
-* Connect with me on **[LinkedIn](https://www.linkedin.com/in/jackklee1/)** / **[GitHub](https://github.com/kyungjae-lee)**.
-* Contact me at **jackklee32@gmail.com**.
+* Connect with me on **[LinkedIn](https://www.linkedin.com/in/kyungjaelee/)** / **[GitHub](https://github.com/kyungjae-lee)**.
+* Contact me at **kjxlee@gmail.com**.
 
 Enjoy your time here!
