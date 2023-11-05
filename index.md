@@ -6,7 +6,7 @@ Home <a href="./notebook">Notebook</a> <a href="./portfolio">Portfolio</a>
 
 Welcome!
 
-My name is Jack (Kyungjae) Lee. I'm an embedded software enthusiast, passionate about demystifying the inner workings of *low-level software* and *system software*. On this website, I share what I've learned through my studies, and showcase a variety of related projects aimed at further exploring these software domains.
+My name is Kyungjae Lee. I'm an embedded software enthusiast, passionate about demystifying the inner workings of *low-level software* and *system software*. On this website, I share what I've learned through my studies, and showcase a variety of related projects aimed at further exploring these software domains.
 
 Feel free to
 

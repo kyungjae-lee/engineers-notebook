@@ -4,10 +4,11 @@
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
 <title>Engineer's Notebook</title>
 <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-<link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
 .mac-os-11 { --title-bar-height:28px; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
 iframe { margin: auto; }
 a.url { word-break: break-all; }
 a:active, a:hover { outline: 0px; }
@@ -87,12 +88,14 @@ blockquote > :first-child, li > :first-child { margin-top: 0px; }
 #write .footnote-line { white-space: pre-wrap; }
 @media print {
   body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
-  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; padding-bottom: 0px !important; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
   .typora-export * { -webkit-print-color-adjust: exact; }
   .typora-export #write { break-after: avoid; }
   .typora-export #write::after { height: 0px; }
   .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
   .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
 }
 .footnote-line { margin-top: 0.714em; font-size: 0.7em; }
 a img, img a { cursor: pointer; }
@@ -169,7 +172,7 @@ mark .md-meta { color: rgb(0, 0, 0); }
 @media screen and (max-width: 800px) {
   .typora-export-sidebar { display: none; }
 }
-.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
 .outline-content ul { margin-top: 0px; margin-bottom: 0px; }
 .outline-content strong { font-weight: 400; }
 .outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
@@ -208,7 +211,7 @@ mjx-container { break-inside: avoid; }
     --control-text-color: #777;
 }
 
-@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+@include-when-export url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
 
 /* open-sans-regular - latin-ext_latin */
   /* open-sans-italic - latin-ext_latin */
@@ -587,34 +590,15 @@ header, .context-menu, .megamenu-content, footer{
     background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
 }
 
-#write {
-    max-width: 1300px;
-}
-
-/* According to MDN Web Docs,
- * "The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones 
- * and tablets."
- * The text inflation algorithm is used to automatically increase the text size (and, therefore readability)
- * of elements, without effecting the general layout. By default, text-size-adjust is set to auto. You can 
- * set this value to none, which disables the inflation algorithm, or to a percentage
- */
-html {
-    -webkit-text-size-adjust: 100%;
-}
-
-/* Vertical line that sepaates line number from the code */
-.cm-s-inner .CodeMirror-gutters {
-    /* border: none; */
-}
 
 
 </style>
 </head>
 <body class='typora-export'><div class='typora-export-content'>
-<div id='write'  class=''><p><span>Home </span><a href="./notebook"><span>Notebook</span></a><span> </span><a href="./portfolio"><span>Portfolio</span></a></p><h1 id='engineers-notebook'><span>Engineer&#39;s Notebook</span></h1><p>&nbsp;</p><p><span>Welcome!</span></p><p><span>My name is Jack (Kyungjae) Lee. I&#39;m an embedded software enthusiast, passionate about demystifying the inner workings of </span><em><span>low-level software</span></em><span> and </span><em><span>system software</span></em><span>. On this website, I share what I&#39;ve learned through my studies, and showcase a variety of related projects aimed at further exploring these software domains.</span></p><p><span>Feel free to</span></p><ul><li><span>Explore my </span><strong><a href="./notebook"><span>Notebook</span></a></strong><span>.</span></li><li><span>View my </span><strong><a href="./portfolio"><span>Portfolio</span></a></strong><span>.</span></li><li><span>Connect with me on </span><strong><a href='https://www.linkedin.com/in/jackklee1/'><span>LinkedIn</span></a></strong><span> / </span><strong><a href='https://github.com/kyungjae-lee'><span>GitHub</span></a></strong><span>.</span></li><li><span>Contact me at </span><strong><a href='mailto:jackklee32@gmail.com' target='_blank' class='url'>jackklee32@gmail.com</a></strong><span>.</span></li></ul><p><span>Enjoy your time here!</span></p></div></div>
+<div id='write'  class=''><p><span>Home </span><a href="./notebook"><span>Notebook</span></a><span> </span><a href="./portfolio"><span>Portfolio</span></a></p><h1 id='engineers-notebook'><span>Engineer&#39;s Notebook</span></h1><p>&nbsp;</p><p><span>Welcome!</span></p><p><span>My name is Kyungjae Lee. I&#39;m an embedded software enthusiast, passionate about demystifying the inner workings of </span><em><span>low-level software</span></em><span> and </span><em><span>system software</span></em><span>. On this website, I share what I&#39;ve learned through my studies, and showcase a variety of related projects aimed at further exploring these software domains.</span></p><p><span>Feel free to</span></p><ul><li><p><span>Explore my </span><strong><a href="./notebook"><span>Notebook</span></a></strong><span>.</span></p></li><li><p><span>View my </span><strong><a href="./portfolio"><span>Portfolio</span></a></strong><span>.</span></p></li><li><p><span>Connect with me on </span><strong><a href='https://www.linkedin.com/in/jackklee1/'><span>LinkedIn</span></a></strong><span> / </span><strong><a href='https://github.com/kyungjae-lee'><span>GitHub</span></a></strong><span>.</span></p></li><li><p><span>Contact me at </span><strong><a href='mailto:jackklee32@gmail.com' target='_blank' class='url'>jackklee32@gmail.com</a></strong><span>.</span></p></li></ul><p><span>Enjoy your time here!</span></p><p>&nbsp;</p></div></div>
 <center>
 <hr width="400px;">
-This website contains Jack's original work.
+This website contains Kyungjae's original work.
 <hr width="400px;">
 </center></body>
 </html>
