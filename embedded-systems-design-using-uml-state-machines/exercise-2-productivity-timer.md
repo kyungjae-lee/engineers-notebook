@@ -44,9 +44,9 @@ The application that tracks your productive working time.
 
 ### Extended State Variables
 
-* curr_time : uint32_t
-* elapsed_time : uint32_t
-* pro_time : uint32_t
+* curr_time : `uint32_t`
+* elapsed_time : `uint32_t`
+* pro_time : `uint32_t`
 
 ```c
 /* The main application structure */
@@ -59,7 +59,95 @@ typedef struct protimer_tag
 } protimer_t;
 ```
 
+### Data Structures
 
+* Define various signals of the application using `enum`
+
+  ```cpp
+  /* main.h */
+  
+  /* Signals of the application */
+  typedef enum {
+      INC_TIME,
+      DEC_TIME,
+      TIME_TICK,
+      START_PAUSE,
+      ABRT,
+      /* Internal activity signals */
+      ENTRY,
+      EXIT
+  } protimer_signal_t;
+  ```
+
+* Define various states of the application using `enum`
+
+  ```cpp
+  /* main.h */
+  
+  /* States of the application */
+  typedef enum {
+      IDLE,
+      TIME_SET,
+      COUNTDOWN,
+      PAUSE,
+      STAT
+  } protimer_state_t;
+  ```
+
+* Define the main application structure
+
+  ```cpp
+  /* main.h */
+  
+  /* Main application structure */
+  typedef struct {
+      uint32_t curr_time;
+      uint32_t elapsed_time;
+      uint32_t pro_time;
+      protimer_state_t active_state;
+  } protimer_t
+  ```
+
+* Define structures to represent events
+
+  ```cpp
+  /* main.h */
+  
+  /* User generated events */
+  typedef struct {
+      uint8_t sig;
+  } protimer_user_event_t;
+  
+  /* Tick events */
+  typedef struct {
+      uint8_t sig;
+      uint8_t ss;		/* Sub-seconds */
+  } protimer_tick_event_t;
+  ```
+
+  Or, you could improve this code by introducing the OOP concept. (Using structure embedding)
+
+  ```cpp
+  /* main.h */
+  
+  /* Generic (supter) event structure */
+  typedef struct {
+      uint8_t sig;
+  } event_t;
+  
+  /* User generated events */
+  typedef struct {
+      event_t super;
+  } protimer_user_event_t;
+  
+  /* Tick event */
+  typedef struct {
+      event_t super;
+      uint8_t ss;     /* Sub-seconds */
+  } protimer_tick_event_t;
+  ```
+
+  
 
 ## State Machine
 
@@ -74,5 +162,3 @@ typedef struct protimer_tag
 
 
 ## Implementation
-
-
