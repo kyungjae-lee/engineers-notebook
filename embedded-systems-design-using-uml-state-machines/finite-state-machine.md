@@ -171,3 +171,4 @@
 * State table approach
 * State handler approach
   * Most efficient, less redundant
+  * Originally described in the book "Practical UML Statecharts in C/C++: Event-Driven Programming for Embedded Systems [SECOND EDITION] by Miro Samek"
